@@ -3,4 +3,6 @@
 src/sil
 src/sil.o.x86_64
 Sil.app
+# Same as `src/sil`
+sil
 .DS_Store
