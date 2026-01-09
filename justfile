@@ -44,11 +44,16 @@ debug-build-macos-app:
 # run Sil-Q as console binary (ASCII mode)
 [group('app')]
 run-console:
-    ./sil
+    ./sil -mgcu
 
 # run Sil-Q as console Linux binary (ASCII mode)
 [group('app')]
 run-linux-console: run-console
+
+# run Sil-Q as Linux X11 app
+[group('app')]
+run-linux-app:
+    ./sil -mx11 -- -n6 -s -b -g
 
 # run Sil-Q as console macOS binary (ASCII mode)
 [group('app')]
