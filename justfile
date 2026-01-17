@@ -32,7 +32,7 @@ build-macos-console:
 # build native macOS app
 [group('development')]
 build-macos-app:
-    (cd src && make -f Makefile.cocoa clean install) || exit 1
+    (cd src && make -f Makefile.cocoa ARCHS=arm64 clean install) || exit 1
     @echo "Run the game via 'Sil.app' in the top-level project folder"
 
 # build native macOS app (debug variant)
