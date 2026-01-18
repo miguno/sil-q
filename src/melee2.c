@@ -4805,7 +4805,6 @@ static void process_monster(monster_type* m_ptr)
 
     int i, k, y, x;
     int ty, tx;
-    int chance = 0;
     int choice = 0;
 
     bool fear = FALSE;
@@ -5135,9 +5134,9 @@ static void process_monster(monster_type* m_ptr)
     /* Monster can cast spells */
     if (r_ptr->freq_ranged)
     {
-        chance = get_chance_of_ranged_attack(m_ptr);
+        int chance_to_attack = get_chance_of_ranged_attack(m_ptr);
 
-        if ((chance) && percent_chance(chance))
+        if ((chance_to_attack) && percent_chance(chance_to_attack))
         {
             /* Pick a ranged attack */
             choice = choose_ranged_attack(cave_m_idx[m_ptr->fy][m_ptr->fx]);
@@ -5161,70 +5160,44 @@ static void process_monster(monster_type* m_ptr)
     tx = 0;
 
     /*
-     * Innate semi-random movement.  Monsters adjacent to the character
-     * have more chance of just attacking normally.
+     * Some monsters have an innate semi-random movement (see monster.txt),
+     * which is handled here.
+     *
+     * If adjacent to the player character, the monster will have a higher
+     * chance than normal to just attack instead of randomly moving.
      */
     if (r_ptr->flags1 & (RF1_RAND_50 | RF1_RAND_25))
     {
-        chance = 0;
+        int chance_to_move_randomly = 0;
 
         /* RAND_25 and RAND_50 are cumulative */
         if (r_ptr->flags1 & (RF1_RAND_25))
         {
-            chance += 25;
+            chance_to_move_randomly += 25;
             if (m_ptr->ml)
                 l_ptr->flags1 |= (RF1_RAND_25);
         }
         if (r_ptr->flags1 & (RF1_RAND_50))
         {
-            chance += 50;
+            chance_to_move_randomly += 50;
             if (m_ptr->ml)
                 l_ptr->flags1 |= (RF1_RAND_50);
         }
 
+        // Reduce the chance to move randomly by 50% if the monster is more than
+        // one grid away from the player.
         if (m_ptr->cdis > 1)
         {
-            chance /= 2;
+            chance_to_move_randomly /= 2;
         }
 
         /* Chance of moving randomly */
-        if (percent_chance(chance))
+        if (percent_chance(chance_to_move_randomly))
             random_move = TRUE;
     }
 
-    /* Monster isn't moving randomly, isn't running away
-     * doesn't hear or smell the character
-     */
-    if (!random_move)
-    {
-        /*
-         * First, monsters who can't cast, are aggressive, and
-         * are not afraid just want to charge
-         */
-        if (m_ptr->stance != STANCE_FLEEING)
-        {
-            if ((m_ptr->stance == STANCE_AGGRESSIVE) && (!r_ptr->freq_ranged))
-            {
-                m_ptr->target_y = 0;
-                m_ptr->target_x = 0;
-            }
-
-            /* Player can see the monster, and it is not afraid */
-            if (player_has_los_bold(m_ptr->fy, m_ptr->fx))
-            {
-                m_ptr->target_y = 0;
-                m_ptr->target_x = 0;
-            }
-        }
-
-        /* Monster has a known target */
-        if ((m_ptr->target_y) && (m_ptr->target_x))
-            must_use_target = TRUE;
-    }
-
-    /*** Find a target to move to ***/
-
-    /* Monster isn't confused, just moving semi-randomly */
+    // Find a target for a monster that isn't confused, just moving
+    // (semi-)randomly.
     if (random_move)
     {
         int start = rand_int(8);
@@ -5253,22 +5226,51 @@ static void process_monster(monster_type* m_ptr)
             }
         }
 
-        /* No passable grids found */
+        // Cannot move because no passable grids were found.
         if ((ty == 0) && (tx == 0))
+        {
             return;
+        }
 
-        /* Cannot move, target grid does not contain the character */
+        // Cannot move plus target grid does not contain the player character.
         if ((r_ptr->flags1 & (RF1_NEVER_MOVE)) && (cave_m_idx[ty][tx] >= 0))
         {
-            /* Cannot move */
             return;
         }
     }
-
-    /* Normal movement */
+    // Find a target for a normally moving monster.
     else
     {
-        // *extremely* frightened monsters next to chasms may jump into the void
+        // Monsters that are not afraid.
+        if (m_ptr->stance != STANCE_FLEEING)
+        {
+            // Aggressive monsters without a ranged attack want to charge.
+            if ((m_ptr->stance == STANCE_AGGRESSIVE) && (!r_ptr->freq_ranged))
+            {
+                // Make the monster forget its previous target.
+                // A new target will be choosen subsequently.
+                m_ptr->target_y = 0;
+                m_ptr->target_x = 0;
+            }
+
+            // Monsters that can be seen by the player want to charge.
+            if (player_has_los_bold(m_ptr->fy, m_ptr->fx))
+            {
+                // Make the monster forget its previous target.
+                // A new target will be choosen subsequently.
+                m_ptr->target_y = 0;
+                m_ptr->target_x = 0;
+            }
+        }
+
+        // Mark the situation where, at this point, the monster still has a
+        // target.
+        if ((m_ptr->target_y) && (m_ptr->target_x))
+        {
+            must_use_target = TRUE;
+        }
+
+        // Extremely frightened monsters next to chasms may jump into the void.
         if ((m_ptr->stance == STANCE_FLEEING) && (m_ptr->morale < -200)
             && !(r_ptr->flags2 & (RF2_FLYING)) && one_in_(2))
         {
@@ -5302,14 +5304,14 @@ static void process_monster(monster_type* m_ptr)
             }
         }
 
-        /* Choose a pair of target grids, or cancel the move. */
+        // Choose a target for the monster or cancel its move.
         if (!get_move(m_ptr, &ty, &tx, &fear, must_use_target))
         {
             return;
         }
     }
 
-    // If the monster thinks its location is optimal...
+    // Monster thinks its current location is already the optimal target.
     if ((ty == m_ptr->fy) && (tx == m_ptr->fx))
     {
         // intelligent monsters that are fleeing can try to use stairs (but not
@@ -5354,13 +5356,13 @@ static void process_monster(monster_type* m_ptr)
             }
         }
 
-        // if the square is non-adjacent to the player, then allow a ranged
-        // attack instead of a move
+        // If the square is non-adjacent to the player, then allow a ranged
+        // attack instead of a move.
         if ((m_ptr->cdis > 1) && r_ptr->freq_ranged)
         {
-            chance = get_chance_of_ranged_attack(m_ptr);
+            int chance_to_attack = get_chance_of_ranged_attack(m_ptr);
 
-            if ((chance) && percent_chance(chance))
+            if ((chance_to_attack) && percent_chance(chance_to_attack))
             {
                 choice = choose_ranged_attack(cave_m_idx[m_ptr->fy][m_ptr->fx]);
             }
