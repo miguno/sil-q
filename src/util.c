@@ -2965,7 +2965,7 @@ void msg_debug(cptr fmt, ...)
     /* End the Varargs Stuff */
     va_end(vp);
 
-    sprintf(buf2, "<< %s >>", buf);
+    strnfmt(buf2, sizeof(buf2), "<< %s >>", buf);
 
     /* Display */
     msg_print_aux(MSG_GENERIC, buf2);
@@ -3686,14 +3686,14 @@ s16b get_quantity(cptr prompt, int max)
         if (!prompt)
         {
             /* Build a prompt */
-            sprintf(tmp, "Quantity (0-%d): ", max);
+            strnfmt(tmp, sizeof(tmp), "Quantity (0-%d): ", max);
 
             /* Use that prompt */
             prompt = tmp;
         }
 
         /* Build the default */
-        sprintf(buf, "%d", amt);
+        strnfmt(buf, sizeof(buf), "%d", amt);
 
         /* Ask for a quantity */
         if (!term_get_string(prompt, buf, 7))
