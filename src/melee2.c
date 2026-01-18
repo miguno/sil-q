@@ -4409,8 +4409,6 @@ static void process_move(monster_type* m_ptr, int ty, int tx, bool bash)
         {
             u32b f1, f2, f3;
 
-            u32b flg3 = 0L;
-
             char m_name[80];
             char o_name[120];
 
@@ -4431,27 +4429,6 @@ static void process_move(monster_type* m_ptr, int ty, int tx, bool bash)
                 /* Extract some flags */
                 object_flags(o_ptr, &f1, &f2, &f3);
 
-                /* React to objects that hurt the monster */
-                if (f1 & (TR1_SLAY_DRAGON))
-                    flg3 |= (RF3_DRAGON);
-                if (f1 & (TR1_SLAY_TROLL))
-                    flg3 |= (RF3_TROLL);
-                if (f1 & (TR1_SLAY_ORC))
-                    flg3 |= (RF3_ORC);
-                if (f1 & (TR1_SLAY_RAUKO))
-                    flg3 |= (RF3_RAUKO);
-                if (f1 & (TR1_SLAY_UNDEAD))
-                    flg3 |= (RF3_UNDEAD);
-                if (f1 & (TR1_SLAY_WOLF))
-                    flg3 |= (RF3_WOLF);
-                if (f1 & (TR1_SLAY_SPIDER))
-                    flg3 |= (RF3_SPIDER);
-                if (f1 & (TR1_SLAY_MAN_OR_ELF))
-                {
-                    flg3 |= (RF3_MAN);
-                    flg3 |= (RF3_ELF);
-                }
-
                 /* Don't pick up cursed items */
                 if ((r_ptr->flags2 & (RF2_TAKE_ITEM))
                     && (cursed_p(o_ptr) || broken_p(o_ptr)))
@@ -4470,34 +4447,6 @@ static void process_move(monster_type* m_ptr, int ty, int tx, bool bash)
                             "%^s looks at %s, but moves on.", m_name, o_name);
                     }
                 }
-
-                /* The object cannot be picked up by the monster */
-                // else if (artefact_p(o_ptr) || (f3 & flg3))
-                //{
-                //	/* Only give a message for "take_item" */
-                //	if (r_ptr->flags2 & (RF2_TAKE_ITEM))
-                //	{
-                //		/* Take note */
-                //		did_take_item = TRUE;
-
-                //		/* Describe observable situations */
-                //		if (m_ptr->ml && player_has_los_bold(ny, nx))
-                //		{
-                //			/* Get the object name */
-                //			object_desc(o_name, sizeof(o_name),
-                // o_ptr, TRUE, 3);
-
-                //			/* Get the monster name */
-                //			monster_desc(m_name, sizeof(m_name),
-                // m_ptr, 0x04);
-
-                //			/* Dump a message */
-                //			msg_format("%^s tries to pick up %s, but
-                // fails.", 				   m_name, o_name);
-                //		}
-                //	}
-                //}
-
                 /* Pick up the item */
                 else if (r_ptr->flags2 & (RF2_TAKE_ITEM))
                 {
