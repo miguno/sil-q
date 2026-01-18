@@ -227,7 +227,7 @@ static int do_cmd_squelch_aux(void)
         prt("File: ", 18, 30);
 
         /* Default filename */
-        sprintf(ftmp, "%s.squ", op_ptr->base_name);
+        strnfmt(ftmp, sizeof(ftmp), "%s.squ", op_ptr->base_name);
 
         /* Get a filename */
         if (askfor_aux(ftmp, 80))
@@ -292,7 +292,7 @@ static int do_cmd_squelch_aux(void)
         prt("File: ", 17, 30);
 
         /* Default filename */
-        sprintf(ftmp, "%s.squ", op_ptr->base_name);
+        strnfmt(ftmp, sizeof(ftmp), "%s.squ", op_ptr->base_name);
 
         /* Ask for a file (or cancel) */
         if (askfor_aux(ftmp, 80))

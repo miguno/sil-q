@@ -843,19 +843,19 @@ static void save_prefs_aux(term_data* td, cptr sec_name)
     WritePrivateProfileString(sec_name, "Font", buf, ini_file);
 
     /* Tile size (x) */
-    wsprintf(buf, "%d", td->tile_wid);
+    strnfmt(buf, sizeof(buf), "%d", td->tile_wid);
     WritePrivateProfileString(sec_name, "TileWid", buf, ini_file);
 
     /* Tile size (y) */
-    wsprintf(buf, "%d", td->tile_hgt);
+    strnfmt(buf, sizeof(buf), "%d", td->tile_hgt);
     WritePrivateProfileString(sec_name, "TileHgt", buf, ini_file);
 
     /* Window size (x) */
-    wsprintf(buf, "%d", td->cols);
+    strnfmt(buf, sizeof(buf), "%d", td->cols);
     WritePrivateProfileString(sec_name, "NumCols", buf, ini_file);
 
     /* Window size (y) */
-    wsprintf(buf, "%d", td->rows);
+    strnfmt(buf, sizeof(buf), "%d", td->rows);
     WritePrivateProfileString(sec_name, "NumRows", buf, ini_file);
 
     /* Get window placement and dimensions */
@@ -872,11 +872,11 @@ static void save_prefs_aux(term_data* td, cptr sec_name)
         td->maximized = FALSE;
 
     /* Window position (x) */
-    wsprintf(buf, "%d", rc.left);
+    strnfmt(buf, sizeof(buf), "%d", rc.left);
     WritePrivateProfileString(sec_name, "PositionX", buf, ini_file);
 
     /* Window position (y) */
-    wsprintf(buf, "%d", rc.top);
+    strnfmt(buf, sizeof(buf), "%d", rc.top);
     WritePrivateProfileString(sec_name, "PositionY", buf, ini_file);
 
     /* Maximized */
@@ -896,7 +896,7 @@ static void save_prefs(void)
     char buf[128];
 
     /* Save the "arg_graphics" flag */
-    sprintf(buf, "%d", arg_graphics);
+    strnfmt(buf, sizeof(buf), "%d", arg_graphics);
     WritePrivateProfileString("Angband", "Graphics", buf, ini_file);
 
     /* Save the "use_bigtile" flag */
@@ -912,7 +912,7 @@ static void save_prefs(void)
     {
         term_data* td = &data[i];
 
-        sprintf(buf, "Term-%d", i);
+        strnfmt(buf, sizeof(buf), "Term-%d", i);
 
         save_prefs_aux(td, buf);
     }
@@ -1004,7 +1004,7 @@ static void load_prefs(void)
     {
         term_data* td = &data[i];
 
-        sprintf(buf, "Term-%d", i);
+        strnfmt(buf, sizeof(buf), "Term-%d", i);
 
         load_prefs_aux(td, buf);
     }
