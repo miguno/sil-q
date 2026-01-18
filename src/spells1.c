@@ -626,13 +626,13 @@ void take_hit(int dam, cptr kb_str)
         my_strcat(notes_buffer, "\n", sizeof(notes_buffer));
 
         /*killed by */
-        sprintf(buf, "Slain by %s.", p_ptr->died_from);
+        strnfmt(buf, sizeof(buf), "Slain by %s.", p_ptr->died_from);
 
         /* Write message */
         do_cmd_note(buf, p_ptr->depth);
 
         /* date and time*/
-        sprintf(buf, "Died on %s.", long_day);
+        strnfmt(buf, sizeof(buf), "Died on %s.", long_day);
 
         /* Write message */
         do_cmd_note(buf, p_ptr->depth);

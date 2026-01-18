@@ -5739,9 +5739,9 @@ void calc_stance(monster_type* m_ptr)
             calc_morale(m_ptr);
 
             if (!p_ptr->truce)
-                sprintf(buf, "turns to fight!");
+                strnfmt(buf, sizeof(buf), "turns to fight!");
             else
-                sprintf(buf, "recovers its composure.");
+                strnfmt(buf, sizeof(buf), "recovers its composure.");
 
             message = TRUE;
 
@@ -5755,7 +5755,7 @@ void calc_stance(monster_type* m_ptr)
                 m_ptr->tmp_morale -= 60;
                 calc_morale(m_ptr);
 
-                sprintf(buf, "flees in terror!");
+                strnfmt(buf, sizeof(buf), "flees in terror!");
                 message = TRUE;
             }
             break;
@@ -5768,7 +5768,7 @@ void calc_stance(monster_type* m_ptr)
                 m_ptr->tmp_morale -= 60;
                 calc_morale(m_ptr);
 
-                sprintf(buf, "flees in terror!");
+                strnfmt(buf, sizeof(buf), "flees in terror!");
                 message = TRUE;
             }
             break;

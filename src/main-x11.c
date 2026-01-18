@@ -2374,24 +2374,24 @@ static errr term_data_init(term_data* td, int i)
     // Sil-y: changed all 'ANGBAND' to 'SIL'
 
     /* Window specific location (x) */
-    sprintf(buf, "SIL_X11_AT_X_%d", i);
+    strnfmt(buf, sizeof(buf), "SIL_X11_AT_X_%d", i);
     str = getenv(buf);
     x = (str != NULL) ? atoi(str) : -1;
 
     /* Window specific location (y) */
-    sprintf(buf, "SIL_X11_AT_Y_%d", i);
+    strnfmt(buf, sizeof(buf), "SIL_X11_AT_Y_%d", i);
     str = getenv(buf);
     y = (str != NULL) ? atoi(str) : -1;
 
     /* Window specific cols */
-    sprintf(buf, "SIL_X11_COLS_%d", i);
+    strnfmt(buf, sizeof(buf), "SIL_X11_COLS_%d", i);
     str = getenv(buf);
     val = (str != NULL) ? atoi(str) : -1;
     if (val > 0)
         cols = val;
 
     /* Window specific rows */
-    sprintf(buf, "SIL_X11_ROWS_%d", i);
+    strnfmt(buf, sizeof(buf), "SIL_X11_ROWS_%d", i);
     str = getenv(buf);
     val = (str != NULL) ? atoi(str) : -1;
     if (val > 0)
@@ -2407,14 +2407,14 @@ static errr term_data_init(term_data* td, int i)
     }
 
     /* Window specific inner border offset (ox) */
-    sprintf(buf, "SIL_X11_IBOX_%d", i);
+    strnfmt(buf, sizeof(buf), "SIL_X11_IBOX_%d", i);
     str = getenv(buf);
     val = (str != NULL) ? atoi(str) : -1;
     if (val > 0)
         ox = val;
 
     /* Window specific inner border offset (oy) */
-    sprintf(buf, "SIL_X11_IBOY_%d", i);
+    strnfmt(buf, sizeof(buf), "SIL_X11_IBOY_%d", i);
     str = getenv(buf);
     val = (str != NULL) ? atoi(str) : -1;
     if (val > 0)
