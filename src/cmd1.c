@@ -1118,49 +1118,49 @@ void slay_desc(char* description, u32b flag, const monster_type* m_ptr)
     switch (flag)
     {
     case TR1_SHARPNESS:
-        sprintf(description, "cuts deeply");
+        strnfmt(description, 160, "cuts deeply");
         break;
     case TR1_SHARPNESS2:
-        sprintf(description, "cuts effortlessly");
+        strnfmt(description, 160, "cuts effortlessly");
         break;
     case TR1_VAMPIRIC:
-        sprintf(description, "drains life from %s", m_name);
+        strnfmt(description, 160, "drains life from %s", m_name);
         break;
     case TR1_SLAY_ORC:
-        sprintf(description, "strikes truly");
+        strnfmt(description, 160, "strikes truly");
         break;
     case TR1_SLAY_WOLF:
-        sprintf(description, "strikes truly");
+        strnfmt(description, 160, "strikes truly");
         break;
     case TR1_SLAY_SPIDER:
-        sprintf(description, "strikes truly");
+        strnfmt(description, 160, "strikes truly");
         break;
     case TR1_SLAY_UNDEAD:
-        sprintf(description, "strikes truly");
+        strnfmt(description, 160, "strikes truly");
         break;
     case TR1_SLAY_RAUKO:
-        sprintf(description, "strikes truly");
+        strnfmt(description, 160, "strikes truly");
         break;
     case TR1_SLAY_DRAGON:
-        sprintf(description, "strikes truly");
+        strnfmt(description, 160, "strikes truly");
         break;
     case TR1_SLAY_TROLL:
-        sprintf(description, "strikes truly");
+        strnfmt(description, 160, "strikes truly");
         break;
     case TR1_SLAY_MAN_OR_ELF:
-        sprintf(description, "strikes truly");
+        strnfmt(description, 160, "strikes truly");
         break;
     case TR1_BRAND_ELEC:
-        sprintf(description, "shocks %s with the force of lightning", m_name);
+        strnfmt(description, 160, "shocks %s with the force of lightning", m_name);
         break;
     case TR1_BRAND_FIRE:
-        sprintf(description, "burns %s with an inner fire", m_name);
+        strnfmt(description, 160, "burns %s with an inner fire", m_name);
         break;
     case TR1_BRAND_COLD:
-        sprintf(description, "freezes %s", m_name);
+        strnfmt(description, 160, "freezes %s", m_name);
         break;
     case TR1_BRAND_POIS:
-        sprintf(description, "poisons %s", m_name);
+        strnfmt(description, 160, "poisons %s", m_name);
         break;
     }
 

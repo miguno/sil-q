@@ -260,7 +260,7 @@ extern byte total_ads(const object_type* j_ptr)
  * Converts stat num into a two-char (right justified) string
  * Sil: rather pointless since stats no longer have and 18/XYZ format
  */
-void cnv_stat(int val, char* out_val) { sprintf(out_val, "%2d", val); }
+void cnv_stat(int val, char* out_val) { strnfmt(out_val, sizeof(out_val), "%2d", val); }
 
 /*
  * Print character info at given row, column in a 13 char field
@@ -439,7 +439,7 @@ static void prt_hp(void)
         put_str("Health      ", ROW_HP, COL_HP);
     }
 
-    len = sprintf(tmp, "%d:%d", p_ptr->chp, p_ptr->mhp);
+    len = strnfmt(tmp, sizeof(tmp), "%d:%d", p_ptr->chp, p_ptr->mhp);
 
     c_put_str(TERM_L_GREEN, tmp, ROW_HP, COL_HP + 12 - len);
 
@@ -457,7 +457,7 @@ static void prt_hp(void)
     }
 
     /* Show current hitpoints using another color */
-    sprintf(tmp, "%d", p_ptr->chp);
+    strnfmt(tmp, sizeof(tmp), "%d", p_ptr->chp);
 
     c_put_str(color, tmp, ROW_HP, COL_HP + 12 - len);
 }
@@ -476,7 +476,7 @@ static void prt_sp(void)
     else
         put_str("Voice       ", ROW_SP, COL_SP);
 
-    len = sprintf(tmp, "%d:%d", p_ptr->csp, p_ptr->msp);
+    len = strnfmt(tmp, sizeof(tmp), "%d:%d", p_ptr->csp, p_ptr->msp);
 
     c_put_str(TERM_L_GREEN, tmp, ROW_SP, COL_SP + 12 - len);
 
@@ -494,7 +494,7 @@ static void prt_sp(void)
     }
 
     /* Show current mana using another color */
-    sprintf(tmp, "%d", p_ptr->csp);
+    strnfmt(tmp, sizeof(tmp), "%d", p_ptr->csp);
 
     c_put_str(color, tmp, ROW_SP, COL_SP + 12 - len);
 }
@@ -540,7 +540,7 @@ static void prt_depth(void)
     }
     else
     {
-        sprintf(depths, "%d ft", p_ptr->depth * 50);
+        strnfmt(depths, sizeof(depths), "%d ft", p_ptr->depth * 50);
     }
 
     /* Get color of level based on feeling  -JSV- */
@@ -684,12 +684,12 @@ static void prt_cut(void)
     }
     else if (c > 20)
     {
-        sprintf(buf, "Bleeding %-2d", c);
+        strnfmt(buf, sizeof(buf), "Bleeding %-2d", c);
         c_put_str(TERM_RED, buf, r, COL_CUT);
     }
     else if (c > 0)
     {
-        sprintf(buf, "Bleeding %-2d", c);
+        strnfmt(buf, sizeof(buf), "Bleeding %-2d", c);
         c_put_str(TERM_L_RED, buf, r, COL_CUT);
     }
     else
@@ -708,12 +708,12 @@ static void prt_poisoned(void)
 
     if (p > 20)
     {
-        sprintf(buf, "Poisoned %-3d", p);
+        strnfmt(buf, sizeof(buf), "Poisoned %-3d", p);
         c_put_str(TERM_L_GREEN, buf, ROW_POISONED, COL_POISONED);
     }
     else if (p > 0)
     {
-        sprintf(buf, "Poisoned %-3d", p);
+        strnfmt(buf, sizeof(buf), "Poisoned %-3d", p);
         c_put_str(TERM_GREEN, buf, ROW_POISONED, COL_POISONED);
     }
     else
@@ -824,11 +824,11 @@ static void prt_state(void)
     {
         if (p_ptr->command_rep > 999)
         {
-            sprintf(text, "Rep. %3d00", p_ptr->command_rep / 100);
+            strnfmt(text, sizeof(text), "Rep. %3d00", p_ptr->command_rep / 100);
         }
         else
         {
-            sprintf(text, "Repeat %3d", p_ptr->command_rep);
+            strnfmt(text, sizeof(text), "Repeat %3d", p_ptr->command_rep);
         }
     }
 
@@ -862,14 +862,14 @@ static void prt_speed(void)
     if (i > 2)
     {
         attr = TERM_L_GREEN;
-        sprintf(buf, "Fast");
+        strnfmt(buf, sizeof(buf), "Fast");
     }
 
     /* Slow */
     else if (i < 2)
     {
         attr = TERM_ORANGE;
-        sprintf(buf, "Slow");
+        strnfmt(buf, sizeof(buf), "Slow");
     }
 
     /* Display the speed */
@@ -1050,9 +1050,9 @@ bool get_alertness_text(
             }
 
             if (m_ptr->morale >= 0)
-                sprintf(morale_buf, " %d", (m_ptr->morale + 9) / 10);
+                strnfmt(morale_buf, sizeof(morale_buf), " %d", (m_ptr->morale + 9) / 10);
             else
-                sprintf(morale_buf, " %d", m_ptr->morale / 10);
+                strnfmt(morale_buf, sizeof(morale_buf), " %d", m_ptr->morale / 10);
 
             strncat(text, morale_buf, text_size - strlen(text));
         }
@@ -3140,11 +3140,11 @@ void update_lore_aux(object_type* o_ptr)
                     /* Build note and write */
                     if (o_ptr->xtra1 == p_ptr->depth)
                     {
-                        sprintf(note, "Found %s", shorter_desc);
+                        strnfmt(note, sizeof(note), "Found %s", shorter_desc);
                     }
                     else
                     {
-                        sprintf(note, "Found %s (from %d ft)", shorter_desc,
+                        strnfmt(note, sizeof(note), "Found %s (from %d ft)", shorter_desc,
                             o_ptr->xtra1 * 50);
                     }
 

@@ -833,7 +833,7 @@ void display_monlist(void)
         }
 
         /* Add race count */
-        sprintf(buf, "%3d  ", race_counts[m_ptr->r_idx]);
+        strnfmt(buf, sizeof(buf), "%3d  ", race_counts[m_ptr->r_idx]);
         Term_addstr(strlen(buf), TERM_WHITE, buf);
         n += 5;
 
@@ -3124,25 +3124,25 @@ bool alloc_monster(bool on_stairs, bool force_undead)
                 case FEAT_LESS_SHAFT:
                 {
                     monster_level -= 2;
-                    sprintf(dir, "down");
+                    strnfmt(dir, sizeof(dir), "down");
                     break;
                 }
                 case FEAT_LESS:
                 {
                     monster_level -= 1;
-                    sprintf(dir, "down");
+                    strnfmt(dir, sizeof(dir), "down");
                     break;
                 }
                 case FEAT_MORE:
                 {
                     monster_level += 1;
-                    sprintf(dir, "up");
+                    strnfmt(dir, sizeof(dir), "up");
                     break;
                 }
                 case FEAT_MORE_SHAFT:
                 {
                     monster_level += 2;
-                    sprintf(dir, "up");
+                    strnfmt(dir, sizeof(dir), "up");
                     break;
                 }
                 }

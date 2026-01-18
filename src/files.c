@@ -3212,7 +3212,7 @@ void do_cmd_escape(void)
     my_strcat(notes_buffer, "\n", sizeof(notes_buffer));
 
     /*killed by */
-    sprintf(buf, "You escaped the Iron Hells on %s.", long_day);
+    strnfmt(buf, sizeof(buf), "You escaped the Iron Hells on %s.", long_day);
 
     /* Write message */
     do_cmd_note(buf, p_ptr->depth);
@@ -3670,16 +3670,16 @@ void comma_number(char* output, int number)
 {
     if (number >= 1000000)
     {
-        sprintf(output, "%d,%03d,%03d", number / 1000000,
+        strnfmt(output, sizeof(output), "%d,%03d,%03d", number / 1000000,
             (number % 1000000) / 1000, number % 1000);
     }
     else if (number >= 1000)
     {
-        sprintf(output, "%d,%03d", number / 1000, number % 1000);
+        strnfmt(output, sizeof(output), "%d,%03d", number / 1000, number % 1000);
     }
     else
     {
-        sprintf(output, "%d", number);
+        strnfmt(output, sizeof(output), "%d", number);
     }
 }
 
@@ -3691,40 +3691,40 @@ void atomonth(int number, char* output)
     switch (number)
     {
     case 1:
-        sprintf(output, "Jan");
+        strnfmt(output, sizeof(output), "Jan");
         break;
     case 2:
-        sprintf(output, "Feb");
+        strnfmt(output, sizeof(output), "Feb");
         break;
     case 3:
-        sprintf(output, "Mar");
+        strnfmt(output, sizeof(output), "Mar");
         break;
     case 4:
-        sprintf(output, "Apr");
+        strnfmt(output, sizeof(output), "Apr");
         break;
     case 5:
-        sprintf(output, "May");
+        strnfmt(output, sizeof(output), "May");
         break;
     case 6:
-        sprintf(output, "Jun");
+        strnfmt(output, sizeof(output), "Jun");
         break;
     case 7:
-        sprintf(output, "Jul");
+        strnfmt(output, sizeof(output), "Jul");
         break;
     case 8:
-        sprintf(output, "Aug");
+        strnfmt(output, sizeof(output), "Aug");
         break;
     case 9:
-        sprintf(output, "Sep");
+        strnfmt(output, sizeof(output), "Sep");
         break;
     case 10:
-        sprintf(output, "Oct");
+        strnfmt(output, sizeof(output), "Oct");
         break;
     case 11:
-        sprintf(output, "Nov");
+        strnfmt(output, sizeof(output), "Nov");
         break;
     case 12:
-        sprintf(output, "Dec");
+        strnfmt(output, sizeof(output), "Dec");
         break;
     }
 }
@@ -3769,13 +3769,13 @@ extern void display_single_score(
     {
         char month[4];
 
-        sprintf(month, "%.2s", when + 5);
+        strnfmt(month, sizeof(month), "%.2s", when + 5);
         atomonth(atoi(month), month);
 
         if (*(when + 7) == '0')
-            sprintf(tmp_val, "%.1s %.3s %.4s", when + 8, month, when + 1);
+            strnfmt(tmp_val, sizeof(tmp_val), "%.1s %.3s %.4s", when + 8, month, when + 1);
         else
-            sprintf(tmp_val, "%.2s %.3s %.4s", when + 7, month, when + 1);
+            strnfmt(tmp_val, sizeof(tmp_val), "%.2s %.3s %.4s", when + 7, month, when + 1);
 
         when = tmp_val;
     }
@@ -4532,7 +4532,7 @@ errr file_character(cptr name, bool full)
                 int wgt = o_ptr->weight * o_ptr->number;
                 char wgt_buf[80];
 
-                sprintf(wgt_buf, " %d.%1d lb", wgt / 10, wgt % 10);
+                strnfmt(wgt_buf, sizeof(wgt_buf), " %d.%1d lb", wgt / 10, wgt % 10);
                 my_strcat(o_name, wgt_buf, sizeof(o_name));
             }
 
@@ -4563,7 +4563,7 @@ errr file_character(cptr name, bool full)
             int wgt = o_ptr->weight * o_ptr->number;
             char wgt_buf[80];
 
-            sprintf(wgt_buf, " %d.%1d lb", wgt / 10, wgt % 10);
+            strnfmt(wgt_buf, sizeof(wgt_buf), " %d.%1d lb", wgt / 10, wgt % 10);
             my_strcat(o_name, wgt_buf, sizeof(o_name));
         }
 
@@ -4725,7 +4725,7 @@ static int final_menu(int* highlight)
 
     // if (p_ptr->noscore & 0x0008)
     //{
-    //	sprintf(buf, "Debugging info: %d forges generated", p_ptr->forge_count);
+    //	strnfmt(buf, sizeof(buf), "Debugging info: %d forges generated", p_ptr->forge_count);
     //	Term_putstr(15, 21, -1, TERM_WHITE, buf);
     //}
 
@@ -4871,7 +4871,7 @@ static void close_game_aux(void)
     char curr_time[30], sheet[90];
     time_t ct = time((time_t*)0);
     (void)strftime(curr_time, 30, "%Y%m%d-%H%M%S.txt", localtime(&ct));
-    sprintf(sheet, "%s-%s", op_ptr->full_name, curr_time);
+    strnfmt(sheet, sizeof(sheet), "%s-%s", op_ptr->full_name, curr_time);
     errr err;
     // Save the screen
     screen_save();
