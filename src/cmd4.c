@@ -507,7 +507,7 @@ void show_songs(void)
         prt("", j + 2, col - 2);
 
         /* Prepare an index --(-- */
-        sprintf(tmp_val, "%c)", index_to_label(i));
+        strnfmt(tmp_val, sizeof(tmp_val), "%c)", index_to_label(i));
 
         /* Clear the line with the (possibly indented) index */
         put_str(tmp_val, j + 2, col);
@@ -590,7 +590,7 @@ void do_cmd_change_song()
             show_songs();
 
         /* Begin the prompt */
-        sprintf(out_val, "Songs: s");
+        strnfmt(out_val, sizeof(out_val), "Songs: s");
 
         // count the abilities
         for (i = 0; i < SNG_WOVEN_THEMES; i++)
@@ -599,7 +599,7 @@ void do_cmd_change_song()
             if (p_ptr->active_ability[S_SNG][i])
             {
                 my_strcat(out_val, ",", sizeof(out_val));
-                sprintf(tmp_val, "%c", (char)'a' + i);
+                strnfmt(tmp_val, sizeof(tmp_val), "%c", (char)'a' + i);
 
                 /* Append */
                 my_strcat(out_val, tmp_val, sizeof(out_val));
@@ -3472,7 +3472,7 @@ void prt_object_description(void)
     {
         Term_putstr(
             COL_SMT1, MAX_SMITHING_TVALS + 3, -1, TERM_L_BLUE, "In progress:");
-        sprintf(buf, "%3d turns left", p_ptr->smithing_leftover);
+        strnfmt(buf, sizeof(buf), "%3d turns left", p_ptr->smithing_leftover);
         Term_putstr(COL_SMT1 - 1, MAX_SMITHING_TVALS + 5, -1, TERM_BLUE, buf);
     }
 
@@ -3573,10 +3573,10 @@ void prt_object_difficulty(void)
     // calculate difficulty (and costs)
     dif = object_difficulty(smith_o_ptr);
 
-    sprintf(buf, "%d", dif);
+    strnfmt(buf, sizeof(buf), "%d", dif);
     Term_putstr(COL_SMT4 + 2, 4, -1, attr, buf);
 
-    sprintf(buf, "(max %d)",
+    strnfmt(buf, sizeof(buf), "(max %d)",
         p_ptr->skill_use[S_SMT] + forge_bonus(p_ptr->py, p_ptr->px));
     Term_putstr(COL_SMT4 + 5, 4, -1, TERM_L_DARK, buf);
 
@@ -3619,15 +3619,15 @@ void prt_object_difficulty(void)
         }
         if (smithing_cost.uses == 1)
         {
-            sprintf(buf, "%d Use", smithing_cost.uses);
+            strnfmt(buf, sizeof(buf), "%d Use", smithing_cost.uses);
         }
         else
         {
-            sprintf(buf, "%d Uses", smithing_cost.uses);
+            strnfmt(buf, sizeof(buf), "%d Uses", smithing_cost.uses);
         }
         Term_putstr(COL_SMT4 + 2, 10 + costs, -1, attr, buf);
 
-        sprintf(buf, "(of %d)", forge_uses(p_ptr->py, p_ptr->px));
+        strnfmt(buf, sizeof(buf), "(of %d)", forge_uses(p_ptr->py, p_ptr->px));
         Term_putstr(COL_SMT4 + 9, 10 + costs, -1, TERM_L_DARK, buf);
         costs++;
     }
@@ -3642,7 +3642,7 @@ void prt_object_difficulty(void)
             attr = TERM_L_DARK;
             affordable = FALSE;
         }
-        sprintf(buf, "%d Smithing", smithing_cost.drain);
+        strnfmt(buf, sizeof(buf), "%d Smithing", smithing_cost.drain);
         Term_putstr(COL_SMT4 + 2, 10 + costs, -1, attr, buf);
         costs++;
     }
@@ -3657,7 +3657,7 @@ void prt_object_difficulty(void)
             attr = TERM_L_DARK;
             affordable = FALSE;
         }
-        sprintf(buf, "%d.%d lb Mithril", smithing_cost.mithril / 10,
+        strnfmt(buf, sizeof(buf), "%d.%d lb Mithril", smithing_cost.mithril / 10,
             smithing_cost.mithril % 10);
         Term_putstr(COL_SMT4 + 2, 10 + costs, -1, attr, buf);
         costs++;
@@ -3675,7 +3675,7 @@ void prt_object_difficulty(void)
             attr = TERM_L_DARK;
             affordable = FALSE;
         }
-        sprintf(buf, "%d Str", smithing_cost.str);
+        strnfmt(buf, sizeof(buf), "%d Str", smithing_cost.str);
         Term_putstr(COL_SMT4 + 2, 10 + costs, -1, attr, buf);
         costs++;
     }
@@ -3692,7 +3692,7 @@ void prt_object_difficulty(void)
             attr = TERM_L_DARK;
             affordable = FALSE;
         }
-        sprintf(buf, "%d Dex", smithing_cost.dex);
+        strnfmt(buf, sizeof(buf), "%d Dex", smithing_cost.dex);
         Term_putstr(COL_SMT4 + 2, 10 + costs, -1, attr, buf);
         costs++;
     }
@@ -3709,7 +3709,7 @@ void prt_object_difficulty(void)
             attr = TERM_L_DARK;
             affordable = FALSE;
         }
-        sprintf(buf, "%d Con", smithing_cost.con);
+        strnfmt(buf, sizeof(buf), "%d Con", smithing_cost.con);
         Term_putstr(COL_SMT4 + 2, 10 + costs, -1, attr, buf);
         costs++;
     }
@@ -3726,7 +3726,7 @@ void prt_object_difficulty(void)
             attr = TERM_L_DARK;
             affordable = FALSE;
         }
-        sprintf(buf, "%d Gra", smithing_cost.gra);
+        strnfmt(buf, sizeof(buf), "%d Gra", smithing_cost.gra);
         Term_putstr(COL_SMT4 + 2, 10 + costs, -1, attr, buf);
         costs++;
     }
@@ -3741,7 +3741,7 @@ void prt_object_difficulty(void)
             attr = TERM_L_DARK;
             affordable = FALSE;
         }
-        sprintf(buf, "%d Exp", smithing_cost.exp);
+        strnfmt(buf, sizeof(buf), "%d Exp", smithing_cost.exp);
         Term_putstr(COL_SMT4 + 2, 10 + costs, -1, attr, buf);
         costs++;
     }
@@ -3751,7 +3751,7 @@ void prt_object_difficulty(void)
     }
 
     attr = TERM_SLATE;
-    sprintf(buf, "%d Turns", MAX(10, dif * turn_multiplier));
+    strnfmt(buf, sizeof(buf), "%d Turns", MAX(10, dif * turn_multiplier));
     Term_putstr(COL_SMT4 + 2, 10 + costs, -1, attr, buf);
     costs++;
 
@@ -5607,7 +5607,7 @@ void artefact_menu(void)
     // set the backup artefact name to the player character's name
     if (strlen(smith2_a_ptr->name) == 0)
     {
-        sprintf(buf, "of %s", op_ptr->full_name);
+        strnfmt(buf, sizeof(buf), "of %s", op_ptr->full_name);
         my_strcpy(smith2_a_ptr->name, buf, MAX_LEN_ART_NAME);
     }
 
@@ -6153,7 +6153,7 @@ void do_cmd_smithing_screen(void)
             {
                 char buf[80];
 
-                sprintf(buf,
+                strnfmt(buf, sizeof(buf),
                     "This will drain your smithing skill by %d points. "
                     "Proceed? ",
                     smithing_cost.drain);
@@ -8893,7 +8893,7 @@ static bool askfor_color_values(int idx)
     int k, r, g, b;
 
     /* Get the default value */
-    sprintf(str, "%d", angband_color_table[idx][1]);
+    strnfmt(str, sizeof(str), "%d", angband_color_table[idx][1]);
 
     /* Query, check for ESCAPE */
     if (!term_get_string("Red (0-255) ", str, sizeof(str)))
@@ -8909,7 +8909,7 @@ static bool askfor_color_values(int idx)
         r = 255;
 
     /* Get the default value */
-    sprintf(str, "%d", angband_color_table[idx][2]);
+    strnfmt(str, sizeof(str), "%d", angband_color_table[idx][2]);
 
     /* Query, check for ESCAPE */
     if (!term_get_string("Green (0-255) ", str, sizeof(str)))
@@ -8925,7 +8925,7 @@ static bool askfor_color_values(int idx)
         g = 255;
 
     /* Get the default value */
-    sprintf(str, "%d", angband_color_table[idx][3]);
+    strnfmt(str, sizeof(str), "%d", angband_color_table[idx][3]);
 
     /* Query, check for ESCAPE */
     if (!term_get_string("Blue (0-255) ", str, sizeof(str)))
@@ -8941,7 +8941,7 @@ static bool askfor_color_values(int idx)
         b = 255;
 
     /* Get the default value */
-    sprintf(str, "%d", angband_color_table[idx][0]);
+    strnfmt(str, sizeof(str), "%d", angband_color_table[idx][0]);
 
     /* Query, check for ESCAPE */
     if (!term_get_string("Extra (0-255) ", str, sizeof(str)))
@@ -9208,7 +9208,7 @@ static void modify_colors(void)
             int src;
 
             /* Get the default value, the base color */
-            sprintf(str, "%d", GET_BASE_COLOR(idx));
+            strnfmt(str, sizeof(str), "%d", GET_BASE_COLOR(idx));
 
             /* Query, check for ESCAPE */
             if (!term_get_string(format("Copy from color (0-%d, def. base) ",
@@ -9764,7 +9764,7 @@ void do_cmd_save_screen(void)
     char tmp_val[256];
 
     /* Ask for a file */
-    sprintf(tmp_val, "%s.html", op_ptr->base_name);
+    strnfmt(tmp_val, sizeof(tmp_val), "%s.html", op_ptr->base_name);
     if (!term_get_string("File: ", tmp_val, sizeof(tmp_val)))
         return;
 
