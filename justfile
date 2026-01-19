@@ -26,7 +26,7 @@ build-linux-console:
 # build console macOS binary
 [group('development')]
 build-macos-console:
-    (cd src && make -f Makefile.osx-console clean install) || exit 1
+    (cd src && make -f Makefile.std CFLAGS='-Wall -O1 -pipe -g -D"USE_GCU"' LIBS="-lcurses" clean install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
 # build native macOS app
