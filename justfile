@@ -29,6 +29,12 @@ build-macos-console:
     (cd src && make -f Makefile.std CFLAGS='-Wall -O1 -pipe -g -D"USE_GCU"' LIBS="-lcurses" clean install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
+# build console macOS binary (debug variant)
+[group('development')]
+debug-build-macos-console:
+    (cd src && make -f Makefile.std CFLAGS='-Wall -O0 -pipe -g -D"USE_GCU" -fsanitize=address -fsanitize=undefined' LIBS="-lcurses" clean install) || exit 1
+    @echo "Run the game via 'sil' in the top-level project folder"
+
 # build native macOS app
 [group('development')]
 build-macos-app:
