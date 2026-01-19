@@ -93,6 +93,16 @@ extern int protection_roll(int typ, bool melee)
     int mult = 1;
     int armour_weight = 0;
 
+    if (melee)
+    {
+        // For now, there's no difference between the handling of melee vs.
+        // non-melee attacks.
+        //
+        // Rather than removing the currently unused function parameter
+        // altogether, this empty if-block is used to prevent a compiler warning
+        // about unused parameters when compiling with `-Wextra`.
+    }
+
     // things that always count:
 
     if (singing(SNG_STAYING))
@@ -161,6 +171,16 @@ extern int p_min(int typ, bool melee)
     int armour_weight = 0;
     int mult = 1;
 
+    if (melee)
+    {
+        // For now, there's no difference between the handling of melee vs.
+        // non-melee attacks.
+        //
+        // Rather than removing the currently unused function parameter
+        // altogether, this empty if-block is used to prevent a compiler warning
+        // about unused parameters when compiling with, e.g., `-Wextra`.
+    }
+
     // things that always count:
 
     if (singing(SNG_STAYING))
@@ -228,6 +248,16 @@ extern int p_max(int typ, bool melee)
     int prt = 0;
     int armour_weight = 0;
     int mult = 1;
+
+    if (melee)
+    {
+        // For now, there's no difference between the handling of melee vs.
+        // non-melee attacks.
+        //
+        // Rather than removing the currently unused function parameter
+        // altogether, this empty if-block is used to prevent a compiler warning
+        // about unused parameters when compiling with, e.g., `-Wextra`.
+    }
 
     // things that always count:
 
