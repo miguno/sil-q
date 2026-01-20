@@ -26,25 +26,25 @@ build-linux-console:
 # build console macOS binary
 [group('development')]
 build-macos-console:
-    (cd src && make -f Makefile.std CFLAGS='-Wall -O1 -pipe -g -D"USE_GCU"' LIBS="-lcurses" clean install) || exit 1
+    (cd src && make -f Makefile.std CFLAGS='-Wall -O1 -pipe -g -D"USE_GCU"' LIBS="-lcurses" -j$(sysctl -n hw.ncpu) clean install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
 # build console macOS binary (debug variant)
 [group('development')]
 debug-build-macos-console:
-    (cd src && make -f Makefile.std CFLAGS='-Wall -O0 -pipe -g -D"USE_GCU" -fsanitize=address -fsanitize=undefined' LIBS="-lcurses" clean install) || exit 1
+    (cd src && make -f Makefile.std CFLAGS='-Wall -O0 -pipe -g -D"USE_GCU" -fsanitize=address -fsanitize=undefined' LIBS="-lcurses" -j$(sysctl -n hw.ncpu) clean install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
 # build native macOS app
 [group('development')]
 build-macos-app:
-    (cd src && make -f Makefile.cocoa ARCHS=arm64 clean install) || exit 1
+    (cd src && make -f Makefile.cocoa ARCHS=arm64 -j$(sysctl -n hw.ncpu) clean install) || exit 1
     @echo "Run the game via 'Sil.app' in the top-level project folder"
 
 # build native macOS app (debug variant)
 [group('development')]
 debug-build-macos-app:
-    (cd src && make -f Makefile.cocoa OPT="-O0 -g -fsanitize=address -fsanitize=undefined" clean install) || exit 1
+    (cd src && make -f Makefile.cocoa OPT="-O0 -g -fsanitize=address -fsanitize=undefined" -j$(sysctl -n hw.ncpu) clean install) || exit 1
     @echo "Run the game (debug build) via 'Sil.app' in the top-level project folder"
 
 # run Sil-Q as console binary (ASCII mode)
