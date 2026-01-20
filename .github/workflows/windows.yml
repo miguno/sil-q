@@ -35,3 +35,9 @@ jobs:
         run: |
           cd src
           make -f Makefile.cyg
+          mv sil.exe ../sil.exe
+
+      - name: Verify build
+        run: |
+          ls -la sil.exe
+          file sil.exe
