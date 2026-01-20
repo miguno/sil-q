@@ -20,7 +20,7 @@ system-info:
 # build console Linux binary
 [group('development')]
 build-linux-console:
-    (cd src && make -f Makefile.std clean install) || exit 1
+    (cd src && make -f Makefile.std -j$(nproc) clean install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
 # build console macOS binary
