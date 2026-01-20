@@ -97,7 +97,7 @@ jobs:
         run: zip -r Sil-Q-windows-${{ matrix.arch }}.zip sil.exe lib LICENSE.md README.md
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: Sil-Q-windows-${{ matrix.arch }}.zip
           path: Sil-Q-windows-${{ matrix.arch }}.zip
