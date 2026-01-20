@@ -17,10 +17,17 @@ system-info:
     @echo "os: {{os()}}"
     @echo "os family: {{os_family()}}"
 
-# build console Linux binary
+# build Linux binary with ncurses and X11 support
 [group('development')]
-build-linux-console:
+build-linux:
     (cd src && make -f Makefile.std -j$(nproc) clean install) || exit 1
+    @echo "Run the game via 'sil' in the top-level project folder"
+
+# build Linux binary with ncurses and X11 support (debug variant)
+[group('development')]
+debug-build-linux:
+    # Requires `sudo dnf install libasan libubsan`.
+    (cd src && make -f Makefile.std -j$(nproc) CFLAGS='-Wall -O0 -pipe -g -D"USE_X11" -D"USE_GCU" -fsanitize=address -fsanitize=undefined' clean install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
 # build console macOS binary
@@ -54,7 +61,7 @@ run-console:
 
 # run Sil-Q as console Linux binary (ASCII mode)
 [group('app')]
-run-linux-console: run-console
+run-linux: run-console
 
 # run Sil-Q as Linux X11 app
 [group('app')]
