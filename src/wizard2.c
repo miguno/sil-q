@@ -1380,6 +1380,7 @@ static void do_cmd_wiz_forget(void)
                 break;
             }
         }
+        /* FALLTHRU */
         default:
         {
             if (!(k_ptr->flags3 & (TR3_EASY_KNOW)))
@@ -1433,6 +1434,7 @@ static void do_cmd_wiz_forget(void)
                 break;
             }
         }
+        /* FALLTHRU */
         default:
         {
             if (!(k_ptr->flags3 & (TR3_EASY_KNOW)))
