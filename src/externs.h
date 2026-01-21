@@ -508,8 +508,8 @@ extern void do_cmd_escape(void);
 extern void do_cmd_suicide(void);
 extern void do_cmd_save_game(void);
 extern void show_scores(void);
-extern void comma_number(char* output, int number);
-extern void atomonth(int number, char* output);
+extern void comma_number(char* output, size_t max, int number);
+extern void atomonth(int number, char* output, size_t max);
 extern void display_single_score(
     byte attr, int row, int col, int place, int fake, high_score* the_score);
 extern void display_scores(int from, int to);
@@ -987,7 +987,7 @@ extern int hand_and_a_half_bonus(const object_type* o_ptr);
 extern int axe_bonus(const object_type* o_ptr);
 extern int polearm_bonus(const object_type* o_ptr);
 extern byte total_ads(const object_type* j_ptr);
-extern void cnv_stat(int val, char* out_val);
+extern void cnv_stat(int val, char* out_val, size_t max);
 extern int health_level(int current, int max);
 extern bool get_alertness_text(
     monster_type* m_ptr, int text_size, char* text, int* color);

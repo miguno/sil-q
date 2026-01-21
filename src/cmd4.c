@@ -9578,11 +9578,11 @@ void do_cmd_note(char* note, int what_depth)
     }
     else
     {
-        comma_number(depths, what_depth * 50);
+        comma_number(depths, sizeof(depths), what_depth * 50);
         strnfmt(depths, sizeof(depths), "%5s ft", depths);
     }
 
-    comma_number(turn_string, playerturn);
+    comma_number(turn_string, sizeof(turn_string), playerturn);
 
     /* Make preliminary part of note */
     strnfmt(info_note, sizeof(info_note), "%7s  %s   ", turn_string, depths);

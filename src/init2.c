@@ -242,7 +242,7 @@ void init_file_paths(char* path)
             string_free(ANGBAND_DIR_DATA);
 
             /* Build a new path name */
-            strnfmt(tail, sizeof(tail), "data-%s", next);
+            strnfmt(tail, 1024, "data-%s", next);
             ANGBAND_DIR_DATA = string_make(path);
         }
     }
