@@ -1243,7 +1243,7 @@ void display_player_xtra_info(int mode)
     Term_putstr(col, 2, -1, TERM_WHITE, "Age");
     if (p_ptr->age > 0)
     {
-        comma_number(buf, (int)p_ptr->age);
+        comma_number(buf, sizeof(buf), (int)p_ptr->age);
         Term_putstr(col + 7, 2, -1, ahw_attr, format("%5s", buf));
     }
     /* Height */
@@ -1284,17 +1284,17 @@ void display_player_xtra_info(int mode)
 
     /* Game Turn */
     Term_putstr(col, 7, -1, TERM_WHITE, "Game Turn");
-    comma_number(buf, playerturn);
+    comma_number(buf, sizeof(buf), playerturn);
     Term_putstr(col + 10, 7, -1, TERM_L_GREEN, format("%8s", buf));
 
     /* Current Experience */
     Term_putstr(col, 8, -1, TERM_WHITE, "Exp Pool");
-    comma_number(buf, p_ptr->new_exp);
+    comma_number(buf, sizeof(buf), p_ptr->new_exp);
     Term_putstr(col + 10, 8, -1, TERM_L_GREEN, format("%8s", buf));
 
     /* Maximum Experience */
     Term_putstr(col, 9, -1, TERM_WHITE, "Total Exp");
-    comma_number(buf, p_ptr->exp);
+    comma_number(buf, sizeof(buf), p_ptr->exp);
     Term_putstr(col + 10, 9, -1, TERM_L_GREEN, format("%8s", buf));
 
     /* Burden (in pounds) */
@@ -1657,7 +1657,7 @@ void display_player_stat_info(int row, int col)
         }
 
         /* Resulting "modified" maximum value */
-        cnv_stat(p_ptr->stat_use[i], buf);
+        cnv_stat(p_ptr->stat_use[i], buf, sizeof(buf));
 
         if (p_ptr->stat_drain[i] < 0)
             c_put_str(TERM_YELLOW, buf, row + i, col + 5);
@@ -1670,7 +1670,7 @@ void display_player_stat_info(int row, int col)
             c_put_str(TERM_SLATE, "=", row + i, col + 8);
 
             /* Internal "natural" maximum value */
-            cnv_stat(p_ptr->stat_base[i], buf);
+            cnv_stat(p_ptr->stat_base[i], buf, sizeof(buf));
             c_put_str(TERM_GREEN, buf, row + i, col + 10);
 
             /* Equipment Bonus */
@@ -1684,7 +1684,7 @@ void display_player_stat_info(int row, int col)
             c_put_str(TERM_SLATE, "=", row + i, col + 8);
 
             /* Internal "natural" maximum value */
-            cnv_stat(p_ptr->stat_base[i], buf);
+            cnv_stat(p_ptr->stat_base[i], buf, sizeof(buf));
             c_put_str(TERM_GREEN, buf, row + i, col + 10);
 
             /* Reduction */
@@ -1698,7 +1698,7 @@ void display_player_stat_info(int row, int col)
             c_put_str(TERM_SLATE, "=", row + i, col + 8);
 
             /* Internal "natural" maximum value */
-            cnv_stat(p_ptr->stat_base[i], buf);
+            cnv_stat(p_ptr->stat_base[i], buf, sizeof(buf));
             c_put_str(TERM_GREEN, buf, row + i, col + 10);
 
             /* Modifier */
@@ -3666,65 +3666,65 @@ static int highscore_add(high_score* score)
 /*
  * Prints a nice comma spaced natural number
  */
-void comma_number(char* output, int number)
+void comma_number(char* output, size_t max, int number)
 {
     if (number >= 1000000)
     {
-        strnfmt(output, sizeof(output), "%d,%03d,%03d", number / 1000000,
+        strnfmt(output, max, "%d,%03d,%03d", number / 1000000,
             (number % 1000000) / 1000, number % 1000);
     }
     else if (number >= 1000)
     {
-        strnfmt(output, sizeof(output), "%d,%03d", number / 1000, number % 1000);
+        strnfmt(output, max, "%d,%03d", number / 1000, number % 1000);
     }
     else
     {
-        strnfmt(output, sizeof(output), "%d", number);
+        strnfmt(output, max, "%d", number);
     }
 }
 
 /*
  * Converts a number into the three letter code of a month
  */
-void atomonth(int number, char* output)
+void atomonth(int number, char* output, size_t max)
 {
     switch (number)
     {
     case 1:
-        strnfmt(output, sizeof(output), "Jan");
+        strnfmt(output, max, "Jan");
         break;
     case 2:
-        strnfmt(output, sizeof(output), "Feb");
+        strnfmt(output, max, "Feb");
         break;
     case 3:
-        strnfmt(output, sizeof(output), "Mar");
+        strnfmt(output, max, "Mar");
         break;
     case 4:
-        strnfmt(output, sizeof(output), "Apr");
+        strnfmt(output, max, "Apr");
         break;
     case 5:
-        strnfmt(output, sizeof(output), "May");
+        strnfmt(output, max, "May");
         break;
     case 6:
-        strnfmt(output, sizeof(output), "Jun");
+        strnfmt(output, max, "Jun");
         break;
     case 7:
-        strnfmt(output, sizeof(output), "Jul");
+        strnfmt(output, max, "Jul");
         break;
     case 8:
-        strnfmt(output, sizeof(output), "Aug");
+        strnfmt(output, max, "Aug");
         break;
     case 9:
-        strnfmt(output, sizeof(output), "Sep");
+        strnfmt(output, max, "Sep");
         break;
     case 10:
-        strnfmt(output, sizeof(output), "Oct");
+        strnfmt(output, max, "Oct");
         break;
     case 11:
-        strnfmt(output, sizeof(output), "Nov");
+        strnfmt(output, max, "Nov");
         break;
     case 12:
-        strnfmt(output, sizeof(output), "Dec");
+        strnfmt(output, max, "Dec");
         break;
     }
 }
@@ -3761,8 +3761,8 @@ extern void display_single_score(
     aged = atoi(the_score->turns);
     depth = atoi(the_score->cur_dun) * 50;
 
-    comma_number(aged_commas, aged);
-    comma_number(depth_commas, depth);
+    comma_number(aged_commas, sizeof(aged_commas), aged);
+    comma_number(depth_commas, sizeof(depth_commas), depth);
 
     /* Clean up standard encoded form of "when" */
     if ((*when == '@') && strlen(when) == 9)
@@ -3770,7 +3770,7 @@ extern void display_single_score(
         char month[4];
 
         strnfmt(month, sizeof(month), "%.2s", when + 5);
-        atomonth(atoi(month), month);
+        atomonth(atoi(month), month, sizeof(month));
 
         if (*(when + 7) == '0')
             strnfmt(tmp_val, sizeof(tmp_val), "%.1s %.3s %.4s", when + 8, month, when + 1);
