@@ -4687,7 +4687,7 @@ extern void fsetfileinfo(cptr pathname, u32b fcreator, u32b ftype)
                 [NSDictionary dictionaryWithObjectsAndKeys:
                 [NSNumber numberWithUnsignedLong:ftype],
                 NSFileHFSTypeCode,
-                [NSNumber numberWithUnsignedLong:SIL_CREATOR],
+                [NSNumber numberWithUnsignedLong:fcreator],
                 NSFileHFSCreatorCode,
                 nil];
             [[NSFileManager defaultManager]
