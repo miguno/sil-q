@@ -67,4 +67,3 @@ jobs:
           #       if needed, then remove this workaround.
           include-hidden-files: true
           if-no-files-found: error
-
