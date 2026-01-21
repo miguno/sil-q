@@ -19,8 +19,8 @@ OPT = -O0 -g
 # Use ARCHS='x86_64 arm64' to build for both.
 ARCHS = "x86_64 arm64"
 ARCHFLAGS = $(addprefix -arch ,$(ARCHS))
-WARNINGS = -W -Wall -Wno-unused-parameter -Wno-missing-field-initializers
-JUST_C = -std=c99 -Wdeclaration-after-statement
+WARNINGS = -Wall -Wextra
+JUST_C = -std=c99
 OBJ_CFLAGS = -std=c99 -x objective-c -fobjc-arc
 CFLAGS = -g -I. $(WARNINGS) $(OPT) -DMACH_O_CARBON -DCOCOA -DUSE_PRIVATE_SAVE_PATH -DPRIVATE_USER_PATH -DRUNTIME_PRIVATE_USER_PATH -DHAVE_MKSTEMP \
 	-fno-stack-protector -mmacosx-version-min=10.6 $(ARCHFLAGS)
