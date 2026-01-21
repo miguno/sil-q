@@ -11,7 +11,7 @@ WRES = windres
 LIBS = -s -mwindows -lwinmm -lmsimg32
 # OPT can be overridden, e.g.: make OPT="-O2"
 OPT = -O0 -g
-CFLAGS = -Wall $(OPT) -fno-strength-reduce -DWINDOWS
+CFLAGS = -std=c99 $(OPT) -Wall -Wextra -fno-strength-reduce -DWINDOWS
 
 # pe-i386   - for i686 (32-bit) builds, MINGW32
 # pe-x86-64 - for x86_64 (64-bit) builds, MINGW64
