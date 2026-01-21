@@ -9,7 +9,7 @@
 
 CC = gcc
 WRES = windres
-LIBS = -s -mwindows -e _mainCRTStartup -lwinmm -lmsimg32
+LIBS = -s -mwindows -lwinmm -lmsimg32
 
 # Override on command line: make OPT="-O2 -DDEBUG"
 OPT ?= -O0 -g
