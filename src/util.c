@@ -371,6 +371,31 @@ FILE* my_fopen_temp(char* buf, size_t max)
     return (fdopen(fd, "w"));
 }
 
+#elif defined(_WIN32)
+
+FILE* my_fopen_temp(char* buf, size_t max)
+{
+    /* MAX_PATH is defined in windows.h (260 characters) */
+    char temp_path[MAX_PATH];
+    char temp_file[MAX_PATH];
+
+    /* Get the system temporary directory */
+    if (!GetTempPathA(sizeof(temp_path), temp_path))
+        return NULL;
+
+    /* Generate a unique temporary filename */
+    if (!GetTempFileNameA(temp_path, "an", 0, temp_file))
+        return NULL;
+
+    if (strlen(temp_file) >= max)
+        return NULL;
+
+    my_strcpy(buf, temp_file, max);
+
+    /* Return a file stream */
+    return fdopen(buf, "w");
+}
+
 #else /* HAVE_MKSTEMP */
 
 FILE* my_fopen_temp(char* buf, size_t max)
