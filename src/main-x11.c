@@ -1722,7 +1722,7 @@ static void paste_x11_send(XSelectionRequestEvent* rq)
         /* Reply to a known target received recently with data */
         char buf[1024];
         co_ord max, min;
-        int x, y, i;
+        size_t i;
         byte a;
         char c;
 
@@ -1732,14 +1732,14 @@ static void paste_x11_send(XSelectionRequestEvent* rq)
         /* Delete the old value of the property */
         XDeleteProperty(DPY, rq->requestor, rq->property);
 
-        for (y = 0; y < Term->hgt; y++)
+        for (int y = 0; y < Term->hgt; y++)
         {
             if (y < min.y)
                 continue;
             if (y > max.y)
                 break;
 
-            for (x = i = 0; x < Term->wid; x++)
+            for (int x = i = 0; x < Term->wid; x++)
             {
                 if (x < min.x)
                     continue;
