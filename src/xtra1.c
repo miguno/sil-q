@@ -260,7 +260,10 @@ extern byte total_ads(const object_type* j_ptr)
  * Converts stat num into a two-char (right justified) string
  * Sil: rather pointless since stats no longer have and 18/XYZ format
  */
-void cnv_stat(int val, char* out_val) { strnfmt(out_val, sizeof(out_val), "%2d", val); }
+void cnv_stat(int val, char* out_val, size_t max)
+{
+    strnfmt(out_val, max, "%2d", val);
+}
 
 /*
  * Print character info at given row, column in a 13 char field
@@ -285,7 +288,7 @@ static void prt_stat(int stat)
     if (p_ptr->stat_drain[stat] < 0)
     {
         put_str(stat_names_reduced[stat], ROW_STAT + stat, 0);
-        cnv_stat(p_ptr->stat_use[stat], tmp);
+        cnv_stat(p_ptr->stat_use[stat], tmp, sizeof(tmp));
         c_put_str(TERM_YELLOW, tmp, ROW_STAT + stat, COL_STAT + 10);
     }
 
@@ -293,7 +296,7 @@ static void prt_stat(int stat)
     else
     {
         put_str(stat_names[stat], ROW_STAT + stat, 0);
-        cnv_stat(p_ptr->stat_use[stat], tmp);
+        cnv_stat(p_ptr->stat_use[stat], tmp, sizeof(tmp));
         c_put_str(TERM_L_GREEN, tmp, ROW_STAT + stat, COL_STAT + 10);
     }
 
@@ -321,7 +324,7 @@ static void prt_exp(void)
     /*Print experience label*/
     put_str("Exp ", ROW_EXP, 0);
 
-    comma_number(out_val, p_ptr->new_exp);
+    comma_number(out_val, sizeof(out_val), p_ptr->new_exp);
 
     c_put_str(attr, format("%8s", out_val), ROW_EXP, COL_EXP + 4);
 }
@@ -1050,9 +1053,11 @@ bool get_alertness_text(
             }
 
             if (m_ptr->morale >= 0)
-                strnfmt(morale_buf, sizeof(morale_buf), " %d", (m_ptr->morale + 9) / 10);
+                strnfmt(morale_buf, sizeof(morale_buf), " %d",
+                    (m_ptr->morale + 9) / 10);
             else
-                strnfmt(morale_buf, sizeof(morale_buf), " %d", m_ptr->morale / 10);
+                strnfmt(
+                    morale_buf, sizeof(morale_buf), " %d", m_ptr->morale / 10);
 
             strncat(text, morale_buf, text_size - strlen(text));
         }
@@ -2549,7 +2554,7 @@ static void calc_bonuses(void)
     if (p_ptr->active_ability[S_WIL][WIL_OATH])
     {
         if (chosen_oath(OATH_IRON) && !oath_invalid(OATH_IRON))
-            p_ptr->stat_misc_mod[A_CON]+=2;
+            p_ptr->stat_misc_mod[A_CON] += 2;
         else if (chosen_oath(OATH_SILENCE) && !oath_invalid(OATH_SILENCE))
             p_ptr->stat_misc_mod[A_STR]++;
         else if (chosen_oath(OATH_MERCY) && !oath_invalid(OATH_MERCY))
@@ -3144,8 +3149,8 @@ void update_lore_aux(object_type* o_ptr)
                     }
                     else
                     {
-                        strnfmt(note, sizeof(note), "Found %s (from %d ft)", shorter_desc,
-                            o_ptr->xtra1 * 50);
+                        strnfmt(note, sizeof(note), "Found %s (from %d ft)",
+                            shorter_desc, o_ptr->xtra1 * 50);
                     }
 
                     /* Record the depth where the artefact was identified */

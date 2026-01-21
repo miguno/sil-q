@@ -2006,7 +2006,7 @@ void player_birth()
     (void)strftime(raw_date, sizeof(raw_date), "@%Y%m%d", localtime(&ct));
 
     strnfmt(month, sizeof(month), "%.2s", raw_date + 5);
-    atomonth(atoi(month), month);
+    atomonth(atoi(month), month, sizeof(month));
 
     if (*(raw_date + 7) == '0')
         strnfmt(clean_date, sizeof(clean_date), "%.1s %.3s %.4s", raw_date + 8, month, raw_date + 1);
