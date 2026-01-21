@@ -112,7 +112,7 @@ CC = gcc
 ##
 ## Standard -- "main-x11.c" & "main-gcu.c"
 ##
-CFLAGS = -Wall -O1 -pipe -g -D"USE_X11" -D"USE_GCU"
+CFLAGS = -std=c99 -Wall -Wextra -O1 -pipe -g -D"USE_X11" -D"USE_GCU"
 LIBS = -lX11 -lcurses
 
 
