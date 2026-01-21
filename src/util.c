@@ -373,6 +373,8 @@ FILE* my_fopen_temp(char* buf, size_t max)
 
 #elif defined(_WIN32)
 
+#include <windows.h>
+
 FILE* my_fopen_temp(char* buf, size_t max)
 {
     /* MAX_PATH is defined in windows.h (260 characters) */
@@ -393,7 +395,7 @@ FILE* my_fopen_temp(char* buf, size_t max)
     my_strcpy(buf, temp_file, max);
 
     /* Return a file stream */
-    return fdopen(buf, "w");
+    return fopen(buf, "w");
 }
 
 #else /* HAVE_MKSTEMP */
