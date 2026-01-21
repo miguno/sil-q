@@ -20,38 +20,38 @@ system-info:
 # build Linux binary with ncurses and X11 support
 [group('development')]
 build-linux:
-    (cd src && make -f Makefile.std -j$(nproc) clean install) || exit 1
+    (cd src && make -f Makefile.std clean && make -f Makefile.std -j$(nproc) install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
 # build Linux binary with ncurses and X11 support (debug variant)
 [group('development')]
 debug-build-linux:
     # Requires `sudo dnf install libasan libubsan`.
-    (cd src && make -f Makefile.std -j$(nproc) CFLAGS='-Wall -O0 -pipe -g -D"USE_X11" -D"USE_GCU" -fsanitize=address -fsanitize=undefined' clean install) || exit 1
+    (cd src && make -f Makefile.std clean && make -f Makefile.std -j$(nproc) CFLAGS='-Wall -O0 -pipe -g -D"USE_X11" -D"USE_GCU" -fsanitize=address -fsanitize=undefined' install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
 # build console macOS binary
 [group('development')]
 build-macos-console:
-    (cd src && make -f Makefile.std -j$(sysctl -n hw.ncpu) CFLAGS='-Wall -O2 -pipe -D"USE_GCU"' LIBS="-lcurses" clean install) || exit 1
+    (cd src && make -f Makefile.std clean && make -f Makefile.std -j$(sysctl -n hw.ncpu) CFLAGS='-Wall -O2 -pipe -D"USE_GCU"' LIBS="-lcurses" install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
 # build console macOS binary (debug variant)
 [group('development')]
 debug-build-macos-console:
-    (cd src && make -f Makefile.std -j$(sysctl -n hw.ncpu) CFLAGS='-Wall -O0 -pipe -g -D"USE_GCU" -fsanitize=address -fsanitize=undefined' LIBS="-lcurses" clean install) || exit 1
+    (cd src && make -f Makefile.std clean && make -f Makefile.std -j$(sysctl -n hw.ncpu) CFLAGS='-Wall -O0 -pipe -g -D"USE_GCU" -fsanitize=address -fsanitize=undefined' LIBS="-lcurses" install) || exit 1
     @echo "Run the game via 'sil' in the top-level project folder"
 
 # build native macOS app
 [group('development')]
 build-macos-app:
-    (cd src && make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS=arm64 OPT="-Wall -O2 -pipe" clean install) || exit 1
+    (cd src && make -f Makefile.cocoa clean && make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS=arm64 OPT="-Wall -O2 -pipe" install) || exit 1
     @echo "Run the game via 'Sil.app' in the top-level project folder"
 
 # build native macOS app (debug variant)
 [group('development')]
 debug-build-macos-app:
-    (cd src && make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS=arm64 OPT="-Wall -O0 -pipe -g -fsanitize=address -fsanitize=undefined" clean install) || exit 1
+    (cd src && make -f Makefile.cocoa clean && make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS=arm64 OPT="-Wall -O0 -pipe -g -fsanitize=address -fsanitize=undefined" install) || exit 1
     @echo "Run the game (debug build) via 'Sil.app' in the top-level project folder"
 
 # run Sil-Q as console binary (ASCII mode)
