@@ -1324,7 +1324,7 @@ int abilities_menu2(int skilltype, int* highlight)
                 COL_ABILITY, b_ptr->abilitynum + 4, -1, TERM_L_BLUE, buf);
 
             // print the description of the highlighted ability
-            if ((b_text + b_ptr->text) != NULL)
+            if (b_text && b_ptr->text)
             {
                 /* Indent output by 2 character, and wrap at column 70 */
                 text_out_wrap = 79;
@@ -11132,7 +11132,10 @@ static void display_object_list(int col, int row, int per_page,
             else
             {
                 int j;
-                char buf2[80];
+                /* Set to length of `buf` minus 1. This is still sufficient for
+                 * display purposes, and it fixes a compiler warning about
+                 * format truncation. */
+                char buf2[79];
 
                 /* Find the specific type */
                 buf[0] = '\0';
@@ -11710,7 +11713,7 @@ void show_nearby_objects(bool line_of_sight_only)
             = distance(p_ptr->py, p_ptr->px, temp_y[i], temp_x[i]);
 
         if (strlen(lines[j].direction) == 0)
-            strncpy(lines[j].direction, "underfoot", 9);
+            snprintf(lines[j].direction, sizeof(lines[j].direction), "%s", "underfoot");
 
         lines[j].object_character = object_char(o_ptr);
         lines[j].object_color = object_attr(o_ptr);
