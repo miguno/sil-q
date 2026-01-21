@@ -895,7 +895,7 @@ static bool generate_poor_quality_object(object_type* o_ptr)
  *
  * Assumes there is no monster blocking the destination
  */
-static void do_cmd_search_skeleton(int y, int x, s16b o_idx)
+static void do_cmd_search_skeleton(s16b o_idx)
 {
     bool search_failed = TRUE;
     int drop_result = 0;
@@ -3114,7 +3114,7 @@ void do_cmd_alter(void)
     /* Search a skeleton */
     else if (skeleton_present)
     {
-        do_cmd_search_skeleton(y, x, cave_o_idx[y][x]);
+        do_cmd_search_skeleton(cave_o_idx[y][x]);
     }
 
     /* Close open doors */
