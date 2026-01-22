@@ -228,7 +228,8 @@ void flood_access(int y, int x,
     return;
 }
 
-void label_rooms(void)
+/*
+static void label_rooms(void)
 {
     int i;
 
@@ -251,6 +252,7 @@ void label_rooms(void)
         }
     }
 }
+*/
 
 // floodfills access through the *graph* of the dungeon
 void flood_piece(int n, int piece_num)
@@ -381,7 +383,8 @@ void place_random_stairs(int y, int x)
  * Generate the chosen item at a random spot in the dungeon.
  * If 'close' is true, it must be nearby and in line-of-sight of the player.
  */
-void place_item_randomly(int tval, int sval, bool close)
+/*
+static void place_item_randomly(int tval, int sval, bool close)
 {
     object_type* i_ptr;
     object_type object_type_body;
@@ -417,21 +420,21 @@ void place_item_randomly(int tval, int sval, bool close)
         }
     }
 
-    /* Get local object */
+    // Get local object
     i_ptr = &object_type_body;
 
-    /* Get the object_kind */
+    // Get the object_kind
     k_idx = lookup_kind(tval, sval);
 
-    /* Valid item? */
+    // Valid item?
     if (!k_idx)
         return;
 
-    /* Paranoia regarding having found a spot */
+    // Paranoia regarding having found a spot
     if (i == 1000)
         return;
 
-    /* Prepare the item */
+    // Prepare the item
     object_prep(i_ptr, k_idx);
 
     if (tval == TV_ARROW)
@@ -445,6 +448,7 @@ void place_item_randomly(int tval, int sval, bool close)
 
     drop_near(i_ptr, 0, y, x);
 }
+*/
 
 /*
  * Allocates some objects (using "place" and "type")
@@ -1819,7 +1823,8 @@ bool check_connectivity(void)
 /*
  *  Check if there are two adjacent doors on the level.
  */
-bool doubled_doors(void)
+/*
+static bool doubled_doors(void)
 {
     int y, x;
 
@@ -1836,6 +1841,7 @@ bool doubled_doors(void)
 
     return (FALSE);
 }
+*/
 
 static bool connect_rooms_stairs(void)
 {
