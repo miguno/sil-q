@@ -21,7 +21,7 @@
 /*
  * Tests if a monster is affected by Song of Challenge and if so how seriously.
  */
-int challenge_check(monster_type* m_ptr)
+static int challenge_check(monster_type* m_ptr)
 {
     monster_race* r_ptr = &r_info[m_ptr->r_idx];
     int challenge = ability_bonus(S_SNG, SNG_CHALLENGE);
@@ -2138,7 +2138,7 @@ static int calc_vulnerability(int fy, int fx)
 // The main way to gain hesitance is to have similar smart monsters who could
 // gang up if they waited for the player to get into the open.
 
-int calc_hesitance(monster_type* m_ptr)
+static int calc_hesitance(monster_type* m_ptr)
 {
     int x, y;
     int fy = m_ptr->fy;
@@ -3785,7 +3785,7 @@ static void pursuit_message(monster_type* m_ptr)
 /*
  * Deal with the monster Ability: exchange places
  */
-void monster_exchange_places(monster_type* m_ptr)
+static void monster_exchange_places(monster_type* m_ptr)
 {
     monster_lore* l_ptr = &l_list[m_ptr->r_idx];
     char m_name1[80];
@@ -4678,7 +4678,7 @@ void tell_allies(int y, int x, u32b flag)
 /*
  * Deal with monsters trying to wander around the dungeon
  */
-void wander(monster_type* m_ptr)
+static void wander(monster_type* m_ptr)
 {
     int ty, tx;
     bool fear = FALSE;
@@ -4724,7 +4724,7 @@ void wander(monster_type* m_ptr)
     process_move(m_ptr, ty, tx, bash);
 }
 
-int get_chance_of_ranged_attack(monster_type* m_ptr)
+static int get_chance_of_ranged_attack(monster_type* m_ptr)
 {
     monster_race* r_ptr = &r_info[m_ptr->r_idx];
 
@@ -5395,7 +5395,7 @@ extern void produce_cloud(monster_type* m_ptr)
  *  Calculate the number of monsters of the same type (same letter or RF3 type)
  *  within LOS of a given monster.
  */
-int morale_from_friends(monster_type* m_ptr)
+static int morale_from_friends(monster_type* m_ptr)
 {
     int i;
     int fy, fx, y, x;

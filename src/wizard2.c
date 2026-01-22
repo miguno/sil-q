@@ -1760,7 +1760,7 @@ static void do_cmd_wiz_query(void)
 /*
  * Modify the dungeon
  */
-void do_cmd_wiz_look(void)
+static void do_cmd_wiz_look(void)
 {
     /* Look around and modify things */
     target_set_interactive(TARGET_WIZ, 0);

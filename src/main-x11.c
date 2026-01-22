@@ -2212,7 +2212,7 @@ static errr Term_text_x11(int x, int y, int n, byte a, cptr s)
 
 #ifdef USE_GRAPHICS
 
-void composite_image(
+static void composite_image(
     term_data* td, int x1, int y1, int x2, int y2, bool alert, bool glow)
 {
     unsigned long pixel, blank = td->blank;

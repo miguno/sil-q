@@ -57,7 +57,7 @@ void give_player_item(object_type * o_ptr)
 /*
  * Rewards player depending on the quest.
  */
-void reward_player_for_quest(cptr m_name, unsigned int quest_index)
+static void reward_player_for_quest(cptr m_name, unsigned int quest_index)
 {
     int selection;
     object_type herb;
@@ -109,7 +109,7 @@ void reward_player_for_quest(cptr m_name, unsigned int quest_index)
 /*
  * Handles quests given by peaceful monsters.
  */
-void do_quest(monster_type* m_ptr)
+static void do_quest(monster_type* m_ptr)
 {
     char m_name[80];
     int item;
@@ -1108,7 +1108,7 @@ int crit_bonus(int hit_result, int weight, const monster_race* r_ptr,
 /*
  * Describes the effect of a slay
  */
-void slay_desc(char* description, u32b flag, const monster_type* m_ptr)
+static void slay_desc(char* description, u32b flag, const monster_type* m_ptr)
 {
     char m_name[80];
 
@@ -2260,7 +2260,7 @@ void ident_bow_arrow_by_use(object_type* j_ptr, object_type* i_ptr,
  * ident_weapon_by_use
  */
 
-u32b maybe_notice_slay(const object_type* o_ptr, u32b flag)
+static u32b maybe_notice_slay(const object_type* o_ptr, u32b flag)
 {
     u32b noticed_flag = 0L;
 
@@ -2558,7 +2558,7 @@ extern int prt_after_sharpness(const object_type* o_ptr, u32b* noticed_flag)
     return protection;
 }
 
-bool is_normal_attack(int attack_type)
+static bool is_normal_attack(int attack_type)
 {
     return (attack_type == ATT_MAIN) || (attack_type == ATT_FLANKING)
         || (attack_type == ATT_CONTROLLED_RETREAT)
@@ -2569,7 +2569,7 @@ bool is_normal_attack(int attack_type)
  * Search a single square for hidden things
  * (a utility function called by 'search' and 'perceive')
  */
-void search_square(int y, int x, int dist, int searching)
+static void search_square(int y, int x, int dist, int searching)
 {
     int score = 0;
     int difficulty = 0;
@@ -3583,7 +3583,7 @@ void display_hit(int y, int x, int net_dam, int dam_type, bool fatal_blow)
  *  Determines whether an attack is a charge attack
  */
 
-bool valid_charge(int fy, int fx, int attack_type)
+static bool valid_charge(int fy, int fx, int attack_type)
 {
     int d, i;
 
@@ -3612,7 +3612,7 @@ bool valid_charge(int fy, int fx, int attack_type)
  *  Attacks a new monster with 'follow through' if applicable
  */
 
-void possible_follow_through(int fy, int fx, int attack_type)
+static void possible_follow_through(int fy, int fx, int attack_type)
 {
     int d, i;
 
@@ -3858,7 +3858,7 @@ bool knock_back(int y1, int x1, int y2, int x2)
     return (knocked);
 }
 
-bool merciless_attack(monster_type* m_ptr)
+static bool merciless_attack(monster_type* m_ptr)
 {
     monster_race* r_ptr = &r_info[m_ptr->r_idx];
 
@@ -4517,7 +4517,7 @@ void py_attack_aux(int y, int x, int attack_type)
     break_truce(FALSE);
 }
 
-bool whirlwind_possible(void)
+static bool whirlwind_possible(void)
 {
     if (!p_ptr->active_ability[S_MEL][MEL_WHIRLWIND_ATTACK])
     {
@@ -4527,7 +4527,7 @@ bool whirlwind_possible(void)
     return (TRUE);
 }
 
-bool can_impale(void)
+static bool can_impale(void)
 {
     bool has_impale_skill = p_ptr->active_ability[S_MEL][MEL_IMPALE];
 

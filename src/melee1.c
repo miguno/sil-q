@@ -40,7 +40,7 @@ static bool monster_cut_or_stun(int crit_bonus_dice, int net_dam, int effect)
     return (FALSE);
 }
 
-bool blocking_bonus_active(void)
+static bool blocking_bonus_active(void)
 {
     bool moved_last_turn = (p_ptr->previous_action[0] >= 1)
         && (p_ptr->previous_action[0] <= 9) && (p_ptr->previous_action[0] != 5);
@@ -52,7 +52,7 @@ bool blocking_bonus_active(void)
  * Determine whether there is a bonus die for an elemental attack that
  * the player doesn't resist
  */
-int elem_bonus(int effect)
+static int elem_bonus(int effect)
 {
     int resistance = 1;
 
@@ -336,7 +336,7 @@ int dodging_bonus(void)
 /*
  * Determine whether a monster is making a valid charge attack
  */
-bool monster_charge(monster_type* m_ptr)
+static bool monster_charge(monster_type* m_ptr)
 {
     int d, i;
 
@@ -377,7 +377,7 @@ bool monster_charge(monster_type* m_ptr)
 /*
  * Returns true if an item is a "traitor" item.
  */
-bool is_traitor_item(int item_slot)
+static bool is_traitor_item(int item_slot)
 {
     u32b f1, f2, f3;
     if (item_slot >= INVEN_WIELD && item_slot < INVEN_TOTAL)
@@ -482,7 +482,7 @@ void do_betrayal_ring_amulet(void)
     }
 }
 
-void do_betrayal_helm_crown(void)
+static void do_betrayal_helm_crown(void)
 {
     if (is_traitor_item(INVEN_HEAD) && one_in_(20)
         && health_level(p_ptr->chp, p_ptr->mhp) <= HEALTH_BADLY_WOUNDED)

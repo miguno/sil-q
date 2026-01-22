@@ -10,7 +10,7 @@
 
 #include "angband.h"
 
-int medicine_bonus(int original)
+static int medicine_bonus(int original)
 {
     int bonus = 0;
     object_type* o_ptr;
