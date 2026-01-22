@@ -187,43 +187,6 @@ CFLAGS += $(EXTRA_CFLAGS)
 #LDFLAGS = -s
 
 
-##
-## Variation -- compile for Solaris
-##
-#CFLAGS = -Wall -O1 -pipe -g -D"USE_X11" -D"USE_GCU" -D"SOLARIS"
-#LIBS = -lX11 -lsocket -lcurses
-
-
-##
-## Variation -- compile for SGI Indigo runnig Irix
-##
-#CFLAGS = -Wall -O1 -pipe -g -D"USE_X11" -D"USE_GCU" -D"SGI"
-#LIBS = -lX11 -lcurses -ltermcap -lsun
-
-
-##
-## Variation -- compile for Dec ALPHA OSF/1 v2.0
-##
-#CC     = cc
-##CFLAGS = -std -O -g3 -Olimit 4000 -D"USE_X11" -D"USE_GCU"
-#CFLAGS = -std -g -D"USE_X11" -D"USE_GCU"
-#LIBS   = -lX11 -lcurses -ltermcap -lrpcsvc
-
-
-##
-## Variation -- compile for Interactive Unix (ISC) systems
-##
-#CFLAGS = -Wall -O1 -pipe -g -D"USE_X11" -D"USE_GCU" -D"ISC"
-#LIBS = -lX11 -lcurses -lnsl_s -linet -lcposix
-
-
-##
-## Variation -- Support fat binaries under NEXTSTEP
-##
-#CFLAGS = -Wall -O1 -pipe -g -D"USE_GCU" -arch m68k -arch i386
-#LIBS = -lcurses -ltermcap
-
-
 #
 # The "source" and "object" files.
 #
