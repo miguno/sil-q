@@ -1250,7 +1250,7 @@ static size_t trigger_ascii_to_text(char* buf, size_t max, cptr* strptr)
             u16b x;
             /* Read key code */
             for (x = 0; *str && (*str != '\r') && (x < sizeof(key_code) - 1);
-                 x++)
+                x++)
                 key_code[x] = *str++;
             key_code[x] = '\0';
             break;
@@ -5253,7 +5253,7 @@ cptr attr_to_text(byte a)
 
     base = short_color_names[GET_BASE_COLOR(a)];
 
-#if DO_YOU_WANT_THIS_IN_MONSTER_SPOILERS_Q
+#ifdef DO_YOU_WANT_THIS_IN_MONSTER_SPOILERS_Q
 
     if (GET_SHADE(a) > 0)
     {
