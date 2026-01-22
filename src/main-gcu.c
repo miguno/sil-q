@@ -15,18 +15,10 @@
  * To use this file, you must define "USE_GCU" in the Makefile.
  *
  *
- * Note that this file is not "intended" to support non-Unix machines,
- * nor is it intended to support VMS or other bizarre setups.
+ * Note that this file is not "intended" to support non-Unix machines.
  *
  * Also, this package assumes that the underlying "curses" handles both
  * the "nonl()" and "cbreak()" commands correctly, see the "OPTION" below.
- *
- * This code should work with most versions of "curses" or "ncurses",
- * and the "main-ncu.c" file (and USE_NCU define) are no longer used.
- *
- * See also "USE_CAP" and "main-cap.c" for code that bypasses "curses"
- * and uses the "termcap" information directly, or even bypasses the
- * "termcap" information and sends direct vt100 escape sequences.
  *
  * This file provides up to 4 term windows.
  *
@@ -76,15 +68,15 @@
 #if !defined(USE_TERMIO) && !defined(USE_TCHARS)
 #if defined(_POSIX_VERSION)
 #define USE_TPOSIX
-#else
-#if defined(USG) || defined(linux) || defined(SOLARIS)
+#else /* defined(_POSIX_VERSION) */
+#if defined(linux)
 #define USE_TERMIO
 #else
 #define USE_TCHARS
-#endif
-#endif
-#endif
-#endif
+#endif /* defined(linux) */
+#endif /* defined(_POSIX_VERSION) */
+#endif /* !defined(USE_TERMIO) && !defined(USE_TCHARS) */
+#endif /* !defined(USE_TPOSIX) */
 
 /*
  * POSIX stuff

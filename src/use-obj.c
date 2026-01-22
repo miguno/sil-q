@@ -1445,6 +1445,3 @@ bool use_object(object_type* o_ptr, bool* ident)
     return (used);
 }
 
-#ifdef MACINTOSH
-static int i = 0;
-#endif

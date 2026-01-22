@@ -101,23 +101,10 @@ void user_name(char* buf, size_t len, int id)
  *
  * Note that "canonical" filenames use a leading "slash" to indicate an absolute
  * path, and a leading "tilde" to indicate a special directory, and default to a
- * relative path, but MSDOS uses a leading "drivename plus colon" to indicate
- * the use of a "special drive", and then the rest of the path is parsed
- * "normally", and MACINTOSH uses a leading colon to indicate a relative path,
- * and an embedded colon to indicate a "drive plus absolute path", and finally
- * defaults to a file in the current working directory, which may or may not be
- * defined.
+ * relative path.
  *
  * We should probably parse a leading "~~/" as referring to "ANGBAND_DIR". (?)
  */
-
-#ifdef RISCOS
-
-/*
- * Most of the "file" routines for "RISCOS" should be in "main-ros.c"
- */
-
-#else /* RISCOS */
 
 #ifdef SET_UID
 
@@ -205,13 +192,6 @@ errr path_parse(char* buf, size_t max, cptr file)
 {
     /*accept the filename*/
     my_strcpy(buf, file, max);
-
-#if defined(MAC_MPW) && defined(CARBON)
-
-    /* Fix it according to the current operating system */
-    convert_pathname(buf);
-
-#endif
 
     /* Success */
     return (0);
@@ -349,8 +329,6 @@ errr my_fclose(FILE* fff)
     return (0);
 }
 
-#endif /* RISCOS */
-
 #ifdef HAVE_MKSTEMP
 
 FILE* my_fopen_temp(char* buf, size_t max)
@@ -468,7 +446,7 @@ errr my_fgets(FILE* fff, char* buf, size_t n)
             return (0);
         }
 
-#if defined(MACINTOSH) || defined(MACH_O_CARBON)
+#if defined(MACH_O_CARBON)
 
         /*
          * Be nice to the Macintosh, where a file can have Mac or Unix
@@ -478,7 +456,7 @@ errr my_fgets(FILE* fff, char* buf, size_t n)
         if (c == '\r')
             c = '\n';
 
-#endif /* MACINTOSH || MACH_O_CARBON */
+#endif /* MACH_O_CARBON */
 
         /* End of line */
         if (c == '\n')
@@ -550,17 +528,6 @@ errr my_fputs(FILE* fff, cptr buf, size_t n)
     /* Success */
     return (0);
 }
-
-#ifdef RISCOS
-
-/*
- * Most of the "file" routines for "RISCOS" should be in "main-ros.c"
- *
- * Many of them can be rewritten now that only "fd_open()" and "fd_make()"
- * and "my_fopen()" should ever create files.
- */
-
-#else /* RISCOS */
 
 /*
  * Several systems have no "O_BINARY" flag
@@ -649,19 +616,10 @@ int fd_make(cptr file, int mode)
     if (path_parse(buf, sizeof(buf), file))
         return (-1);
 
-#if defined(MACINTOSH)
-
-    /* Create the file, fail if exists, write-only, binary */
-    fd = open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY);
-
-#else
-
     /* Create the file, fail if exists, write-only, binary */
     fd = open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY, mode);
 
-#endif
-
-#if defined(MAC_MPW) || defined(MACH_O_CARBON)
+#if defined(MACH_O_CARBON)
 
     /* Set file creator and type */
     if (fd >= 0)
@@ -686,7 +644,7 @@ int fd_open(cptr file, int flags)
     if (path_parse(buf, sizeof(buf), file))
         return (-1);
 
-#if defined(MACINTOSH) || defined(WINDOWS)
+#if defined(WINDOWS)
 
     /* Attempt to open the file */
     return (open(buf, flags | O_BINARY));
@@ -712,29 +670,6 @@ errr fd_lock(int fd, int what)
 
 #ifdef SET_UID
 
-#ifdef USG
-
-#if defined(F_ULOCK) && defined(F_LOCK)
-
-    /* Un-Lock */
-    if (what == F_UNLCK)
-    {
-        /* Unlock it, Ignore errors */
-        lockf(fd, F_ULOCK, 0);
-    }
-
-    /* Lock */
-    else
-    {
-        /* Lock the score file */
-        if (lockf(fd, F_LOCK, 0) != 0)
-            return (1);
-    }
-
-#endif /* defined(F_ULOCK) && defined(F_LOCK) */
-
-#else
-
 #if defined(LOCK_UN) && defined(LOCK_EX)
 
     /* Un-Lock */
@@ -753,8 +688,6 @@ errr fd_lock(int fd, int what)
     }
 
 #endif /* defined(LOCK_UN) && defined(LOCK_EX) */
-
-#endif /* USG */
 
 #else /* SET_UID */
 
@@ -879,13 +812,10 @@ errr fd_close(int fd)
     return (0);
 }
 
-#if defined(CHECK_MODIFICATION_TIME) && !defined(MAC_MPW)
-#ifdef MACINTOSH
-#include <stat.h>
-#else
+#if defined(CHECK_MODIFICATION_TIME)
+
 #include <sys/types.h>
 #include <sys/stat.h>
-#endif /* MACINTOSH */
 
 errr check_modification_date(int fd, cptr template_file)
 {
@@ -920,8 +850,6 @@ errr check_modification_date(int fd, cptr template_file)
 }
 
 #endif /* CHECK_MODIFICATION_TIME */
-
-#endif /* RISCOS */
 
 /*
  * Convert a decimal to a single digit hex number
@@ -2742,7 +2670,7 @@ void messages_free(void)
  * components (Red, Green, Blue), for example, TERM_UMBER is defined
  * as 2/4 Red, 1/4 Green, 0/4 Blue.
  *
- * The following info is from "Torbjorn Lindgren" (see "main-xaw.c").
+ * The following info is from "Torbjorn Lindgren".
  *
  * These values are NOT gamma-corrected.  On most machines (with the
  * Macintosh being an important exception), you must "gamma-correct"
