@@ -122,6 +122,7 @@ ENABLE_X11 ?= 1
 
 # OPT can be overridden, e.g.: make OPT="-O2"
 OPT = -O0 -g
+
 WARNINGS = -Wall -Wextra -Warray-bounds -Wbad-function-cast -Wdouble-promotion -Wfloat-equal -Wimplicit-fallthrough -Wpointer-arith -Wswitch-enum -Wold-style-declaration -Wold-style-definition -Wmissing-declarations -Wredundant-decls -Wpointer-arith -Wcast-align -Winline -Wmissing-include-dirs -Wundef -Wmissing-format-attribute -Wnested-externs -Wunreachable-code
 CFLAGS = -std=gnu99 $(OPT) -DHAVE_MKSTEMP $(WARNINGS)
 LIBS =
