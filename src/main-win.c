@@ -138,9 +138,6 @@
 #define NOMDI /* MDI support */
 #define NOHELP /* Help support */
 
-/* Not defined since it breaks Borland C++ 5.5 */
-/* #define NOCTLMGR */ /* Control management and controls */
-
 /*
  * Exclude parts of WINDOWS.H that are not needed (Win32)
  */
