@@ -38,7 +38,7 @@ extern bool saving_throw(monster_type* m_ptr, int resistance)
 }
 
 // Auxilliary function for the allow_player functions
-bool allow_player_aux(monster_type* m_ptr, int player_flag, u32b ident_flag)
+static bool allow_player_aux(monster_type* m_ptr, int player_flag, u32b ident_flag)
 {
     bool resistance = 0;
 

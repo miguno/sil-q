@@ -158,7 +158,7 @@ extern int hand_and_a_half_bonus(const object_type* o_ptr)
 /*
  * Bonus for certain races/houses (elves) using bows
  */
-int bow_bonus(const object_type* o_ptr)
+static int bow_bonus(const object_type* o_ptr)
 {
     int bonus = 0;
 
@@ -1612,7 +1612,7 @@ static void calc_hitpoints(void)
 /*
  * Determine the radius of possibly flickering lights
  */
-int light_up_to(int base_radius, object_type* o_ptr)
+static int light_up_to(int base_radius, object_type* o_ptr)
 {
     int radius = base_radius;
     u32b f1, f2, f3;
@@ -1642,7 +1642,7 @@ int light_up_to(int base_radius, object_type* o_ptr)
 /*
  *  Determines how much an enemy in a given location should make the sword glow
  */
-int hate_level(int y, int x, int multiplier)
+static int hate_level(int y, int x, int multiplier)
 {
     int dist;
 
@@ -2084,7 +2084,7 @@ int weight_limit(void)
     return (limit);
 }
 
-bool sprinting(void)
+static bool sprinting(void)
 {
     int i;
     int turns = 1;
@@ -2125,7 +2125,7 @@ bool sprinting(void)
 }
 
 /* Calculate stats */
-void calc_stats(void)
+static void calc_stats(void)
 {
     for (int i = 0; i < A_MAX; i++)
     {
@@ -3088,7 +3088,7 @@ void notice_stuff(void)
 /*
  * Helper function for update_lore()
  */
-void update_lore_aux(object_type* o_ptr)
+static void update_lore_aux(object_type* o_ptr)
 {
     // identify seen items
     if (!object_known_p(o_ptr))
@@ -3187,7 +3187,7 @@ void update_lore_aux(object_type* o_ptr)
  * marks artefacts/specials as seen and grants experience for the first
  * sighting.
  */
-void update_lore(void)
+static void update_lore(void)
 {
     int i;
     object_type* o_ptr;

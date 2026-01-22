@@ -1262,7 +1262,7 @@ int monster_stat(monster_type* m_ptr, int stat_type)
     return (stat);
 }
 
-void listen(monster_type* m_ptr)
+static void listen(monster_type* m_ptr)
 {
     byte a;
     char c;
@@ -1807,7 +1807,7 @@ s16b monster_carry(int m_idx, object_type* j_ptr)
 /*
  * Check if the monster in the given location needs to fall down a chasm
  */
-void m_fall_in_chasm(int fy, int fx)
+static void m_fall_in_chasm(int fy, int fx)
 {
     monster_type* m_ptr;
     monster_race* r_ptr;
@@ -1884,7 +1884,7 @@ void m_fall_in_chasm(int fy, int fx)
 /*
  * Print a message saying what is underfoot.
  */
-void describe_floor_object(void)
+static void describe_floor_object(void)
 {
     object_type* o_ptr;
     char o_name[80];
@@ -2395,7 +2395,7 @@ void set_monster_slow(s16b m_idx, s16b counter, bool message)
 /*
  * Set Hallucinatory monster race
  */
-int random_r_idx(void)
+static int random_r_idx(void)
 {
     monster_race* r_ptr;
     int race_idx;
