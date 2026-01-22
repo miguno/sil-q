@@ -112,7 +112,7 @@ CC = gcc
 ##
 ## Standard -- "main-x11.c" & "main-gcu.c"
 ##
-CFLAGS = -std=gnu99 -Wall -Wextra -O1 -pipe -g -D"USE_X11" -D"USE_GCU" -DHAVE_MKSTEMP
+CFLAGS = -std=gnu99 -Wall -Wextra -O1 -g -D"USE_X11" -D"USE_GCU" -DHAVE_MKSTEMP
 LIBS = -lX11 -lcurses
 
 
