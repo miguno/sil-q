@@ -10,7 +10,7 @@
 
 #include "angband.h"
 
-bool graphics_are_ascii()
+bool graphics_are_ascii(void)
 {
     return use_graphics == GRAPHICS_NONE || use_graphics == GRAPHICS_PSEUDO;
 }
@@ -4527,7 +4527,7 @@ bool whirlwind_possible(void)
     return (TRUE);
 }
 
-bool can_impale()
+bool can_impale(void)
 {
     bool has_impale_skill = p_ptr->active_ability[S_MEL][MEL_IMPALE];
 

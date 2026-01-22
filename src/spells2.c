@@ -1495,7 +1495,7 @@ void self_knowledge(void)
  * Detect all doors and traps on the whole level.
  * Used to show map at end of the game.
  */
-void detect_all_doors_traps()
+void detect_all_doors_traps(void)
 {
     int y, x;
 

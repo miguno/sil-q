@@ -664,7 +664,7 @@ static void special_lighting_wall(byte* a, char* c, int feat, int info)
     }
 }
 
-int player_tile_offset()
+int player_tile_offset(void)
 {
     object_type * main_wield_ptr = &inventory[INVEN_WIELD];
     object_type * secondary_wield_ptr = &inventory[INVEN_ARM];
