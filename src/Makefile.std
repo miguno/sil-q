@@ -120,8 +120,11 @@ ENABLE_GCU ?= 1
 # Override on command line: make ENABLE_X11=0
 ENABLE_X11 ?= 1
 
+# Override on command line: make OPT="-O2"
+OPT ?= -O1
+
 WARNINGS = -Wall -Wextra -Warray-bounds -Wbad-function-cast -Wdouble-promotion -Wfloat-equal -Wimplicit-fallthrough -Wpointer-arith -Wswitch-enum -Wold-style-declaration -Wold-style-definition -Wmissing-declarations -Wredundant-decls -Wpointer-arith -Wcast-align -Winline -Wmissing-include-dirs -Wundef -Wmissing-format-attribute -Wnested-externs -Wunreachable-code
-CFLAGS = -std=gnu99 -O1 -g -DHAVE_MKSTEMP $(WARNINGS)
+CFLAGS = -std=gnu99 -g -DHAVE_MKSTEMP $(WARNINGS) $(OPT)
 LIBS =
 
 ifeq ($(ENABLE_GCU),1)
