@@ -16,12 +16,6 @@
  * make sure that "WINDOWS" and/or "WIN32" are defined somewhere, and
  * make sure to obtain various extra files as described below.
  *
- * The Windows version has been tested to compile with Visual C++ 5.0
- * and 6.0, Cygwin 1.0, Borland C++ 5.5 command line tools, and lcc-win32.
- *
- *
- * See also "main-dos.c" and "main-ibm.c".
- *
  *
  * The "lib/pref/pref-win.prf" file contains keymaps, macro definitions,
  * and/or color redefinitions.
@@ -2851,7 +2845,6 @@ static void check_for_save_file(LPSTR cmd_line)
     /* Quit */
     quit(NULL);
 }
-
 
 /*
  * Process a menu command
