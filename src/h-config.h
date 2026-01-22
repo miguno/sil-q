@@ -229,10 +229,6 @@
 #undef PATH_SEP
 #define PATH_SEP "\\"
 #endif
-#ifdef AMIGA
-#undef PATH_SEP
-#define PATH_SEP "/"
-#endif
 #ifdef __GO32__
 #undef PATH_SEP
 #define PATH_SEP "/"
