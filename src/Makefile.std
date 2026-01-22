@@ -112,7 +112,7 @@ CC = gcc
 ##
 ## Standard -- "main-x11.c" & "main-gcu.c"
 ##
-WARNINGS = -Wall -Wextra -Warray-bounds -Wbad-function-cast -Wdouble-promotion -Wfloat-equal -Wimplicit-fallthrough -Wpointer-arith -Wswitch-enum -Wold-style-declaration -Wold-style-definition -Wmissing-include-dirs -Wundef -Wmissing-format-attribute -Wnested-externs -Wunreachable-code
+WARNINGS = -Wall -Wextra -Warray-bounds -Wbad-function-cast -Wdouble-promotion -Wfloat-equal -Wimplicit-fallthrough -Wpointer-arith -Wswitch-enum -Wold-style-declaration -Wold-style-definition -Wmissing-declarations -Wmissing-include-dirs -Wundef -Wmissing-format-attribute -Wnested-externs -Wunreachable-code
 CFLAGS = -std=gnu99 -O1 -g -D"USE_X11" -D"USE_GCU" -DHAVE_MKSTEMP $(WARNINGS)
 LIBS = -lX11 -lcurses
 
