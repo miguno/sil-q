@@ -384,9 +384,6 @@
  * different sets of resources for Classic and Carbon is just too much for
  * a personal project XXX
  *
- * Because Carbon forbids the use of 68K code, ANGBAND_LITE_MAC sections
- * are removed.
- *
  * Because the default font-size combination causes redraw artefact problem
  * (some characters, even in monospace fonts, have negative left bearings),
  * I introduced rather crude hack to clip all character drawings within
@@ -412,54 +409,6 @@
  *
  * Added support for gcc & make compilation. They come free with OS X
  * (on the developer CD).  This means that it can be compiled as a bundle.
- *
- * For Mach-O Carbon binary, moved graphics tiles out of the
- * resource fork and made them plain PNG files, to be stored in the application
- * bundle's "Resources" subdirectory.
- *
- * For Mach-O Carbon binary, provided a compile-time option (USE_QT_SOUND) to
- * move sound effect samples out of the resource fork and use *.wav files in
- * the bundle's "Resources" subdirectory. The "*" part must match the names in
- * angband_sound_name (variable.c) exactly. This doesn't hurt performance
- * a lot in [V] (it's got ~25 sound events), but problematic in [Z]-based
- * ones (they have somewhere around 70 sound events).
- *
- * You still can use the resource file that comes with the ext-mac archive
- * on the Angband FTP server, with these additions:
- * - MENUs 131--134 and 144--146, as described above
- * - MBAR 128: just a array of 128 through 134
- * - plst 0 : can be empty, although Apple recommends us to fill it in.
- * - STR# 128 : something like "Please select your lib folder"
- *
- * Since this involves considerable amount of work, I attached
- * a plain text resource definition (= Rez format) .
- * I heavily commented on the file, hoping it could be easily adapted
- * to future versions of Angband as well as variants.
- * I omitted sound effects and graphic tiles to make it reasonably small.
- * Please copy them from any recent Mac binaries - you can use, say ZAngband
- * ones for Vanilla or [V]-based variants quite safely. T.o.M.E. uses fairly
- * extended 16x16 tileset and it is maintained actively. IIRC Thangorodrim
- * compile page has an intruction explaining how to convert tiles for
- * use on the Mac... It can be tricky, depending on your choice of
- * graphics utility. Remember setting resolution to 72 pixels per inch,
- * while keeping vertical/horizontal scale factor to 100% and dump the
- * result as a PICT from resource.
- *
- * To build Carbonised Angband with CodeWarrior, copy your PPC project
- * and
- * - replace main-mac.c in the project with this file (in the link order tab)
- * - remove InterfaceLib and MathLib
- * - add CarbonLib (found in Carbon SDK or CW's UniversalInterfaces) --
- *   if you have compiler/linker errors, you'll need Carbon SDK 1.1 or greater
- * - replace MSL C.PPC.Lib with MSL C.Carbon.Lib (both found in
- *   MSL:MSL_C:MSL_MacOS:Lib:PPC)
- * - leave MSL RuntimePPC.Lib as it is
- * - don't forget to update resource file, as described above
- * - as in Classic targets, you may have to include <unistd.h> and
- *   <fcntl.h>. The most convinient place for them is the first
- *   #ifdef MACINTOSH in h-system.h
- * - check variant dependent ifdef's explained below, and add
- *   appropriate one(s) in your A-mac-h.pch.
  */
 
 /*

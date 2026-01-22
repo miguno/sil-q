@@ -2027,8 +2027,4 @@ void do_cmd_debug(void)
 
 #else
 
-#ifdef MACINTOSH
-static int i = 0;
-#endif
-
-#endif
+#endif /* ALLOW_DEBUG */

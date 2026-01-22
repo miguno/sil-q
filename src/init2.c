@@ -117,26 +117,6 @@ void init_file_paths(char* path)
     /* Prepare to append to the Base Path */
     tail = path + strlen(path);
 
-#ifdef VM
-
-    /*** Use "flat" paths with VM/ESA ***/
-
-    /* Use "blank" path names */
-    ANGBAND_DIR_APEX = string_make("");
-    ANGBAND_DIR_BONE = string_make("");
-    ANGBAND_DIR_DATA = string_make("");
-    ANGBAND_DIR_EDIT = string_make("");
-    ANGBAND_DIR_FILE = string_make("");
-    ANGBAND_DIR_HELP = string_make("");
-    ANGBAND_DIR_INFO = string_make("");
-    ANGBAND_DIR_SAVE = string_make("");
-    ANGBAND_DIR_PREF = string_make("");
-    ANGBAND_DIR_USER = string_make("");
-    ANGBAND_DIR_XTRA = string_make("");
-    ANGBAND_DIR_SCRIPT = string_make("");
-
-#else /* VM */
-
     /*** Build the sub-directory names ***/
 
     /* Build a path name */
@@ -209,45 +189,6 @@ void init_file_paths(char* path)
     /* Build a path name */
     strcpy(tail, "script");
     ANGBAND_DIR_SCRIPT = string_make(path);
-
-#endif /* VM */
-
-#ifdef NeXT
-
-    /* Allow "fat binary" usage with NeXT */
-    if (TRUE)
-    {
-        cptr next = NULL;
-
-#if defined(m68k)
-        next = "m68k";
-#endif
-
-#if defined(i386)
-        next = "i386";
-#endif
-
-#if defined(sparc)
-        next = "sparc";
-#endif
-
-#if defined(hppa)
-        next = "hppa";
-#endif
-
-        /* Use special directory */
-        if (next)
-        {
-            /* Forget the old path name */
-            string_free(ANGBAND_DIR_DATA);
-
-            /* Build a new path name */
-            strnfmt(tail, 1024, "data-%s", next);
-            ANGBAND_DIR_DATA = string_make(path);
-        }
-    }
-
-#endif /* NeXT */
 }
 
 #ifdef ALLOW_TEMPLATES

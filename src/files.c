@@ -32,21 +32,10 @@ void safe_setuid_drop(void)
 
 #else /* HAVE_SETEGID */
 
-#ifdef SAFE_SETUID_POSIX
-
-    if (setgid(getgid()) != 0)
-    {
-        quit("setgid(): cannot set permissions correctly!");
-    }
-
-#else /* SAFE_SETUID_POSIX */
-
     if (setregid(getegid(), getgid()) != 0)
     {
         quit("setregid(): cannot set permissions correctly!");
     }
-
-#endif /* SAFE_SETUID_POSIX */
 
 #endif /* HAVE_SETEGID */
 
@@ -73,21 +62,10 @@ void safe_setuid_grab(void)
 
 #else /* HAVE_SETEGID */
 
-#ifdef SAFE_SETUID_POSIX
-
-    if (setgid(player_egid) != 0)
-    {
-        quit("setgid(): cannot set permissions correctly!");
-    }
-
-#else /* SAFE_SETUID_POSIX */
-
     if (setregid(getegid(), getgid()) != 0)
     {
         quit("setregid(): cannot set permissions correctly!");
     }
-
-#endif /* SAFE_SETUID_POSIX */
 
 #endif /* HAVE_SETEGID */
 
@@ -3042,7 +3020,7 @@ void do_cmd_help(void)
  *
  * If "sf" is TRUE, then we initialize "savefile" based on player name.
  *
- * Some platforms (Windows, Macintosh, Amiga) leave the "savefile" empty
+ * Some platforms (Windows, Macintosh) leave the "savefile" empty
  * when a new character is created, and then when the character is done
  * being created, they call this function to choose a new savefile name.
  */
@@ -3070,7 +3048,7 @@ void process_player_name(bool sf)
         op_ptr->base_name[i] = c;
     }
 
-#if defined(WINDOWS) || defined(MSDOS)
+#if defined(WINDOWS)
 
     /* Max length */
     if (i > 8)
@@ -3099,11 +3077,6 @@ void process_player_name(bool sf)
         /* Rename the savefile, using the base name */
         strnfmt(temp, sizeof(temp), "%s", op_ptr->base_name);
 #endif
-
-#ifdef VM
-        /* Hack -- support "flat directory" usage on VM/ESA */
-        strnfmt(temp, sizeof(temp), "%s.sv", op_ptr->base_name);
-#endif /* VM */
 
         /* Build the filename */
         path_build(savefile, sizeof(savefile), ANGBAND_DIR_SAVE, temp);
