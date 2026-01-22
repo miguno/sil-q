@@ -620,7 +620,7 @@ static void term_data_link(int i)
 /*
  * Help message.
  *   1st line = max 68 chars.
- *   Start next lines with 11 spaces, as in main-xaw.c.
+ *   Start next lines with 11 spaces.
  */
 cptr help_xxx = "Describe XXX, subopts -describe suboptions here";
 
