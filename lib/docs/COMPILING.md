@@ -1,265 +1,154 @@
-================================================================================
-Compiling Instructions
-================================================================================
+# Compiling Instructions
 
-Compiling Sil is not very difficult, and has been tested on Macintosh,
-Windows and Linux.
+## Preparation (for all platforms)
 
-If you do compile Sil with a method marked "(untested)" or on a new system,
-then send an email to sil@amirrorclear.net and I will update this file with your
-method.
+**Step 0**: Download and extract the Sil-Q source code.
 
-The first step is the same on all systems, so do this and then look through
-this file for advice on your specific system. 
+- Unzip the file `Sil-src.zip`. It will become a folder called `Sil`, which
+  contains sub-folders called `lib/` and `src/`.
+  - The `src/` folder contains all the source code.
+  - The `lib/` folder contains other files that the game uses. **Once compiled,
+    the Sil-Q game (like `sil.exe` on Windows) still requires the files and
+    folders under the `lib/` directory.**
+- Move the `Sil` folder to wherever you want to keep it.
+- When you are done compiling the source code as per the instructions below, the
+  game will be automatically installed in the `Sil` folder as well.
 
-0. Install the Sil source code:
+## Linux or Unix with gcc
 
-   Unzip the file "Sil-src.zip". It will become a folder called "Sil"
-   which contains subfolders called "lib" and "src". Move it to wherever
-   you want to keep it. The src folder contains all the source code
-   while the lib folder contains other files that the game uses.
-   When you are done compiling, the game will be automatically installed
-   in the Sil folder as well.
+There are several different unix setups for Sil-Q:
 
+- X11: Allows multiple windows, has correct colours.
+- GCU: Works in a terminal using 'curses', has only 16 or 8 colours.
+- CAP: Works even in old terminals, but is monochrome.
 
-==========================================================
-Linux or Unix with gcc  (tested with Sil)
-==========================================================
+**Step 1**: Modify the Makefile to match your system.
 
-   There are several different unix setups for Sil:
+- Edit Makefile.std in the src directory.
+- Look for the section listing multiple "Variations".
+- Choose the variation that you like best.
+- Uncomment that section's code by removing the `#` character at the start of
+  the lines.
+- Comment out the default section by prefixing the respective lines with `#`.
 
-   X11: Allows multiple windows, has correct colours.
-   GCU: Works in a terminal using 'curses', has only 16 or 8 colours.
-   CAP: Works even in old terminals, but is monochrome.
+**Step 2**: Compile Sil-Q. Open a terminal in the top-level directory of Sil-Q.
 
-1. Mess with the Makefile:
+    ```shell
+    # Go to the src/ directory
+    $ cd src
 
-   Edit Makefile.std in the src directory. 
-   Look for the section listing multiple "Variations".
-   Choose the variation that you like best.
-   Remove the # comments from that section's code.
-   Comment out the default section.
+    # Compile the sources
+    $ make -f Makefile.std install
+    ```
 
-2. Compile Sil:
+**Step 3**: Run Sil-Q via the `sil` binary in the top-level directory. Note that
+you still need the `lib/` directory to run Sil-Q. It must be located in the same
+directory as the `sil` binary.
 
-   Run "make -f Makefile.std install" in the src directory.
+    ```shell
+    # Go back to top-level directory
+    $ cd ..
 
-3. Run Sil:
+    # Run the Sil-Q binary to start the game
+    $ ./sil
 
-   Go back to the Sil folder and start Sil with "sil".
+Enjoy!
 
+## Windows with Cygwin
 
-==========================================================
-Mac OS X   (tested with Sil)
-==========================================================
+**Step 1**: Get the free Cygwin compiler.
 
-1. Compile Sil: 
+- Download the free Cygwin compiler. It provides a shell interface very similar
+  to a normal Unix/Linux shell with many useful tools. Install it and start the
+  Cygwin terminal. Make sure to get the 32 bit version (the 64 bit version may
+  work, but has been tested less than the 32 bit version).
+- Note: Make sure `make` and the mingw C compiler are installed, because they
+  may not be included in your Cygwin default installation.
 
-   Open a new window in Terminal.
-   Go to the src directory.
-   Run "make -f Makefile.crb install". 
-   Sil should now be compiled and installed into the Sil folder.  
-   (Alternatively you could try the Sil.xcodeproj file,
-   which may also work -- it is what the main developer uses)
+**Step 2**: Compile Sil-Q. Open a terminal in the top-level directory of Sil-Q.
 
-2. Run Sil: 
+    ```shell
+    # In the Cygwin terminal, go to the src/ directory
+    $ cd src/
 
-   Go back to the Sil folder and double click on Sil.
+    # Compile the sources
+    $ make -f Makefile.cyg install
+    ```
 
+**Step 3**: Run Sil-Q via the `sil.exe` binary in the top-level directory. Note
+that you still need the `lib/` directory to run Sil-Q. It must be located in the
+same directory as `sil.exe`.
 
-==========================================================
-Windows with Cygwin   (tested with Sil)
-==========================================================
+    ```shell
+    # Go back to top-level directory
+    $ cd ..
 
-1. Getting the free Cygwin compiler: 
+    # Run the Sil-Q executable to start the game
+    $ ./sil.exe
 
-   Download the free Cygwin compiler. It provides a shell interface very
-   similar to a normal Unix/Linux shell with many useful tools. Install it
-   and start the shell. (Note: for use in windows, the computer's
-   autoexec.bat file needs to be edited to include a path to the Cygwin 
-   Folder.  Also, the "make" portion of Cygwin is not in the default 
-   download.  You have to search it out and specify that the download
-   include "make".)
+Enjoy!
 
-2. Compile Sil: 
+## Windows with Visual Studio 2022 (experimental, tested with Sil-Q on MSVC 2022)
 
-   (Note: In windows open up a DOS window and go to the src directory) 
-   Go to the src directory and run "make -f Makefile.cyg install". 
-   Sil should now be compiled and installed into the Sil folder.  
-   The executable file will be called Sil.exe. 
+> WARNING: This is a very new and very raw port, and it requires testing.
 
-3. Run Sil: 
+**Step 1**: Install Microsoft Visual Studio 2022.
 
-   Go back to the Sil folder and run Sil.exe. 
+**Step 2**: Compile Sil-Q.
 
+- Assuming you have MSVC 2022, this should be as simple as selecting "Debug" or
+  "Release", opening `sil-q.sln` in the `msvc2019/` directory, and selecting
+  "Build Solution" from the Build menu.
 
-==========================================================
-Windows with lcc-win32   (untested)
-==========================================================
+**Step 3**: Run Sil-Q via the `sil.exe` binary in the top-level directory. Note that
+you still need the `lib/` directory to run Sil-Q. It must be located in the same
+directory as `sil.exe`.
 
-1. Getting the free lcc-win32 compiler: 
+Enjoy!
 
-   Download the compiler from http://www.cs.virginia.edu/~lcc-win32/
-   and install it.
+## macOS with Xcode
 
-2. Create the LCC project: 
+> These instructions were tested with Xcode 11.6 on macOS 10.15.5 (Catalina) and
+> with Xcode 26.2 on macOS 26.2 (Tahoe).
 
-   Start lcc-win32. Select 'File/New/Project...' from the menu and enter 
-   "Sil" as the project name. On the "Definition of a new project" set the 
-   working directory to "C:...\Sil\src" (wherever you extracted the source 
-   code to) and then select the "Windows executable" option. Press the 'Create' 
-   button and answer the question about using the wizard to generate the 
-   application skeleton with "no". We want to use the existing Sil source 
-   code, so we don't need the skeleton code. 
+**Step 1**: Install Xcode from the Apple App Store.
 
-3. Adding the Sil source files to the project: 
+**Step 2**: Compile Sil-Q. Open a terminal in the top-level directory of Sil-Q.
 
-   Add all files from birth.c to load.c to the project, then add the
-   "main-win.c" file with the "Add new file..." option and finally the files
-   from melee1.c to z-virt.c. Select "Add new file..." again, and this time
-   select the "Resources" filetype and select the "sil.rc" file. 
+> NOTE: Before building for a different set of architectures (Apple Silicon vs.
+> Intel), run `make -f Makefile.cocoa clean` to clean up any object files that
+> may not match your new set of selected architectures.
 
-4. Setting various project options: 
+    ```shell
+    # Go to the src/ directory
+    $ cd src
 
-   Type "winmm.lib" in the 'Additional files to be included in the link' field. 
-   In the 'Debuggersettings' you should change the start directory to
-   "C:...\Sil" (again use your own path to the Sil directory). The 'Executable
-   to start' should be "C:...\Sil\Sil.exe". The settings part is now finished.
-   When asked if you want to "Open ... files?" simply say no. 
+    # Option 1: Compile the sources for Apple Silicon Macs (M1/M2/M3/M4).
+    #           *** Requires Xcode 12.2 or later. ***
+    $ make -f Makefile.cocoa ARCHS=arm64 install
 
-5. Compiling: 
+    # Option 2: Compile the sources for Intel-based Macs
+    $ make -f Makefile.cocoa install
 
-   Select 'Compiler/Generate Makefile' from the menu and wait for it to finish.
-   Now select 'Compiler/Make' and Sil should be compiled. 
+    # Option 3: Create a universal application that will run natively on
+    #           both Apple Silicon and Intel-based Macs.
+    #           *** Requires Xcode 12.2 or later. ***
+    $ make -f Makefile.cocoa ARCHS='x86_64 arm64' install
+    ```
 
-6. Run Sil: 
+The compilation generates a macOS application, `Sil.app`, in the top-level
+directory of Sil-Q (the parent directory of `src/`). You may move `Sil.app` to
+wherever you like, such as your Mac's `Applications` folder.
 
-   Go back to the Sil folder and run the Sil.exe.
+**Step 3**: Run Sil-Q via the `Sil.app` application.
 
-*. Possible problems:
+In a Finder window, navigate to where you placed `Sil.app`. Then double-click on
+it to run it.
 
-   When you run Sil, it may abort while initializing its internal files.
-   This can happen if the line-endings on the text files in the lib folder are
-   wrong. By default, they are set to unix line-endings '\n', but may need to
-   be set to DOS line-endings '\r\n'. Either use a tool to do this (there are
-   many available) or download a precompiled Windows version and take the lib
-   folder from that. The affected files are .txt .hlp & .prf
+> NOTE: If you are on macOS 10.15 or later and haven't run Sil-Q before, you
+> will see macOS dialog window about granting Sil-Q access to your `Documents`
+> folder. You must approve this access, because it is required by Sil-Q as it
+> stores its savefiles (your in-game characters), the high score file, and
+> additional game data in the folder `Documents/Sil/`.
 
-
-==========================================================
-Windows with lcc-win32 -- using command line (untested)
-==========================================================
-
-1. Get the free lcc-win32 compiler:
-
-   Download the compiler from http://www.cs.virginia.edu/~lcc-win32/
-   and install it.
-
-2. Adjust the lcc-win32 makefile:
-
-   Go to the Sil src-directory and open "Makefile.lcc" with a
-   text editor.  Change the values of 'SIL_PATH' and 'LCC_PATH'
-   to the path of your Sil and LCC directories and save the
-   Makefile.
-
-3. Compile Sil:
-
-   Run "make -f makefile.lcc" in the Sil src folder.  The game
-   should now be compiled and installed into the Sil folder.
-
-4. Run Sil:
-
-   Go back to the Sil folder and run Sil.exe.
-
-*. Possible problems:
-
-   When you run Sil, it may abort while initializing its internal files.
-   This can happen if the line-endings on the text files in the lib folder are
-   wrong. By default, they are set to unix line-endings '\n', but may need to
-   be set to DOS line-endings '\r\n'. Either use a tool to do this (there are
-   many available) or download a precompiled Windows version and take the lib
-   folder from that. The affected files are .txt .hlp & .prf
-
-
-==========================================================
-Windows with Borland C++ 5.5 commandline tools  (untested)
-==========================================================
-
-1. Get the free commandline tools:
-
-   Download the Borland commandline tools from
-   http://www.borland.com/bcppbuilder/freecompiler/
-   and follow the installation instructions.
-
-2. Compile Sil:
-
-   Open a commandline window and go to the src-directory.
-   Run "make -f makefile.bcc install".
-   Sil should now be compiled and installed into the Sil folder.
-
-3. Run Sil:
-
-   Go back to the Sil folder and run the Sil.exe.
-
-*. Possible problems:
-
-   Make exits with a "Command line too long" error message:
-      Try to add the -l option to the make command.  The make util
-      should have the "use long command lines" option enabled by
-      default, but some people reported that this is not always
-      the case.
-
-   When you run Sil, it may abort while initializing its internal files.
-   This can happen if the line-endings on the text files in the lib folder are
-   wrong. By default, they are set to unix line-endings '\n', but may need to
-   be set to DOS line-endings '\r\n'. Either use a tool to do this (there are
-   many available) or download a precompiled Windows version and take the lib
-   folder from that. The affected files are .txt .hlp & .prf
-
-
-==========================================================
-DOS + DJGPP  (untested)
-==========================================================
-
-1. Install DJGPP:
-
-   You can get the freely available DJGPP C Compiler from 
-      http://www.delorie.com/djgpp/
-   On the DJGPP-page go to the Zip-Picker
-      http://www.delorie.com/djgpp/zip-picker.html
-   This page helps you decide which ZIP files you need to download
-   and will even try to find a ftp-site near you.
-   Get all files and follow the installation instructions.
-
-2. Select the makefile:
-
-   Go to the src-directory and rename 'Makefile.dos' to 'Makefile'.
-
-3. Compile Sil:
-
-   Run "make install".  Sil should now be compiled and installed
-   into the Sil folder.
-
-4. Run Sil:
-
-   Go back to the Sil folder and run Sil.exe.
-
-*. Possible problems:
-
-   Make exits with a 'Fatal: Command arguments too long' error message:
-      Such problems are usually caused by using the make.exe of another
-      compiler (like Borland C++ or cygwin).  DJGPP uses some clever tricks
-      to get around the limitations of the MS-DOS "126 characters are enough
-      for anybody" commandline that require a specific make tool.  So make
-      sure that DJGPP's make.exe is the first (or only) make.exe in your
-      path.  See also the DJGPP FAQ entries 16.4, 16.5, and 16.6 for further
-      details.
-
-   When you run Sil, it may abort while initializing its internal files.
-   This can happen if the line-endings on the text files in the lib folder are
-   wrong. By default, they are set to unix line-endings '\n', but may need to
-   be set to DOS line-endings '\r\n'. Either use a tool to do this (there are
-   many available) or download a precompiled Windows version and take the lib
-   folder from that. The affected files are .txt .hlp & .prf
-
-
+Enjoy!
