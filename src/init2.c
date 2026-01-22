@@ -298,7 +298,6 @@ header r_head;
 header p_head;
 header c_head;
 header h_head;
-header b_head;
 header g_head;
 header flavor_head;
 header q_head;
