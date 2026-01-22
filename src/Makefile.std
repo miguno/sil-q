@@ -86,9 +86,8 @@ OBJS = \
 ##
 
 
-#
-# This is my compiler of choice, it seems to work most everywhere.
-#
+# NOTE: On modern macOS with Developer Tools installed, gcc (/usr/bin/gcc)
+# is actually clang. You can verify with `gcc -version`.
 CC = gcc
 
 
