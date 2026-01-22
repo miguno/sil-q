@@ -1977,7 +1977,7 @@ static bool player_birth_aux(void)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void player_birth()
+void player_birth(void)
 {
     int i;
 

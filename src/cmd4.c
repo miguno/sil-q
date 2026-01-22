@@ -536,7 +536,7 @@ void show_songs(void)
         prt("", j + 2, col - 2);
 }
 
-void do_cmd_change_song()
+void do_cmd_change_song(void)
 {
     int i;
     bool done = FALSE;
@@ -2057,7 +2057,7 @@ int att_valid(void)
 /*
  * Determines the maximum legal attack bonus for an item.
  */
-int att_max()
+int att_max(void)
 {
     object_kind* k_ptr = &k_info[smith_o_ptr->k_idx];
     ego_item_type* e_ptr = &e_info[smith_o_ptr->name2];
@@ -2193,7 +2193,7 @@ int ds_valid(void)
 /*
  * Determines the maximum legal damage sides for an item.
  */
-int ds_max()
+int ds_max(void)
 {
     object_kind* k_ptr = &k_info[smith_o_ptr->k_idx];
     ego_item_type* e_ptr = &e_info[smith_o_ptr->name2];
@@ -2287,7 +2287,7 @@ int evn_valid(void)
 /*
  * Determines the maximum legal evasion bonus for an item.
  */
-int evn_max()
+int evn_max(void)
 {
     object_kind* k_ptr = &k_info[smith_o_ptr->k_idx];
     ego_item_type* e_ptr = &e_info[smith_o_ptr->name2];
@@ -2413,7 +2413,7 @@ int ps_valid(void)
 /*
  * Determines the maximum legal protection sides for an item.
  */
-int ps_max()
+int ps_max(void)
 {
     object_kind* k_ptr = &k_info[smith_o_ptr->k_idx];
     ego_item_type* e_ptr = &e_info[smith_o_ptr->name2];
@@ -3822,7 +3822,7 @@ bool affordable(object_type* o_ptr)
  * Pay the costs in terms of ability points and experience needed to make the
  * object.
  */
-void pay_costs()
+void pay_costs(void)
 {
     if (smithing_cost.str > 0)
         p_ptr->stat_drain[A_STR] -= smithing_cost.str;
@@ -6850,7 +6850,7 @@ static void do_cmd_pref_file_hack(int row)
     }
 }
 
-void clear_skills_and_abilities()
+void clear_skills_and_abilities(void)
 {
     int i, j;
 
@@ -11766,7 +11766,7 @@ void show_nearby_objects(bool line_of_sight_only)
     }
 }
 
-void do_cmd_view_monsters()
+void do_cmd_view_monsters(void)
 {
     char get_char = '[';
     bool show_los = TRUE;
@@ -11786,7 +11786,7 @@ void do_cmd_view_monsters()
     }
 }
 
-void do_cmd_view_objects()
+void do_cmd_view_objects(void)
 {
     char get_char = ']';
     bool show_los = TRUE;

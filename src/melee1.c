@@ -391,7 +391,7 @@ bool is_traitor_item(int item_slot)
     return FALSE;
 }
 
-void do_betrayal_ring_amulet()
+void do_betrayal_ring_amulet(void)
 {
     object_type* o_ptr = NULL;
     object_type object_type_body;
@@ -482,7 +482,7 @@ void do_betrayal_ring_amulet()
     }
 }
 
-void do_betrayal_helm_crown()
+void do_betrayal_helm_crown(void)
 {
     if (is_traitor_item(INVEN_HEAD) && one_in_(20)
         && health_level(p_ptr->chp, p_ptr->mhp) <= HEALTH_BADLY_WOUNDED)
