@@ -3486,7 +3486,7 @@ void make_patch_of_sunlight(int y, int x)
     }
 }
 
-void make_patches_of_sunlight()
+void make_patches_of_sunlight(void)
 {
     int i, x, y;
 

@@ -334,7 +334,7 @@ void teleport_towards(int oy, int ox, int ny, int nx)
 /*
  * Teleport the player one level up or down (random when legal)
  */
-void teleport_player_level()
+void teleport_player_level(void)
 {
     bool go_up = FALSE;
     bool go_down = FALSE;
