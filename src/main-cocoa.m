@@ -5268,4 +5268,4 @@ int main(int argc, char* argv[])
     return (0);
 }
 
-#endif /* MACINTOSH || MACH_O_CARBON */
+#endif /* MACH_O_CARBON */
