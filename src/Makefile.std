@@ -112,9 +112,28 @@ CC = gcc
 ##
 ## Standard -- "main-x11.c" & "main-gcu.c"
 ##
+
+# To conveniently set CFLAGS and LIBS for GCU (ncurses terminal) support.
+# Override on command line: make ENABLE_GCU=0
+ENABLE_GCU ?= 1
+
+# To conveniently set CFLAGS and LIBS for X11 support.
+# Override on command line: make ENABLE_X11=0
+ENABLE_X11 ?= 1
+
 WARNINGS = -Wall -Wextra -Warray-bounds -Wbad-function-cast -Wdouble-promotion -Wfloat-equal -Wimplicit-fallthrough -Wpointer-arith -Wswitch-enum -Wold-style-declaration -Wold-style-definition -Wmissing-declarations -Wredundant-decls -Wpointer-arith -Wcast-align -Winline -Wmissing-include-dirs -Wundef -Wmissing-format-attribute -Wnested-externs -Wunreachable-code
-CFLAGS = -std=gnu99 -O1 -g -D"USE_X11" -D"USE_GCU" -DHAVE_MKSTEMP $(WARNINGS)
-LIBS = -lX11 -lcurses
+CFLAGS = -std=gnu99 -O1 -g -DHAVE_MKSTEMP $(WARNINGS)
+LIBS =
+
+ifeq ($(ENABLE_GCU),1)
+CFLAGS += -DUSE_GCU
+LIBS += -lcurses
+endif
+
+ifeq ($(ENABLE_X11),1)
+CFLAGS += -DUSE_X11
+LIBS += -lX11
+endif
 
 
 ##
