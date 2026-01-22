@@ -2539,7 +2539,7 @@ bool show_file(cptr name, cptr what, int line)
     return (ch != '?');
 }
 
-void show_help_screen(int i)
+static void show_help_screen(int i)
 {
     int row, col, col2;
 
@@ -3512,7 +3512,7 @@ static int highscore_write(const high_score* score)
  *
  * It ranges from 100,000 to 141,399,999
  */
-int score_points(high_score* score)
+static int score_points(high_score* score)
 {
     int points = 0;
     int silmarils;

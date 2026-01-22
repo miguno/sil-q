@@ -664,7 +664,7 @@ static void special_lighting_wall(byte* a, char* c, int feat, int info)
     }
 }
 
-int player_tile_offset(void)
+static int player_tile_offset(void)
 {
     object_type * main_wield_ptr = &inventory[INVEN_WIELD];
     object_type * secondary_wield_ptr = &inventory[INVEN_ARM];
@@ -2683,7 +2683,7 @@ void forget_view(void)
     view_n = fast_view_n;
 }
 
-bool same_side_of_wall_as_player(int y, int x, int fy, int fx)
+static bool same_side_of_wall_as_player(int y, int x, int fy, int fx)
 {
     int py = p_ptr->py;
     int px = p_ptr->px;

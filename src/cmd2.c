@@ -80,7 +80,7 @@ void note_lost_greater_vault(void)
  * It gets more likely the more stairs you have recently taken.
  * It is designed to stop you stair-scumming.
  */
-bool trapped_stairs(void)
+static bool trapped_stairs(void)
 {
     int chance;
 
@@ -3517,7 +3517,7 @@ static int breakage_chance(const object_type* o_ptr, bool hit_wall)
 /*
  *  Determines if a bow shoots radiant arrows and lights the current grid if so
  */
-bool do_radiance(int y, int x, const object_type* j_ptr)
+static bool do_radiance(int y, int x, const object_type* j_ptr)
 {
     bool radiance = FALSE;
 
