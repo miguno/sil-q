@@ -135,6 +135,11 @@ CFLAGS += -DUSE_X11
 LIBS += -lX11
 endif
 
+# Additional flags to append, such as when creating debug builds.
+# Example: make EXTRA_CFLAGS="-Werror -fsanitize=address -fsanitize=undefined"
+EXTRA_CFLAGS ?=
+CFLAGS += $(EXTRA_CFLAGS)
+
 
 ##
 ## Variation -- "main-x11.c" & "main-gcu.c" (for Mac OS X)
