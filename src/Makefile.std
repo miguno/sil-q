@@ -114,7 +114,8 @@ CC = gcc
 ##
 # OPT can be overridden, e.g.: make OPT="-O2"
 OPT = -O0 -g
-CFLAGS = -std=gnu99 $(OPT) -Wall -Wextra -D"USE_X11" -D"USE_GCU" -DHAVE_MKSTEMP
+WARNINGS = -Wall -Wextra
+CFLAGS = -std=gnu99 $(OPT) -D"USE_X11" -D"USE_GCU" -DHAVE_MKSTEMP $(WARNINGS)
 LIBS = -lX11 -lcurses
 
 
