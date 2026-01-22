@@ -19,7 +19,7 @@ static const char* races[] = {
 static const char* houses[] = { "Houseless", "Feanor", "Fingolfin", "Finarfin",
     "Doriath", "Nogrod", "Belegost", "Beor", "Haleth", "Hador", "Falas" };
 
-void updatecharinfoS(void)
+static void updatecharinfoS(void)
 {
     // File Output + Lookup Tables
     char tmp_Path[1024];

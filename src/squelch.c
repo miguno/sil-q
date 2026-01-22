@@ -1455,7 +1455,7 @@ static int do_ego_item_squelch(void)
  * accessed.  This can certainly be improved.
  */
 
-void init_tv_to_type(void)
+static void init_tv_to_type(void)
 {
     tv_to_type[TV_SKELETON] = TYPE_MISC;
     tv_to_type[TV_CHEST] = TYPE_MISC;
@@ -1817,7 +1817,7 @@ int remove_autoinscription(s16b kind)
 /*
  *  Uninscribes an object if its inscription matches the given autoinscription
  */
-void unapply_autoinscription(object_type* o_ptr, cptr note)
+static void unapply_autoinscription(object_type* o_ptr, cptr note)
 {
     cptr existingInscription = quark_str(o_ptr->obj_note);
 
@@ -1873,7 +1873,7 @@ extern void obliterate_autoinscription(s16b kind)
     return;
 }
 
-void autoinscribe_dungeon(void)
+static void autoinscribe_dungeon(void)
 {
     int i;
     object_type* o_ptr;
