@@ -145,8 +145,19 @@ wherever you like, such as your Mac's `Applications` folder.
 In a Finder window, navigate to where you placed `Sil.app`. Then double-click on
 it to run it.
 
+> NOTE: If you are on macOS 10.15 or later and haven't run Sil-Q before, the
+> macOS Gatekeeper security feature may prevent you from starting the Sil-Q app.
+> You may see a macOS dialog window "Sil-Q Not Opened" and a note about Apple
+> not being able to verify that the app is free of malware. In the dialog
+> window, click the button "Done" (not "Move to Trash"). Then go to your Mac's
+> `System Settings` > `Privacy & Security`, scroll all the way down to the
+> "Security" section, which will have an entry `"Sil-Q" was blocked to protect
+> your Mac.`. Here, click on the button "Open Anyway" and confirm that you do
+> want to launch Sil-Q.
+See [Safely open apps on your Mac](https://support.apple.com/en-us/102445) in the macOS documentation.
+
 > NOTE: If you are on macOS 10.15 or later and haven't run Sil-Q before, you
-> will see macOS dialog window about granting Sil-Q access to your `Documents`
+> will see a macOS dialog window about granting Sil-Q access to your `Documents`
 > folder. You must approve this access, because it is required by Sil-Q as it
 > stores its savefiles (your in-game characters), the high score file, and
 > additional game data in the folder `Documents/Sil/`.
