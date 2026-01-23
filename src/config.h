@@ -34,21 +34,6 @@
  */
 
 /*
- * OPTION: Use the POSIX "termios" methods in "main-gcu.c"
- */
-/* #define USE_TPOSIX */
-
-/*
- * OPTION: Use the "termio" methods in "main-gcu.c"
- */
-/* #define USE_TERMIO */
-
-/*
- * OPTION: Use the icky BSD "tchars" methods in "main-gcu.c"
- */
-/* #define USE_TCHARS */
-
-/*
  * OPTION: Include "ncurses.h" instead of "curses.h" in "main-gcu.c"
  */
 /* #define USE_NCURSES */
