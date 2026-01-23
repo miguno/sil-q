@@ -28,7 +28,7 @@ CFLAGS += $(EXTRA_CFLAGS)
 # Fix for bug #1663: Set the deployment target via environment variable
 # for the final link command. See http://grauonline.de/wordpress/?p=71
 # or http://stackoverflow.com/questions/5509885/creating-app-for-old-mac-from-new-mac-machine
-DEPLOYMENT_TARGET = MACOSX_DEPLOYMENT_TARGET=10.5
+DEPLOYMENT_TARGET = MACOSX_DEPLOYMENT_TARGET=10.6
 
 # Import user prefs
 # If you don't want to edit this file, put your module redefinitions
