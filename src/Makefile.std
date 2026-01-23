@@ -73,7 +73,18 @@ ENABLE_X11 ?= 1
 # Override on command line: make OPT="-O2"
 OPT ?= -O0 -g
 
-WARNINGS = -Wall -Wextra -Warray-bounds -Wbad-function-cast -Wdouble-promotion -Wfloat-equal -Wimplicit-fallthrough -Wpointer-arith -Wswitch-enum -Wold-style-declaration -Wold-style-definition -Wmissing-declarations -Wredundant-decls -Wpointer-arith -Wcast-align -Winline -Wmissing-include-dirs -Wundef -Wmissing-format-attribute -Wnested-externs -Wunreachable-code
+# Warnings supported by both gcc and clang.
+WARNINGS = -Wall -Wextra -Warray-bounds -Wbad-function-cast -Wdouble-promotion -Wfloat-equal -Wimplicit-fallthrough -Wpointer-arith -Wswitch-enum -Wmissing-declarations -Wredundant-decls -Wpointer-arith -Wcast-align -Winline -Wmissing-include-dirs -Wundef -Wmissing-format-attribute -Wnested-externs -Wunreachable-code
+# GCC-specific warnings (not supported by Clang).
+#
+# On macOS, the compiler at `/usr/bin/gcc` (when Xcode Development Tools are
+# installed), is actually clang, not gcc. Clang does not support certain
+# compiler flags, and this conditional helps to make sure that our users don't
+# run into clang-related build problems on macOS.
+ifneq ($(shell $(CC) --version 2>&1 | head -1 | grep -c "^gcc"),0)
+WARNINGS += -Wold-style-declaration -Wold-style-definition
+endif
+
 CFLAGS = -std=gnu99 -DHAVE_MKSTEMP $(WARNINGS) $(OPT)
 LIBS =
 
