@@ -246,6 +246,7 @@
 
 /*
  * OPTION: Person to bother if something goes wrong.
+ * TODO: Update MAINTAINER contact information.
  */
 #define MAINTAINER "sil@amirrorclear.net"
 
