@@ -29,8 +29,8 @@
  * compilation flags defined.  The second involves creating a
  * new "main-xxx.c" file, based on this sample file (or on any
  * existing "main-xxx.c" file), and comes in two flavors, based
- * on whether it contains a "main()" function (as in "main-mac.c"
- * and "main-win.c") or not (as in "main-gcu.c" or "main-x11.c").
+ * on whether it contains a "main()" function (as in "main-win.c")
+ * or not (as in "main-gcu.c" or "main-x11.c").
  *
  * If the "main-xxx.c" file includes its own "main()" function,
  * then you should NOT link in the "main.c" file, and your "main()"

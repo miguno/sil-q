@@ -300,14 +300,6 @@ FILE* my_fopen(cptr file, cptr mode)
     /* Attempt to fopen the file anyway */
     fff = fopen(buf, mode);
 
-#if defined(MACH_O_CARBON)
-
-    /* Set file creator and type */
-    if (fff && strchr(mode, 'w'))
-        fsetfileinfo(buf, _fcreator, _ftype);
-
-#endif
-
     /* Return open file or NULL */
     return (fff);
 }
@@ -445,18 +437,6 @@ errr my_fgets(FILE* fff, char* buf, size_t n)
             /* Success */
             return (0);
         }
-
-#if defined(MACH_O_CARBON)
-
-        /*
-         * Be nice to the Macintosh, where a file can have Mac or Unix
-         * end of line, especially since the introduction of OS X.
-         * MPW tools were also very tolerant to the Unix EOL.
-         */
-        if (c == '\r')
-            c = '\n';
-
-#endif /* MACH_O_CARBON */
 
         /* End of line */
         if (c == '\n')
@@ -618,14 +598,6 @@ int fd_make(cptr file, int mode)
 
     /* Create the file, fail if exists, write-only, binary */
     fd = open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY, mode);
-
-#if defined(MACH_O_CARBON)
-
-    /* Set file creator and type */
-    if (fd >= 0)
-        fsetfileinfo(buf, _fcreator, _ftype);
-
-#endif
 
     /* Return descriptor */
     return (fd);
