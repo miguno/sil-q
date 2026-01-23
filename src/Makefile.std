@@ -11,9 +11,6 @@
 # for use with Unix machines running X11, gtk, (n)curses, termcap,
 # or VT100, or SVGA library.
 #
-# Note that "main-crb.c", the visual module for the Macintosh,
-# must be compiled in a special way, see elsewhere.
-#
 # Note that "main-win.c", the visual module for Windows,
 # must be compiled in a special way, see elsewhere.
 
