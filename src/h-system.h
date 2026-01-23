@@ -22,7 +22,7 @@
 
 #include <sys/types.h>
 
-#if defined(linux)
+#if defined(__linux__)
 #include <sys/time.h>
 #endif
 
@@ -45,7 +45,7 @@
 #include <sys/param.h>
 #include <sys/file.h>
 
-#ifdef linux
+#ifdef __linux__
 #include <sys/file.h>
 #endif
 
