@@ -7,9 +7,8 @@
 # To do so, make sure the appropriate section of "Variations" is
 # uncommented (and only that section).
 #
-# This Makefile is intended
-# for use with Unix machines running X11, gtk, (n)curses, termcap,
-# or VT100, or SVGA library.
+# This Makefile is intended for use with Unix machines running X11, gtk, or
+# (n)curses.
 #
 # Note that "main-win.c", the visual module for Windows,
 # must be compiled in a special way, see elsewhere.
