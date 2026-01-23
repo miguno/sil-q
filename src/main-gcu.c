@@ -66,11 +66,11 @@
 #if defined(_POSIX_VERSION)
 #define USE_TPOSIX
 #else /* defined(_POSIX_VERSION) */
-#if defined(linux)
+#if defined(__linux__)
 #define USE_TERMIO
 #else
 #define USE_TCHARS
-#endif /* defined(linux) */
+#endif /* defined(__linux__) */
 #endif /* defined(_POSIX_VERSION) */
 #endif /* !defined(USE_TERMIO) && !defined(USE_TCHARS) */
 #endif /* !defined(USE_TPOSIX) */
