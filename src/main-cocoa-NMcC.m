@@ -16,8 +16,3 @@
  */
 
 #include "angband.h"
-
-#if BORG
-#include "borg1.h"
-#include "borg9.h"
-#endif
