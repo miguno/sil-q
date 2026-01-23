@@ -5473,15 +5473,6 @@ void signals_init(void)
     (void)(*signal_aux)(SIGEMT, handle_signal_abort);
 #endif
 
-/*
- * SIGDANGER:
- * This is not a common (POSIX, SYSV, BSD) signal, it is used by AIX(?) to
- * signal that the system will soon be out of memory.
- */
-#ifdef SIGDANGER
-    (void)(*signal_aux)(SIGDANGER, handle_signal_abort);
-#endif
-
 #ifdef SIGSYS
     (void)(*signal_aux)(SIGSYS, handle_signal_abort);
 #endif
