@@ -723,8 +723,6 @@ extern s32b artefact_power(int a_idx);
 extern void build_randart_tables(void);
 extern void free_randart_tables(void);
 extern errr do_randart(u32b randart_seed, bool full);
-extern bool make_one_randart(
-    object_type* o_ptr, int art_power, bool namechoice);
 extern void artefact_wipe(int a_idx);
 extern bool can_be_randart(const object_type* o_ptr);
 
