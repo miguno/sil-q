@@ -83,6 +83,12 @@ jobs:
           cd src
           make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS="x86_64 arm64" OPT="-O2" EXTRA_CFLAGS="-Werror"
 
+      - name: Update version file with build information
+        run: bin/update-version-file.sh
+
+      - name: Update version file with build information
+        run: bin/version.sh
+
       - name: Verify build
         run: |
           ls -la Sil.app
