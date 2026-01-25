@@ -29,7 +29,7 @@ jobs:
       - name: Build with with curses/ncurses support and release flags
         run: |
           cd src
-          make -f Makefile.std -j$(sysctl -n hw.ncpu) OPT="-O2" CFLAGS="-Wall $(OPT) -DUSE_GCU" LIBS="-lcurses"
+          make -f Makefile.std -j$(sysctl -n hw.ncpu) OPT="-O2" ENABLE_X11=0 EXTRA_CFLAGS="-Werror"
           mv sil ../sil
 
       - name: Verify build
@@ -81,8 +81,7 @@ jobs:
       - name: Build with release flags (x86_64 and arm64)
         run: |
           cd src
-          # TODO: Add `-Werror` once all compiler warnings are fixed.
-          make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS="x86_64 arm64" OPT="-O2"
+          make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS="x86_64 arm64" OPT="-O2" EXTRA_CFLAGS="-Werror"
 
       - name: Verify build
         run: |

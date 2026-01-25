@@ -30,7 +30,7 @@ jobs:
       - name: Build with release flags
         run: |
           cd src
-          make -f Makefile.std -j$(nproc) OPT="-O2"
+          make -f Makefile.std -j$(nproc) OPT="-O2" EXTRA_CFLAGS="-Werror"
           mv sil ../sil
 
       - name: Verify build
