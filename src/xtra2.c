@@ -4185,8 +4185,8 @@ bool target_set_interactive(int mode, int range)
 
                 y = py;
                 x = px;
+                break;
             }
-            /* FALLTHRU */
 
             case 'm':
             {
@@ -4351,8 +4351,8 @@ bool target_set_interactive(int mode, int range)
 
                 y = py;
                 x = px;
+                break;
             }
-            /* FALLTHRU */
             case 'a':
             {
                 flag = TRUE;
