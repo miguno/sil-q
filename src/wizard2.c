@@ -1379,8 +1379,8 @@ static void do_cmd_wiz_forget(void)
                 object_known(o_ptr);
                 break;
             }
+            __attribute__((fallthrough));
         }
-        /* FALLTHRU */
         default:
         {
             if (!(k_ptr->flags3 & (TR3_EASY_KNOW)))
@@ -1433,8 +1433,8 @@ static void do_cmd_wiz_forget(void)
                 object_known(o_ptr);
                 break;
             }
+            __attribute__((fallthrough));
         }
-        /* FALLTHRU */
         default:
         {
             if (!(k_ptr->flags3 & (TR3_EASY_KNOW)))
