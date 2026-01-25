@@ -32,7 +32,7 @@ jobs:
         run: |
           cd src
           # TODO: Add `-Werror` once all compiler warnings are fixed.
-          env OPT="-Wall -O0" make -f Makefile.cocoa ARCHS="x86_64 arm64" -j$(sysctl -n hw.ncpu)
+          env OPT="-Wall -O0" make -f Makefile.cocoa ARCHS="x86_64 arm64" -j$(sysctl -n hw.ncpu) EXTRA_CFLAGS="-Werror"
 
   release-build:
     # NOTE: The macOS version mentioned here must match `DEPLOYMENT_TARGET`

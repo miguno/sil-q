@@ -32,7 +32,7 @@ jobs:
       - name: Build with ncurses and X11 support
         run: |
           cd src
-          make -f Makefile.std -j$(nproc)
+          make -f Makefile.std -j$(nproc) EXTRA_CFLAGS="-Werror"
 
   release-build:
     name: Linux Release Build

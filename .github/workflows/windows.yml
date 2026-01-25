@@ -46,7 +46,7 @@ jobs:
       - name: Build
         run: |
           cd src
-          make -f Makefile.cyg PEFORMAT=${{ matrix.peformat }}
+          make -f Makefile.cyg PEFORMAT=${{ matrix.peformat }} EXTRA_CFLAGS="-Werror"
           mv sil.exe ../sil.exe
 
       - name: Verify build
