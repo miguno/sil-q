@@ -63,13 +63,16 @@ jobs:
           cd src
           make -f Makefile.cocoa ARCHS="x86_64 arm64" -j$(sysctl -n hw.ncpu) OPT="-O2" EXTRA_CFLAGS="-Werror"
 
+      - name: Update version file with build information
+        run: bin/version.sh
+
       - name: Verify build
         run: |
           ls -la Sil.app
           file Sil.app/Contents/MacOS/sil
 
       - name: Create archive
-        run: zip -r Sil-Q-macos.zip Sil.app
+        run: zip -r Sil-Q-macos.zip Sil.app Sil-Q-version.txt "Sil-Q v1.5.0.pdf"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v6
