@@ -4335,9 +4335,6 @@ int project_path(
 
     s16b g;
 
-    /* Pointer to vinfo data */
-    vinfo_type* p;
-
     /* Handle projections of zero length */
     if ((range <= 0) || ((*y2 == y1) && (*x2 == x1)))
         return (0);
@@ -4427,7 +4424,7 @@ int project_path(
         s16b vy, vx;
 
         /* Point to this vinfo record */
-        p = &vinfo[j];
+        vinfo_type* p = &vinfo[j];
 
         /* Extract grid value */
         g = g0 + p->grid[octant];
@@ -4466,7 +4463,7 @@ int project_path(
         line_fire = FALSE;
 
         /* Point to this vinfo record */
-        p = &vinfo[j];
+        vinfo_type* p = &vinfo[j];
 
         /* See if any lines of sight pass through this grid */
         if (!((bits0 & (p->bits_0)) || (bits1 & (p->bits_1))
@@ -4479,7 +4476,7 @@ int project_path(
          * Extract grid value.  Use pointer shifting to get the
          * correct grid offset for this octant.
          */
-        g = g0 + *((s16b*)(((byte*)(p)) + (octant * 2)));
+        g = g0 + p->grid[octant];
 
         y = GRID_Y(g);
         x = GRID_X(g);
