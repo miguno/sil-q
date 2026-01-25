@@ -633,7 +633,9 @@ int main(int argc, char* argv[])
                     process_player_name(TRUE);
                     break;
                 case 4:
+                    /* Free resources */
                     cleanup_angband();
+                    /* Quit */
                     quit(NULL);
                     break;
                 }
@@ -658,15 +660,6 @@ int main(int argc, char* argv[])
         // game no longer in progress
         game_in_progress = FALSE;
     }
-
-    /* Free resources */
-    cleanup_angband();
-
-    /* Quit */
-    quit(NULL);
-
-    /* Exit */
-    return (0);
 }
 
 #endif /* !defined(WINDOWS) */
