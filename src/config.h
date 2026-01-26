@@ -253,6 +253,16 @@
 #define DEFAULT_X11_FONT_7 "5x8"
 
 /*
+ * Hack -- Mach-O (native binary format of OS X) is basically a Un*x
+ * but has Mac OS/Windows-like user interface
+ */
+#ifdef MACH_O_CARBON
+#ifdef SAVEFILE_USE_UID
+#undef SAVEFILE_USE_UID
+#endif
+#endif
+
+/*
  * OPTION: Attempt to prevent all "cheating"
  */
 /* #define VERIFY_HONOR */
