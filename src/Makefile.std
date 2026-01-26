@@ -33,7 +33,7 @@ ENABLE_X11 ?= 1
 # Override on command line: make ENABLE_GTK=0
 ENABLE_GTK ?= 0
 
-# Override on command line: make OPT="-O2"
+# Override on command line: make OPT="-O2 -DDEBUG"
 OPT ?= -O0 -g
 
 # Warnings supported by both gcc and clang.
