@@ -5,7 +5,7 @@ sil
 src/sil
 src/sil.o.arm64
 src/sil.o.x86_64
-Sil.app
+/Sil.app
 # Same as `src/sil`
-sil
+/sil
 .DS_Store
