@@ -62,7 +62,7 @@ OSX_OBJS = main-cocoa.o
 
 
 #
-# Build the "Angband" program
+# Build the "Sil" program
 #
 # TODO: Eventually add `-platform_version macos 11.0.0 11.0.0` (with appropriate
 # macOS version to fix ld warning:
