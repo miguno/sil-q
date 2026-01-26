@@ -1,4 +1,4 @@
-/* File: main-cocoa.m */
+/* File: main-cocoa-NMcC.m */
 
 /*
  * Copyright (c) 2011 Peter Ammon
