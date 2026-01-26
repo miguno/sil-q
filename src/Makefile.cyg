@@ -10,9 +10,21 @@
 CC = gcc
 WRES = windres
 LIBS = -s -mwindows -e _mainCRTStartup -lwinmm -lmsimg32
-CFLAGS = -std=c99 -Wall -Wextra -O2 -DWINDOWS
-# `pe-i386`   - for i686 (32-bit), MINGW32
-# `pe-x86-64` - for x86_64 (64-bit), MINGW64
+
+# Override on command line: make OPT="-O2 -DDEBUG"
+OPT ?= -O0 -g
+
+WARNINGS = -Wall -Wextra
+
+CFLAGS = -std=c99 $(OPT) $(WARNINGS) -DWINDOWS
+
+# Additional flags to append, such as when creating debug builds.
+# Example: make EXTRA_CFLAGS="-Werror -fsanitize=address -fsanitize=undefined"
+EXTRA_CFLAGS ?=
+CFLAGS += $(EXTRA_CFLAGS)
+
+# pe-i386   - for i686 (32-bit) builds, MINGW32
+# pe-x86-64 - for x86_64 (64-bit) builds, MINGW64
 PEFORMAT = pe-i386
 
 EXOBJS = \
