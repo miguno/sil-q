@@ -50,8 +50,10 @@ endif
 all: install
 
 
-# Note that Makefile.inc sets VERSION, and so we must run version.sh after
-# including Makefile.inc
+# NOTE: Makefile.inc sets VERSION. So if we want to dynamically inject
+# additional version information such as the git commit hash (similar to what
+# Angband does in its scripts/version.sh), we must do that after including
+# Makefile.inc.
 include Makefile.inc
 
 APPNAME = $(NAME).app
