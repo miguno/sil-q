@@ -39,11 +39,6 @@ CFLAGS += $(EXTRA_CFLAGS)
 # look for the output related to the LC_VERSION_MIN_MACOSX load command.
 DEPLOYMENT_TARGET = MACOSX_DEPLOYMENT_TARGET=10.6
 
-# Import user prefs
-# If you don't want to edit this file, put your module redefinitions
-# and build flags in "./config"
--include config
-
 # Check for autoconf.h; do not warn on nonexistence
 autoconf= $(wildcard autoconf.h)
 ifneq ($(autoconf),)
