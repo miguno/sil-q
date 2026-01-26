@@ -143,7 +143,6 @@ CFLAGS += $(EXTRA_CFLAGS)
 #
 # The "source" and "object" files.
 #
-
 SRCS = \
   z-util.c z-virt.c z-form.c z-rand.c z-term.c \
   variable.c tables.c util.c cave.c \
@@ -186,7 +185,6 @@ all: sil
 #
 # Install the game.
 #
-
 install: sil
 	cp sil ..
 
@@ -194,7 +192,6 @@ install: sil
 #
 # Build the "Sil" program
 #
-
 sil: $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o sil $(OBJS) $(LIBS)
 
@@ -202,14 +199,12 @@ sil: $(OBJS)
 #
 # Clean up old junk
 #
-
 clean:
 	-rm -f *.o sil
 
 #
 # Generate dependencies automatically
 #
-
 depend:
 	makedepend -D__MAKEDEPEND__ $(SRCS)
 
@@ -217,7 +212,6 @@ depend:
 #
 # Hack -- some file dependencies
 #
-
 HDRS = \
   h-basic.h \
   h-define.h h-type.h h-system.h h-config.h
