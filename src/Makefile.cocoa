@@ -1,13 +1,12 @@
 # File: Makefile.cocoa
 
-# This is a Makefile for Mac OS X Cocoa port of Angband.
+# This is a Makefile for the Cocoa port of Sil-Q to build a natice macOS app.
+# It requires Clang (typically from Xcode Developer Tools) as its build
+# toolchain.
 #
-# Based on Makefile.osx
+# If instead you want to build a version of Sil-Q that runs in the terminal
+# with curses/ncurses, see `Makefile.std`.
 
-# default target
-all: install
-
-# settings
 CC = clang
 LD = ld
 OPT ?= -O2
@@ -45,6 +44,11 @@ autoconf= $(wildcard autoconf.h)
 ifneq ($(autoconf),)
 CFLAGS += -DHAVE_CONFIG_H
 endif
+
+# Default target
+#
+all: install
+
 
 # Note that Makefile.inc sets VERSION, and so we must run version.sh after
 # including Makefile.inc
