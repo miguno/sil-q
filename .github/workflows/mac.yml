@@ -17,6 +17,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build-console:
+    name: Console (GCU) Build
+    runs-on: macos-latest
+    steps:
+      - name: Clone project
+        uses: actions/checkout@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build with ncurses support
+        run: |
+          cd src
+          make -f Makefile.std -j$(sysctl -n hw.ncpu) EXTRA_CFLAGS="-Werror" ENABLE_X11=0
+
   build:
     # NOTE: The macOS version mentioned here must match `DEPLOYMENT_TARGET`
     # defined in Makefile.cocoa.
