@@ -1,45 +1,22 @@
 # File: Makefile.std
 
-# You may have to make modifications below according
-# to your machine, available libraries, compilation options,
-# and your "visual module" of choice (such as X11).
+# This is a Makefile for Unix/Linux/macOS machines running X11, curses/ncurses,
+# or GTK.
 #
-# To do so, make sure the appropriate section of "Variations" is
-# uncommented (and only that section).
+# - For the macOS Cocoa port, see `Makefile.cocoa`.
+# - For the Microsoft Windows port, see `Makefile.cyg`.
 #
-# This Makefile is intended for use with Unix machines running X11, gtk, or
-# (n)curses.
+# No changes to this file are needed for most modern Linux and macOS machines to
+# compile a version that will run on both X11 and Curses, with many compiler
+# warnings enabled.
 #
-# Note that "main-win.c", the visual module for Windows,
-# must be compiled in a special way, see elsewhere.
-
-
-##
-## Following are some "system" definitions
-##
-## No changes are needed to compile a version that will run on both
-## X11 and Curses, in debugging mode, with many compiler warnings, on many
-## normal Unix machines including Linux and macOS.
-##
-## To use an "alternative" definition, simply "modify" (or "replace")
-## the definition below with one that you like.  For example, you can
-## change the compiler to "cc", or remove the "debugging" options, or
-## remove the X11 or Curses support, etc, as desired.
-##
-## See also "config.h" and "h-config.h" for important information.
-##
-## Some "examples" are given below, they can be used by simply
-## removing the FIRST column of "#" signs from the "block" of lines
-## you wish to use, and commenting out "standard" block below.
-##
-## This is not intended to be a "good" Makefile, just a "simple" one.
-##
+# See also "config.h" and "h-config.h" for additional settings and information.
+#
 
 
 # NOTE: On modern macOS with Developer Tools installed, gcc (/usr/bin/gcc)
 # is actually clang. You can verify with `gcc -version`.
 CC = gcc
-
 
 # To conveniently set CFLAGS and LIBS for GCU (ncurses terminal) support.
 # Uses "main-gcu.c".
