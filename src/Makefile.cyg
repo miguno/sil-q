@@ -81,7 +81,6 @@ INCS = \
 # Targets
 #
 
-
 default: sil
 
 install: sil movebin cleanobjs lineendings
@@ -101,7 +100,6 @@ cleanbin:
 clean:	cleanobjs cleanbin
 
 
-
 #
 # Dependency rules
 #
@@ -112,6 +110,7 @@ sil: $(EXOBJS)
 
 #
 # Compiling sil.rc
+#
 
 sil.res : sil.rc
 	$(WRES) $< -O coff -F $(PEFORMAT) -o $@
@@ -193,11 +192,8 @@ object2.o: object2.c $(INCS)
 randart.o: randart.c $(INCS) init.h
 	$(CC) $(CFLAGS) $(INCDIRS) -c -o $@ $<
 
-#
 # Note the additional -DNEAR= flag to cope with the 'NEAR'
 # keyword used in readdib.c
-#
-
 readdib.o: readdib.c readdib.h
 	$(CC) $(CFLAGS) -DNEAR= $(INCDIRS) -c -o $@ $<
 
