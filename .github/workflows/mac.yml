@@ -26,10 +26,54 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build with ncurses support
+      - name: Build with curses/ncurses support
         run: |
           cd src
           make -f Makefile.std -j$(sysctl -n hw.ncpu) EXTRA_CFLAGS="-Werror" ENABLE_X11=0
+
+  release-build-console:
+    name: Console (GCU) Release Build
+    runs-on: macos-latest
+    steps:
+      - name: Clone project
+        uses: actions/checkout@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build with with curses/ncurses support and release flags
+        run: |
+          cd src
+          make -f Makefile.std -j$(sysctl -n hw.ncpu) OPT="-O2" EXTRA_CFLAGS="-Werror" ENABLE_X11=0
+          mv sil ../sil
+
+      - name: Update version file with build information
+        run: bin/version.sh
+
+      - name: Verify build
+        run: |
+          ls -la sil
+          file sil
+          ./sil -h
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: Sil-Q-macos-console
+          # IMPORTANT: Do NOT use quotes to escape spaces in filenames.
+          path: |
+            sil
+            lib
+            LICENSE.md
+            README.md
+            Sil-Q-version.txt
+            Sil-Q v1.5.0.pdf
+          # Otherwise directories such as `lib/apex/` are excluded, which only
+          # contain a stub `.keepalive` file.  Without these pre-generated
+          # directories, the game will have problems at run-time.
+          #
+          # TODO: Update game logic to auto-create directories like `lib/apex`
+          #       if needed, then remove this workaround.
+          include-hidden-files: true
 
   build:
     # NOTE: The macOS version mentioned here must match `DEPLOYMENT_TARGET`
@@ -45,7 +89,7 @@ jobs:
       - name: Build (x86_64 and arm64)
         run: |
           cd src
-          make -f Makefile.cocoa ARCHS="arm64" -j$(sysctl -n hw.ncpu)  OPT="-Wall -O0" EXTRA_CFLAGS="-Werror"
+          make -f Makefile.cocoa ARCHS="x86_64 arm64" -j$(sysctl -n hw.ncpu) OPT="-O0 -g" EXTRA_CFLAGS="-Werror"
 
   release-build:
     # NOTE: The macOS version mentioned here must match `DEPLOYMENT_TARGET`
@@ -79,3 +123,10 @@ jobs:
         with:
           name: Sil-Q-macos.zip
           path: Sil-Q-macos.zip
+          # Otherwise directories such as `lib/apex/` are excluded, which only
+          # contain a stub `.keepalive` file.  Without these pre-generated
+          # directories, the game will have problems at run-time.
+          #
+          # TODO: Update game logic to auto-create directories like `lib/apex`
+          #       if needed, then remove this workaround.
+          include-hidden-files: true
