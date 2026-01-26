@@ -61,7 +61,7 @@ endif
 # See "main-gcu.c" and "config.h" for some optional "curses" defines,
 # Note that "config.h" will attempt to "guess" at many of these flags
 # based on your system.
-CFLAGS = -std=gnu99 -DHAVE_MKSTEMP $(WARNINGS) $(OPT)
+CFLAGS = -std=gnu99 -DHAVE_MKSTEMP $(OPT) $(WARNINGS)
 LIBS =
 
 ifeq ($(ENABLE_GCU),1)
