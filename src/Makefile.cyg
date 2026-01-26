@@ -1,6 +1,7 @@
-# This is a makefile for the Cygwin tools which may
-# be downloaded by following the links from the URL:
-# http://sources.redhat.com/cygwin/
+# File: Makefile.cyg
+
+# This is a Makefile for the Microsoft Windows port of Sil-Q.
+# It requires Cygwin (https://www.cygwin.com) as its build toolchain.
 
 #
 # Standard defines
