@@ -90,6 +90,7 @@ jobs:
           mv sil.exe ../sil.exe
 
       - name: Update version file with build information
+        shell: bash
         run: bin/version.sh
 
       - name: Verify build
