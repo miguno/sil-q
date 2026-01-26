@@ -241,7 +241,7 @@ header c_head;
 header h_head;
 header g_head;
 header flavor_head;
-header q_head;
+header q_head; /* unused as of Jan 2026 */
 header n_head;
 
 /*** Initialize from binary image files ***/
