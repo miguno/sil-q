@@ -64,7 +64,14 @@ OSX_OBJS = main-cocoa.o
 #
 # Build the "Angband" program
 #
-
+# TODO: Eventually add `-platform_version macos 11.0.0 11.0.0` (with appropriate
+# macOS version to fix ld warning:
+#    ld: warning: no platform load command found in '.../src/sil.o', assuming: macOS
+# in the `$(LD) -r arch $$A ...` command of the for-loop.
+# Setting the version to 11.0.0+, however, will cause compiler warnings about
+# the use of deprecated functions in main-cocoa.m. Example warning:
+#    main-cocoa.m:2483:9: error: 'NSDisableScreenUpdates' is deprecated: first deprecated in macOS 10.11 - [...]
+#
 
 $(EXE).o: $(OBJS)
 	@for A in $(ARCHS); do \
