@@ -41,34 +41,20 @@
 CC = gcc
 
 
-#
-# Standard version (see main-x11.c and main-gcu.c)
-#
-# This version supports both "X11" and "curses" in a single executable.
-#
-# You may have to add various X11 include/library directories to the
-# "CFLAGS", if your machine places files in a weird location.
-#
-# You may have to replace "-lcurses" with "-lncurses" to use the
-# "new curses" library instead of the "old curses" library, and
-# you may have to add "-I/usr/include/ncurses" to the "CFLAGS".
-#
-# See "main-gcu.c" and "config.h" for some optional "curses" defines,
-# Note that "config.h" will attempt to "guess" at many of these flags
-# based on your system.
-#
-
-##
-## Standard -- "main-x11.c" & "main-gcu.c"
-##
-
 # To conveniently set CFLAGS and LIBS for GCU (ncurses terminal) support.
+# Uses "main-gcu.c".
 # Override on command line: make ENABLE_GCU=0
 ENABLE_GCU ?= 1
 
 # To conveniently set CFLAGS and LIBS for X11 support.
+# Uses "main-x11.c".
 # Override on command line: make ENABLE_X11=0
 ENABLE_X11 ?= 1
+
+# To conveniently set CFLAGS and LIBS for GTK support (untested).
+# Uses "main-gtk.c".
+# Override on command line: make ENABLE_GTK=0
+ENABLE_GTK ?= 0
 
 # OPT can be overridden, e.g.: make OPT="-O2"
 OPT = -O0 -g
@@ -85,6 +71,19 @@ ifneq ($(shell $(CC) --version 2>&1 | head -1 | grep -c "^gcc"),0)
 WARNINGS += -Wold-style-declaration -Wold-style-definition
 endif
 
+# You may have to add various X11 include/library directories to the
+# "CFLAGS", if your machine places files in a weird location.
+#
+# NOTE: Additional flags are added by default a bit further down below depending
+# on whether ENABLE_GCU, ENABLE_X11, and ENABLE_GTK are set to 1.
+#
+# You may have to replace "-lcurses" with "-lncurses" to use the
+# "new curses" library instead of the "old curses" library, and
+# you may have to add "-I/usr/include/ncurses" to the "CFLAGS".
+#
+# See "main-gcu.c" and "config.h" for some optional "curses" defines,
+# Note that "config.h" will attempt to "guess" at many of these flags
+# based on your system.
 CFLAGS = -std=gnu99 -DHAVE_MKSTEMP $(WARNINGS) $(OPT)
 LIBS =
 
@@ -98,46 +97,16 @@ CFLAGS += -DUSE_X11
 LIBS += -lX11
 endif
 
+ifeq ($(ENABLE_GTK),1)
+# gtk-config adds GTK and X11 includes and libraries as appropriate.
+CFLAGS += `gtk-config --cflags`
+LIBS += `gtk-config --libs`
+endif
+
 # Additional flags to append, such as when creating debug builds.
 # Example: make EXTRA_CFLAGS="-Werror -fsanitize=address -fsanitize=undefined"
 EXTRA_CFLAGS ?=
 CFLAGS += $(EXTRA_CFLAGS)
-
-
-##
-## Variation -- "main-x11.c" & "main-gcu.c" (for Mac OS X)
-##
-#CFLAGS = -Wall -O1 -pipe -g -D"USE_X11" -D"USE_GCU"
-#LIBS = -L/usr/X11/lib -lX11 -lcurses
-
-
-##
-## Variation -- "main-x11.c"
-##
-#CFLAGS = -Wall -O1 -pipe -g -D"USE_X11"
-#LIBS = -lX11
-
-
-##
-## Variation -- "main-x11.c" (for Mac OS X)
-##
-#CFLAGS = -Wall -O1 -pipe -g -D"USE_X11"
-#LIBS = -L/usr/X11/lib -lX11
-
-
-##
-## Variation -- "main-gcu.c"
-##
-#CFLAGS = -Wall -O1 -pipe -g -D"USE_GCU"
-#LIBS = -lcurses
-
-
-##
-## Variation -- "main-gtk.c" & "main-gcu.c"
-## Note: gtk-config adds GTK and X11 includes and libraries as appropriate.
-##
-#CFLAGS = -Wall -O `gtk-config --cflags` -g -D"USE_GTK" -D"USE_GCU"
-#LIBS = `gtk-config --libs` -lcurses
 
 
 #
