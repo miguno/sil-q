@@ -565,6 +565,7 @@ int main(int argc, char* argv[])
         {
             printf("%s version %s\n", VERSION_NAME, VERSION_STRING);
             quit(NULL);
+            break;
         }
 
         case '-':
