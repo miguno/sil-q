@@ -3,7 +3,7 @@
 # File: verify-tutorial.sh
 #
 # Verifies that the tutorial savefile's version header matches the expected
-# game version from Sil-Q-version.txt.
+# game version from src/defines.h.
 
 set -euo pipefail
 
@@ -11,18 +11,24 @@ set -euo pipefail
 readonly SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 # shellcheck disable=SC2155
 readonly PROJECT_DIR=$(readlink -f "$SCRIPT_DIR/..")
-readonly VERSION_FILE="$PROJECT_DIR/Sil-Q-version.txt"
+readonly DEFINES_H="$PROJECT_DIR/src/defines.h"
 readonly TUTORIAL_SAVEFILE="$PROJECT_DIR/lib/xtra/tutorial"
 
-# Get expected a.b.c.d version from version file.
-expected_version=$(grep '^Sil-Q version:' "$VERSION_FILE" | sed -n 's/.*(\([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\)).*/\1/p')
+# Get expected a.b.c.d version from src/defines.h.
+expected_major=$(grep '#define VERSION_MAJOR ' "$DEFINES_H" | sed 's/.*MAJOR[[:space:]]*//')
+expected_minor=$(grep '#define VERSION_MINOR ' "$DEFINES_H" | sed 's/.*MINOR[[:space:]]*//')
+expected_patch=$(grep '#define VERSION_PATCH ' "$DEFINES_H" | sed 's/.*PATCH[[:space:]]*//')
+expected_extra=$(grep '#define VERSION_EXTRA ' "$DEFINES_H" | sed 's/.*EXTRA[[:space:]]*//')
+expected_version="${expected_major}.${expected_minor}.${expected_patch}.${expected_extra}"
+
 # Get actual a.b.c.d version from tutorial savefile.
-actual_version=$("$SCRIPT_DIR/savefile.sh" "$TUTORIAL_SAVEFILE" | sed -n 's/.*: \([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\).*/\1/p')
+# shellcheck disable=SC2155
+readonly actual_version=$("$SCRIPT_DIR/savefile.sh" "$TUTORIAL_SAVEFILE" | sed -n 's/.*: \([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\).*/\1/p')
 
 echo "Tutorial savefile version: expected=$expected_version, actual=$actual_version"
 
 if [ "$expected_version" != "$actual_version" ]; then
-    echo "ERROR: tutorial savefile version mismatch (expected $expected_version, was $actual_version)" >&2
+    echo "ERROR: Tutorial savefile version mismatch (expected $expected_version, was $actual_version)" >&2
     exit 1
 fi
 
