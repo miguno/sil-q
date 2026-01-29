@@ -46,8 +46,6 @@ ifneq ($(autoconf),)
 CFLAGS += -DHAVE_CONFIG_H
 endif
 
-# Note that Makefile.inc sets VERSION, and so we must run version.sh after
-# including Makefile.inc
 include Makefile.inc
 
 APPNAME = $(NAME).app
