@@ -44,6 +44,10 @@ jobs:
       - name: Verify tutorial savefile
         run: bin/verify-tutorial.sh
 
+      - name: Remove outdated PDF manuals
+        run: |
+          rm lib/docs/*.pdf
+
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
