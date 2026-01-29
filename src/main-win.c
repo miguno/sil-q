@@ -3403,7 +3403,7 @@ static LRESULT FAR PASCAL AngbandWndProc(
         if ((HWND)wParam == hWnd)
             return 0;
 
-        /* Fall through... */
+        __attribute__((fallthrough));
     }
 
     case WM_QUERYNEWPALETTE:
@@ -3642,7 +3642,8 @@ static LRESULT FAR PASCAL AngbandListProc(
         /* ignore if palette change caused by itself */
         if ((HWND)wParam == hWnd)
             return FALSE;
-        /* otherwise, fall through!!! */
+
+        __attribute__((fallthrough));
     }
 
     case WM_QUERYNEWPALETTE:
