@@ -13,29 +13,28 @@ set -euo pipefail
 readonly SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 # shellcheck disable=SC2155
 readonly PROJECT_DIR=$(readlink -f "$SCRIPT_DIR/..")
-readonly VERSION_FILE="$PROJECT_DIR/Sil-Q-version.txt"
+readonly DEFINES_H="$PROJECT_DIR/src/defines.h"
 readonly SIL_BINARY="$PROJECT_DIR/sil"
 
 ###
 ### Test 1: Check the version + whether the binary can run at all
 ###
 
-# Get expected version from the version file.
-expected_version=$(grep '^Sil-Q version:' "$VERSION_FILE" | sed 's/^Sil-Q version:[[:space:]]*//' | sed 's/[[:space:]]*(.*//')
+# Get expected version from src/defines.h.
+expected_version=$(grep '#define VERSION_STRING' "$DEFINES_H" | sed 's/.*"\(.*\)"/\1/')
 if [[ -z "$expected_version" ]]; then
-    echo "[ERROR] Could not read version from $VERSION_FILE" >&2
+    echo "[ERROR] Could not read VERSION_STRING from $DEFINES_H" >&2
     exit 1
 fi
 
 # Get actual version by running sil and capturing its version output.
 print_version_command="$SIL_BINARY -v"
 actual_output=$(eval "$print_version_command")
-actual_output=$("$SIL_BINARY" -v)
 actual_version=${actual_output#"Sil-Q version "}
 
 if [[ "$actual_version" != "$expected_version" ]]; then
     echo "[ERROR] Version mismatch" >&2
-    echo -e "  Expected: $expected_version\t(from $VERSION_FILE)" >&2
+    echo -e "  Expected: $expected_version\t(from $DEFINES_H)" >&2
     echo -e "  Actual:   $actual_version\t(from $print_version_command)" >&2
     exit 1
 fi
