@@ -8,7 +8,8 @@
 # - Makefile.cocoa (macOS native app, using the Cocoa API)
 # - Makefile.cyg   (Microsoft Windows)
 
-# The human-readable name of the game
+# The human-readable name of the game.
+# Do not use spaces in the name.
 NAME = Sil
 
 # NOTE: Updating the version number requires modifying additional files.
@@ -19,6 +20,9 @@ COPYRIGHT = half & Scatha
 
 # The name of the executable to run the game
 PROG = sil
+
+# The name of the bundled version.txt file.
+VERSION_FILE = Sil-Q-version.txt
 
 #
 # Low-level header files
