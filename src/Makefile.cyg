@@ -25,7 +25,7 @@ LIBS = -s -mwindows -lwinmm -lmsimg32
 # OPT can be overridden, e.g.: make OPT="-O2"
 OPT = -O0 -g
 WARNINGS = -Wall -Wextra
-CFLAGS = -std=c99 $(OPT) $(WARNINGS) -DWINDOWS
+CFLAGS = -std=c99 $(OPT) $(WARNINGS) -DWINDOWS -DHAVE_MKSTEMP
 
 # Additional flags to append, such as when creating debug builds.
 # Example: make EXTRA_CFLAGS="-Werror -fsanitize=address -fsanitize=undefined"
