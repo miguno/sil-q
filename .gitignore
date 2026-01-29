@@ -11,3 +11,4 @@ Sil.app
 # Same as `src/sil`
 sil
 .DS_Store
+/VERSION.txt
