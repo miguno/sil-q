@@ -33,7 +33,7 @@ jobs:
           mv sil ../sil
 
       - name: Update version file with build information
-        run: bin/version.sh
+        run: bin/update-version-file.sh
 
       - name: Verify build
         run: |
@@ -89,7 +89,7 @@ jobs:
           make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS="x86_64 arm64" OPT="-O2"
 
       - name: Update version file with build information
-        run: bin/version.sh
+        run: bin/update-version-file.sh
 
       - name: Verify build
         run: |

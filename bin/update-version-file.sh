@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# File: version.sh
+# File: update-version-file.sh
 #
 # Updates the top-level version file with additional information, such as the
 # current git hash.

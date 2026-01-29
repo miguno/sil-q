@@ -6,7 +6,8 @@
 #
 # NOTE: During a build via GitHub Actions, this file will be appended with
 #       additional information such as the exact git commit of the source code
-#       that was used to create the build artefacts. See `bin/version.sh`.
+#       that was used to create the build artefacts.
+#       See `bin/update-version-file.sh`.
 #
 
 # - First field is VERSION_STRING from src/defines.h

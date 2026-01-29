@@ -51,7 +51,7 @@ jobs:
 
       - name: Update version file with build information
         shell: bash
-        run: bin/version.sh
+        run: bin/update-version-file.sh
 
       - name: Verify build
         run: |
