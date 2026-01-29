@@ -14,5 +14,3 @@
 # - Second field is VERSION_MAJOR.VERSION_MINOR.VERSION_PATCH.VERSION_EXTRA
 #   from src/defines.h
 Sil-Q version: 1.5.1-beta1 (1.5.1.0)
-git commit: 9b4c5c9
-build generated at: 2026-01-29T14:22:14+00:00
