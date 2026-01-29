@@ -26,6 +26,9 @@ jobs:
       - name: Update version file with build information
         run: bin/version.sh
 
+      - name: Verify tutorial savefile
+        run: bin/verify-tutorial.sh
+
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:

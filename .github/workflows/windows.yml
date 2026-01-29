@@ -98,6 +98,9 @@ jobs:
           ls -la sil.exe
           file sil.exe
 
+      - name: Verify tutorial savefile
+        run: bin/verify-tutorial.sh
+
       - name: Remove outdated PDF manuals
         run: |
           rm lib/docs/*.pdf

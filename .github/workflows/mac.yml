@@ -55,6 +55,9 @@ jobs:
           file sil
           bin/smoke-tests.sh
 
+      - name: Verify tutorial savefile
+        run: bin/verify-tutorial.sh
+
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
@@ -119,6 +122,9 @@ jobs:
         run: |
           ls -la Sil.app
           file Sil.app/Contents/MacOS/sil
+
+      - name: Verify tutorial savefile
+        run: bin/verify-tutorial.sh
 
       # This step is required for macOS so the resulting artifact contains a
       # top-level `Sil.app` folder. Without this folder, macOS will not

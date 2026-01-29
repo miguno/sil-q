@@ -60,6 +60,9 @@ jobs:
           file sil
           bin/smoke-tests.sh
 
+      - name: Verify tutorial savefile
+        run: bin/verify-tutorial.sh
+
       - name: Remove outdated PDF manuals
         run: |
           rm lib/docs/*.pdf

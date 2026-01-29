@@ -21,7 +21,7 @@ readonly SIL_BINARY="$PROJECT_DIR/sil"
 ###
 
 # Get expected version from the version file.
-expected_version=$(grep '^Sil-Q version:' "$VERSION_FILE" | sed 's/^Sil-Q version:[[:space:]]*//')
+expected_version=$(grep '^Sil-Q version:' "$VERSION_FILE" | sed 's/^Sil-Q version:[[:space:]]*//' | sed 's/[[:space:]]*(.*//')
 if [[ -z "$expected_version" ]]; then
     echo "[ERROR] Could not read version from $VERSION_FILE" >&2
     exit 1

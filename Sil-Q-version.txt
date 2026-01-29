@@ -9,4 +9,7 @@
 #       that was used to create the build artefacts. See `bin/version.sh`.
 #
 
-Sil-Q version: 1.5.1-beta1
+# - First field is VERSION_STRING from src/defines.h
+# - Second field is VERSION_MAJOR.VERSION_MINOR.VERSION_PATCH.VERSION_EXTRA
+#   from src/defines.h
+Sil-Q version: 1.5.1-beta1 (1.5.1.0)
