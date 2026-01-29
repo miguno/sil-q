@@ -7,11 +7,11 @@
 # If instead you want to build a version of Sil-Q that runs in the terminal
 # with curses/ncurses, see `Makefile.std`.
 
+# Default target
 #
-# Default target (must be defined before including Makefile.src, which has
-# rules itself)
-#
-all: install
+# Note: Default target must be defined before including Makefile.src, which has
+# compile rules itself.
+default: install
 
 #
 # Include shared definitions (object files, headers, dependencies)
@@ -131,9 +131,9 @@ APPRES = $(APPCONT)/Resources
 # of 8x8.png for Vanilla.  Make sure setting dpi to 72, *not* preserving
 # the actual size of image.  When you have them ready, put them in
 # the lib/xtra/graf directory and rebuild.
-PLIST = cocoa/Sil-Cocoa.xml
+PLIST = cocoa/$(NAME)-Cocoa.xml
 
-ICONFILES = cocoa/Sil_Icons.icns cocoa/Save.icns cocoa/Edit.icns cocoa/Data.icns
+ICONFILES = cocoa/$(NAME)_Icons.icns cocoa/Save.icns cocoa/Edit.icns cocoa/Data.icns
 
 install: $(EXE) $(ICONFILES) $(PLIST)
 	@echo making directories...
@@ -191,7 +191,7 @@ dist: install
 	# Include any top-level PDF files, such as the Sil-Q PDF manual.
 	find .. -name '*.pdf' -depth 1 -print0 | xargs -0 -J % cp -p % disttemp
 	# Include the top-level version file.
-	cp -p ../Sil-Q-version.txt disttemp
+	cp -p ../$(VERSION_FILE) disttemp
 
 	@-rm ../"$(PACKAGE_NAME)-macos.dmg"
 

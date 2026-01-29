@@ -3,16 +3,17 @@
 # This is a Makefile for the Microsoft Windows port of Sil-Q.
 # It requires Cygwin (https://www.cygwin.com) as its build toolchain.
 
+# Default target
 #
-# Default target (must be defined before including Makefile.src, which has
-# rules itself)
-#
-default: sil
+# Note: Default target must be defined before including Makefile.src, which has
+# compile rules itself.
+default: executable
 
-#
 # Include shared definitions (object files, headers, dependencies)
-#
 include Makefile.src
+
+# Executable name
+EXE = $(PROG).exe
 
 #
 # Windows-specific settings
@@ -41,7 +42,7 @@ PEFORMAT = pe-i386
 #
 # Windows-specific main files and more
 #
-WIN_MAINFILES = sil.res main-win.o readdib.o
+WIN_MAINFILES = $(PROG).res main-win.o readdib.o
 
 #
 # Object files
@@ -52,10 +53,15 @@ OBJS = $(BASEOBJS) $(WIN_MAINFILES)
 # Targets
 #
 
-install: sil movebin cleanobjs lineendings
+# This rule is a workaround because $(PROG) is first defined Makefile.src,
+# which means we can't refer to $(PROG) in the default target at the top of
+# this file.
+executable: $(EXE)
+
+install: ($EXE) movebin cleanobjs lineendings
 
 movebin:
-	mv -f sil.exe ../sil.exe
+	mv -f $(EXE) ../$(EXE)
 
 lineendings:
 	./unix2doslib
@@ -64,20 +70,20 @@ cleanobjs:
 	rm -f $(OBJS)
 
 cleanbin:
-	rm -f sil.exe
+	rm -f $(EXE)
 
 clean:	cleanobjs cleanbin
 
 #
 # Build the "Sil" program
 #
-sil: $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o sil $(OBJS) $(LIBS)
+$(EXE): $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(EXE) $(OBJS) $(LIBS)
 
 #
-# Compiling sil.rc
+# Compile sil.rc from sil.res
 #
-sil.res : sil.rc
+$(PROG).res : $(PROG).rc
 	$(WRES) $< -O coff -F $(PEFORMAT) -o $@
 
 #

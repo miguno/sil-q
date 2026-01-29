@@ -12,16 +12,17 @@
 #
 # See also `config.h` and `h-config.h` for additional settings and information.
 
+# Default target
 #
-# Default target (must be defined before including Makefile.src, which has
-# rules itself)
-#
-all: sil
+# Note: Default target must be defined before including Makefile.src, which has
+# compile rules itself.
+default: executable
 
-#
 # Include shared definitions (object files, headers, dependencies)
-#
 include Makefile.src
+
+# Executable name
+EXE = $(PROG)
 
 #
 # Linux/Unix/macOS-specific settings
@@ -113,23 +114,28 @@ OBJS = $(BASEOBJS) $(UNIX_MAINFILES)
 #
 SRCS = $(OBJS:.o=.c)
 
+# This rule is a workaround because $(PROG) is first defined Makefile.src,
+# which means we can't refer to $(PROG) in the default target at the top of
+# this file.
+executable: $(EXE)
+
 #
 # Install the game.
 #
-install: sil
-	cp sil ..
+install: $(EXE)
+	cp $(EXE) ../$(EXE)
 
 #
 # Build the "Sil" program
 #
-sil: $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o sil $(OBJS) $(LIBS)
+$(EXE): $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(EXE) $(OBJS) $(LIBS)
 
 #
 # Clean up old junk
 #
 clean:
-	-rm -f *.o sil
+	-rm -f *.o $(EXE)
 
 #
 # Generate dependencies automatically
