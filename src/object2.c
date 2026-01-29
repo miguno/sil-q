@@ -1277,7 +1277,7 @@ bool object_similar(const object_type* o_ptr, const object_type* j_ptr)
         if (!object_known_p(o_ptr) || !object_known_p(j_ptr))
             return (FALSE);
 
-        __attribute__((fallthrough));
+        FALLTHROUGH;
     }
 
     /* Weapons and Armor */
@@ -1295,7 +1295,7 @@ bool object_similar(const object_type* o_ptr, const object_type* j_ptr)
     case TV_SOFT_ARMOR:
     case TV_MAIL:
     {
-        __attribute__((fallthrough));
+        FALLTHROUGH;
     }
 
     /* Missiles & most things from above */
