@@ -14,8 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release-build:
-    name: Source Code Release Build
+  sources:
+    name: Source Code
     runs-on: ubuntu-latest
     steps:
       - name: Clone project

@@ -14,26 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Linux Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone project
-        uses: actions/checkout@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get install gcc libncursesw5-dev libx11-dev
-
-      - name: Build with ncurses and X11 support
-        run: |
-          cd src
-          make -f Makefile.std -j$(nproc)
-
-  release-build:
-    name: Linux Release Build
+  linux:
+    name: Linux
     runs-on: ubuntu-latest
     steps:
       - name: Clone project

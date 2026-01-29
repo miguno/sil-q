@@ -17,22 +17,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-console:
-    name: Console (GCU) Build
-    runs-on: macos-latest
-    steps:
-      - name: Clone project
-        uses: actions/checkout@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build with curses/ncurses support
-        run: |
-          cd src
-          make -f Makefile.std -j$(sysctl -n hw.ncpu) CFLAGS="-Wall $(OPT) -DUSE_GCU" LIBS="-lcurses"
-
-  release-build-console:
-    name: Console (GCU) Release Build
+  macos-console:
+    name: macOS console (GCU)
     runs-on: macos-latest
     steps:
       - name: Clone project
@@ -81,27 +67,10 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
 
-  build:
+  macos-native:
     # NOTE: The macOS version mentioned here must match `DEPLOYMENT_TARGET`
     # defined in Makefile.cocoa.
-    name: Cocoa Build (macOS 10.6 and later)
-    runs-on: macos-latest
-    steps:
-      - name: Clone project
-        uses: actions/checkout@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build (x86_64 and arm64)
-        run: |
-          cd src
-          # TODO: Add `-Werror` once all compiler warnings are fixed.
-          make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS="x86_64 arm64"
-
-  release-build:
-    # NOTE: The macOS version mentioned here must match `DEPLOYMENT_TARGET`
-    # defined in Makefile.cocoa.
-    name: Cocoa Release Build (macOS 10.6 and later)
+    name: macOS native (Cocoa) for macOS 10.6 and later
     runs-on: macos-latest
     steps:
       - name: Clone project

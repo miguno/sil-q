@@ -14,48 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Windows Build (${{ matrix.arch }})
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        include:
-          - msystem: MINGW32
-            arch: i686
-            gcc_pkg_prefix: mingw-w64-i686
-            peformat: pe-i386
-          - msystem: MINGW64
-            arch: x86_64
-            gcc_pkg_prefix: mingw-w64-x86_64
-            peformat: pe-x86-64
-    defaults:
-      run:
-        shell: msys2 {0}
-    steps:
-      - name: Setup MSYS2
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: ${{ matrix.msystem }}
-          install: ${{ matrix.gcc_pkg_prefix }}-gcc make
-
-      - name: Clone project
-        uses: actions/checkout@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build
-        run: |
-          cd src
-          make -f Makefile.cyg PEFORMAT=${{ matrix.peformat }}
-          mv sil.exe ../sil.exe
-
-      - name: Verify build
-        run: |
-          ls -la sil.exe
-          file sil.exe
-
-  release-build:
-    name: Windows Release Build (${{ matrix.arch }})
+  windows:
+    name: Windows (${{ matrix.arch }})
     runs-on: windows-latest
     strategy:
       matrix:
