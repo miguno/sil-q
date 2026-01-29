@@ -23,9 +23,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update version file with build information
-        run: bin/update-version-file.sh
-
       - name: Verify tutorial savefile
         run: bin/verify-tutorial.sh
 

@@ -32,9 +32,6 @@ jobs:
           make -f Makefile.std -j$(sysctl -n hw.ncpu) OPT="-O2" CFLAGS="-Wall $(OPT) -DUSE_GCU" LIBS="-lcurses"
           mv sil ../sil
 
-      - name: Update version file with build information
-        run: bin/update-version-file.sh
-
       - name: Verify build
         run: |
           ls -la sil
@@ -60,7 +57,6 @@ jobs:
             lib
             LICENSE.md
             README.md
-            Sil-Q-version.txt
             Sil-Q v1.5.0.pdf
           # Otherwise directories such as `lib/apex/` are excluded, which only
           # contain a stub `.keepalive` or `.gitignore` file.  Without these
@@ -88,9 +84,6 @@ jobs:
           # TODO: Add `-Werror` once all compiler warnings are fixed.
           make -f Makefile.cocoa -j$(sysctl -n hw.ncpu) ARCHS="x86_64 arm64" OPT="-O2"
 
-      - name: Update version file with build information
-        run: bin/update-version-file.sh
-
       - name: Verify build
         run: |
           ls -la Sil.app
@@ -103,7 +96,7 @@ jobs:
       # top-level `Sil.app` folder. Without this folder, macOS will not
       # recognize the artifact as a valid macOS application.
       - name: Create archive
-        run: zip -r Sil-Q-macos.zip Sil.app Sil-Q-version.txt "Sil-Q v1.5.0.pdf"
+        run: zip -r Sil-Q-macos.zip Sil.app "Sil-Q v1.5.0.pdf"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v6
