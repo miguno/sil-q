@@ -1379,7 +1379,7 @@ static void do_cmd_wiz_forget(void)
                 object_known(o_ptr);
                 break;
             }
-            __attribute__((fallthrough));
+            FALLTHROUGH;
         }
         default:
         {
@@ -1433,7 +1433,7 @@ static void do_cmd_wiz_forget(void)
                 object_known(o_ptr);
                 break;
             }
-            __attribute__((fallthrough));
+            FALLTHROUGH;
         }
         default:
         {
