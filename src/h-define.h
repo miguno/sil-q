@@ -99,4 +99,19 @@
 #define UN_KTRL(X) ((X) + 64)
 #define ESCAPE '\033'
 
+/*
+ * Annotate intentional switch/case fallthroughs.
+ *
+ * - GCC and Clang warn about implicit fallthrough (if enabled), and both
+ *   define __GNUC__.
+ * - MSVC doesn't warn, so it doesn't need a fallthrough marker. But it would
+ *   error on parsing `__attribute__((fallthrough))`, hence the empty else
+ *   branch.
+ */
+#ifdef __GNUC__
+#define FALLTHROUGH __attribute__((fallthrough))
+#else
+#define FALLTHROUGH
+#endif
+
 #endif /* INCLUDED_H_DEFINE_H */
