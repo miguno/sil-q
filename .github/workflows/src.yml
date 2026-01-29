@@ -23,6 +23,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create VERSION.txt
+        run: bin/create-version-file.sh
+
       - name: Verify tutorial savefile
         run: bin/verify-tutorial.sh
 
