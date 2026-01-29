@@ -110,11 +110,4 @@ jobs:
         with:
           name: Sil-Q-macos.zip
           path: Sil-Q-macos.zip
-          # Otherwise directories such as `lib/apex/` are excluded, which only
-          # contain a stub `.keepalive` or `.gitignore` file.  Without these
-          # pre-generated directories, the game will have problems at run-time.
-          #
-          # TODO: Update game logic to auto-create directories like `lib/apex`
-          #       if needed, then remove this workaround.
-          include-hidden-files: true
           if-no-files-found: error
