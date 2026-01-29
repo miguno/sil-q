@@ -68,7 +68,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
-          name: Sil-Q-windows-${{ matrix.arch }}
+          name: Sil-Q-windows-${{ matrix.arch }}.zip
           # IMPORTANT: Do NOT use quotes to escape spaces in filenames.
           path: |
             sil.exe
