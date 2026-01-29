@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# File: savefile-set-version-header.sh
+# File: savefile.sh
 #
 # Reads or writes the game version in the file header of a Sil-Q savefile.
 
