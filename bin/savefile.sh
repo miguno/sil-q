@@ -100,5 +100,5 @@ echo "savefile game version: changed $old_version => $version"
 echo
 echo "  *** WARNING WARNING WARNING *** "
 echo
-echo "It is YOUR responsibility to ensure that the savefile"
+echo "It is YOUR responsibility to ensure that the modified savefile"
 echo "can actually be read by Sil-Q version $version !"
