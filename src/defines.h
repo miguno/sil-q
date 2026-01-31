@@ -207,12 +207,12 @@
 #define R_IDX_YOUNG_FIRE_DRAKE 181
 #define R_IDX_TROLL_GUARD 192
 #define R_IDX_SILENT_WATCHER 203
-#define R_IDX_GOTHMOG 241 // the location of Gothmog
-#define R_IDX_UNGOLIANT 242 // the location of Ungoliant
-#define R_IDX_GLAURUNG 243 // the location of Glaurung
-#define R_IDX_GORTHAUR 244 // the location of Gorthaur
-#define R_IDX_MORGOTH 251 // the location of Morgoth
-#define R_IDX_CARCHAROTH 253 // the location of Carcharoth
+#define R_IDX_GOTHMOG 241 //       the location of Gothmog
+#define R_IDX_UNGOLIANT 242 //     the location of Ungoliant
+#define R_IDX_GLAURUNG 243 //      the location of Glaurung
+#define R_IDX_GORTHAUR 244 //      the location of Gorthaur
+#define R_IDX_MORGOTH 251 //       the location of Morgoth
+#define R_IDX_CARCHAROTH 253 //    the location of Carcharoth
 #define R_IDX_MORGOTH_HALLU 401 // the location of Morgoth's hallucination image
 
 #define O_IDX_HERB_RAGE 380
@@ -379,51 +379,46 @@
 /*
  * Player constants
  */
-#define PY_START_EXP 5000 /* Starting exp */
-#define PY_FIXED_EXP 50000 /* Starting exp */
-#define PY_MAX_EXP 99999999L /* Maximum exp */
-#define PY_MAX_LEVEL 50 /* Maximum level */
+#define PY_START_EXP 5000 //    Starting exp
+#define PY_FIXED_EXP 50000 //   Starting exp
+#define PY_MAX_EXP 99999999L // Maximum exp
+#define PY_MAX_LEVEL 50 //      Maximum level
 
 /*
  * Player "food" crucial values
  */
 
-#define PY_FOOD_MAX 8000 /* Food value (Full) */
-#define PY_FOOD_FULL 5000 /* Food value (Normal) */
-#define PY_FOOD_ALERT 2000 /* Food value (Hungry) */
-#define PY_FOOD_WEAK 1000 /* Food value (Weak) */
-#define PY_FOOD_STARVE 1 /* Food value (Starving) */
+#define PY_FOOD_MAX 8000 //   Food value (Full)
+#define PY_FOOD_FULL 5000 //  Food value (Normal)
+#define PY_FOOD_ALERT 2000 // Food value (Hungry)
+#define PY_FOOD_WEAK 1000 //  Food value (Weak)
+#define PY_FOOD_STARVE 1 //   Food value (Starving)
 
 /*
  * Player regeneration constants
  */
-#define PY_REGEN_HP_PERIOD                                                     \
-    150 /* Number of player turns for complete health regeneration */
-#define PY_REGEN_SP_PERIOD                                                     \
-    150 /* Number of player turns for complete voice regeneration */
+// Number of player turns for complete health regeneration
+#define PY_REGEN_HP_PERIOD 150
+// Number of player turns for complete voice regeneration
+#define PY_REGEN_SP_PERIOD 150
 
 /*
  * Monster regeneration constants
  */
-#define MON_REGEN_HP_PERIOD                                                    \
-    150 /* Number of speed 2 turns for complete health regeneration */
-#define MON_REGEN_SP_PERIOD                                                    \
-    15 /* Number of speed 2 turns for complete 'mana' regeneration */
+// Number of speed 2 turns for complete health regeneration
+#define MON_REGEN_HP_PERIOD 150
+// Number of speed 2 turns for complete 'mana' regeneration
+#define MON_REGEN_SP_PERIOD 15
 
-#define MON_MANA_COST                                                          \
-    10 /* Amount of mana it costs a monster to cast a (non-free) spell */
-#define MON_MANA_MAX                                                           \
-    15 /* Maximum amount of mana a monster can have at once                    \
-        */
+// Amount of mana it costs a monster to cast a (non-free) spell
+#define MON_MANA_COST 10
+// Maximum amount of mana a monster can have at once
+#define MON_MANA_MAX 15
 
-/*
- * Bonus to stealth in stealth mode
- */
+// Bonus to stealth in stealth mode
 #define STEALTH_MODE_BONUS 5
 
-/*
- * Distance unwary monsters will wander in one stretch
- */
+// Distance unwary monsters will wander in one stretch
 #define MON_WANDER_RANGE 50
 
 /*
@@ -552,7 +547,6 @@
 /*
  * Attack Types
  */
-
 #define ATT_MAIN 0
 #define ATT_FLANKING 1
 #define ATT_CONTROLLED_RETREAT 2
@@ -563,10 +557,8 @@
 #define ATT_RIPOSTE 7
 #define ATT_WHIRLWIND 8
 #define ATT_RAGE 9
-#define ATT_OPPORTUNITY                                                        \
-    10 /* i.e. attacks of opportunity when monsters exchange places with you   \
-        * etc                                                                  \
-        */
+// Attacks of opportunity when monsters exchange places with you etc.
+#define ATT_OPPORTUNITY 10
 #define ATT_IMPALE 11
 
 /*
@@ -1053,77 +1045,77 @@
  * only armour and weapons and a few other items use any of these flags.
  */
 
-#define TV_NOTE 2 /* ~ Tutorial notes                      */
-#define TV_SKELETON 3 /* ~ Skeletons                           */
-#define TV_METAL 4 /* ~ Piece of mithril                    */
-#define TV_CHEST 7 /* ~ Chests                              */
-#define TV_ARROW 17 /* - Arrows                     */
-#define TV_BOW 19 /* { Bows                                */
-#define TV_DIGGING 20 /* \ Shovels/Picks                       */
-#define TV_HAFTED 21 /* \ Blunt weapons                       */
-#define TV_POLEARM 22 /* / Axes and Pikes                      */
-#define TV_SWORD 23 /* | Edged Weapons                       */
-#define TV_BOOTS 30 /* ] Boots                               */
-#define TV_GLOVES 31 /* ] Gloves                              */
-#define TV_HELM 32 /* ] Helms                               */
-#define TV_CROWN 33 /* ] Crowns                              */
-#define TV_SHIELD 34 /* ) Shields                             */
-#define TV_CLOAK 35 /* ( Cloaks                              */
-#define TV_SOFT_ARMOR 36 /* ( Soft Armor                          */
-#define TV_MAIL 37 /* [ Mail                                */
-#define TV_LIGHT 39 /* ~ Lights (including Specials)         */
-#define TV_AMULET 40 /* " Amulets (including Specials)        */
-#define TV_RING 45 /* = Rings (including Specials)          */
-#define TV_STAFF 55 /* _ Staffs                              */
-#define TV_HORN 66 /* ? Horns                               */
-#define TV_POTION 75 /* ! Potions                             */
-#define TV_FLASK 77 /* ! Flasks of Oil                       */
-#define TV_FOOD 80 /* , Food                                */
-#define TV_EASTER 81 /* , Easter Eggs (replacement for herbs) */
+#define TV_NOTE 2 //         ~ Tutorial notes
+#define TV_SKELETON 3 //     ~ Skeletons
+#define TV_METAL 4 //        ~ Piece of mithril
+#define TV_CHEST 7 //        ~ Chests
+#define TV_ARROW 17 //       - Arrows
+#define TV_BOW 19 //         { Bows
+#define TV_DIGGING 20 //     \ Shovels/Picks
+#define TV_HAFTED 21 //      \ Blunt weapons
+#define TV_POLEARM 22 //     / Axes and Pikes
+#define TV_SWORD 23 //       | Edged Weapons
+#define TV_BOOTS 30 //       ] Boots
+#define TV_GLOVES 31 //      ] Gloves
+#define TV_HELM 32 //        ] Helms
+#define TV_CROWN 33 //       ] Crowns
+#define TV_SHIELD 34 //      ) Shields
+#define TV_CLOAK 35 //       ( Cloaks
+#define TV_SOFT_ARMOR 36 //  ( Soft Armor
+#define TV_MAIL 37 //        [ Mail
+#define TV_LIGHT 39 //       ~ Lights (including Specials)
+#define TV_AMULET 40 //      " Amulets (including Specials)
+#define TV_RING 45 //        = Rings (including Specials)
+#define TV_STAFF 55 //       _ Staffs
+#define TV_HORN 66 //        ? Horns
+#define TV_POTION 75 //      ! Potions
+#define TV_FLASK 77 //       ! Flasks of Oil
+#define TV_FOOD 80 //        , Food
+#define TV_EASTER 81 //      , Easter Eggs (replacement for herbs)
 
 /* The "sval" codes for TV_SKELETON */
-#define SV_SKELETON_ORC 0 /*  */
-#define SV_SKELETON_HUMAN 1 /*  */
-#define SV_SKELETON_ELF 2 /*  */
+#define SV_SKELETON_ORC 0
+#define SV_SKELETON_HUMAN 1
+#define SV_SKELETON_ELF 2
 
 /* The "sval" codes for TV_METAL */
-#define SV_METAL_MITHRIL 0 /*  */
+#define SV_METAL_MITHRIL 0
 
 /* The "sval" codes for TV_ARROW */
-#define SV_NORMAL_ARROW 1 /*  */
+#define SV_NORMAL_ARROW 1
 
 /* The "sval" codes for TV_BOW (note information in "sval") */
-#define SV_SHORT_BOW 12 /*  */
-#define SV_LONG_BOW 13 /*  */
-#define SV_DH_LONG_BOW 14 /*  */
+#define SV_SHORT_BOW 12
+#define SV_LONG_BOW 13
+#define SV_DH_LONG_BOW 14
 
 /* The "sval" codes for TV_DIGGING */
 #define SV_SHOVEL 1
 #define SV_MATTOCK 3
 
 /* The "sval" values for TV_HAFTED */
-#define SV_QUARTERSTAFF 3 /* 2d5 */
-#define SV_WAR_HAMMER 8 /* 4d1 */
-#define SV_GROND 50 /* 5d5 */
+#define SV_QUARTERSTAFF 3 // 2d5
+#define SV_WAR_HAMMER 8 //   4d1
+#define SV_GROND 50 //       5d5
 
 /* The "sval" values for TV_POLEARM */
-#define SV_SPEAR 1 /* 1d9 */
-#define SV_GREAT_SPEAR 2 /* 1d13 */
-#define SV_GLAIVE 4 /* 2d9 */
-#define SV_HAND_AXE 11 /* 4d2 */
-#define SV_BATTLE_AXE 12 /* 3d4 */
-#define SV_GREAT_AXE 13 /* 4d4 */
+#define SV_SPEAR 1 //       1d9
+#define SV_GREAT_SPEAR 2 // 1d13
+#define SV_GLAIVE 4 //      2d9
+#define SV_HAND_AXE 11 //   4d2
+#define SV_BATTLE_AXE 12 // 3d4
+#define SV_GREAT_AXE 13 //  4d4
 
 /* The "sval" codes for TV_SWORD */
 
-#define SV_DAGGER 4 /* 1d5 */
-#define SV_CURVED_SWORD 7 /* 2d5 */
-#define SV_SHORT_SWORD 10 /* 1d7 */
-#define SV_LONG_SWORD 17 /* 2d5 */
-#define SV_BASTARD_SWORD 21 /* 3d3 */
-#define SV_GREAT_SWORD 25 /* 3d5 */
-#define SV_MITHRIL_LONG_SWORD 28 /* 2d5 */
-#define SV_MITHRIL_GREAT_SWORD 30 /* 3d6 */
+#define SV_DAGGER 4 //               1d5
+#define SV_CURVED_SWORD 7 //         2d5
+#define SV_SHORT_SWORD 10 //         1d7
+#define SV_LONG_SWORD 17 //          2d5
+#define SV_BASTARD_SWORD 21 //       3d3
+#define SV_GREAT_SWORD 25 //         3d5
+#define SV_MITHRIL_LONG_SWORD 28 //  2d5
+#define SV_MITHRIL_GREAT_SWORD 30 // 3d6
 
 /* The "sval" codes for TV_SHIELD */
 #define SV_BROKEN_SHIELD 1
@@ -1986,37 +1978,44 @@
 /*
  * Special Monster Flags
  */
-#define MFLAG_VIEW 0x00000001 /* Monster is in line of sight */
-#define MFLAG_MFLAGXXXX2                                                       \
-    0x00000002 /* previously: Knowledge of monster is limited */
-#define MFLAG_SUMMONED                                                         \
-    0x00000004 /* Monster is magically summoned by a song                      \
-                */
-#define MFLAG_ACTV 0x00000008 /* Monster is in active mode */
-#define MFLAG_MFLAGXXXX5 0x00000010 /* previously: Monster has moved */
-#define MFLAG_MFLAGXXXX6                                                       \
-    0x00000020 /* previously: Monster is using "townsman" AI */
-#define MFLAG_SHOW 0x00000040 /* Monster is recently memorized */
-#define MFLAG_MARK 0x00000080 /* Monster is currently memorized */
-#define MFLAG_MFLAGXXXX7 0x00000100 /* previously: Monster is wary */
-#define MFLAG_MFLAGXXXX8                                                       \
-    0x00000200 /* previously: Monster is temporarily marked */
-#define MFLAG_MFLAGXXXX9                                                       \
-    0x00000400 /* previously: Monster has full required visibility */
-#define MFLAG_PUSHED 0x00000800 /* Monster was pushed since its last turn */
-#define MFLAG_MFLAGXXX10                                                       \
-    0x00001000 /* previously: Monster is slightly slower than normal */
-#define MFLAG_MFLAGXXX11                                                       \
-    0x00002000 /* previously: Monster is slightly faster than normal */
-#define MFLAG_ALWAYS_CAST                                                      \
-    0x00004000 /* Monster will cast a spell first opportunity */
-#define MFLAG_CHARGED                                                          \
-    0x00008000 /* Monster was just charged by player last turn */
-#define MFLAG_AGGRESSIVE                                                       \
-    0x00010000 /* Monster will be Aggressive instead of Confident */
-#define MFLAG_HIT_BY_RANGED 0x00020000 /* Monster has been hit with a spell */
-#define MFLAG_HIT_BY_MELEE                                                     \
-    0x00040000 /* Monster was just meleed by player last turn */
+// Monster is in line of sight
+#define MFLAG_VIEW 0x00000001
+// previously: Knowledge of monster is limited
+#define MFLAG_MFLAGXXXX2 0x00000002
+// Monster is magically summoned by a song
+#define MFLAG_SUMMONED 0x00000004
+// Monster is in active mode
+#define MFLAG_ACTV 0x00000008
+// previously: Monster has moved
+#define MFLAG_MFLAGXXXX5 0x00000010
+// previously: Monster is using "townsman" AI
+#define MFLAG_MFLAGXXXX6 0x00000020
+// Monster is recently memorized
+#define MFLAG_SHOW 0x00000040
+// Monster is currently memorized
+#define MFLAG_MARK 0x00000080
+// previously: Monster is wary
+#define MFLAG_MFLAGXXXX7 0x00000100
+// previously: Monster is temporarily marked
+#define MFLAG_MFLAGXXXX8 0x00000200
+// previously: Monster has full required visibility
+#define MFLAG_MFLAGXXXX9 0x00000400
+// Monster was pushed since its last turn
+#define MFLAG_PUSHED 0x00000800
+// previously: Monster is slightly slower than normal
+#define MFLAG_MFLAGXXX10 0x00001000
+// previously: Monster is slightly faster than normal
+#define MFLAG_MFLAGXXX11 0x00002000
+// Monster will cast a spell first opportunity
+#define MFLAG_ALWAYS_CAST 0x00004000
+// Monster was just charged by player last turn
+#define MFLAG_CHARGED 0x00008000
+// Monster will be Aggressive instead of Confident
+#define MFLAG_AGGRESSIVE 0x00010000
+// Monster has been hit with a spell
+#define MFLAG_HIT_BY_RANGED 0x00020000
+// Monster was just meleed by player last turn
+#define MFLAG_HIT_BY_MELEE 0x00040000
 
 /*
  * New monster race bit flags
@@ -3018,22 +3017,22 @@
  * The "(R,G,B)" codes are given in "fourths" of the "maximal" value,
  * and should "gamma corrected" on most (non-Macintosh) machines.
  */
-#define TERM_DARK 0 /* 'd' */ /* 0,0,0 */
-#define TERM_WHITE 1 /* 'w' */ /* 4,4,4 */
-#define TERM_SLATE 2 /* 's' */ /* 2,2,2 */
-#define TERM_ORANGE 3 /* 'o' */ /* 4,2,0 */
-#define TERM_RED 4 /* 'r' */ /* 3,0,0 */
-#define TERM_GREEN 5 /* 'g' */ /* 0,2,1 */
-#define TERM_BLUE 6 /* 'b' */ /* 0,0,4 */
-#define TERM_UMBER 7 /* 'u' */ /* 2,1,0 */
-#define TERM_L_DARK 8 /* 'D' */ /* 1,1,1 */
-#define TERM_L_WHITE 9 /* 'W' */ /* 3,3,3 */
-#define TERM_VIOLET 10 /* 'v' */ /* 4,0,4 */
-#define TERM_YELLOW 11 /* 'y' */ /* 4,4,0 */
-#define TERM_L_RED 12 /* 'R' */ /* 4,0,0 */
-#define TERM_L_GREEN 13 /* 'G' */ /* 0,4,0 */
-#define TERM_L_BLUE 14 /* 'B' */ /* 0,4,4 */
-#define TERM_L_UMBER 15 /* 'U' */ /* 3,2,1 */
+#define TERM_DARK 0 //     'd'  0,0,0
+#define TERM_WHITE 1 //    'w'  4,4,4
+#define TERM_SLATE 2 //    's'  2,2,2
+#define TERM_ORANGE 3 //   'o'  4,2,0
+#define TERM_RED 4 //      'r'  3,0,0
+#define TERM_GREEN 5 //    'g'  0,2,1
+#define TERM_BLUE 6 //     'b'  0,0,4
+#define TERM_UMBER 7 //    'u'  2,1,0
+#define TERM_L_DARK 8 //   'D'  1,1,1
+#define TERM_L_WHITE 9 //  'W'  3,3,3
+#define TERM_VIOLET 10 //  'v'  4,0,4
+#define TERM_YELLOW 11 //  'y'  4,4,0
+#define TERM_L_RED 12 //   'R'  4,0,0
+#define TERM_L_GREEN 13 // 'G'  0,4,0
+#define TERM_L_BLUE 14 //  'B'  0,4,4
+#define TERM_L_UMBER 15 // 'U'  3,2,1
 
 #define TERM_SHADE 16 // added onto a colour N times to produce shade N
 
@@ -3138,12 +3137,12 @@
  * Health levels
  */
 
-#define HEALTH_DEAD 0 //   0%
-#define HEALTH_ALMOST_DEAD 1 //   1% - 25%
-#define HEALTH_BADLY_WOUNDED 2 //  26% - 50%
-#define HEALTH_WOUNDED 3 //  51% - 75%
-#define HEALTH_SOMEWHAT_WOUNDED 4 //  76% - 99%
-#define HEALTH_UNHURT 5 // 100%
+#define HEALTH_DEAD 0 //                    0%
+#define HEALTH_ALMOST_DEAD 1 //       1% - 25%
+#define HEALTH_BADLY_WOUNDED 2 //    26% - 50%
+#define HEALTH_WOUNDED 3 //          51% - 75%
+#define HEALTH_SOMEWHAT_WOUNDED 4 // 76% - 99%
+#define HEALTH_UNHURT 5 //                100%
 
 /*
  * Artefact activation index
