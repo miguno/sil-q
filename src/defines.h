@@ -875,8 +875,7 @@
 #define LRN_PARCH 41
 #define LRN_ICE 42
 #define LRN_PLAS 43
-#define LRN_SOUND2                                                             \
-    44 /* attacks which aren't resisted, but res sound prevent stun */
+#define LRN_SOUND2 44 /* unresisted attacks, but res sound prevent stun */
 #define LRN_STORM 45
 #define LRN_WATER 46
 #define LRN_NEXUS_SAVE 47 /* Both resist Nexus and Saves apply */
