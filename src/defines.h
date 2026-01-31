@@ -793,95 +793,60 @@
  * * -> unused in Sil at the moment
  */
 
-#define GF_NOTHING                                                             \
-    0 // no gameplay effect, just visuals                               ( - - -
-      // -
-      // )
-#define GF_HURT                                                                \
-    1 // damage reduced by armour, not used in the project functions    ( - - -
-      // -
-      // )
-#define GF_ARROW                                                               \
-    2 // need hit roll, damage (reduced by armour)                      ( p - -
-      // -
-      // )
-#define GF_BOULDER                                                             \
-    3 // need hit roll, damage (reduced by armour)                      ( p - -
-      // -
-      // )
-#define GF_ACID                                                                \
-    4 // does damage, wrecks objects/inv/equip                          ( p m o
-      // -
-      // )
-#define GF_ELEC                                                                \
-    5 // does damage (reduced by special prot), wrecks objects/inv      ( p m o
-      // - ) *
-#define GF_FIRE                                                                \
-    6 // does damage (reduced by shield+special), wrecks objects/inv    ( p m o
-      // -
-      // )
-#define GF_COLD                                                                \
-    7 // does damage (reduced by shield+special), wrecks objects/inv    ( p m o
-      // -
-      // )
-#define GF_POIS                                                                \
-    8 // adds (XdY) to the poison counter, damages monsters directly    ( p m -
-      // -
-      // )
-#define GF_DARK                                                                \
-    9 // darkens squares, does damage (reduced by res / special prot)   ( p m -
-      // f
-      // )
-#define GF_DARK_WEAK                                                           \
-    10 // this type darkens squares, but does no damage                  ( - - -
-       // f )
-#define GF_LIGHT                                                               \
-    11 // lights up squares and stuns light-susceptible monsters (XdY)   ( - m -
-       // f )
-#define GF_SOUND                                                               \
-    12 // adds (XdY) to the stun counter and breaks cold vulnerable stuff( p m o
-       // - )
-#define GF_EARTHQUAKE                                                          \
-    13 // smashes cold vulnerable things -- real damage done elsewhere   ( - - o
-       // - )
-#define GF_SLOW                                                                \
-    14 // adds (skill_check+10) points to the slowing counter            ( - m -
-       // - )
-#define GF_SPEED                                                               \
-    15 // adds (XdY) points to the haste counter                         ( - m -
-       // - )
-#define GF_CONFUSION                                                           \
-    16 // adds (skill_check+10) points to the confusion counter          ( - m -
-       // - )
-#define GF_SLEEP                                                               \
-    17 // adds (skill_check+10) points to the sleep counter              ( - m -
-       // - )
-#define GF_FEAR                                                                \
-    18 // adds (skill_check+5-dist) points to the fear counter           ( - m -
-       // - )
-#define GF_HEAL                                                                \
-    19 // heals monsters by (XdY) health                                 ( - m -
-       // - ) *
-#define GF_KILL_WALL                                                           \
-    20 // destroys walls/rubble/doors and does (XdY) to stone creatures  ( - m -
-       // f )
-#define GF_KILL_DOOR                                                           \
-    21 // attempts to unlock or open doors or chests                     ( - - o
-       // f )
-#define GF_KILL_TRAP                                                           \
-    22 // destroys any traps on squares or on chests                     ( - - o
-       // f )
-#define GF_LOCK_DOOR                                                           \
-    23 // adds (skill_check/2) points to the lock level of a door        ( - - -
-       // f )
-#define GF_AWAY_ALL                                                            \
-    24 // teleports monsters (XdY) squares away                          ( - m -
-       // - ) *
-#define GF_IDENTIFY                                                            \
-    25 // identifies objects on the ground                               ( - - o
-       // - ) *
-
-#define GF_WEB 26 // creates a web trap where it lands
+// no gameplay effect, just visuals                                 (- - - -)
+#define GF_NOTHING 0
+// damage reduced by armour, not used in the project functions      (- - - -)
+#define GF_HURT 1
+// need hit roll, damage (reduced by armour)                        (p - - -)
+#define GF_ARROW 2
+// need hit roll, damage (reduced by armour)                        (p - - -)
+#define GF_BOULDER 3
+// does damage, wrecks objects/inv/equip                            (p m o -)
+#define GF_ACID 4
+// [N/A] does damage (reduced by special prot), wrecks objects/inv  (p m o -)
+#define GF_ELEC 5
+// does damage (reduced by shield+special), wrecks objects/inv      (p m o -)
+#define GF_FIRE 6
+// does damage (reduced by shield+special), wrecks objects/inv      (p m o -)
+#define GF_COLD 7
+// adds (XdY) to the poison counter, damages monsters directly      (p m - -)
+#define GF_POIS 8
+// darkens squares, does damage (reduced by res / special prot)     (p m - f)
+#define GF_DARK 9
+// this type darkens squares, but does no damage                    (- - - f)
+#define GF_DARK_WEAK 10
+// lights up squares and stuns light-susceptible monsters (XdY)     (- m - f)
+#define GF_LIGHT 11
+// adds (XdY) to the stun counter and breaks cold vulnerable stuff  (p m o -) *
+#define GF_SOUND 12
+// smashes cold vulnerable things -- real damage done elsewhere     (- - o -)
+#define GF_EARTHQUAKE 13
+// adds (skill_check+10) points to the slowing counter              (- m - -)
+#define GF_SLOW 14
+// adds (XdY) points to the haste counter                           (- m - -)
+#define GF_SPEED 15
+// adds (skill_check+10) points to the confusion counter            (- m - -)
+#define GF_CONFUSION 16
+// adds (skill_check+10) points to the sleep counter                (- m - -)
+#define GF_SLEEP 17
+// adds (skill_check+5-dist) points to the fear counter             (- m - -)
+#define GF_FEAR 18
+// heals monsters by (XdY) health                                   (- m - -) *
+#define GF_HEAL 19
+// destroys walls/rubble/doors and does (XdY) to stone creatures    (- m - f)
+#define GF_KILL_WALL 20
+// attempts to unlock or open doors or chests                       (- - o f)
+#define GF_KILL_DOOR 21
+// destroys any traps on squares or on chests                       (- - o f)
+#define GF_KILL_TRAP 22
+// adds (skill_check/2) points to the lock level of a door          (- - - f)
+#define GF_LOCK_DOOR 23
+// teleports monsters (XdY) squares away                            (- m - -) *
+#define GF_AWAY_ALL 24
+// identifies objects on the ground                                 (- - o -) *
+#define GF_IDENTIFY 25
+// creates a web trap where it lands
+#define GF_WEB 26
 
 /*
  * Some constants for the "learn" code.  These generalized from the
