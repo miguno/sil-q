@@ -2679,19 +2679,18 @@
 #define object_attr(T)                                                         \
     ((p_ptr->image)                                                            \
             ? ((k_info[(T)->image_k_idx].flavor)                               \
-                    ? (flavor_info[k_info[(T)->image_k_idx].flavor].x_attr)    \
-                    : (k_info[(T)->image_k_idx].x_attr))                       \
+                      ? (flavor_info[k_info[(T)->image_k_idx].flavor].x_attr)  \
+                      : (k_info[(T)->image_k_idx].x_attr))                     \
             : ((k_info[(T)->k_idx].flavor)                                     \
-                    ? (flavor_info[k_info[(T)->k_idx].flavor].x_attr)          \
-                    : graphics_are_ascii()                                     \
-                        ? weapon_glows(T)                                      \
-                            ? (TERM_L_BLUE)                                    \
-                            : (((T)->name1 && a_info[(T)->name1].d_attr)       \
+                      ? (flavor_info[k_info[(T)->k_idx].flavor].x_attr)        \
+                      : graphics_are_ascii() ? weapon_glows(T)                 \
+                          ? (TERM_L_BLUE)                                      \
+                          : (((T)->name1 && a_info[(T)->name1].d_attr)         \
                                     ? (a_info[(T)->name1].d_attr)              \
                                     : (k_info[(T)->k_idx].x_attr))             \
-                        : weapon_glows(T) ? ((k_info[(T)->k_idx].x_attr)       \
-                              | GRAPHICS_GLOW_MASK)                            \
-                                          : (k_info[(T)->k_idx].x_attr)))
+                      : weapon_glows(T)                                        \
+                      ? ((k_info[(T)->k_idx].x_attr) | GRAPHICS_GLOW_MASK)     \
+                      : (k_info[(T)->k_idx].x_attr)))
 /*
  * Return the "attr" for a k_idx.
  * Use "flavor" if available.
@@ -2707,15 +2706,16 @@
  * Default to user definitions.
  */
 #define object_char(T)                                                         \
-    ((p_ptr->image) ? ((k_info[(T)->image_k_idx].flavor)                       \
-             ? (flavor_info[k_info[(T)->image_k_idx].flavor].x_char)           \
-             : (k_info[(T)->image_k_idx].x_char))                              \
-                    : ((k_info[(T)->k_idx].flavor)                             \
-                            ? (flavor_info[k_info[(T)->k_idx].flavor].x_char)  \
-                            : (((T)->name1 && a_info[(T)->name1].d_char        \
-                                   && graphics_are_ascii())                    \
-                                    ? (a_info[(T)->name1].d_char)              \
-                                    : (k_info[(T)->k_idx].x_char))))
+    ((p_ptr->image)                                                            \
+            ? ((k_info[(T)->image_k_idx].flavor)                               \
+                      ? (flavor_info[k_info[(T)->image_k_idx].flavor].x_char)  \
+                      : (k_info[(T)->image_k_idx].x_char))                     \
+            : ((k_info[(T)->k_idx].flavor)                                     \
+                      ? (flavor_info[k_info[(T)->k_idx].flavor].x_char)        \
+                      : (((T)->name1 && a_info[(T)->name1].d_char              \
+                             && graphics_are_ascii())                          \
+                                ? (a_info[(T)->name1].d_char)                  \
+                                : (k_info[(T)->k_idx].x_char))))
 
 /*
  * Return the "attr" for a given item.
@@ -2726,8 +2726,8 @@
     ((k_info[(T)->k_idx].flavor)                                               \
             ? (flavor_info[k_info[(T)->k_idx].flavor].d_attr)                  \
             : (((T)->name1 && a_info[(T)->name1].d_attr)                       \
-                    ? (a_info[(T)->name1].d_attr)                              \
-                    : (k_info[(T)->k_idx].d_attr)))
+                      ? (a_info[(T)->name1].d_attr)                            \
+                      : (k_info[(T)->k_idx].d_attr)))
 
 /*
  * Return the "char" for a given item.
@@ -2738,8 +2738,8 @@
     ((k_info[(T)->k_idx].flavor)                                               \
             ? (flavor_info[k_info[(T)->k_idx].flavor].d_char)                  \
             : (((T)->name1 && a_info[(T)->name1].d_char)                       \
-                    ? (a_info[(T)->name1].d_char)                              \
-                    : (k_info[(T)->k_idx].d_char)))
+                      ? (a_info[(T)->name1].d_char)                            \
+                      : (k_info[(T)->k_idx].d_char)))
 
 /*
  * Return the "char" for a k_idx.
@@ -2840,8 +2840,8 @@
  * Pre-storing this into a cave_info flag would be nice.  XXX XXX
  */
 #define panel_contains(Y, X)                                                   \
-    (((unsigned)((Y)-p_ptr->wy) < (unsigned)(SCREEN_HGT))                      \
-        && ((unsigned)((X)-p_ptr->wx) < (unsigned)(SCREEN_WID)))
+    (((unsigned)((Y) - p_ptr->wy) < (unsigned)(SCREEN_HGT))                    \
+        && ((unsigned)((X) - p_ptr->wx) < (unsigned)(SCREEN_WID)))
 
 /*
  * Determine if a "legal" grid is a "floor" grid
@@ -3247,13 +3247,13 @@
  * All shades will look like the base color in 16 color ports.
  */
 #define MAKE_EXTENDED_COLOR(base_color, shade)                                 \
-    ((((shade) << 4) | ((base_color)&0x0F)) & 0x7F)
+    ((((shade) << 4) | ((base_color) & 0x0F)) & 0x7F)
 
 /*
  * Get the base color of a given extended color (shade).
  * Values returned are in the range 0-15 (TERM_*). See above.
  */
-#define GET_BASE_COLOR(ext_color) ((ext_color)&0x0F)
+#define GET_BASE_COLOR(ext_color) ((ext_color) & 0x0F)
 
 /*
  * Get the shade number of a given extended color.
