@@ -22,10 +22,12 @@ jobs:
         include:
           - msystem: MINGW32
             arch: i686
+            arch-human-readable: 32
             gcc_pkg_prefix: mingw-w64-i686
             peformat: pe-i386
           - msystem: MINGW64
             arch: x86_64
+            arch-human-readable: 64
             gcc_pkg_prefix: mingw-w64-x86_64
             peformat: pe-x86-64
     defaults:
@@ -64,7 +66,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
-          name: Sil-Q-windows-${{ matrix.arch }}.zip
+          name: Sil-Q-windows-${{ matrix.arch-human-readable }}.zip
           # IMPORTANT: Do NOT use quotes to escape spaces in filenames.
           path: |
             sil.exe
