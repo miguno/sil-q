@@ -5,6 +5,11 @@
 ### Highlights
 
 - macOS version supports Retina displays (thanks backwardsEric)
+- Windows version in 64-bit and 32-bit. This release adds 64-bit Windows
+  support. From this release onwards, we recommend you use the 64-bit version.
+  The 32-bit version is now deprecated and intended only as a fallback option if
+  players should experience bugs specific to the new 64-bit version. Once we are
+  happy with 64-bit, the 32-bit variant will be removed in a future release.
 - Many bug fixes
 
 ### Breaking changes
