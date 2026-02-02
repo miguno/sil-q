@@ -1410,6 +1410,9 @@ static bool connect_two_rooms(int r1, int r2, bool tentative, bool desperate)
     return (success);
 }
 
+/*
+ * Adds T-intersections (T-junctions) in the corridors.
+ */
 static bool connect_room_to_corridor(int r)
 {
     int length = 10;
