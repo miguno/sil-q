@@ -1305,6 +1305,13 @@ static bool build_tunnel(
     return (TRUE);
 }
 
+/*
+ * NOTE (Feb 2026): "desperate" appears to attempt a connection at a greater
+ * distance, and this comes after dividing the dungeon into connected pieces.
+ * Rooms are connected to the closest rooms, but this doesn't connect the whole
+ * dungeon. The purpose of the desperate tunnels seems to be to connect the
+ * clusters of rooms together.
+ */
 static bool connect_two_rooms(int r1, int r2, bool tentative, bool desperate)
 {
     int x, y;
