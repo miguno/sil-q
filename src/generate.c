@@ -2757,10 +2757,9 @@ static bool build_vault(int y0, int x0, vault_type* v_ptr, bool flip_d)
                 {
                     if (one_in_(8))
                     {
-                        humanOrElf = one_in_(2) ?
-                                    R_IDX_ALERT_HUMAN_THRALL :
-                                    R_IDX_ALERT_ELF_THRALL;
-                        p_ptr->thrall_quest = QUEST_GIVER_PRESENT; 
+                        humanOrElf = one_in_(2) ? R_IDX_ALERT_HUMAN_THRALL
+                                                : R_IDX_ALERT_ELF_THRALL;
+                        p_ptr->thrall_quest = QUEST_GIVER_PRESENT;
                     }
                 }
 
@@ -3509,10 +3508,10 @@ static void make_patches_of_sunlight(void)
     // bunch near the player
     for (i = 0; i < 40; ++i)
     {
-        y = rand_range(MAX(p_ptr->py - 5, 1),
-            MIN(p_ptr->py + 5, p_ptr->cur_map_hgt - 2));
-        x = rand_range(MAX(p_ptr->px - 5, 1),
-            MIN(p_ptr->px + 5, p_ptr->cur_map_wid - 2));
+        y = rand_range(
+            MAX(p_ptr->py - 5, 1), MIN(p_ptr->py + 5, p_ptr->cur_map_hgt - 2));
+        x = rand_range(
+            MAX(p_ptr->px - 5, 1), MIN(p_ptr->px + 5, p_ptr->cur_map_wid - 2));
         make_patch_of_sunlight(y, x);
     }
 
