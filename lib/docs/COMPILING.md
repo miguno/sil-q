@@ -174,20 +174,19 @@ it to run it. You will have to give macOS several permissions/confirmations, see
 notes below.
 
 > NOTE: If you are on macOS 10.15 or later and haven't run Sil-Q before, the
-> macOS Gatekeeper security feature may prevent you from starting the Sil-Q app.
-> You may see a macOS dialog window "Sil-Q Not Opened" and a note about Apple
-> not being able to verify that the app is free of malware. In the dialog
-> window, click the button "Done" (not "Move to Trash"). Then go to your Mac's
-> `System Settings` > `Privacy & Security`, scroll all the way down to the
-> "Security" section, which will have an entry `"Sil-Q" was blocked to protect
-your Mac.`. Here, click on the button "Open Anyway" and confirm that you do
-> want to launch Sil-Q. See [Safely open apps on your
-> Mac](https://support.apple.com/en-us/102445) in the macOS documentation.
-
-> NOTE: If you are on macOS 10.15 or later and haven't run Sil-Q before, you
-> will see a macOS dialog window about granting Sil-Q access to your `Documents`
-> folder. You must approve this access, because it is required by Sil-Q to store
-> its savefiles (your in-game characters), the high score file, and additional
-> game data in the folder `Documents/Sil/`.
+> [macOS Gatekeeper security feature](https://support.apple.com/en-us/102445)
+> may prevent you from starting the Sil-Q app. If you see a macOS dialog window
+> "Sil.app Not Opened" with a note about Apple not being able to verify that the
+> app is free of malware, then click the button "Done". (Do not click on "Move
+> to Trash".) Then go to your Mac's `System Settings` > `Privacy & Security`,
+> and scroll all the way down to the `Security` section, which will have an
+> entry "Sil.app was blocked to protect your Mac". Here, click on the button
+> "Open Anyway" and confirm that you do want to launch Sil-Q.
+>
+> When Sil-Q launches now, you will see another macOS dialog window about
+> granting Sil-Q access to your `Documents` folder. You must approve this
+> access, because it is required by Sil-Q to store its savefiles for your
+> in-game characters, the high score file, and additional game data in the
+> folder `Documents/Sil/`.
 
 Enjoy!
