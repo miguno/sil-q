@@ -48,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
-          name: Sil-Q-macos-console.zip
+          name: Sil-Q-macos-console
           # IMPORTANT: Do NOT use quotes to escape spaces in filenames.
           path: |
             sil
@@ -100,6 +100,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
-          name: Sil-Q-macos.zip
+          name: Sil-Q-macos
           path: Sil-Q-macos.zip
           if-no-files-found: error
