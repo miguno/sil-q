@@ -49,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
-          name: Sil-Q-linux-x86_64.zip
+          name: Sil-Q-linux-x86_64
           # IMPORTANT: Do NOT use quotes to escape spaces in filenames.
           path: |
             sil
