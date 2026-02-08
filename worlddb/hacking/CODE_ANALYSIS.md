@@ -695,10 +695,14 @@ shattering.
 
 ### Silmaril Item Creation
 
-When freed, a Silmaril is created as an inventory item:
+When freed, a Silmaril is created as an inventory item.
+
+From `prise_silmaril()` in `src/cmd3.c`:
 
 ```c
+// Make Silmaril
 object_prep(o_ptr, lookup_kind(TV_LIGHT, SV_LIGHT_SILMARIL));
+// Get it
 slot = inven_carry(o_ptr, FALSE);
 ```
 
