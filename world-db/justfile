@@ -1,0 +1,213 @@
+# This justfile requires https://github.com/casey/just
+
+project_dir := justfile_directory()
+build_dir := project_dir + "/dist"
+app_executable := "app"
+app_file := "main.py"
+
+# print available targets
+[group('project-agnostic')]
+default:
+    @just --list --justfile {{justfile()}}
+
+# evaluate and print all just variables
+[group('project-agnostic')]
+evaluate:
+    @just --evaluate
+
+# print system information such as OS and architecture
+[group('project-agnostic')]
+system-info:
+    @echo "architecture: {{arch()}}"
+    @echo "os: {{os()}}"
+    @echo "os family: {{os_family()}}"
+
+# create coverage report
+[group('development')]
+coverage:
+    rm -rf ./coverage && \
+    uv run pytest -n auto --cov=sil_q_worlddb \
+        --cov-report term \
+        --cov-report html:coverage/report/ \
+        --cov-report json:coverage/coverage.json \
+        --cov-report lcov:coverage/coverage.lcov \
+        --cov-report xml:coverage/coverage.xml \
+        tests/
+
+# show direct dependencies
+[group('development')]
+dependencies:
+    uv tree --outdated --depth 1
+
+# show all dependencies, i.e., including transitive dependencies
+[group('development')]
+dependencies-all:
+    uv tree --outdated
+
+# format the sources
+[group('development')]
+format:
+    uv run ruff format && uv run mdformat .
+
+# install the project after a fresh git checkout
+[group('development')]
+install:
+    #!/usr/bin/env bash
+    # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+    # `-u`: Errors if a variable is referenced before being set
+    # `-o pipefail`: Prevent errors in a pipeline (`|`) from being masked
+    set -uo pipefail
+
+    if [ "{{os()}}" = "macos" ]; then
+        echo "== Installing homebrew dependencies =="
+        brew bundle
+    fi
+
+    echo "== Installing/updating mise dependencies =="
+    if ! command -v mise &>/dev/null; then
+      echo "ERROR: 'mise' command not found. Is mise installed? (https://github.com/jdx/mise)"
+      exit 1
+    fi
+    mise trust --quiet
+    mise install
+
+    echo "== Installing Python and project dependencies =="
+    uv sync --locked --all-extras --dev
+
+# lint the sources
+[group('development')]
+lint:
+    uv run ruff check
+
+# lint the sources and apply auto-fixes
+[group('development')]
+lint-fix:
+    uv run ruff check --fix
+
+# list outdated dependencies
+[group('development')]
+outdated:
+    @echo "================================================="
+    @echo "Outdated direct and transitive dependencies"
+    @echo "================================================="
+    uv tree --outdated --depth 1
+    @echo
+    @echo "================================================="
+    @echo "To manually update a dependency, run:"
+    @echo
+    @echo "    $ uv lock --upgrade-package <package>"
+    @echo
+    @echo "To view outdated *direct plus transitive* dependencies, run:"
+    @echo
+    @echo "    # Or run 'uv pip list --outdated'"
+    @echo "    $ uv tree --outdated"
+    @echo
+    @echo "Then sync the project with the updated dependencies:"
+    @echo
+    @echo "    # Or run 'just install'."
+    @echo "    $ uv sync --locked --all-extras --dev"
+    @echo
+
+# run pre-commit checks (useful for troubleshooting)
+[group('development')]
+pre-commit:
+    uv run pre-commit run --all-files
+
+# show available Python versions
+[group('development')]
+python-versions:
+    uv python list
+
+# run the interactive Python shell
+[group('development')]
+shell:
+    uv run python
+
+# update the project's environment
+[group('development')]
+sync:
+    uv sync --locked --all-extras --dev
+
+# run tests
+[group('development')]
+test *args:
+    @uv run pytest {{args}}
+
+# https://pytest-xdist.readthedocs.io/en/stable/known-limitations.html
+# run tests across all available CPU cores (breaks PDB debugging)
+[group('development')]
+test-distributed:
+    @uv run pytest -n auto
+
+# watch tests
+[group('development')]
+test-watch:
+    @uv run pytest -n auto --looponfail
+
+# watch tests (requires https://github.com/watchexec/watchexec)
+[group('development')]
+test-watch-watchexec:
+    @watchexec --clear --exts py -- uv run pytest -n auto
+
+# type check the sources
+[group('development')]
+types *args:
+    uv run ty check {{args}}
+
+# watch sources for changes, then type check
+[group('development')]
+types-watch *args:
+    uv run ty check --watch {{args}}
+
+# update dependencies
+[group('development')]
+update:
+    #!/usr/bin/env bash
+    if [ "{{os()}}" = "macos" ]; then
+        echo "== Updating brew dependencies =="
+        brew bundle
+    fi
+    echo
+    # Maybe one of the following commands work as workarounds for now?
+    #
+    #   # Upgrade all of the locked versions of our packages
+    #   $ uv lock --upgrade
+    #
+    #   # Upgrade a specific package
+    #   $ uv lock --upgrade-package <packageName>
+    #
+    echo "TODO: Update Python dependencies"
+    echo "      See https://github.com/astral-sh/uv/issues/6794"
+    echo "      See https://github.com/astral-sh/uv/issues/6692"
+    echo
+    echo "To manually update a direct or transitive dependency, run:"
+    echo
+    echo "    $ uv lock --upgrade-package <package>"
+    echo
+    echo "Then sync the project with the updated dependencies:"
+    echo
+    echo "    # Or run 'just install'."
+    echo "    $ uv sync --locked --all-extras --dev"
+    echo
+
+# run most relevant checks
+[group('development')]
+verify: lint types test
+
+# show version information
+[group('development')]
+version:
+    @echo "== uv =="
+    @uv --version
+    @echo "== project =="
+    @uv version
+    @echo "== python =="
+    @uv run python --version
+    @echo "== pre-commit =="
+    @uv run pre-commit --version
+    @echo "== astral-sh/ty =="
+    @uv run ty --version
+
+# alias for 'test-watch'
+[group('development')]
+watch: test-watch
