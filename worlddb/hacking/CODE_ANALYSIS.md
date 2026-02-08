@@ -664,8 +664,9 @@ crown's protection roll.
 ```c
 int pd = 10;  // Crown's protection dice (HARDCODED)
 
-// Your attack roll
+// Player attack's hit roll
 hit_result = hit_roll(attack_mod, 0, PLAYER, NULL, TRUE);
+// Player attack's damage roll
 dam = damroll(p_ptr->mdd + crit_bonus_dice, mds);
 
 // Crown's protection roll
