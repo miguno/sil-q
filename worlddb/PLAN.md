@@ -111,7 +111,7 @@ Verify database accuracy against source data.
 ## File Structure
 
 ```
-world-db/
+worlddb/
 ├── PLAN.md                  # This file - project specification
 ├── docs/
     ├── DATA_FILES.md        # Analysis of lib/edit/*.txt formats
