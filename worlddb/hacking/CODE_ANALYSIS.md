@@ -88,7 +88,7 @@ ______________________________________________________________________
 
 Source: Multiple files
 
-| File              | Function/Location       | Behavior                                         |
+| File (in `src/`)  | Function/Location       | Behavior                                         |
 | ----------------- | ----------------------- | ------------------------------------------------ |
 | `files.c:4035`    | `silmarils_possessed()` | Counts Silmarils in inventory                    |
 | `cmd2.c:150`      | Escape check            | Cannot flee with Silmarils from throne room      |
@@ -697,7 +697,7 @@ shattering.
 
 When freed, a Silmaril is created as an inventory item.
 
-From `prise_silmaril()` in `src/cmd3.c`:
+From `prise_silmaril()` in `cmd3.c`:
 
 ```c
 // Make Silmaril
@@ -716,7 +716,7 @@ Source: `main-win.c:1264-1277`, `main-x11.c:2706-2724`, `main-cocoa.m:2874-2877`
 
 The default tileset (MicroChasm's) is **hardcoded** in platform-specific files:
 
-| Platform  | File                | Tileset Path                         |
+| Platform  | File (in `src/`)    | Tileset Path                         |
 | --------- | ------------------- | ------------------------------------ |
 | Windows   | `main-win.c:1269`   | `lib/xtra/graf/16X16.BMP`            |
 | X11/Linux | `main-x11.c:2709`   | `lib/xtra/graf/16x16.bmp`            |
@@ -740,15 +740,15 @@ Coordinate format: 0xYY/0xXX
 
 **Current MicroChasm tileset:**
 
-- Dimensions: 512×256 pixels (16×16 pixel tiles)
-- Rows: 16 (0x80 to 0x8F)
-- Columns: 32 (0x80 to 0x9F)
+- Dimensions: 512x256 pixels (16x16 pixel tiles)
+- Rows: 16 (`0x80` to `0x8F`)
+- Columns: 32 (`0x80` to `0x9F`)
 - Total tiles: 512
 
 **Maximum theoretical:**
 
-- Rows: 256 (0x80 to 0xFF, minus reserved range)
-- Columns: 256 (0x80 to 0xFF)
+- Rows: 256 (`0x80` to `0xFF`, minus reserved range)
+- Columns: 256 (`0x80` to `0xFF`)
 - Total: 65,536 tiles (with larger bitmap)
 
 ### Player Tiles
@@ -767,7 +767,7 @@ Each race has 16 equipment state variants (columns 0x80-0x8F or 0x90-0x9F).
 **House has no effect on player tile.** All members of a race use the same base
 tile.
 
-### PRF File Loading
+### PRF File Loading (`*.prf`)
 
 Source: `object1.c:271-272`, `dungeon.c:2846-2863`
 
@@ -850,7 +850,7 @@ Source: `cmd2.c:105-230` (up stairs), `cmd2.c:233-330` (down stairs)
 
 ### Stair Types
 
-From `terrain.txt`:
+From `lib/edit/terrain.txt`:
 
 | Feature ID | Name           | Depth Change       |
 | ---------- | -------------- | ------------------ |
@@ -910,10 +910,9 @@ Source: `defines.h:391-395`, `dungeon.c:2199-2266`, `xtra1.c:589-618`
 | `PY_FOOD_FULL`   | 5000  | (blank)          | Light green |
 | `PY_FOOD_MAX`    | 8000  | "Full"           | Green       |
 
-### Hunger Rate Variable
+### Hunger Rate
 
-The `p_ptr->hunger` variable controls digestion speed (Source:
-`xtra1.c:2382-2407`):
+The `p_ptr->hunger` variable controls digestion speed (`xtra1.c:2382-2407`):
 
 | Hunger Value | Effect                          | Items                 |
 | ------------ | ------------------------------- | --------------------- |
@@ -921,7 +920,7 @@ The `p_ptr->hunger` variable controls digestion speed (Source:
 | 0            | Normal rate                     | Default               |
 | +1 or higher | Faster digestion (×3^n)         | HUNGER equipment      |
 
-**Digestion Formula** (Source: `dungeon.c:2204-2225`):
+**Digestion Formula** (`dungeon.c:2204-2225`):
 
 ```c
 // Slow hunger (negative) - statistical reduction
@@ -939,10 +938,10 @@ set_food(p_ptr->food - food_loss);
 
 ### Starvation Effects
 
-| Food Level    | Effect                               |
-| ------------- | ------------------------------------ |
-| < WEAK (1000) | STR -1 (Source: `xtra1.c:2655-2658`) |
-| < STARVE (1)  | HP damage each turn                  |
+| Food Level    | Effect                       |
+| ------------- | ---------------------------- |
+| < WEAK (1000) | STR -1 (`xtra1.c:2655-2658`) |
+| < STARVE (1)  | HP damage each turn          |
 
 ### Food Sources
 
@@ -975,14 +974,14 @@ Source: `defines.h:630-654`, `monster2.c:1168-1210`
 
 | Index | Constant | Skill      | Primary Stat |
 | ----- | -------- | ---------- | ------------ |
-| 0     | S_MEL    | Melee      | DEX          |
-| 1     | S_ARC    | Archery    | DEX          |
-| 2     | S_EVN    | Evasion    | DEX          |
-| 3     | S_STL    | Stealth    | DEX          |
-| 4     | S_PER    | Perception | GRA          |
-| 5     | S_WIL    | Will       | GRA          |
-| 6     | S_SMT    | Smithing   | GRA          |
-| 7     | S_SNG    | Song       | GRA          |
+| 0     | `S_MEL`  | Melee      | DEX          |
+| 1     | `S_ARC`  | Archery    | DEX          |
+| 2     | `S_EVN`  | Evasion    | DEX          |
+| 3     | `S_STL`  | Stealth    | DEX          |
+| 4     | `S_PER`  | Perception | GRA          |
+| 5     | `S_WIL`  | Will       | GRA          |
+| 6     | `S_SMT`  | Smithing   | GRA          |
+| 7     | `S_SNG`  | Song       | GRA          |
 
 Each skill can have up to 20 abilities (`ABILITIES_MAX`). Base skill maximum is
 100 (`BASE_SKILL_MAX`).
@@ -992,19 +991,21 @@ Each skill can have up to 20 abilities (`ABILITIES_MAX`). Base skill maximum is
 Monsters use a **subset** of the skill system. The `monster_skill()` function in
 `monster2.c:1168-1210` maps monster stats to skills:
 
-| Skill              | Monster Field | Source          |
-| ------------------ | ------------- | --------------- |
-| S_STL (Stealth)    | `r_ptr->stl`  | A: line field 3 |
-| S_PER (Perception) | `r_ptr->per`  | A: line field 2 |
-| S_WIL (Will)       | `r_ptr->wil`  | A: line field 4 |
+| Skill                | Monster Field | Source            |
+| -------------------- | ------------- | ----------------- |
+| `S_STL` (Stealth)    | `r_ptr->stl`  | `A:` line field 3 |
+| `S_PER` (Perception) | `r_ptr->per`  | `A:` line field 2 |
+| `S_WIL` (Will)       | `r_ptr->wil`  | `A:` line field 4 |
 
 **Player-Only Skills** (not used by monsters):
 
-- Melee (S_MEL) - monsters use attack bonus from B: line
-- Archery (S_ARC) - monsters use spell/breath attacks
-- Evasion (S_EVN) - monsters use evasion from P: line
-- Smithing (S_SMT) - player crafting only
-- Song (S*SNG) - player songs only (monsters have SNG*\* flags)
+- Melee (`S_MEL`) - monsters use attack bonus from B: line
+- Archery (`S_ARC`) - monsters use spell/breath attacks
+- Evasion (`S_EVN`) - monsters use evasion from P: line
+- Smithing (`S_SMT`) - player crafting only
+- Song (`S_SNG`) - player songs only (monsters have `SNG_*` flags)
+
+> Player races may have `SNG_AFFINITY` (`lib/edit/race.txt`).
 
 **Monster A: Line Format:**
 
@@ -1012,7 +1013,7 @@ Monsters use a **subset** of the skill system. The `monster_skill()` function in
 A: sleepiness : perception : stealth : will
 ```
 
-Example: `A:20:2:3:1` means sleepiness 20, perception 2, stealth 3, will 1.
+Example: `A:20:2:3:1` means Sleepiness 20, Perception 2, Stealth 3, Will 1.
 
 ______________________________________________________________________
 
@@ -1020,18 +1021,18 @@ ______________________________________________________________________
 
 Source: `use-obj.c:670-920`
 
-Horns are usable items with **entirely hardcoded effects**. The pval field is
+Horns are usable items with **entirely hardcoded effects**. The `pval` field is
 not used.
 
 ### Horn Types and Effects
 
-| sval | Name     | Effect                                                | Skill Check         |
-| ---- | -------- | ----------------------------------------------------- | ------------------- |
-| 0    | Terror   | `fire_arc(GF_FEAR, ...)` in 90° arc                   | Will vs target Will |
-| 1    | Thunder  | `fire_arc(GF_SOUND, 10, 4, ...)` stuns                | Will vs target Will |
-| 2    | Force    | Knockback 1-3 squares + stun                          | Will+10 vs CON×2    |
-| 3    | Blasting | `fire_arc(GF_KILL_WALL, ...)` destroys walls          | Will-based          |
-| 4    | Warning  | `monster_perception(TRUE, FALSE, -10)` alerts enemies | None                |
+| sval | Name     | Effect                                                | Skill Check          |
+| ---- | -------- | ----------------------------------------------------- | -------------------- |
+| 0    | Terror   | `fire_arc(GF_FEAR, ...)` in 90° arc                   | Will vs. target Will |
+| 1    | Thunder  | `fire_arc(GF_SOUND, 10, 4, ...)` stuns                | Will vs. target Will |
+| 2    | Force    | Knockback 1-3 squares + stun                          | Will+10 vs CON×2     |
+| 3    | Blasting | `fire_arc(GF_KILL_WALL, ...)` destroys walls          | Will-based           |
+| 4    | Warning  | `monster_perception(TRUE, FALSE, -10)` alerts enemies | None                 |
 
 ### Horn of Force Details
 
@@ -1052,11 +1053,11 @@ All horns generate significant noise, alerting nearby monsters:
 
 ______________________________________________________________________
 
-## 28. Element/Effect System (GF\_\*)
+## 28. Element/Effect System (`GF_*`)
 
 Source: `defines.h:789-841`, `spells1.c`
 
-The GF\_\* constants define damage types and effect types used by spells,
+The `GF_*` constants define damage types and effect types used by spells,
 breaths, traps, and items.
 
 ### Damage Elements
@@ -1223,8 +1224,8 @@ n_ptr->alertness = ALERTNESS_ALERT - amount;  // 0 - amount
 **Special cases:**
 
 - During player escape (`on_the_run`): monsters on Gates level or dangerous
-  monsters start more alert
-- If monster has a "lead" (spawns with group): copies leader's alertness
+  monsters start more alert.
+- If monster has a "lead" (spawns with group): copies leader's alertness.
 
 ### Perception Check (Stealth vs Perception)
 
@@ -1260,7 +1261,7 @@ if (result > 0):
 
 ### Perception Modifiers
 
-**Bonuses to Monster Perception:**
+Bonuses to Monster Perception:
 
 | Modifier      | Bonus         | Condition                          |
 | ------------- | ------------- | ---------------------------------- |
@@ -1270,7 +1271,7 @@ if (result > 0):
 | Endgame       | +5            | Player is escaping (`on_the_run`)  |
 | Elf-Bane      | +varies       | Monster has Elf-Bane vs elf player |
 
-**Penalties to Monster Perception:**
+Penalties to Monster Perception:
 
 | Modifier      | Penalty     | Condition                       |
 | ------------- | ----------- | ------------------------------- |
@@ -1296,7 +1297,7 @@ Alert monsters can lose track of the player (Source: `melee2.c:5866-5882`):
 
 ### Configuring Monster Alertness
 
-In `monster.txt`, set the A: line sleepiness value:
+In `monster.txt`, set the `A:` line sleepiness value:
 
 | Sleepiness | Effect                      |
 | ---------- | --------------------------- |
@@ -1326,20 +1327,20 @@ configurations for XP amounts.
 
 Source: `xtra2.c:2417-2455` (`adjusted_mon_exp` function)
 
-**Base XP:**
+Base XP:
 
 ```c
 mexp = r_ptr->level * 10   // Monster's W: line depth × 10
 ```
 
-**Encounter (Sight) XP:**
+Encounter (Sight) XP:
 
 | Monster Type | Formula                       | Notes               |
 | ------------ | ----------------------------- | ------------------- |
 | UNIQUE       | `level × 10`                  | Full XP             |
 | Non-unique   | `(level × 10) / (sights + 1)` | Diminishing returns |
 
-**Kill XP:**
+Kill XP:
 
 | Monster Type | Formula                      | Notes                       |
 | ------------ | ---------------------------- | --------------------------- |
@@ -1347,7 +1348,7 @@ mexp = r_ptr->level * 10   // Monster's W: line depth × 10
 | Non-unique   | `(level × 10) / (kills + 1)` | Diminishing returns         |
 | PEACEFUL     | 0                            | No XP for peaceful monsters |
 
-**Example:** Depth 5 monster (W:5:...) = base 50 XP
+Example: Depth 5 monster (W:5:...) = base 50 XP
 
 - 1st kill: 50/1 = 50 XP
 - 2nd kill: 50/2 = 25 XP
@@ -1406,7 +1407,7 @@ cost = (points + base) * (points + base + 1) / 2 * 100 - previous_cost
 ### Configuring Monster XP
 
 The **only way to affect monster XP** is via the monster's depth in
-`monster.txt`:
+`lib/edit/monster.txt`:
 
 ```
 W: depth : rarity
@@ -1418,30 +1419,30 @@ ______________________________________________________________________
 
 ## Key Source Files
 
-| File           | Primary Content                                |
-| -------------- | ---------------------------------------------- |
-| `xtra2.c`      | Morgoth progression, morale, experience system |
-| `cmd1.c`       | Quest system, combat, knockback, trap effects  |
-| `cmd2.c`       | Min depth system, stair mechanics, victory     |
-| `cmd3.c`       | Silmaril removal mechanics, crown system       |
-| `cmd4.c`       | Smithing, ability bonuses, bane, forge bonus   |
-| `melee2.c`     | Monster AI, perception, morale system, stance  |
-| `melee1.c`     | Monster attack effects (`RBE_*`)               |
-| `object2.c`    | Silmarils, special items, forge placement      |
-| `generate.c`   | Unique placement, thralls, depth rules         |
-| `dungeon.c`    | Hunger/food, regeneration, descent XP          |
-| `monster2.c`   | Monster spawning, health dice, encounter XP    |
-| `birth.c`      | Character creation, skill point costs          |
-| `xtra1.c`      | Skills, weapon bonuses, two-weapon, status     |
-| `files.c`      | Silmaril counting, scoring, PRF loading        |
-| `use-obj.c`    | Consumables, herbs, potions, horn effects      |
-| `spells1.c`    | `GF_*` element effects, status mechanics       |
-| `defines.h`    | Light radius, trap, forge, graphics constants  |
-| `tables.c`     | Speed/energy system                            |
-| `main-win.c`   | Windows tileset loading                        |
-| `main-x11.c`   | X11 tileset loading                            |
-| `main-cocoa.m` | macOS tileset loading                          |
-| `variable.c`   | ANGBAND_GRAF graphics mode variable            |
+| File (in `src/`) | Primary Content                                |
+| ---------------- | ---------------------------------------------- |
+| `xtra2.c`        | Morgoth progression, morale, experience system |
+| `cmd1.c`         | Quest system, combat, knockback, trap effects  |
+| `cmd2.c`         | Min depth system, stair mechanics, victory     |
+| `cmd3.c`         | Silmaril removal mechanics, crown system       |
+| `cmd4.c`         | Smithing, ability bonuses, bane, forge bonus   |
+| `melee2.c`       | Monster AI, perception, morale system, stance  |
+| `melee1.c`       | Monster attack effects (`RBE_*`)               |
+| `object2.c`      | Silmarils, special items, forge placement      |
+| `generate.c`     | Unique placement, thralls, depth rules         |
+| `dungeon.c`      | Hunger/food, regeneration, descent XP          |
+| `monster2.c`     | Monster spawning, health dice, encounter XP    |
+| `birth.c`        | Character creation, skill point costs          |
+| `xtra1.c`        | Skills, weapon bonuses, two-weapon, status     |
+| `files.c`        | Silmaril counting, scoring, PRF loading        |
+| `use-obj.c`      | Consumables, herbs, potions, horn effects      |
+| `spells1.c`      | `GF_*` element effects, status mechanics       |
+| `defines.h`      | Light radius, trap, forge, graphics constants  |
+| `tables.c`       | Speed/energy system                            |
+| `main-win.c`     | Windows tileset loading                        |
+| `main-x11.c`     | X11 tileset loading                            |
+| `main-cocoa.m`   | macOS tileset loading                          |
+| `variable.c`     | ANGBAND_GRAF graphics mode variable            |
 
 ______________________________________________________________________
 
