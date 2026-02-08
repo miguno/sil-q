@@ -1,22 +1,21 @@
-Sil-Q Game Design
-=================
+# Sil-Q Game Design
 
 # The nature of the game
 
 Sil-Q is a game about choice.
 
-It is possible to imagine a game in the same genre where progress is simply
-bump combat, over and over, with numbers going up. The player would rarely or
-never need to engage any sort of tactical sense; the rewards would largely be
-the intermittent drip-feed of better and better loot, none of it changing the
+It is possible to imagine a game in the same genre where progress is simply bump
+combat, over and over, with numbers going up. The player would rarely or never
+need to engage any sort of tactical sense; the rewards would largely be the
+intermittent drip-feed of better and better loot, none of it changing the
 gameplay loop significantly.
 
 Sil-Q wants to sit as far away from this game as possible.
 
 Sil has been compared to Angband with the analogy that if Angband is a trek up a
-mountain, Sil is a bouldering problem. Sil-Q leans into this mindset to create
-a short but intense game that demands much player concentration, while trying
-to avoid instant deaths and situations that feel unfair.
+mountain, Sil is a bouldering problem. Sil-Q leans into this mindset to create a
+short but intense game that demands much player concentration, while trying to
+avoid instant deaths and situations that feel unfair.
 
 Sil-Q broadly rejects the idea that there should be one way to succeed; it gives
 you many possible tools, all designed to be useful in certain situations, and
@@ -31,15 +30,15 @@ critical to improving survivability.
 
 Players can invest in Evasion and Melee early and quickly arrive at a
 configuration that will survive the early floors. Pacifists sink their resources
-into Stealth and Perception and embark on a very different game. Dedicated 
+into Stealth and Perception and embark on a very different game. Dedicated
 smiths gauge how much experience they can afford to sink into Smithing.
 
 The floor at 100' holds a forge shrouded in darkness with three orc warriors,
 significantly stronger than anything else the player is likely to encounter in
 those first couple of levels. This is the first proper tactical test for a new
-player who has found some useful armour and invested in the combat skills.
-Being surrounded in Sil-Q has significant combat maluses and it is generally
-advisable to lure them out.
+player who has found some useful armour and invested in the combat skills. Being
+surrounded in Sil-Q has significant combat maluses and it is generally advisable
+to lure them out.
 
 In this early phase of the game players focus on acquiring armour and filling
 out their equipment slots. An early Smithing investment can give players a head
@@ -57,7 +56,7 @@ that make their creation choices favouring Constitution or Grace pay off.
 
 The player is contending a good deal with orcs over this period and later
 trolls. Orc archers produce a ranged threat. Spiders and wights pose different
-sorts of challenges. The first couple of uniques show up in Gorgol and Boldog. 
+sorts of challenges. The first couple of uniques show up in Gorgol and Boldog.
 
 In this stretch the player has to learn when they are strong enough to fight and
 when they must simply avoid, what can be skirted steathily and what must be
@@ -66,7 +65,7 @@ player doesn't stumble into trouble, but as fuel is limited the player may make
 effort to conserve it until they are confident in their supply.
 
 Fear and confusion and stun start to become minor threats. The player may want
-either resistance against these or to start to increase their will. 
+either resistance against these or to start to increase their will.
 
 400' is about the point where wargs and whispering shadows start to show up.
 Wargs in particular challenge stealthy players, being fast with good perception,
@@ -91,11 +90,11 @@ on these later levels. Usually players build up a stash of Staves of Treasures,
 and spend a period of time gathering items for the final assault on Morgoth.
 
 Morgoth's throne room is the climax of the game. The skilled player comes in
-stocked up with potions to boost stats and speed and as much healing as they
-can muster, equipped with every resistance, with a strong weapon capable of
-prising free a Silmaril. Some of this changes a little for a pacifist who
-intends to put Morgoth to sleep, steal a Silmaril and depart - everything is
-designed there to maximise Song and the ability to continue singing.
+stocked up with potions to boost stats and speed and as much healing as they can
+muster, equipped with every resistance, with a strong weapon capable of prising
+free a Silmaril. Some of this changes a little for a pacifist who intends to put
+Morgoth to sleep, steal a Silmaril and depart - everything is designed there to
+maximise Song and the ability to continue singing.
 
 Finally comes the escape, where Staves of Revelation and Song of Delvings expose
 the map so the player can thread their way upward and out to the gates, where
@@ -114,8 +113,8 @@ impact early on and less later. Rolling a single d20 against a fixed target with
 opposed rolls, a difference of +13 is sufficient to achieve 94.75%, but adding
 an extra 1 only ups the chances to 96.25%. This means combat between equal sides
 is more quickly imbalanced by bonuses and maluses, and combat between unequal
-sides less affected. This makes the impact of relatively small bonuses
-extremely relevant in Sil-Q in a way that they are not in many other games.
+sides less affected. This makes the impact of relatively small bonuses extremely
+relevant in Sil-Q in a way that they are not in many other games.
 
 Damage rolls vs armour rolls add a different dimension. An enemy with low
 evasion but high armour will take hit after hit and only slowly be worn down; an
@@ -124,11 +123,11 @@ enemy with high evasion but no armour will be hard to hit but crumble quickly.
 Critical hits allow for lighter weapons with lower damage dice to outperform
 heavier weapons when the player is striking with a very significant advantage.
 As heavier armour has maluses that reduce Melee and Evasion, this creates a
-dynamic where lighter weapons and lighter armour work well together, and
-heavier weapons work with heavier armour. The heavy weapon, not relying on
-critical hits, need only make contact and so the player can afford to trade off
-some damage output for enhanced protection. The light weapon cannot so easily
-afford to give up on attack, and the player must rely on Evasion or Stealth for
+dynamic where lighter weapons and lighter armour work well together, and heavier
+weapons work with heavier armour. The heavy weapon, not relying on critical
+hits, need only make contact and so the player can afford to trade off some
+damage output for enhanced protection. The light weapon cannot so easily afford
+to give up on attack, and the player must rely on Evasion or Stealth for
 protection instead.
 
 # Consumables
@@ -150,9 +149,9 @@ time is passing, hurry up, explore areas you haven't seen yet.
 
 This tension forces the player to make little choices: if I ditch this extra
 fuel or this food to carry this potion, will it cost me later? Can I afford the
-space to carry one weapon for orcs and another for wolves at the expense of
-an antidote I don't need right now but may later? Now I have found a ring of
-resist fire, can I afford not to take it with me? But what do I drop?
+space to carry one weapon for orcs and another for wolves at the expense of an
+antidote I don't need right now but may later? Now I have found a ring of resist
+fire, can I afford not to take it with me? But what do I drop?
 
 This feeling of tension, of balancing competing needs, is core to the game's
 challenge.
@@ -180,9 +179,9 @@ the tree to be relevant beyond stealth.
 
 # Houses
 
-While races are broadly reflective of Tolkien, houses are less so. They exist 
-to provide a way for the player to customise their character slightly toward
-one build or another.
+While races are broadly reflective of Tolkien, houses are less so. They exist to
+provide a way for the player to customise their character slightly toward one
+build or another.
 
 # Smithing
 
