@@ -654,7 +654,12 @@ When you remove a Silmaril, the crown's artefact ID is decremented
 
 Source: `cmd3.c:985, 1047-1074`
 
-The removal is a **combat roll** against the crown:
+The removal is a **combat roll** against the crown. To do this, the player has
+to stand over the crown and press `k`.
+
+The crown has a protection of `10d4`. The player must first make a successful
+hit with their attack, and then the attack's damage roll must also exceed the
+crown's protection roll.
 
 ```c
 int pd = 10;  // Crown's protection dice (HARDCODED)
