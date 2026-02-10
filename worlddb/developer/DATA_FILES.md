@@ -471,7 +471,8 @@ D: description
 ### Terrain Flags
 
 - Movement: `PASSABLE`, `FLOOR`, `WALL`, `PERMANENT`, `BRIDGE`
-- Vision: `LOS`, `PROJECT`, `GLOW`
+- Vision: `LOS`, `PROJECT`, `GLOW` (interact with
+  `CAVE_VIEW`/`CAVE_SEEN`/`CAVE_MARK` runtime flags; see CODEBASE.md Section 32)
 - Special: `DOOR`, `TRAP`, `STAIRS`, `SHAFT`, `CHASM`
 - Effects: `FIERY`, `WATERY`, `ICY`, `ICKY`
 

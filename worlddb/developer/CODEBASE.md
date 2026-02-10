@@ -1417,10 +1417,657 @@ Higher depth = more XP. A monster at `W:10:1` gives base `10 × 10 = 100` XP.
 
 ______________________________________________________________________
 
+## 32. Visibility and Line-of-Sight System
+
+Source: `cave.c`
+
+The visibility system determines what the player can see. It uses an
+octant-based line-of-sight (LOS) algorithm with precomputed slope data.
+
+### Visibility Flags
+
+Each dungeon square carries three visibility-related flags:
+
+| Flag        | Meaning                          | Persistence | Set By                        |
+| ----------- | -------------------------------- | ----------- | ----------------------------- |
+| `CAVE_VIEW` | Line of sight exists from player | Per-turn    | `update_view()` LOS algorithm |
+| `CAVE_SEEN` | Currently visible to player      | Per-turn    | Requires `CAVE_VIEW` + light  |
+| `CAVE_MARK` | Memorized/mapped by player       | Persistent  | `note_spot()` on first sight  |
+
+**Flag relationships:**
+
+1. `CAVE_VIEW` = geometric line of sight exists (no walls blocking)
+2. `CAVE_SEEN` = `CAVE_VIEW` + light source = player can see it right now
+3. `CAVE_MARK` = square has been memorized (persistent across turns)
+
+**Possible states:**
+
+| `CAVE_VIEW` | `CAVE_SEEN` | `CAVE_MARK` | Meaning                          |
+| ----------- | ----------- | ----------- | -------------------------------- |
+| Yes         | No          | No          | In LOS but dark; invisible       |
+| Yes         | Yes         | No          | Currently visible, not memorized |
+| No          | No          | Yes         | Previously seen, now out of view |
+| Yes         | Yes         | Yes         | Currently visible and memorized  |
+
+**`CAVE_MARK` rules:**
+
+- Set when the player first sees "interesting" terrain (doors, traps, stairs)
+- For plain floors, only set if the floor has `CAVE_GLOW` (permanently lit)
+- Dark corridor floors never get `CAVE_MARK` — only visible via `CAVE_SEEN`
+
+> In addition to `CAVE_MARK`, the game uses a second way to mark objects (such
+> as skeletons) as having been seen by the player. See the field `marked` of the
+> `object_type` struct (often referred to as `o_ptr->marked` in the code).
+
+### Distance Function
+
+Source: `cave.c:27-37`
+
+The `distance()` function uses an octagonal approximation of Euclidean distance
+to avoid the precise, but expensive square root calculations of true Euclidean
+distance `sqrt(dy² + dx²)`:
+
+```c
+int distance(int y1, int x1, int y2, int x2)
+{
+  int ay, ax;
+
+  /* Find the absolute y/x distance components */
+  ay = (y1 > y2) ? (y1 - y2) : (y2 - y1);
+  ax = (x1 > x2) ? (x1 - x2) : (x2 - x1);
+
+  /* Hack -- approximate the distance */
+  return ((ay > ax) ? (ay + (ax >> 1)) : (ax + (ay >> 1)));
+}
+```
+
+Here:
+
+- The formula: `max(dy, dx) + min(dy, dx) / 2` is an approximation of Euclidean
+  distance that avoids the precise, but expensive square root calculations of
+  true Euclidean distance `sqrt(dy² + dx²)`.
+
+The approximation (sometimes called "octagonal distance") creates an
+octagon-shaped view area rather than a perfect circle. Used by `MAX_SIGHT` and
+`MAX_VIEW` for range calculations.
+
+| dy  | dx  | Euclidean | Approximation |
+| --- | --- | --------- | ------------- |
+| 0   | 10  | 10.0      | 10            |
+| 7   | 7   | 9.9       | 10 (7 + 3)    |
+| 3   | 4   | 5.0       | 5 (4 + 1)     |
+| 10  | 10  | 14.1      | 15 (10 + 5)   |
+
+### Octant-Based LOS Algorithm
+
+The algorithm exploits 8-fold symmetry. It calculates visibility for one 45°
+wedge (octant), then mirrors/rotates the results to cover the full 360° view.
+
+```
+Octant layout around player @:
+
+    \  5  |  6  /
+     \    |    /
+   4  \   |   /  7
+       \  |  /
+---------[@]----------
+       /  |  \
+   3  /   |   \  0
+     /    |    \
+    /  2  |  1  \
+```
+
+The 8 octant transforms (from `vinfo_init()` in `cave.c`):
+
+```
+Octant 0 | GRID(+y, +x) | E  to SE (  0° to  45°)
+Octant 1 | GRID(+x, +y) | SE to S  ( 45° to  90°)
+Octant 2 | GRID(+x, -y) | S  to SW ( 90° to 135°)
+Octant 3 | GRID(+y, -x) | SW to W  (135° to 180°)
+Octant 4 | GRID(-y, -x) | W  to NW (180° to 225°)
+Octant 5 | GRID(-x, -y) | NW to N  (225° to 270°)
+Octant 6 | GRID(-x, +y) | N  to NE (270° to 315°)
+Octant 7 | GRID(-y, +x) | NE to E  (315° to 360°)
+```
+
+Within each octant, squares are processed outward from the player: adjacent
+squares first, then further squares following the LOS slopes. Each octant is
+processed independently; a square on the boundary between octants (e.g., a
+purely South square between octants 1 and 2) may receive `CAVE_VIEW` from either
+octant.
+
+### Grids (Squares) and Slopes: Overview
+
+Within each octant, the algorithm tracks grids (squares) and slopes (LOS
+angles):
+
+| Constant           | Value | Meaning                                     |
+| ------------------ | ----- | ------------------------------------------- |
+| `MAX_SIGHT`        | 20    | Maximum view distance in grids              |
+| `MAX_VIEW`         | 20    | Maximum range distance (spells etc.)        |
+| `VINFO_MAX_GRIDS`  | 161   | Grid squares in one octant within MAX_SIGHT |
+| `VINFO_MAX_SLOPES` | 126   | Unique LOS angles per octant                |
+
+**Grid count (161):** Derived by iterating all `(y, x)` positions where `x >= y`
+(octant constraint) and `distance(0, 0, y, x) <= 20` (within sight radius).
+Without the distance check, the triangular region would have 231 grids; the
+circular trim reduces this to 161. The value was determined empirically.
+
+**Slope count (126):** For each of the 161 grids, slopes are calculated to all
+four corners of the grid square. After filtering for valid range and removing
+duplicates, 126 unique slopes remain. Slopes are stored as bitmasks across four
+32-bit words:
+
+```
+bits_0: slopes   0-31  (32 slopes)
+bits_1: slopes  32-63  (32 slopes)
+bits_2: slopes  64-95  (32 slopes)
+bits_3: slopes  96-125 (30 slopes)
+```
+
+**Slope numbering:** Within each octant, slope 0 is nearest the cardinal axis
+(~1.4°) and slope 125 is at the diagonal (45°).
+
+**Full view totals:**
+
+- `8 octants × 161 grids = 1288`, but shared boundary grids reduce this to 1149
+  unique grids for the full 360° view.
+- The 126 slopes are reused for all 8 octants due to symmetry.
+
+The `vinfo[]` array stores precomputed visibility data for each grid in one
+octant, including which slopes pass through it, its distance from the player,
+its coordinates, and links to child grids for queue processing.
+
+### Grids (Squares) in Detail
+
+#### What is a grid (square)?
+
+In this context, a grid is simply a single square/tile on the dungeon map.
+
+The codebase uses "grid" and "square" interchangeably:
+
+- A grid has coordinates `(y, x)`.
+- Each grid can contain: floor, wall, door, trap, stairs, etc.
+- Each grid can have objects (items) and/or a monster on it.
+- The player occupies one grid.
+
+#### Grids in the view algorithm
+
+`VINFO_MAX_GRIDS = 161` is the total number of grid squares within the player's
+maximum sight range in one octant (cf. `MAX_SIGHT`, unit is `distance`; distance
+is explained elsewhere in this document).
+
+```
+       MAX_SIGHT = 20
+  <---------------------->
+
+  . . . . . . . . . . . . .
+  . . . . . . . . . . . . .    Each '.' is one grid.
+  . . . . . . . . . . . . .
+  . . . . . . . . . . . . .
+  . . . . . @ . . . . . . .    @ = player's grid
+  . . . . . . . . . . . . .
+  . . . . . . . . . . . . .
+  . . . . . . . . . . . . .
+```
+
+The `vinfo[]` array stores precomputed visibility data for each of these 161
+grids (in one octant), including:
+
+- Which slopes pass through it (`bits_0` through `bits_3`).
+- Its distance from the player (`d`).
+- Its coordinates (`y`, `x`).
+- Links to child grids for queue processing (`next_0`, `next_1`).
+
+#### Why 161 grids?
+
+From src/cave.c:
+
+```c
+/*
+ * Maximum number of grids in a single octant
+ */
+#define VINFO_MAX_GRIDS 161
+```
+
+The answer is in the code comments in src/cave.c at lines 2374-2378 and the
+iteration logic at lines 2404-2410:
+
+- Full Octagon (radius 20), Grids=1149
+- Quadrant (south east), Grids=308, Slopes=251
+- Octant (east then south), Grids=161, Slopes=126
+
+The value 161 is derived empirically from this iteration:
+
+```c
+for (y = 0; y <= MAX_SIGHT; ++y)   // y from 0 to 20
+{
+  for (x = y; x <= MAX_SIGHT; ++x) // x from y to 20 (octant constraint)
+  {
+      if (distance(0, 0, y, x) > MAX_SIGHT)  // within circular range
+          continue;
+
+      num_grids++;  // count it
+  }
+}
+```
+
+The three constraints that determine 161:
+
+1. `y` from 0 to 20 - vertical range of sight.
+2. `x >= y` - the octant constraint (east-then-south means we only process grids
+   where x-coordinate is at least as large as y-coordinate).
+3. `distance() <= 20` - must be within circular sight radius.
+
+Without the distance check, you'd get a triangular region with:
+
+```
+1 + 2 + 3 + ... 21 = 231 grids
+```
+
+But grids in the far corners (like `y=14`, `x=20`) exceed distance 20, so
+they're excluded. This trimming reduces 231 down to 161.
+
+The code comment at lines 2380-2383 even admits this is empirical: This function
+assumes that `VINFO_MAX_GRIDS` and `VINFO_MAX_SLOPES` have the correct values,
+which can be derived by setting them to a number which is too high, running this
+function, and using the error messages to obtain the correct values.
+
+So 161 wasn't calculated by a formula. It is/was empirically determined by
+running the algorithm with a high value and using the error messages to find the
+exact count.
+
+### Slopes in Detail
+
+#### What is a slope?
+
+A slope represents a specific angle or line-of-sight ray from the player through
+the dungeon.
+
+```
+Visual Representation
+
+                  /  <- slope
+                 /
+                /
+   ############/
+   #.........#/
+   #.........X     <- target grid
+   #......../.
+   #......./.#
+   #....../..#
+   #.....@...#     <- player
+   #.........#
+   ###########
+```
+
+Each slope is a ray from the player's center toward a specific angle. The
+algorithm uses 126 different slopes per octant to determine which grids are
+visible.
+
+#### How Slopes Work
+
+For each grid in an octant, the algorithm calculates which slopes pass through
+it. This is stored as a bitmask:
+
+```c
+vinfo[e].bits_0 // slopes 0-31
+vinfo[e].bits_1 // slopes 32-63
+vinfo[e].bits_2 // slopes 64-95
+vinfo[e].bits_3 // slopes 96-125
+```
+
+A grid is visible if any slope can reach it without being blocked by a wall.
+
+#### Why 126 slopes?
+
+It's empirically derived from the algorithm similar to the number of grids
+(161). For each of the 161 grids, the code calculates slopes to all four corners
+of that grid grid (lines 2426-2448 in src/cave.c), with `SCALE = 100000L`:
+
+```c
+/* Slope to the top right corner */
+m = SCALE * (1000L * y - 500) / (1000L * x + 500);
+/* Handle "legal" slopes */
+vinfo_init_aux(hack, y, x, m);
+
+/* Slope to top left corner */
+m = SCALE * (1000L * y - 500) / (1000L * x - 500);
+/* Handle "legal" slopes */
+vinfo_init_aux(hack, y, x, m);
+
+/* Slope to bottom right corner */
+m = SCALE * (1000L * y + 500) / (1000L * x + 500);
+/* Handle "legal" slopes */
+vinfo_init_aux(hack, y, x, m);
+
+/* Slope to bottom left corner */
+m = SCALE * (1000L * y + 500) / (1000L * x - 500);
+/* Handle "legal" slopes */
+vinfo_init_aux(hack, y, x, m);
+```
+
+Each slope is only saved if it's unique and "legal" (between 0 and SCALE,
+exclusive/inclusive). From `vinfo_init_aux()` at lines 2340-2361:
+
+```c
+/* Handle "legal" slopes */
+if ((m > 0) && (m <= SCALE))
+{
+  /* Look for that slope */
+  for (i = 0; i < hack->num_slopes; i++)
+  {
+      if (hack->slopes[i] == m)
+          break;
+  }
+
+  /* New slope */
+  if (i == hack->num_slopes)
+  {
+      hack->slopes[hack->num_slopes++] = m;
+  }
+}
+```
+
+So:
+
+- 161 grids × 4 corners = 644 total slope calculations.
+- But, after filtering for valid range and removing duplicates, only 126 unique
+  slope values remain.
+- The actual 126 slope values are listed in the comments at lines 2147-2272 in
+  `src/cave.c` (slopes 0-125 with their numeric values).
+
+#### Slope numbering
+
+Slopes are numbered from the cardinal axis (E, S, W, N) toward the diagonal
+within each octant - not strictly clockwise like quadrants are.
+
+The 126 slopes are defined once for the base octant (where x >= y), and the same
+numbering is reused for all 8 octants:
+
+- Slope 0 = near the cardinal axis (shallowest angle, ~1.4°).
+- Slope 125 = at the diagonal (45°).
+
+So within each octant:
+
+```
+Octant 0 | E  to SE (  0° to  45°) | slope 0 near E,  slope 125 near SE  → clockwise
+Octant 1 | SE to S  ( 45° to  90°) | slope 0 near S,  slope 125 near SE  → counter-clockwise
+Octant 2 | S  to SW ( 90° to 135°) | slope 0 near S,  slope 125 near SW  → clockwise
+Octant 3 | SW to W  (135° to 180°) | slope 0 near W,  slope 125 near SW  → counter-clockwise
+Octant 4 | W  to NW (180° to 225°) | slope 0 near W,  slope 125 near NW  → clockwise
+Octant 5 | NW to N  (225° to 270°) | slope 0 near N,  slope 125 near NW  → counter-clockwise
+Octant 6 | N  to NE (270° to 315°) | slope 0 near N,  slope 125 near NE  → clockwise
+Octant 7 | NE to E  (315° to 360°) | slope 0 near E,  slope 125 near NE  → counter-clockwise
+```
+
+Example for octant 7 (NE to E):
+
+- Slope 0 has value 2439. This is the shallowest angle (~1.4°), i.e. closest to
+  cardinal axis (East).
+- Slope 10 is a low-numbered slope, so it's near the cardinal axis. In octant 7
+  (NE to E), slope 10 is near the East cardinal axis, not the Northeast
+  diagonal.
+- Slope 125 has value 100000. This is the steepest angle (the Northeast diagonal
+  at 45°) and the furthest away from the East cardinal axis.
+
+```
+┌───────┬────────┬───────────────────────────┬───────┐
+│ Slope │  Value │ Approximate Angle         │ Grids │
+├───────┼────────┼───────────────────────────┼───────┤
+│     0 │   2439 │ ~ 1° (nearly horizontal)  │    21 │
+├───────┼────────┼───────────────────────────┼───────┤
+│    54 │  33333 │ ~18°                      │    18 │
+├───────┼────────┼───────────────────────────┼───────┤
+│    87 │  60000 │ ~31°                      │    23 │
+├───────┼────────┼───────────────────────────┼───────┤
+│   125 │ 100000 │  45° (diagonal)           │    13 │
+└───────┴────────┴───────────────────────────┴───────┘
+```
+
+```
+Visual Representation (for octant 7, East to Northeast)
+
+                        Slope 125 (diagonal, 45°)
+                      /
+                    /
+                  /
+                /     Slope ~60-80 (steep)
+              /
+            /
+          /       Slope ~30-50 (medium)
+        /
+      /
+    /         Slope ~10-20 (shallow)
+  /
+/
+@---------------- Slope 0 (nearly horizontal, ~1.4°)
+   East axis
+```
+
+So in each octant:
+
+- Low-numbered slopes (0-30) are near the "start" cardinal axis (e.g., East).
+- High-numbered slopes (90-125) are moving further away from the start axis
+  (e.g., Northeast).
+
+#### Wall Blocking
+
+When the view algorithm encounters a wall, it clears (removes) all slopes that
+touch the wall from the valid set:
+
+```c
+if (info & (CAVE_WALL))
+{
+    bits0 &= ~(p->bits_0); // remove this wall's slopes from valid set
+    bits0 &= ~(p->bits_0);
+    bits1 &= ~(p->bits_1);
+    bits2 &= ~(p->bits_2);
+    bits3 &= ~(p->bits_3);
+}
+```
+
+A grid is visible only if it has any remaining valid slopes:
+
+```c
+if ((bits0 & (p->bits_0)) || (bits1 & (p->bits_1))
+ || (bits2 & (p->bits_2)) || (bits3 & (p->bits_3)))
+```
+
+If all slopes through a grid are blocked by walls, the grid is skipped entirely
+and never receives `CAVE_VIEW`.
+
+#### Slope Example
+
+Consider a player looking East with a wall to the Northeast:
+
+```
+. . .
+. . #    <- wall (Northeast) blocks slopes 10-40
+. @ .    <- player, looks toward East
+. . .
+```
+
+1. Initially all 126 slopes are valid.
+2. When a wall is processed, it clears all slopes that pass through it. In the
+   example, the Northeast wall is processed, intersecting with (say) slopes
+   10-40.
+3. Grids that only have slopes blocked by walls become invisible. Here, grids
+   behind the wall that only use slopes 10-40 become invisible.
+4. Grids with any remaining valid slopes are still visible (0-9 and 41-125).
+
+### Octants in Detail
+
+#### What is an octant?
+
+An octant is one-eighth of the full 360° view around the player.
+
+```
+The full 360° view around the player @:
+
+            N (270°)
+            |
+            |
+   NW       |       NE
+     \      |      /
+       \    |    /
+         \  |  /
+W ---------[@]-------- E (0°)
+         /  |  \
+       /    |    \
+     /      |      \
+   SW       |       SE
+            |
+            |
+            S (90°)
+```
+
+An octant is 1/8 of this circle = 45°:
+
+```
+Octant numbers:
+
+    \  5  |  6  /
+     \    |    /
+   4  \   |   /  7
+       \  |  /
+---------[@]----------
+       /  |  \
+   3  /   |   \  0
+     /    |    \
+    /  2  |  1  \
+```
+
+The 8 octants are divided by:
+
+- The 4 cardinal directions (N, E, S, W)
+- The 4 diagonal directions (NE, SE, SW, NW)
+
+#### Why Octants?
+
+The view algorithm exploits symmetry.
+
+The algorithm only calculates visibility for a single 45° wedge (e.g.,
+East-to-Southeast, from 0° to 45°):
+
+```
+[@]---------- E (0°)
+ |  \
+ |   \  0
+ |    \
+ |  1  \
+ |     SE (45°)
+```
+
+Within this single 45° wedge extending out to distance 20:
+
+- 161 grids (grids that fit in this pie slice)
+- 126 slopes (unique angles that rays can travel from the player through this
+  slice)
+
+To get the full 360° view, the algorithm processes the 161 grids once, then
+mirrors/rotates the results 8 times:
+
+```
+Octant 0 | GRID(+y, +x) | E  to SE (  0° to  45°) → 161 grids
+Octant 1 | GRID(+x, +y) | SE to S  ( 45° to  90°) → mirror of octant 0 at SE diagonal
+Octant 2 | GRID(+x, -y) | S  to SW ( 90° to 135°) → mirror of octant 0
+Octant 3 | GRID(+y, -x) | SW to W  (135° to 180°) → mirror of octant 0
+Octant 4 | GRID(-y, -x) | W  to NW (180° to 225°) → mirror of octant 0
+Octant 5 | GRID(-x, -y) | NW to N  (225° to 270°) → mirror of octant 0
+Octant 6 | GRID(-x, +y) | N  to NE (270° to 315°) → mirror of octant 0
+Octant 7 | GRID(-y, +x) | NE to E  (315° to 360°) → mirror of octant 0 at NE diagonal
+```
+
+- `8 octants × 161 grids = 1288`, but adjacent octants share their boundary
+  grids (the axes and diagonals, 139 grids), so the actual total is `1149`
+  unique grids for the full 360° view.
+- The `126 slopes` are reused for all 8 octants since the angles are symmetric.
+  A ray at 30° in one octant is the same geometry as a ray at 30° in any other
+  octant.
+
+Instead of calculating line-of-sight for all 360°, it does the following:
+
+1. Calculates LOS for just one octant (e.g., the slice between East and
+   Southeast for octant 0).
+2. Applies 8 transformations to map those results to all other octants.
+
+This is done at lines 2493-2500 of `vinfo_init()` of src/cave.c:
+
+```c
+//               vertical    horizontal
+//   (- is up, + is down)    (- is left, + is right)
+//                      |    |
+//                      v    v
+vinfo[e].grid[0] = GRID(+y, +x);  // octant 0: E  to SE
+vinfo[e].grid[1] = GRID(+x, +y);  // octant 1: SE to S  (ex: mirror of octant 0 at SE diagonal)
+vinfo[e].grid[2] = GRID(+x, -y);  // octant 2: S  to SW
+vinfo[e].grid[3] = GRID(+y, -x);  // octant 3: SW to W
+vinfo[e].grid[4] = GRID(-y, -x);  // octant 4: W  to NW
+vinfo[e].grid[5] = GRID(-x, -y);  // octant 5: NW to N
+vinfo[e].grid[6] = GRID(-x, +y);  // octant 6: N  to NE
+vinfo[e].grid[7] = GRID(-y, +x);  // octant 7: NE to E  (ex: mirror of octant 0 at NE diagonal)
+```
+
+From src/cave.c:
+
+```c
+/*
+ * Maximum number of grids in a single octant
+ */
+#define VINFO_MAX_GRIDS 161
+
+/*
+ * Maximum number of slopes in a single octant
+ */
+#define VINFO_MAX_SLOPES 126
+
+/*
+ * Mask of bits used in a single octant
+ */
+#define VINFO_BITS_3 0x3FFFFFFF
+#define VINFO_BITS_2 0xFFFFFFFF
+#define VINFO_BITS_1 0xFFFFFFFF
+#define VINFO_BITS_0 0xFFFFFFFF
+```
+
+The docs of `vinfo_init()` in src/cave.c say:
+
+```c
+/*
+ * Initialize the "vinfo" array
+ *
+ * Full Octagon (radius 20), Grids=1149
+ *
+ * Quadrant (south east), Grids=308, Slopes=251
+ *
+ * Octant (east then south), Grids=161, Slopes=126
+ *
+ * This function assumes that VINFO_MAX_GRIDS and VINFO_MAX_SLOPES
+ * have the correct values, which can be derived by setting them to
+ * a number which is too high, running this function, and using the
+ * error messages to obtain the correct values.
+ */
+errr vinfo_init(void) {}
+```
+
+#### Processing Order of Octants
+
+Within each octant, grids are processed outward from the player:
+
+1. First the adjacent grids (`vinfo[1]` = cardinal, `vinfo[2]` = diagonal).
+2. Then further grids, following the LOS slopes.
+
+When a wall is encountered, it blocks certain LOS slopes, preventing grids
+behind it from being seen.
+
+______________________________________________________________________
+
 ## Key Source Files
 
 | File (in `src/`) | Primary Content                                |
 | ---------------- | ---------------------------------------------- |
+| `cave.c`         | Visibility/LOS algorithm, distance function    |
 | `xtra2.c`        | Morgoth progression, morale, experience system |
 | `cmd1.c`         | Quest system, combat, knockback, trap effects  |
 | `cmd2.c`         | Min depth system, stair mechanics, victory     |
@@ -1490,3 +2137,7 @@ The database should include:
     diminishing returns for non-uniques
 28. **XP category tracking**: encounter_exp, kill_exp, descent_exp, ident_exp as
     separate fields
+29. **Visibility constants**: MAX_SIGHT, MAX_VIEW, VINFO_MAX_GRIDS,
+    VINFO_MAX_SLOPES as global game parameters
+30. **Visibility flags**: CAVE_VIEW, CAVE_SEEN, CAVE_MARK as runtime grid state
+    (not entity properties, but document their semantics)
