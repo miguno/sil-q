@@ -113,7 +113,7 @@ Verify database accuracy against source data.
 ```
 worlddb/
 ├── PLAN.md                  # This file - project specification
-├── docs/
+├── developer/
     ├── DATA_FILES.md        # Analysis of lib/edit/*.txt formats
     ├── CODE_ANALYSIS.md     # Analysis of hardcoded behavior in src/*.c
     └── WORLD_MODEL.md       # Comprehensive entity/relationship model
