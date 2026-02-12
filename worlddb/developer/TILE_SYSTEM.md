@@ -12,37 +12,38 @@ The **numeric ID** in each file links them together.
 
 ### File Mapping
 
-| Entity Type | Definition File        | Pref Line Format       | Array               |
-| ----------- | ---------------------- | ---------------------- | ------------------- |
-| Objects     | `lib/edit/object.txt`  | `K:<id>:<attr>/<char>` | `k_info`            |
-| Monsters    | `lib/edit/monster.txt` | `R:<id>:<attr>/<char>` | `r_info`            |
-| Terrain     | `lib/edit/terrain.txt` | `F:<id>:<attr>/<char>` | `f_info`            |
-| Flavors     | `lib/edit/flavor.txt`  | `L:<id>:<attr>/<char>` | `flavor_info`       |
-| Special     | (hardcoded)            | `S:<id>:<attr>/<char>` | `misc_to_attr/char` |
+| Entity Type | Definition File        | Game ID (`N`) | Pref Line Format       | Array                       |
+| ----------- | ---------------------- | ------------- | ---------------------- | --------------------------- |
+| Objects     | `lib/edit/object.txt`  |               | `K:<id>:<attr>/<char>` | `k_info`                    |
+| Monsters    | `lib/edit/monster.txt` |               | `R:<id>:<attr>/<char>` | `r_info`                    |
+| Player      | `lib/edit/monster.txt` | `N:0` - `N:3` | `R:<id>:<attr>/<char>` | `r_info`                    |
+| Terrain     | `lib/edit/terrain.txt` |               | `F:<id>:<attr>/<char>` | `f_info`                    |
+| Flavors     | `lib/edit/flavor.txt`  |               | `L:<id>:<attr>/<char>` | `flavor_info`               |
+| Special     | (hardcoded)            |               | `S:<id>:<attr>/<char>` | `misc_to_attr/misc_to_char` |
 
 ### Example
 
-From `lib/edit/object.txt`, note the `N:374` at the beginning of the block:
+From `lib/edit/object.txt`. Note the ID specification `N:374` at the beginning
+of the block:
 
-```
-N:374:& Small jewelled chest~
-G:~:v1
-I:7:3:0
-W:19:0:750:250
-P:0:0d0:0:0d0
-A:19/8
-F:IGNORE_ALL
-```
+    N:374:& Small jewelled chest~
+    G:~:v1
+    I:7:3:0
+    W:19:0:750:250
+    P:0:0d0:0:0d0
+    A:19/8
+    F:IGNORE_ALL
 
-From `lib/pref/graf-new.prf`, note the `K:374` at the beginning of the line:
+From `lib/pref/graf-new.prf`. Note the referencing of the ID specification
+(`N:374` in the `lib/edit/*.txt` files) via `K:374` at the beginning of the
+line:
 
-```
-# & Small jewelled chest~
-K:374:0x81/0x84
-```
+    # & Small jewelled chest~
+    K:374:0x81/0x84
 
-Both reference ID `374`. The definition file sets the name and properties,
-whereas the pref file assigns the tile coordinates `0x81/0x84`.
+Both reference ID `374`. The definition file ("edit file") sets the entity name
+and properties, whereas the pref file assigns the tile coordinates `0x81/0x84`
+for the visual representation of the entity.
 
 ### Name Formatting Tokens
 
