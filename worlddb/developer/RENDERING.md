@@ -16,7 +16,7 @@ char x_char;   /* Desired character (what should be displayed in the next render
 ```
 
 - **`d_attr`/`d_char`**: The defaults loaded from data files (e.g.,
-  a line with `G:V:D` in `lib/edit/monster.txt` sets `d_char1` to `'V'` and `d_attr` to the
+  a line with `G:V:D` in `lib/edit/monster.txt` sets `d_char` to `'V'` and `d_attr` to the
   color code for dark). These are also used for non-visual purposes in some
   cases.
 - **`x_attr`/`x_char`**: The display values read by the rendering code.
