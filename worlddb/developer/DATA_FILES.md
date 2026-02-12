@@ -31,7 +31,7 @@ All data files share a common structure:
 | `race.txt`     | Player races      | Yes      | Noldor, Sindar, Naugrim, Edain                 |
 | `special.txt`  | Item suffixes     | Yes      | "of Gondolin", "of Free Action"                |
 | `terrain.txt`  | Terrain features  | Yes      | Floors, walls, doors, traps                    |
-| `vault.txt`    | Vault layouts     | No       | Dungeon vault templates                        |
+| `vault.txt`    | Vault layouts     | No       | Dungeon layout templates (e.g., throne room)   |
 
 ### monster.txt - Monster Definitions
 
