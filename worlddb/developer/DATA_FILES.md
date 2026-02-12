@@ -457,13 +457,13 @@ D: description
 
 #### Field Details
 
-| Field | Description                              |
-| ----- | ---------------------------------------- |
-| `N`   | ID and name                              |
+| Field | Description                                    |
+| ----- | ---------------------------------------------- |
+| `N`   | ID and name                                    |
 | `G`   | ASCII character and color to display on screen |
-| `M`   | Mimic another feature (for hidden traps) |
-| `F`   | Terrain flags (see below)                |
-| `D`   | Description                              |
+| `M`   | Mimic another feature (for hidden traps)       |
+| `F`   | Terrain flags (see below)                      |
+| `D`   | Description                                    |
 
 #### Terrain Flags
 
@@ -780,11 +780,11 @@ D: flavor name
 
 #### Field Details
 
-| Field | Description                           |
-| ----- | ------------------------------------- |
-| `N`   | ID, tval, and optional fixed sval     |
+| Field | Description                                    |
+| ----- | ---------------------------------------------- |
+| `N`   | ID, tval, and optional fixed sval              |
 | `G`   | ASCII character and color to display on screen |
-| `D`   | Flavor name (e.g., "Amethyst", "Oak") |
+| `D`   | Flavor name (e.g., "Amethyst", "Oak")          |
 
 #### Flavor Categories
 
@@ -924,14 +924,14 @@ ______________________________________________________________________
 
 Current counts from data files vs limits.txt:
 
-| Entity    | File         | Count | Limit |
-| --------- | ------------ | ----- | ----- |
+| Entity              | File         | Count | Limit |
+| ------------------- | ------------ | ----- | ----- |
 | Monsters and player | monster.txt  | 152   | 656   |
-| Objects   | object.txt   | 196   | 600   |
-| Artifacts | artefact.txt | 122   | 251   |
-| Specials  | special.txt  | 73    | 145   |
-| Features  | terrain.txt  | 84    | 86    |
-| Abilities | ability.txt  | 84    | 240   |
-| Flavors   | flavor.txt   | 108   | 310   |
-| Races     | race.txt     | 4     | 4     |
-| Houses    | house.txt    | 11    | 11    |
+| Objects             | object.txt   | 196   | 600   |
+| Artifacts           | artefact.txt | 122   | 251   |
+| Specials            | special.txt  | 73    | 145   |
+| Features            | terrain.txt  | 84    | 86    |
+| Abilities           | ability.txt  | 84    | 240   |
+| Flavors             | flavor.txt   | 108   | 310   |
+| Races               | race.txt     | 4     | 4     |
+| Houses              | house.txt    | 11    | 11    |

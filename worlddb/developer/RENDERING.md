@@ -15,13 +15,14 @@ byte x_attr;   /* Desired attribute (what should be displayed in the next render
 char x_char;   /* Desired character (what should be displayed in the next rendering run) */
 ```
 
-- **`d_attr`/`d_char`**: The defaults loaded from data files (e.g.,
-  a line with `G:V:D` in `lib/edit/monster.txt` sets `d_char` to `'V'` and `d_attr` to the
+- **`d_attr`/`d_char`**: The defaults loaded from data files (e.g., a line with
+  `G:V:D` in `lib/edit/monster.txt` sets `d_char` to `'V'` and `d_attr` to the
   color code for dark). These are also used for non-visual purposes in some
   cases.
-- **`x_attr`/`x_char`**: The desired/requested values to be displayed in the next rendering run.
-  Initialized as copies of `d_attr`/`d_char`, then may be overridden by
-  pref files (`lib/pref/*.prf`) or changed at runtime by game logic.
+- **`x_attr`/`x_char`**: The desired/requested values to be displayed in the
+  next rendering run. Initialized as copies of `d_attr`/`d_char`, then may be
+  overridden by pref files (`lib/pref/*.prf`) or changed at runtime by game
+  logic.
 
 ## ASCII graphics vs. tiles graphics mode
 
@@ -39,10 +40,10 @@ The game supports three graphics modes, defined in `src/defines.h`:
 In **ASCII mode**, `x_attr` is a terminal color and `x_char` is a printable
 ASCII character (e.g., `'V'` for Morgoth).
 
-In **tiles mode**, `x_attr` and `x_char` are repurposed as tile
-coordinates into the tileset image (`lib/xtra/graf/16x16_microchasm.png`), with
-bit 7 (`0x80`) set as a flag that indicates "tiles mode". The prf file `lib/pref/graf-new.prf` sets these
-values, such as:
+In **tiles mode**, `x_attr` and `x_char` are repurposed as tile coordinates into
+the tileset image (`lib/xtra/graf/16x16_microchasm.png`), with bit 7 (`0x80`)
+set as a flag that indicates "tiles mode". The prf file `lib/pref/graf-new.prf`
+sets these values, such as:
 
 ```
 R:251:0x8A/0x92
@@ -122,9 +123,9 @@ bit 6 (`0x40`) as a flag, but on different bytes.
 
 ### How compositing works
 
-The rendering backends (e.g., `composite_image()` in `src/main-x11.c`) strip
-the overlay flags with `& 0x3F` to recover the base tile coordinates, then
-composite pixel-by-pixel in this priority order:
+The rendering backends (e.g., `composite_image()` in `src/main-x11.c`) strip the
+overlay flags with `& 0x3F` to recover the base tile coordinates, then composite
+pixel-by-pixel in this priority order:
 
 1. Alert icon (if alert flag is set)
 2. Foreground tile (the player/monster/item/object)
@@ -159,7 +160,8 @@ number display.
 The central function `map_info()` determines the attr/char pair for each grid
 cell. It outputs two pairs:
 
-- **Foreground tile** (`*ap`/`*cp`): the player, a monster, an object, or a feature.
+- **Foreground tile** (`*ap`/`*cp`): the player, a monster, an object, or a
+  feature.
 - **Background tile** (`*tap`/`*tcp`): the terrain tile underneath.
 
 The game entity to be displayed in the foreground is selected by priority:
@@ -180,12 +182,12 @@ The attr/char pairs from `map_info()` are passed to a platform-specific
 rendering function. Each backend receives arrays of `n` cells to draw in one
 call:
 
-| Backend          | Function            | Compositing approach                  |
-| ---------------- | ------------------- | ------------------------------------- |
-| X11              | `Term_pict_x11()`   | `composite_image()` — pixel-by-pixel  |
-| Windows          | `Term_pict_win()`   | `TransparentBlt()` API calls          |
-| macOS            | `Term_pict_cocoa()` | Core Graphics compositing             |
-| GTK              | (none)              | ASCII only, no tile support           |
+| Backend | Function            | Compositing approach                 |
+| ------- | ------------------- | ------------------------------------ |
+| X11     | `Term_pict_x11()`   | `composite_image()` — pixel-by-pixel |
+| Windows | `Term_pict_win()`   | `TransparentBlt()` API calls         |
+| macOS   | `Term_pict_cocoa()` | Core Graphics compositing            |
+| GTK     | (none)              | ASCII only, no tile support          |
 
 Each function receives four arrays of length `n`:
 
@@ -199,13 +201,18 @@ For each cell, the backend:
 2. Extracts the terrain tile coordinates: `x3 = (tc & 0x3F) * tile_width`,
    `y3 = (ta & 0x3F) * tile_height`.
 3. Checks the overlay flags: `alert = (c & 0x40)`, `glow = (a & 0x40)`.
-4. Looks up the overlay icon pixel offsets from `misc_to_attr[]`/`misc_to_char[]`.
-5. Composites the layers in order (bottom to top): terrain, glow icon, foreground
-   tile, alert icon. A "blank" pixel color acts as transparency between layers.
+4. Looks up the overlay icon pixel offsets from
+   `misc_to_attr[]`/`misc_to_char[]`.
+5. Composites the layers in order (bottom to top): terrain, glow icon,
+   foreground tile, alert icon. A "blank" pixel color acts as transparency
+   between layers.
 
 ## The tileset image
 
-The tileset is `lib/xtra/graf/16x16.bmp` (BMP format) and the identical `lib/xtra/graf/16x16_microchasm.png` (PNG format). The tileset dimensions are 512x256 pixels. Each tile is 16x16 pixels, giving a grid of 32 columns x 16 rows. Tile coordinates from the `x_attr`/`x_char` fields index into this grid.
+The tileset is `lib/xtra/graf/16x16.bmp` (BMP format) and the identical
+`lib/xtra/graf/16x16_microchasm.png` (PNG format). The tileset dimensions are
+512x256 pixels. Each tile is 16x16 pixels, giving a grid of 32 columns x 16
+rows. Tile coordinates from the `x_attr`/`x_char` fields index into this grid.
 
 ## Key source files
 
