@@ -1,17 +1,83 @@
-# Sil-Q C Code Analysis
+# Sil-Q Code CBase
 
-This document identifies hardcoded behavior in `src/*.c` files that extends or
-modifies the data defined in `lib/edit/*.txt` files.
+This document gives an overview of Sil-Q's code base. It describes important
+concepts, systems, etc. that developers must navigate and understand to maintain
+the game.
 
-## Overview
+## Game Data files
+
+Data files are used to configure in-game entities and their behavior, such as
+the name of a monster, its properties, and how it is rendered on screen.
+
+The game primarily uses two types of data files:
+
+1. **Definition files** (or "edit files") at `lib/edit/*.txt`: to define
+   entities (like monsters, items, terrain) and their properties
+2. **Preference files** (or "pref files") at `lib/pref/*.prf`: to configure how
+   entities are visually displayed on screen, such as assigning graphical tiles
+   to entities
+
+Some behavior, however, is hardcoded in the source code (`*.c` and `*.h` files).
+This includes behavior that, in an ideal world, should be configured via the
+aforementioned game data files.
+
+### Edit File Loading (`lib/edit/*.txt`)
+
+TODO
+
+This section describes how the configuration data in edit files are made
+available to the in-game code.
+
+### Pref File Loading (`lib/pref/*.prf`)
+
+This section describes how the configuration data in pref files are made
+available to the in-game code.
+
+Source: `object1.c:271-272`, `dungeon.c:2846-2863`
+
+```c
+// Graphics mode pref file
+process_pref_file("graf.prf");  // Loads graf-new.prf for MicroChasm tiles
+```
+
+Note that some of these pref files are loaded, but currently not used in the
+game:
+
+```c
+// Race-specific pref file (data not used/configured in Feb 2026)
+process_pref_file("races.prf");
+```
+
+The `ANGBAND_GRAF` variable (`variable.c:594`) controls which PRF variant to
+load:
+
+- `"old"` → default (no graphics)
+- `"new"` → MicroChasm tiles (graf-new.prf)
+
+## Game Entities
+
+### Overview
 
 While most entity definitions live in data files, significant game behavior is
 hardcoded in C. This analysis identifies these behaviors for inclusion in the
 world database schema and documentation.
 
-______________________________________________________________________
+### Name Formatting Tokens (for `lib/edit/*.txt`)
 
-## 1. Monster Index Constants
+Object names in `object.txt` use special tokens:
+
+- `&` — Replaced with appropriate article ("a", "an", "the", or count)
+- `~` — Marks pluralization point (adds "s" or "es" when count > 1)
+- `#` — Replaced with flavor text (e.g., "Amethyst" for rings)
+
+Example: `& Small jewelled chest~` becomes:
+
+- "a Small jewelled chest" (count=1)
+- "3 Small jewelled chests" (count=3)
+
+---
+
+### Monster Index Constants
 
 Special monsters with hardcoded behavior identified by `R_IDX_*` constants in
 `defines.h`:
@@ -28,6 +94,21 @@ Special monsters with hardcoded behavior identified by `R_IDX_*` constants in
 | `R_IDX_BARROW_WIGHT`       | 112 | Barrow-wight       | Special placement                                       |
 | `R_IDX_YOUNG_COLD_DRAKE`   | 164 | Young Cold Drake   | Level-specific placement                                |
 | `R_IDX_YOUNG_FIRE_DRAKE`   | 181 | Young Fire Drake   | Level-specific placement                                |
+
+## Game State
+
+### Player state
+
+The player's in-game state is primarily managed via `struct player_type`
+(`src/types.h:763`). Modifying the `player_type` struct can break savefiles!
+
+The player is hardcoded as entity `0` in the context of the `monster_race*`
+struct (`src/types.h:343-394`):
+
+```c
+// `0` always refers to the player.
+monster_race* r_ptr = &r_info[0];
+```
 
 ### Morgoth's Progressive Difficulty System
 
@@ -52,9 +133,9 @@ Source: `melee2.c`, `xtra2.c`
 - Truce broken by: attacking, stealing Silmarils, aggressive actions
 - Affects `p_ptr->truce` flag
 
-______________________________________________________________________
+---
 
-## 2. Quest System (Thralls)
+## Quest System (Thralls)
 
 Source: `cmd1.c:22-32`
 
@@ -72,9 +153,9 @@ Quest mechanics:
 - `p_ptr->thrall_quest` tracks completion state
 - `reward_player_for_quest()` grants hardcoded abilities
 
-______________________________________________________________________
+---
 
-## 3. Silmaril System
+## Silmaril System
 
 ### Item Constants
 
@@ -97,9 +178,9 @@ Source: Multiple files
 | `generate.c:3754` | Dungeon danger          | Silmaril count affects monster generation        |
 | `cmd3.c:1138`     | Crown state             | Crown appearance changes based on Silmaril count |
 
-______________________________________________________________________
+---
 
-## 4. Smithing System
+## Smithing System
 
 Source: `cmd4.c:2040-2850`
 
@@ -125,9 +206,9 @@ Source: `cmd4.c:2040-2850`
 - +1 difficulty per pval increment
 - Special handling for enchantments
 
-______________________________________________________________________
+---
 
-## 5. Combat System
+## Combat System
 
 ### Damage Calculation Chain
 
@@ -177,9 +258,7 @@ Special cases:
 
 - `RBM_SPORE`: Always hits, no criticals
 
-______________________________________________________________________
-
-## 6. Two-Weapon Combat
+### Two-Weapon Combat
 
 Source: `xtra1.c`, `cmd1.c`
 
@@ -192,18 +271,19 @@ Source: `xtra1.c`, `cmd1.c`
 
 Attack calculation: `cmd1.c:4088-4154`
 
-______________________________________________________________________
+### Knockback System
 
-## 7. Ability System
+Source: `cmd1.c:3750-3858`
 
-### Ability Types
+| Variable/Function     | Purpose                              |
+| --------------------- | ------------------------------------ |
+| `p_ptr->knocked_back` | Persistence flag                     |
+| `knock_back()`        | Distance calculation                 |
+| Evasion penalty       | -5 when knocked out (`xtra1.c:2923`) |
 
-| Array                           | Description               |
-| ------------------------------- | ------------------------- |
-| `p_ptr->innate_ability[S_*][*]` | Personal/racial abilities |
-| `p_ptr->have_ability[S_*][*]`   | Combined with equipment   |
+---
 
-### Skill System
+## Skill System (Melee, Archery, Evasion, Stealth, Perception, Will, Smithing, Song)
 
 | Variable            | Purpose                 |
 | ------------------- | ----------------------- |
@@ -213,9 +293,18 @@ ______________________________________________________________________
 
 Affected by pval items via TR1_MEL, TR1_ARC, etc.
 
-______________________________________________________________________
+## Ability System ("Skill Trees")
 
-## 8. Channeling System
+### Ability Types
+
+| Array                           | Description               |
+| ------------------------------- | ------------------------- |
+| `p_ptr->innate_ability[S_*][*]` | Personal/racial abilities |
+| `p_ptr->have_ability[S_*][*]`   | Combined with equipment   |
+
+---
+
+## Channeling System
 
 Source: `object2.c`, `cmd6.c`, `use-obj.c`
 
@@ -229,9 +318,9 @@ Source: `object2.c`, `cmd6.c`, `use-obj.c`
 - Special charge display (`object2.c:4475, 4629`)
 - Usage logic (`use-obj.c:537-557`)
 
-______________________________________________________________________
+---
 
-## 9. Terrain Interactions
+## Terrain Interactions
 
 ### Warded Features
 
@@ -252,9 +341,9 @@ ______________________________________________________________________
 
 Door difficulty calculations: `melee2.c:838-898`
 
-______________________________________________________________________
+---
 
-## 10. Depth-Based Rules
+## Dungeon: Depth-Based Rules
 
 ### MORGOTH_DEPTH (Level 100)
 
@@ -279,9 +368,9 @@ Hardcoded level ranges for uniques:
 - Gothmog, Glaurung, Gorthaur, Ungoliant: Levels 6-9
 - Aldor: Unique placement logic
 
-______________________________________________________________________
+---
 
-## 11. Monster AI
+## Monster AI
 
 ### Perception System
 
@@ -304,35 +393,58 @@ Affected by:
 - `RF3_TROLL` regeneration
 - `RF3_NO_FEAR` immunity
 
-______________________________________________________________________
+#### Random Movement
 
-## 12. Knockback System
+Source: `melee2.c:5131-5143`
 
-Source: `cmd1.c:3750-3858`
+The `RF1_RAND_25` and `RF1_RAND_50` flags are **cumulative**:
 
-| Variable/Function     | Purpose                              |
-| --------------------- | ------------------------------------ |
-| `p_ptr->knocked_back` | Persistence flag                     |
-| `knock_back()`        | Distance calculation                 |
-| Evasion penalty       | -5 when knocked out (`xtra1.c:2923`) |
+```c
+if (r_ptr->flags1 & (RF1_RAND_25))
+{
+    chance += 25;
+}
+if (r_ptr->flags1 & (RF1_RAND_50))
+{
+    chance += 50;
+}
+```
 
-______________________________________________________________________
+| Flag Combination   | Random Movement Chance |
+| ------------------ | ---------------------- |
+| Neither            | 0%                     |
+| `RF1_RAND_25` only | 25%                    |
+| `RF1_RAND_50` only | 50%                    |
+| Both flags         | 75%                    |
 
-## 13. Special Items
+#### Critical Hit Resistance
 
-### Staff of Treasures
+Source: `cmd1.c:1050-1070`
+
+| Flag           | Effect                             |
+| -------------- | ---------------------------------- |
+| `RF1_RES_CRIT` | Doubles critical hit threshold     |
+| `RF1_NO_CRIT`  | Complete immunity to critical hits |
+
+---
+
+## Items (weapons, armor, staves, torches, etc.)
+
+### Special Items
+
+#### Staff of Treasures
 
 - sval: `SV_STAFF_TREASURES`
 - Source: `object2.c:1981`, `spells2.c:1682`
 - Effect: Hardcoded chest generation
 
-### Ring of Accuracy
+#### Ring of Accuracy
 
 - sval: `SV_RING_ACCURACY`
 - Smithing caps: +4 max, +1 min
 - Source: `cmd4.c:2047, 2120, 2164`
 
-### Light Sources
+#### Light Sources
 
 Special timeout handling for:
 
@@ -340,9 +452,9 @@ Special timeout handling for:
 - `SV_LIGHT_LESSER_JEWEL`
 - Active light drain: `dungeon.c:65-69`
 
-______________________________________________________________________
+---
 
-## 14. Scoring System
+## Scoring System
 
 Source: `files.c:3512-3516`
 
@@ -353,9 +465,9 @@ Factors in scoring calculation:
 - Dungeon depth reached
 - Difficulty settings
 
-______________________________________________________________________
+---
 
-## 15. Hardcoded Constants
+## Hardcoded Constants
 
 ### Light Radius Values
 
@@ -432,46 +544,9 @@ Source: `cmd1.c:3050-3350`
 **Note:** All trap effects are 100% hardcoded in C - no trap data exists in txt
 files.
 
-______________________________________________________________________
+---
 
-## 16. Monster Flag Behavior
-
-### Random Movement Flags
-
-Source: `melee2.c:5131-5143`
-
-The `RF1_RAND_25` and `RF1_RAND_50` flags are **cumulative**:
-
-```c
-if (r_ptr->flags1 & (RF1_RAND_25))
-{
-    chance += 25;
-}
-if (r_ptr->flags1 & (RF1_RAND_50))
-{
-    chance += 50;
-}
-```
-
-| Flag Combination   | Random Movement Chance |
-| ------------------ | ---------------------- |
-| Neither            | 0%                     |
-| `RF1_RAND_25` only | 25%                    |
-| `RF1_RAND_50` only | 50%                    |
-| Both flags         | 75%                    |
-
-### Critical Hit Resistance Flags
-
-Source: `cmd1.c:1050-1070`
-
-| Flag           | Effect                             |
-| -------------- | ---------------------------------- |
-| `RF1_RES_CRIT` | Doubles critical hit threshold     |
-| `RF1_NO_CRIT`  | Complete immunity to critical hits |
-
-______________________________________________________________________
-
-## 17. Status Effects System
+## Status Effects System
 
 Source: `externs.h`, `spells1.c`, `xtra1.c`
 
@@ -508,9 +583,9 @@ void pois_dam_mixed(int dam)
 - Decrements each turn
 - `TR2_RES_POIS` reduces incoming poison
 
-______________________________________________________________________
+---
 
-## 18. Item Effects (Consumables)
+## Item Effects (Consumables)
 
 Source: `use-obj.c`
 
@@ -550,9 +625,9 @@ item names, weights, and costs, but **not** their effects.
 **Database Implication:** Item effects must be documented separately from item
 data files, or effect descriptions extracted from C code.
 
-______________________________________________________________________
+---
 
-## 19. Attack Effects (Monster Blows)
+## Attack Effects (Monster Blows)
 
 Source: `melee1.c`, `spells1.c`
 
@@ -577,9 +652,9 @@ Monster attack effects (`RBE_*` constants) are defined in data files but their
 | `RBE_ACID`      | Acid damage + equipment damage        |
 | `RBE_ELEC`      | Electric damage (reduced by RES_ELEC) |
 
-______________________________________________________________________
+---
 
-## 20. Forge System
+## Forge System (for crafting/smithing items)
 
 Source: `object2.c:4398-4455`, `cmd4.c:2813-2844`
 
@@ -623,16 +698,17 @@ static int forge_bonus(int y, int x) {
 
 ### State Encoding
 
-Uses are encoded in the feature ID. When a forge is used:
+Forges can only be used a few times. "Uses remaining" of a forge uses are
+encoded in the feature ID. When a forge is used:
 
 1. Current feature ID is decremented
 2. When ID reaches `*_HEAD + 0`, forge is exhausted
 
 **Not configurable in data files:** The uses and bonuses are hardcoded in C.
 
-______________________________________________________________________
+---
 
-## 21. Morgoth's Crown and Silmaril System
+## Stealing a Silmaril: Morgoth's Crown and Silmaril System
 
 Source: `cmd3.c:965-1183`, `artefact.txt:1580-1635`
 
@@ -706,11 +782,28 @@ object_prep(o_ptr, lookup_kind(TV_LIGHT, SV_LIGHT_SILMARIL));
 slot = inven_carry(o_ptr, FALSE);
 ```
 
-______________________________________________________________________
+---
 
-## 22. Graphics and Tileset System
+## Graphics and Rendering
 
-### Tileset Selection
+Sil-Q supports two rendering modes:
+
+1. **Tiles graphics (newer).** Here, 16x16 pixel tiles are used to visually
+   represent game entities.
+   - Additionally, a few visual effects (VFX) are implemented via tiles, such as
+     an alertness indicator for monsters and a glowing effect for when the
+     player/monster is wielding a glowing weapon. These VFX are implemented by
+     overlaying these special tiles above/below the normal tiles.
+2. **ASCII graphics (older)**. Here, ASCII characters are used to visually
+   represent game entities on the screen, such as `#` for a wall.
+
+Many idiosyncrasies of the game's current rendering system (such as the way
+tiles in the tileset image are identified/referred to in the game code) are the
+result of the tiles graphics being piggybacked to the older ASCII graphics code.
+
+### Tiles Graphics Mode (Tileset)
+
+#### Tileset Image Definition
 
 Source: `main-win.c:1264-1277`, `main-x11.c:2706-2724`, `main-cocoa.m:2874-2877`
 
@@ -728,7 +821,41 @@ The default tileset (MicroChasm's) is **hardcoded** in platform-specific files:
 #define GRAPHICS_MICROCHASM 1
 ```
 
-### Tile Coordinate System
+#### Mapping Game Entities to Tiles
+
+Game entities (objects, player, monsters, terrain, etc.) are defined in
+`lib/edit/*.txt` files ("definition files" or "edit files"). Via their numeric
+game ID (e.g., `N:374`), these entities are mapped to tiles in the tileset image
+via entries in `lib/pref/*.prf` files ("pref files").
+
+1. **Definition files** (`lib/edit/*.txt`) - Define entity names and properties
+2. **Preference files** (`lib/pref/*.prf`) - Assign graphical tiles to entities
+
+The tile "ID" is an `<attr>/<char>` pair, where `attr` means "attribute" and
+`char` means "character".
+
+> The counter-intuitive `attr` and `char` naming to refer to a tile is the
+> result of Sil-Q older ASCII graphics mode, where `char` defines an entity's
+> ASCII character (like `#` for a wall) and `attr` defines the color attribute
+> for that character. Think: "draw a red D".
+>
+> The tiles graphics mode was added in a later release. The decision was made to
+> use an X/Y coordinate scheme to identify a tile within a given tileset image,
+> and then to piggyback the passing of these X/Y tile coordinates to the game's
+> rendering system via the existing `attr/char` pairs for an entity's ASCII
+> graphics. Here, the X coordinate (column in the tileset) is encoded in the
+> `char` field, and the Y coordinate (row in the tileset) in the `attr` field.
+
+| Entity Type | Definition File        | Game ID (`N`) | Pref Line Format       | Array                       |
+| ----------- | ---------------------- | ------------- | ---------------------- | --------------------------- |
+| Objects     | `lib/edit/object.txt`  |               | `K:<id>:<attr>/<char>` | `k_info`                    |
+| Monsters    | `lib/edit/monster.txt` |               | `R:<id>:<attr>/<char>` | `r_info`                    |
+| Player      | `lib/edit/monster.txt` | `N:0` - `N:3` | `R:<id>:<attr>/<char>` | `r_info`                    |
+| Terrain     | `lib/edit/terrain.txt` |               | `F:<id>:<attr>/<char>` | `f_info`                    |
+| Flavors     | `lib/edit/flavor.txt`  |               | `L:<id>:<attr>/<char>` | `flavor_info`               |
+| Special     | (hardcoded)            |               | `S:<id>:<attr>/<char>` | `misc_to_attr/misc_to_char` |
+
+#### Tile Coordinate System (think: "Tile ID")
 
 Tile coordinates use a **0x80-based hex system**:
 
@@ -751,32 +878,69 @@ Coordinate format: 0xYY/0xXX
 - Columns: 256 (`0x80` to `0xFF`)
 - Total: 65,536 tiles (with larger bitmap)
 
-### Player Tiles
+#### Example Entity-Tile Mapping (small jewelled chest)
 
-Player tiles are assigned **by race only**, not by race+house combination:
+From `lib/edit/object.txt`. Note the ID specification `N:374` at the beginning
+of the block:
 
-| Race ID | Race    | Tile Coordinates | Source             |
-| ------- | ------- | ---------------- | ------------------ |
-| 0       | Noldor  | `0x8D/0x80`      | `graf-new.prf:520` |
-| 1       | Sindar  | `0x8D/0x90`      | `graf-new.prf:523` |
-| 2       | Naugrim | `0x8E/0x80`      | `graf-new.prf:526` |
-| 3       | Edain   | `0x8E/0x90`      | `graf-new.prf:529` |
+```
+N:374:& Small jewelled chest~
+G:~:v1
+I:7:3:0
+W:19:0:750:250
+P:0:0d0:0:0d0
+A:19/8
+F:IGNORE_ALL
+```
 
-Each race has 16 equipment state variants (columns 0x80-0x8F or 0x90-0x9F).
+From `lib/pref/graf-new.prf`. Note the referencing of the ID specification
+(`N:374` in the `lib/edit/*.txt` files) via `K:374` at the beginning of the
+line:
 
-**House has no effect on player tile.** All members of a race use the same base
-tile.
+```
+# & Small jewelled chest~
+K:374:0x81/0x84
+```
 
-### PRF File Loading (`*.prf`)
+Both reference ID `374`. The definition file ("edit file") sets the entity name
+and properties, whereas the pref file assigns the tile coordinates `0x81/0x84`
+for the visual representation of the entity.
+
+#### Player Tiles
+
+Player tiles are assigned by race only, not by race+house combinations. All
+members of a race use the same base tile.
+
+| Race ID | Race    | Starting Tile Coordinates | Source             |
+| ------- | ------- | ------------------------- | ------------------ |
+| 0       | Noldor  | `0x8D/0x80`               | `graf-new.prf:520` |
+| 1       | Sindar  | `0x8D/0x90`               | `graf-new.prf:523` |
+| 2       | Naugrim | `0x8E/0x80`               | `graf-new.prf:526` |
+| 3       | Edain   | `0x8E/0x90`               | `graf-new.prf:529` |
+
+Each race has a sequence of 16 tiles, with a configurable starting tile (see
+table above) at offset 0, followed by 15 additional tiles for that race, for a
+total offset range of `[0...15]`.
+
+The 16 tiles are used to change the player tile depending on the player's state,
+notably the player skills (e.g., Melee vs. Archery skill level) and the player's
+current equipment (e.g., wielding a sword vs. an axe).
+
+#### Pref File Loading (`lib/pref/*.prf`)
 
 Source: `object1.c:271-272`, `dungeon.c:2846-2863`
 
 ```c
-// Graphics mode PRF
-process_pref_file("graf.prf");  // Loads graf-new.prf for MicroChasm
+// Graphics mode pref file
+process_pref_file("graf.prf");  // Loads graf-new.prf for MicroChasm tiles
+```
 
-// Race-specific PRF (ASCII colors)
-process_pref_file("races.prf");  // Loads noldor.prf, sindar.prf, etc.
+Note that some of these pref files are loaded, but currently not used in the
+game:
+
+```c
+// Race-specific pref file (data not used/configured in Feb 2026)
+process_pref_file("races.prf");
 ```
 
 The `ANGBAND_GRAF` variable (`variable.c:594`) controls which PRF variant to
@@ -785,7 +949,13 @@ load:
 - `"old"` → default (no graphics)
 - `"new"` → MicroChasm tiles (graf-new.prf)
 
-______________________________________________________________________
+#### Source Code
+
+- Definition parsing: `src/init1.c` (`parse_k_info`, `parse_r_info`, etc.)
+- Pref file parsing: function `process_pref_file_command` in `src/files.c`
+- Name formatting: function `object_desc()` in `src/object1.c`
+
+---
 
 ## 23. Min Depth System (Anti-Scumming)
 
@@ -842,7 +1012,7 @@ When attempting to go upstairs, if `p_ptr->depth <= min_depth()`:
 This forces players to continue deeper rather than farming early levels
 indefinitely.
 
-______________________________________________________________________
+---
 
 ## 24. Stair Mechanics
 
@@ -894,7 +1064,7 @@ Shafts are rarer than regular stairs. Generation probability is controlled in
 | Throne room (depth 20) | Cannot go up with Silmarils (victory must be earned by escaping from Gates) |
 | Max depth              | No down stairs generated beyond dungeon limit                               |
 
-______________________________________________________________________
+---
 
 ## 25. Hunger/Food System
 
@@ -964,7 +1134,7 @@ set_food(p_ptr->food - food_loss);
 Multiple items stack: wearing two SLOW_DIGEST items gives hunger = -2 (very slow
 digestion).
 
-______________________________________________________________________
+---
 
 ## 26. Skill System
 
@@ -1015,7 +1185,7 @@ A: sleepiness : perception : stealth : will
 
 Example: `A:20:2:3:1` means Sleepiness 20, Perception 2, Stealth 3, Will 1.
 
-______________________________________________________________________
+---
 
 ## 27. Horn Effects
 
@@ -1051,7 +1221,7 @@ All horns generate significant noise, alerting nearby monsters:
 - Thunder: -20 noise bonus
 - Others: Standard noise
 
-______________________________________________________________________
+---
 
 ## 28. Element/Effect System (`GF_*`)
 
@@ -1110,7 +1280,7 @@ breaths, traps, and items.
 | GF_DARK | -                 | RF3_RES_NETHR      |
 | GF_FEAR | TR2_RES_FEAR      | RF3_NO_FEAR        |
 
-______________________________________________________________________
+---
 
 ## 29. Morale System
 
@@ -1180,7 +1350,7 @@ You **cannot directly set** morale in data files. To make a monster:
 - **Fearless:** Add `RF3_NO_FEAR` flag
 - **Braver at shallow depths:** Increase monster's `W:` depth value
 
-______________________________________________________________________
+---
 
 ## 30. Alertness System
 
@@ -1306,7 +1476,7 @@ In `monster.txt`, set the `A:` line sleepiness value:
 | 11-20      | Usually asleep              |
 | 20+        | Deeply asleep               |
 
-______________________________________________________________________
+---
 
 ## 31. Experience System
 
@@ -1415,7 +1585,7 @@ W: depth : rarity
 
 Higher depth = more XP. A monster at `W:10:1` gives base `10 × 10 = 100` XP.
 
-______________________________________________________________________
+---
 
 ## 32. Visibility and Line-of-Sight System
 
@@ -2061,22 +2231,7 @@ Within each octant, grids are processed outward from the player:
 When a wall is encountered, it blocks certain LOS slopes, preventing grids
 behind it from being seen.
 
-______________________________________________________________________
-
-## 33. Game State
-
-### Player state
-
-The player's in-game state is primarily managed via `struct player_type`
-(`src/types.h:763`). Modifying the `player_type` struct can break savefiles!
-
-The player is hardcoded as entity `0` in the context of the `monster_race*`
-struct (`src/types.h:343-394`):
-
-```c
-// `0` always refers to the player.
-monster_race* r_ptr = &r_info[0];
-```
+---
 
 ## Key Source Files
 
@@ -2106,23 +2261,23 @@ monster_race* r_ptr = &r_info[0];
 | `main-cocoa.m`   | macOS tileset loading                          |
 | `variable.c`     | ANGBAND_GRAF graphics mode variable            |
 
-______________________________________________________________________
+---
 
 ## Implications for Database Schema
 
 The database should include:
 
-01. **Monster special flags**: `is_morgoth`, `is_quest_monster`,
+1.  **Monster special flags**: `is_morgoth`, `is_quest_monster`,
     `has_progressive_stats`
-02. **Item special flags**: `is_silmaril`, `has_special_timeout`,
+2.  **Item special flags**: `is_silmaril`, `has_special_timeout`,
     `has_smithing_restrictions`
-03. **Ability references**: Link abilities to their hardcoded effects
-04. **Depth rules table**: Capture depth-specific behaviors
-05. **Combat modifier tables**: Skill bonuses, proficiencies, bane effects
-06. **Quest system tables**: Thrall quests, rewards, requirements
-07. **Light source table**: Map items to their hardcoded light radius values
-08. **Trap effects table**: Document all trap types and their hardcoded effects
-09. **Status effects table**: Document player status variables and their
+3.  **Ability references**: Link abilities to their hardcoded effects
+4.  **Depth rules table**: Capture depth-specific behaviors
+5.  **Combat modifier tables**: Skill bonuses, proficiencies, bane effects
+6.  **Quest system tables**: Thrall quests, rewards, requirements
+7.  **Light source table**: Map items to their hardcoded light radius values
+8.  **Trap effects table**: Document all trap types and their hardcoded effects
+9.  **Status effects table**: Document player status variables and their
     mechanics
 10. **Consumable effects table**: Map item sval to hardcoded effects from
     `use-obj.c`
