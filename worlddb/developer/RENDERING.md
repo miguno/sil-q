@@ -78,6 +78,7 @@ The `0x80` graphics flag is checked in `map_info()` of `cave.c` to decide
 whether to render a tile or an ASCII character:
 
 ```c
+// True if game runs in tiles graphics mode.
 if ((da & 0x80) && (dc & 0x80))
 {
     a = da;
@@ -105,7 +106,7 @@ bit 6 (`0x40`) as a flag, but on different bytes.
   ```c
   c += GRAPHICS_ALERT_MASK;
   ```
-- **Icon tile**: `ICON_ALERT` (`0x0B`), mapped in the prf file as
+- **Icon tile**: `ICON_ALERT` (`0x0B`), mapped in the pref file as
   `S:0x0B:0x8C/0x8B`.
 
 ### Glow overlay
@@ -126,7 +127,7 @@ the overlay flags with `& 0x3F` to recover the base tile coordinates, then
 composite pixel-by-pixel in this priority order:
 
 1. Alert icon (if alert flag is set)
-2. Foreground tile (the monster/object)
+2. Foreground tile (the player/monster/item/object)
 3. Glow icon (if glow flag is set)
 4. Background terrain tile
 
@@ -142,7 +143,7 @@ The prf file parser in `src/files.c` handles these line formats:
 
 | Prefix | Entity type                | Example            |
 | ------ | -------------------------- | ------------------ |
-| `R`    | Monster race               | `R:251:0x8A/0x92`  |
+| `R`    | Player or Monster race     | `R:251:0x8A/0x92`  |
 | `K`    | Object kind                | `K:131:0x8C/0x90`  |
 | `F`    | Feature (floor, wall, etc) | `F:16:0x8A/0x9C`   |
 | `S`    | Special/miscellaneous icon | `S:0x0B:0x8C/0x8B` |
@@ -158,10 +159,10 @@ number display.
 The central function `map_info()` determines the attr/char pair for each grid
 cell. It outputs two pairs:
 
-- **Foreground** (`*ap`/`*cp`): the player, a monster, an object, or a feature.
-- **Background** (`*tap`/`*tcp`): the terrain tile underneath.
+- **Foreground tile** (`*ap`/`*cp`): the player, a monster, an object, or a feature.
+- **Background tile** (`*tap`/`*tcp`): the terrain tile underneath.
 
-The foreground entity is selected by priority:
+The game entity to be displayed in the foreground is selected by priority:
 
 1. Visible monster (`m_idx > 0`): reads `r_ptr->x_attr`/`x_char`.
 2. Player (`m_idx < 0`): reads `x_attr`/`x_char` for the player's race, offset
@@ -179,12 +180,12 @@ The attr/char pairs from `map_info()` are passed to a platform-specific
 rendering function. Each backend receives arrays of `n` cells to draw in one
 call:
 
-| Backend          | Function          | Compositing approach                  |
-| ---------------- | ----------------- | ------------------------------------- |
-| X11              | `Term_pict_x11()` | `composite_image()` — pixel-by-pixel  |
-| Windows          | `Term_pict_win()`  | `TransparentBlt()` API calls          |
-| macOS            | Cocoa renderer     | Core Graphics compositing             |
-| GTK              | (none)             | ASCII only, no tile support           |
+| Backend          | Function            | Compositing approach                  |
+| ---------------- | ------------------- | ------------------------------------- |
+| X11              | `Term_pict_x11()`   | `composite_image()` — pixel-by-pixel  |
+| Windows          | `Term_pict_win()`   | `TransparentBlt()` API calls          |
+| macOS            | `Term_pict_cocoa()` | Core Graphics compositing             |
+| GTK              | (none)              | ASCII only, no tile support           |
 
 Each function receives four arrays of length `n`:
 
@@ -204,22 +205,22 @@ For each cell, the backend:
 
 ## The tileset image
 
-The tileset is `lib/xtra/graf/16x16_microchasm.png` (512x256 pixels). Each tile
-is 16x16 pixels, giving a grid of 32 columns x 16 rows. Tile coordinates from
-the `x_attr`/`x_char` fields index into this grid.
+The tileset is `lib/xtra/graf/16x16.bmp` (BMP format) and the identical `lib/xtra/graf/16x16_microchasm.png` (PNG format). The tileset dimensions are 512x256 pixels. Each tile is 16x16 pixels, giving a grid of 32 columns x 16 rows. Tile coordinates from the `x_attr`/`x_char` fields index into this grid.
 
 ## Key source files
 
 | File                                 | Role                                                                   |
 | ------------------------------------ | ---------------------------------------------------------------------- |
-| `src/types.h`                        | Defines `d_attr`/`d_char`/`x_attr`/`x_char` on entity structs          |
-| `src/defines.h`                      | `GRAPHICS_ALERT_MASK`, `GRAPHICS_GLOW_MASK`, `ICON_ALERT`, `ICON_GLOW` |
-| `src/cave.c`                         | `map_info()` — determines attr/char per grid cell                      |
-| `src/files.c`                        | Prf file parser (R:/K:/F:/S: lines)                                    |
-| `src/variable.c`                     | `misc_to_attr[]`/`misc_to_char[]` arrays                               |
-| `src/cmd1.c`                         | `graphics_are_ascii()`                                                 |
-| `src/main-x11.c`                     | X11 tile rendering and compositing                                     |
-| `src/main-win.c`                     | Windows tile rendering and compositing                                 |
-| `src/main-cocoa.m`                   | macOS tile rendering and compositing                                   |
+| `lib/pref/flvr-new.prf`              | Graphical tile assignments (could be merged into graf-new.prf?)        |
 | `lib/pref/graf-new.prf`              | Graphical tile assignments                                             |
-| `lib/xtra/graf/16x16_microchasm.png` | The tileset image                                                      |
+| `lib/xtra/graf/16x16.bmp`            | The tileset image in BMP format (for Windows and X11?)                 |
+| `lib/xtra/graf/16x16_microchasm.png` | The tileset image in PNG format (for macOS Cocoa?)                     |
+| `src/cave.c`                         | `map_info()` — determines attr/char (and tiles) per grid cell          |
+| `src/cmd1.c`                         | `graphics_are_ascii()`                                                 |
+| `src/defines.h`                      | `GRAPHICS_ALERT_MASK`, `GRAPHICS_GLOW_MASK`, `ICON_ALERT`, `ICON_GLOW` |
+| `src/files.c`                        | Pref file parser (R:/K:/F:/S: lines) for `lib/pref/*.prf`              |
+| `src/main-cocoa.m`                   | macOS tile rendering and compositing                                   |
+| `src/main-win.c`                     | Windows tile rendering and compositing                                 |
+| `src/main-x11.c`                     | X11 tile rendering and compositing                                     |
+| `src/types.h`                        | Defines `d_attr`/`d_char`/`x_attr`/`x_char` on several entity structs  |
+| `src/variable.c`                     | `misc_to_attr[]`/`misc_to_char[]` arrays                               |
