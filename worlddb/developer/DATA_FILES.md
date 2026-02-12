@@ -773,8 +773,8 @@ potions, staves, horns, herbs).
 #### Format
 
 ```
-N: index : tval : sval (optional)
-G: symbol : color
+N: flavor ID : tval : sval (optional)
+G: ASCII character : attribute (color code) of ASCII character
 D: flavor name
 ```
 
@@ -783,7 +783,7 @@ D: flavor name
 | Field | Description                           |
 | ----- | ------------------------------------- |
 | `N`   | ID, tval, and optional fixed sval     |
-| `G`   | Display character and color           |
+| `G`   | ASCII character and color to display on screen |
 | `D`   | Flavor name (e.g., "Amethyst", "Oak") |
 
 #### Flavor Categories
@@ -863,7 +863,7 @@ limitation. Larger tilesets could use coordinates up to 0xFF.
 **Entity mappings:**
 
 ```
-R:id:0xYY/0xXX    # Monster (id 0-3 are player races)
+R:id:0xYY/0xXX    # Monster/player (IDs 0-3 are player races)
 K:id:0xYY/0xXX    # Object (kind)
 F:id:0xYY/0xXX    # Feature (terrain)
 L:id:0xYY/0xXX    # Flavor
@@ -872,11 +872,11 @@ L:id:0xYY/0xXX    # Flavor
 **Special graphics (S:):**
 
 ```
-## Comment describing the graphic
+# Comment describing the tile/graphic (ignored by game)
 S:0xID:0xYY/0xXX
 ```
 
-S: entries use hex IDs and map special graphics like:
+S: entries use hex coordinates for tiles to map special graphics like:
 
 - Digits (0x00-0x09)
 - Arrows in various directions (0x3F, 0x4F, 0x5F, 0x6F, 0x7F)
@@ -884,7 +884,7 @@ S: entries use hex IDs and map special graphics like:
 - Breath weapons (0x31, 0x34, 0x35, 0x38)
 - Spell effects (0x50, 0x51)
 
-#### Coordinate Format
+#### Tiles Coordinate Format (hex coordinates)
 
 ```
 0xYY/0xXX
@@ -913,10 +913,10 @@ different equipment states (see WORLD_MODEL.md for the 16 states).
 
 | Entity           | Type    | ASCII       | Tile Coordinates  |
 | ---------------- | ------- | ----------- | ----------------- |
-| Wolf             | Monster | `C` (umber) | `R:11:0x88/0x91`  |
-| Morgoth          | Monster | `V` (dark)  | `R:251:0x8A/0x92` |
 | Player (Noldor)  | Race 0  | `@` (white) | `R:0:0x8D/0x80`   |
 | Player (Naugrim) | Race 2  | `@` (white) | `R:2:0x8E/0x80`   |
+| Wolf             | Monster | `C` (umber) | `R:11:0x88/0x91`  |
+| Morgoth          | Monster | `V` (dark)  | `R:251:0x8A/0x92` |
 
 ______________________________________________________________________
 
@@ -926,7 +926,7 @@ Current counts from data files vs limits.txt:
 
 | Entity    | File         | Count | Limit |
 | --------- | ------------ | ----- | ----- |
-| Monsters  | monster.txt  | 152   | 656   |
+| Monsters and player | monster.txt  | 152   | 656   |
 | Objects   | object.txt   | 196   | 600   |
 | Artifacts | artefact.txt | 122   | 251   |
 | Specials  | special.txt  | 73    | 145   |
