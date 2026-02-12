@@ -40,7 +40,7 @@ Defines all monster types in the game.
 #### Format
 
 ```
-N: serial number : monster/player name
+N: monster/player ID : monster/player name
 W: depth : rarity
 G: ASCII character : attribute (color code) of ASCII character
 I: speed : XdY (health dice) : light radius
@@ -221,7 +221,7 @@ Defines all base item types (weapons, armor, consumables, etc.).
 #### Format
 
 ```
-N: serial number : & object name~
+N: object ID : object name (with formatting tokens like `&`, `~`)
 G: symbol : color
 I: tval : sval : pval
 W: depth : rarity : weight : cost
@@ -235,8 +235,8 @@ D: description
 
 | Field | Description                                                                |
 | ----- | -------------------------------------------------------------------------- |
-| `N`   | ID and name. `&` = article placement, `~` = pluralization                  |
-| `G`   | Symbol and color. `d` = use flavor color                                   |
+| `N`   | ID and name. `&` for article placement, `~` for pluralization.             |
+| `G`   | Symbol and color. `d` = use flavor color.                                  |
 | `I`   | tval (type), sval (subtype), pval (power value)                            |
 | `W`   | Depth, rarity (unused), weight (0.1 lb units), cost                        |
 | `P`   | Combat stats: `attack_bonus : XdY damage : evasion_bonus : XdY protection` |
@@ -420,7 +420,7 @@ Gondolin", "of Free Action").
 #### Format
 
 ```
-N: serial number : suffix name
+N: suffix ID : suffix name
 T: tval : min_sval : max_sval
 X: extra type : extra value
 W: depth : rarity : weight modifier : cost modifier
@@ -448,7 +448,7 @@ Defines all terrain types (floors, walls, doors, traps, etc.).
 #### Format
 
 ```
-N: serial number : terrain name
+N: unique ID : terrain name
 G: symbol : color
 M: mimic feature number
 F: flag | flag | ...
@@ -519,7 +519,7 @@ Defines the four playable races.
 #### Format
 
 ```
-N: race number : race name
+N: race ID : race name
 S: str : dex : con : gra
 I: history : age_base : age_max
 H: height : height_mod
@@ -608,7 +608,7 @@ Defines houses within each race, providing additional bonuses.
 #### Format
 
 ```
-N: house number : house name
+N: house ID : house name
 A: alternate house name
 B: short house name
 S: str : dex : con : gra
