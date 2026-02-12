@@ -40,9 +40,9 @@ Defines all monster types in the game.
 #### Format
 
 ```
-N: serial number : monster name
+N: serial number : monster/player name
 W: depth : rarity
-G: symbol : color
+G: ASCII character : attribute (color code) of ASCII character
 I: speed : XdY (health dice) : light radius
 A: sleepiness : perception : stealth : will
 P: [evasion bonus, protection dice]
@@ -57,9 +57,9 @@ D: description
 
 | Field | Description                                                              |
 | ----- | ------------------------------------------------------------------------ |
-| `N`   | Unique ID and name. Entry 0 is reserved for the player.                  |
+| `N`   | Unique ID and name. Entries 0-3 are reserved for the player (4 races).   |
 | `W`   | Depth found at; rarity (1 in N chance)                                   |
-| `G`   | ASCII symbol and color code                                              |
+| `G`   | ASCII character (e.g., `V`) and its attribute (color code)               |
 | `I`   | Speed, health dice (XdY), light radius (negative = darkness)             |
 | `A`   | Sleepiness, perception, stealth, will (see Alertness section below)      |
 | `P`   | Defense: `[evasion, Xd4 protection]`                                     |
