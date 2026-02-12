@@ -11,19 +11,19 @@ four display fields defined in `src/types.h`:
 ```c
 byte d_attr;   /* Default attribute (from data files) */
 char d_char;   /* Default character (from data files) */
-byte x_attr;   /* Desired attribute (active display value) */
-char x_char;   /* Desired character (active display value) */
+byte x_attr;   /* Desired attribute (what should be displayed in the next rendering run) */
+char x_char;   /* Desired character (what should be displayed in the next rendering run) */
 ```
 
 - **`d_attr`/`d_char`**: The defaults loaded from data files (e.g.,
-  `G:V:D` in `lib/edit/monster.txt` sets `d_char = 'V'` and `d_attr` to the
+  a line with `G:V:D` in `lib/edit/monster.txt` sets `d_char = 'V'` and `d_attr` to the
   color code for dark). These are also used for non-visual purposes in some
   cases.
 - **`x_attr`/`x_char`**: The display values read by the rendering code.
   Initialized as copies of `d_attr`/`d_char`, then may be overridden by
-  preference (prf) files or changed at runtime by game logic.
+  pref files (`lib/pref/*.prf`) or changed at runtime by game logic.
 
-## ASCII mode vs. graphical tile mode
+## ASCII graphics vs. tiles graphics mode
 
 The game supports three graphics modes, defined in `src/defines.h`:
 
@@ -39,10 +39,10 @@ The game supports three graphics modes, defined in `src/defines.h`:
 In **ASCII mode**, `x_attr` is a terminal color and `x_char` is a printable
 ASCII character (e.g., `'V'` for Morgoth).
 
-In **graphical tile mode**, `x_attr` and `x_char` are repurposed as tile
+In **tiles mode**, `x_attr` and `x_char` are repurposed as tile
 coordinates into the tileset image (`lib/xtra/graf/16x16_microchasm.png`), with
-bit 7 (`0x80`) set as a flag. The prf file `lib/pref/graf-new.prf` sets these
-values, e.g.:
+bit 7 (`0x80`) set as a flag that indicates "tiles mode". The prf file `lib/pref/graf-new.prf` sets these
+values, such as:
 
 ```
 R:251:0x8A/0x92
