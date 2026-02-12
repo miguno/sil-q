@@ -26,20 +26,24 @@ The **numeric ID** in each file links them together.
 From `lib/edit/object.txt`. Note the ID specification `N:374` at the beginning
 of the block:
 
-    N:374:& Small jewelled chest~
-    G:~:v1
-    I:7:3:0
-    W:19:0:750:250
-    P:0:0d0:0:0d0
-    A:19/8
-    F:IGNORE_ALL
+```
+N:374:& Small jewelled chest~
+G:~:v1
+I:7:3:0
+W:19:0:750:250
+P:0:0d0:0:0d0
+A:19/8
+F:IGNORE_ALL
+```
 
 From `lib/pref/graf-new.prf`. Note the referencing of the ID specification
 (`N:374` in the `lib/edit/*.txt` files) via `K:374` at the beginning of the
 line:
 
-    # & Small jewelled chest~
-    K:374:0x81/0x84
+```
+# & Small jewelled chest~
+K:374:0x81/0x84
+```
 
 Both reference ID `374`. The definition file ("edit file") sets the entity name
 and properties, whereas the pref file assigns the tile coordinates `0x81/0x84`
