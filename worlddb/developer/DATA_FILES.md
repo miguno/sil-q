@@ -59,7 +59,7 @@ D: description
 | ----- | ------------------------------------------------------------------------ |
 | `N`   | Unique ID and name. Entries 0-3 are reserved for the player (4 races).   |
 | `W`   | Depth found at; rarity (1 in N chance)                                   |
-| `G`   | ASCII character (e.g., `V`) and its attribute (color code)               |
+| `G`   | ASCII character and color to display on screen.                          |
 | `I`   | Speed, health dice (XdY), light radius (negative = darkness)             |
 | `A`   | Sleepiness, perception, stealth, will (see Alertness section below)      |
 | `P`   | Defense: `[evasion, Xd4 protection]`                                     |
@@ -222,7 +222,7 @@ Defines all base item types (weapons, armor, consumables, etc.).
 
 ```
 N: object ID : object name (with formatting tokens like `&`, `~`)
-G: symbol : color
+G: ASCII character : attribute (color code) of ASCII character
 I: tval : sval : pval
 W: depth : rarity : weight : cost
 P: plus to-hit : damage dice : plus to-evasion : protection dice
@@ -236,7 +236,7 @@ D: description
 | Field | Description                                                                |
 | ----- | -------------------------------------------------------------------------- |
 | `N`   | ID and name. `&` for article placement, `~` for pluralization.             |
-| `G`   | Symbol and color. `d` = use flavor color.                                  |
+| `G`   | ASCII character and color to display on screen. `d` = use flavor color.    |
 | `I`   | tval (type), sval (subtype), pval (power value)                            |
 | `W`   | Depth, rarity (unused), weight (0.1 lb units), cost                        |
 | `P`   | Combat stats: `attack_bonus : XdY damage : evasion_bonus : XdY protection` |
@@ -449,7 +449,7 @@ Defines all terrain types (floors, walls, doors, traps, etc.).
 
 ```
 N: unique ID : terrain name
-G: symbol : color
+G: ASCII character : attribute (color code) of ASCII character
 M: mimic feature number
 F: flag | flag | ...
 D: description
@@ -460,7 +460,7 @@ D: description
 | Field | Description                              |
 | ----- | ---------------------------------------- |
 | `N`   | ID and name                              |
-| `G`   | Symbol and color                         |
+| `G`   | ASCII character and color to display on screen |
 | `M`   | Mimic another feature (for hidden traps) |
 | `F`   | Terrain flags (see below)                |
 | `D`   | Description                              |
