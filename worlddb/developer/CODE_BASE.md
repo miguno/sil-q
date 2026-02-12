@@ -75,7 +75,7 @@ Example: `& Small jewelled chest~` becomes:
 - "a Small jewelled chest" (count=1)
 - "3 Small jewelled chests" (count=3)
 
----
+______________________________________________________________________
 
 ### Monster Index Constants
 
@@ -133,7 +133,7 @@ Source: `melee2.c`, `xtra2.c`
 - Truce broken by: attacking, stealing Silmarils, aggressive actions
 - Affects `p_ptr->truce` flag
 
----
+______________________________________________________________________
 
 ## Quest System (Thralls)
 
@@ -153,7 +153,7 @@ Quest mechanics:
 - `p_ptr->thrall_quest` tracks completion state
 - `reward_player_for_quest()` grants hardcoded abilities
 
----
+______________________________________________________________________
 
 ## Silmaril System
 
@@ -178,7 +178,7 @@ Source: Multiple files
 | `generate.c:3754` | Dungeon danger          | Silmaril count affects monster generation        |
 | `cmd3.c:1138`     | Crown state             | Crown appearance changes based on Silmaril count |
 
----
+______________________________________________________________________
 
 ## Smithing System
 
@@ -206,7 +206,7 @@ Source: `cmd4.c:2040-2850`
 - +1 difficulty per pval increment
 - Special handling for enchantments
 
----
+______________________________________________________________________
 
 ## Combat System
 
@@ -281,7 +281,7 @@ Source: `cmd1.c:3750-3858`
 | `knock_back()`        | Distance calculation                 |
 | Evasion penalty       | -5 when knocked out (`xtra1.c:2923`) |
 
----
+______________________________________________________________________
 
 ## Skill System (Melee, Archery, Evasion, Stealth, Perception, Will, Smithing, Song)
 
@@ -302,7 +302,7 @@ Affected by pval items via TR1_MEL, TR1_ARC, etc.
 | `p_ptr->innate_ability[S_*][*]` | Personal/racial abilities |
 | `p_ptr->have_ability[S_*][*]`   | Combined with equipment   |
 
----
+______________________________________________________________________
 
 ## Channeling System
 
@@ -318,7 +318,7 @@ Source: `object2.c`, `cmd6.c`, `use-obj.c`
 - Special charge display (`object2.c:4475, 4629`)
 - Usage logic (`use-obj.c:537-557`)
 
----
+______________________________________________________________________
 
 ## Terrain Interactions
 
@@ -341,7 +341,7 @@ Source: `object2.c`, `cmd6.c`, `use-obj.c`
 
 Door difficulty calculations: `melee2.c:838-898`
 
----
+______________________________________________________________________
 
 ## Dungeon: Depth-Based Rules
 
@@ -368,7 +368,7 @@ Hardcoded level ranges for uniques:
 - Gothmog, Glaurung, Gorthaur, Ungoliant: Levels 6-9
 - Aldor: Unique placement logic
 
----
+______________________________________________________________________
 
 ## Monster AI
 
@@ -426,7 +426,7 @@ Source: `cmd1.c:1050-1070`
 | `RF1_RES_CRIT` | Doubles critical hit threshold     |
 | `RF1_NO_CRIT`  | Complete immunity to critical hits |
 
----
+______________________________________________________________________
 
 ## Items (weapons, armor, staves, torches, etc.)
 
@@ -452,7 +452,7 @@ Special timeout handling for:
 - `SV_LIGHT_LESSER_JEWEL`
 - Active light drain: `dungeon.c:65-69`
 
----
+______________________________________________________________________
 
 ## Scoring System
 
@@ -465,7 +465,7 @@ Factors in scoring calculation:
 - Dungeon depth reached
 - Difficulty settings
 
----
+______________________________________________________________________
 
 ## Hardcoded Constants
 
@@ -544,7 +544,7 @@ Source: `cmd1.c:3050-3350`
 **Note:** All trap effects are 100% hardcoded in C - no trap data exists in txt
 files.
 
----
+______________________________________________________________________
 
 ## Status Effects System
 
@@ -583,7 +583,7 @@ void pois_dam_mixed(int dam)
 - Decrements each turn
 - `TR2_RES_POIS` reduces incoming poison
 
----
+______________________________________________________________________
 
 ## Item Effects (Consumables)
 
@@ -625,7 +625,7 @@ item names, weights, and costs, but **not** their effects.
 **Database Implication:** Item effects must be documented separately from item
 data files, or effect descriptions extracted from C code.
 
----
+______________________________________________________________________
 
 ## Attack Effects (Monster Blows)
 
@@ -652,7 +652,7 @@ Monster attack effects (`RBE_*` constants) are defined in data files but their
 | `RBE_ACID`      | Acid damage + equipment damage        |
 | `RBE_ELEC`      | Electric damage (reduced by RES_ELEC) |
 
----
+______________________________________________________________________
 
 ## Forge System (for crafting/smithing items)
 
@@ -706,7 +706,7 @@ encoded in the feature ID. When a forge is used:
 
 **Not configurable in data files:** The uses and bonuses are hardcoded in C.
 
----
+______________________________________________________________________
 
 ## Stealing a Silmaril: Morgoth's Crown and Silmaril System
 
@@ -782,7 +782,7 @@ object_prep(o_ptr, lookup_kind(TV_LIGHT, SV_LIGHT_SILMARIL));
 slot = inven_carry(o_ptr, FALSE);
 ```
 
----
+______________________________________________________________________
 
 ## Graphics and Rendering
 
@@ -955,7 +955,7 @@ load:
 - Pref file parsing: function `process_pref_file_command` in `src/files.c`
 - Name formatting: function `object_desc()` in `src/object1.c`
 
----
+______________________________________________________________________
 
 ## 23. Min Depth System (Anti-Scumming)
 
@@ -1012,7 +1012,7 @@ When attempting to go upstairs, if `p_ptr->depth <= min_depth()`:
 This forces players to continue deeper rather than farming early levels
 indefinitely.
 
----
+______________________________________________________________________
 
 ## 24. Stair Mechanics
 
@@ -1064,7 +1064,7 @@ Shafts are rarer than regular stairs. Generation probability is controlled in
 | Throne room (depth 20) | Cannot go up with Silmarils (victory must be earned by escaping from Gates) |
 | Max depth              | No down stairs generated beyond dungeon limit                               |
 
----
+______________________________________________________________________
 
 ## 25. Hunger/Food System
 
@@ -1134,7 +1134,7 @@ set_food(p_ptr->food - food_loss);
 Multiple items stack: wearing two SLOW_DIGEST items gives hunger = -2 (very slow
 digestion).
 
----
+______________________________________________________________________
 
 ## 26. Skill System
 
@@ -1185,7 +1185,7 @@ A: sleepiness : perception : stealth : will
 
 Example: `A:20:2:3:1` means Sleepiness 20, Perception 2, Stealth 3, Will 1.
 
----
+______________________________________________________________________
 
 ## 27. Horn Effects
 
@@ -1221,7 +1221,7 @@ All horns generate significant noise, alerting nearby monsters:
 - Thunder: -20 noise bonus
 - Others: Standard noise
 
----
+______________________________________________________________________
 
 ## 28. Element/Effect System (`GF_*`)
 
@@ -1280,7 +1280,7 @@ breaths, traps, and items.
 | GF_DARK | -                 | RF3_RES_NETHR      |
 | GF_FEAR | TR2_RES_FEAR      | RF3_NO_FEAR        |
 
----
+______________________________________________________________________
 
 ## 29. Morale System
 
@@ -1350,7 +1350,7 @@ You **cannot directly set** morale in data files. To make a monster:
 - **Fearless:** Add `RF3_NO_FEAR` flag
 - **Braver at shallow depths:** Increase monster's `W:` depth value
 
----
+______________________________________________________________________
 
 ## 30. Alertness System
 
@@ -1476,7 +1476,7 @@ In `monster.txt`, set the `A:` line sleepiness value:
 | 11-20      | Usually asleep              |
 | 20+        | Deeply asleep               |
 
----
+______________________________________________________________________
 
 ## 31. Experience System
 
@@ -1585,7 +1585,7 @@ W: depth : rarity
 
 Higher depth = more XP. A monster at `W:10:1` gives base `10 × 10 = 100` XP.
 
----
+______________________________________________________________________
 
 ## 32. Visibility and Line-of-Sight System
 
@@ -2231,7 +2231,7 @@ Within each octant, grids are processed outward from the player:
 When a wall is encountered, it blocks certain LOS slopes, preventing grids
 behind it from being seen.
 
----
+______________________________________________________________________
 
 ## Key Source Files
 
@@ -2261,23 +2261,23 @@ behind it from being seen.
 | `main-cocoa.m`   | macOS tileset loading                          |
 | `variable.c`     | ANGBAND_GRAF graphics mode variable            |
 
----
+______________________________________________________________________
 
 ## Implications for Database Schema
 
 The database should include:
 
-1.  **Monster special flags**: `is_morgoth`, `is_quest_monster`,
+01. **Monster special flags**: `is_morgoth`, `is_quest_monster`,
     `has_progressive_stats`
-2.  **Item special flags**: `is_silmaril`, `has_special_timeout`,
+02. **Item special flags**: `is_silmaril`, `has_special_timeout`,
     `has_smithing_restrictions`
-3.  **Ability references**: Link abilities to their hardcoded effects
-4.  **Depth rules table**: Capture depth-specific behaviors
-5.  **Combat modifier tables**: Skill bonuses, proficiencies, bane effects
-6.  **Quest system tables**: Thrall quests, rewards, requirements
-7.  **Light source table**: Map items to their hardcoded light radius values
-8.  **Trap effects table**: Document all trap types and their hardcoded effects
-9.  **Status effects table**: Document player status variables and their
+03. **Ability references**: Link abilities to their hardcoded effects
+04. **Depth rules table**: Capture depth-specific behaviors
+05. **Combat modifier tables**: Skill bonuses, proficiencies, bane effects
+06. **Quest system tables**: Thrall quests, rewards, requirements
+07. **Light source table**: Map items to their hardcoded light radius values
+08. **Trap effects table**: Document all trap types and their hardcoded effects
+09. **Status effects table**: Document player status variables and their
     mechanics
 10. **Consumable effects table**: Map item sval to hardcoded effects from
     `use-obj.c`

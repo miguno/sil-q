@@ -1,9 +1,8 @@
-# Sil-Q Data Files Analysis
+## Game Data Files
 
-This document describes the formats and contents of all `lib/edit/*.txt` data
-files used in Sil-Q.
+This document describes the game data files of Sil-Q.
 
-## Common File Format Conventions
+### Common file format conventions
 
 All data files share a common structure:
 
@@ -16,7 +15,7 @@ All data files share a common structure:
 - Flags are separated by `|`
 - Description lines (`D:`) can span multiple lines
 
-## File Inventory
+### Overview of current edit files (`lib/edit/*.txt`)
 
 | File           | Entity Type       | In Scope | Notes                                          |
 | -------------- | ----------------- | -------- | ---------------------------------------------- |
@@ -34,13 +33,11 @@ All data files share a common structure:
 | `terrain.txt`  | Terrain features  | Yes      | Floors, walls, doors, traps                    |
 | `vault.txt`    | Vault layouts     | No       | Dungeon vault templates                        |
 
-______________________________________________________________________
-
-## monster.txt - Monster Definitions
+### monster.txt - Monster Definitions
 
 Defines all monster types in the game.
 
-### Format
+#### Format
 
 ```
 N: serial number : monster name
@@ -56,7 +53,7 @@ F: flag | flag | ...
 D: description
 ```
 
-### Field Details
+#### Field Details
 
 | Field | Description                                                              |
 | ----- | ------------------------------------------------------------------------ |
@@ -71,7 +68,7 @@ D: description
 | `F`   | Monster flags (see below)                                                |
 | `D`   | Description text (multiple lines allowed)                                |
 
-### Speed Values
+#### Speed Values
 
 Speed determines how much energy a creature gains per game turn:
 
@@ -93,7 +90,7 @@ horror, Shadow bat, Twisted bat, Hummerhorn, Grimhawk, Gorcrow, Crebain.
 clamped to range 1-3. Player speed is NOT configurable in data files - only
 modified by equipment (`TR2_SPEED` flag) or status effects.
 
-### Health Dice
+#### Health Dice
 
 Monster health is specified as dice notation (XdY) in the `I:` line.
 
@@ -109,7 +106,7 @@ Monster health is specified as dice notation (XdY) in the `I:` line.
 Non-unique monsters have **variable health** each time they spawn. A Wolf (6d4)
 might have 8 HP one encounter and 20 HP the next.
 
-### Alertness and Sleepiness (A: Line)
+#### Alertness and Sleepiness (A: Line)
 
 The first field of the `A:` line controls how likely a monster is to start
 asleep or unwary.
@@ -141,7 +138,7 @@ asleep or unwary.
 
 See CODE_ANALYSIS.md Section 30 for the full alertness/perception mechanics.
 
-### Monster Flags (from `defines.h`)
+#### Monster Flags (from `defines.h`)
 
 **RF1 Flags** - Basic properties:
 
@@ -183,45 +180,45 @@ See CODE_ANALYSIS.md Section 30 for the full alertness/perception mechanics.
 - Songs: `SNG_BINDING`, `SNG_PIERCING`, `SNG_OATHS`
 - `HATCH_SPIDER`, `DIM`, `THROW_WEB`, `RALLY`
 
-### Attack Methods (RBM\_\*)
+#### Attack Methods (`RBM_*`)
 
-| Code     | Method          |
-| -------- | --------------- |
-| `HIT`    | Generic hit     |
-| `TOUCH`  | Touch attack    |
-| `CLAW`   | Claw attack     |
-| `BITE`   | Bite attack     |
-| `STING`  | Sting attack    |
-| `PECK`   | Peck attack     |
-| `WHIP`   | Whip attack     |
-| `CRUSH`  | Crushing attack |
-| `ENGULF` | Engulf attack   |
-| `CRAWL`  | Crawl attack    |
-| `THORN`  | Thorn attack    |
-| `SPORE`  | Spore attack    |
+| Code         | Method          |
+| ------------ | --------------- |
+| `RBM_HIT`    | Generic hit     |
+| `RBM_TOUCH`  | Touch attack    |
+| `RBM_CLAW`   | Claw attack     |
+| `RBM_BITE`   | Bite attack     |
+| `RBM_STING`  | Sting attack    |
+| `RBM_PECK`   | Peck attack     |
+| `RBM_WHIP`   | Whip attack     |
+| `RBM_CRUSH`  | Crushing attack |
+| `RBM_ENGULF` | Engulf attack   |
+| `RBM_CRAWL`  | Crawl attack    |
+| `RBM_THORN`  | Thorn attack    |
+| `RBM_SPORE`  | Spore attack    |
 
-### Attack Effects (RBE\_\*)
+#### Attack Effects (`RBE_*`)
 
-| Code                                                          | Effect                 |
-| ------------------------------------------------------------- | ---------------------- |
-| `HURT`                                                        | Normal damage          |
-| `WOUND`                                                       | Causes bleeding        |
-| `BATTER`                                                      | Battering damage       |
-| `SHATTER`                                                     | Shattering damage      |
-| `POISON`, `ACID`, `ELEC`, `FIRE`, `COLD`                      | Elemental              |
-| `BLIND`, `CONFUSE`, `TERRIFY`, `ENTRANCE`, `HALLU`, `DISEASE` | Status                 |
-| `SLOW`, `DARK`, `HUNGER`                                      | Debuffs                |
-| `LOSE_STR`, `LOSE_DEX`, `LOSE_CON`, `LOSE_GRA`, `LOSE_ALL`    | Stat drain             |
-| `UN_BONUS`, `UN_POWER`, `LOSE_MANA`                           | Equipment/mana effects |
-| `EAT_ITEM`, `EAT_FOOD`, `DISARM`                              | Item effects           |
+| Code                                                                                  | Effect                 |
+| ------------------------------------------------------------------------------------- | ---------------------- |
+| `RBE_HURT`                                                                            | Normal damage          |
+| `RBE_WOUND`                                                                           | Causes bleeding        |
+| `RBE_BATTER`                                                                          | Battering damage       |
+| `RBE_SHATTER`                                                                         | Shattering damage      |
+| `RBE_POISON`, `RBE_ACID`, `RBE_ELEC`, `RBE_FIRE`, `RBE_COLD`                          | Elemental              |
+| `RBE_BLIND`, `RBE_CONFUSE`, `RBE_TERRIFY`, `RBE_ENTRANCE`, `RBE_HALLU`, `RBE_DISEASE` | Status                 |
+| `RBE_SLOW`, `RBE_DARK`, `RBE_HUNGER`                                                  | Debuffs                |
+| `RBE_LOSE_STR`, `RBE_LOSE_DEX`, `RBE_LOSE_CON`, `RBE_LOSE_GRA`, `RBE_LOSE_ALL`        | Stat drain             |
+| `RBE_UN_BONUS`, `RBE_UN_POWER`, `RBE_LOSE_MANA`                                       | Equipment/mana effects |
+| `RBE_EAT_ITEM`, `RBE_EAT_FOOD`, `RBE_DISARM`                                          | Item effects           |
 
 ______________________________________________________________________
 
-## object.txt - Base Item Definitions
+### object.txt - Base Item Definitions
 
 Defines all base item types (weapons, armor, consumables, etc.).
 
-### Format
+#### Format
 
 ```
 N: serial number : & object name~
@@ -234,7 +231,7 @@ F: flag | flag | ...
 D: description
 ```
 
-### Field Details
+#### Field details
 
 | Field | Description                                                                |
 | ----- | -------------------------------------------------------------------------- |
@@ -247,7 +244,7 @@ D: description
 | `F`   | Item flags (see below)                                                     |
 | `D`   | Description                                                                |
 
-### tval (Type Values) from `defines.h`
+#### tval (type values) from `src/defines.h`
 
 | tval | Constant        | Category         |
 | ---- | --------------- | ---------------- |
@@ -276,7 +273,7 @@ D: description
 | 100  | `TV_METAL`      | Metal pieces     |
 | 101  | `TV_USELESS`    | Useless items    |
 
-### Food Items (TV_FOOD) - Special Handling
+#### Food Items (`TV_FOOD`) - Special Handling
 
 Food items use a **hybrid system**: special herbs have hardcoded effects, then
 ALL food adds pval to hunger.
@@ -308,7 +305,7 @@ ALL food adds pval to hunger.
 
 Most herbs have pval ~250 for minor nourishment on top of their special effect.
 
-### Horns (TV_HORN) - Hardcoded Effects
+#### Horns (`TV_HORN`) - Hardcoded Effects
 
 Horns (tval 66) are usable items that produce sound-based effects. **All effects
 are hardcoded** in `use-obj.c:670-920`; pval is NOT used.
@@ -324,7 +321,7 @@ are hardcoded** in `use-obj.c:670-920`; pval is NOT used.
 Horn power scales with the player's **Will skill**. See CODE_ANALYSIS.md Section
 27 for details.
 
-### Item Flags (TR1\*, TR2\*, TR3\_)
+#### Item Flags (`TR1_*`, `TR2_*`, `TR3_*`)
 
 **TR1 Flags** - Stats and slays:
 
@@ -357,7 +354,7 @@ Horn power scales with the player's **Will skill**. See CODE_ANALYSIS.md Section
 - `HAND_AND_A_HALF`, `TWO_HANDED`
 - `LIGHT_CURSE`, `HEAVY_CURSE`, `PERMA_CURSE`
 
-### Flag Effects Reference
+#### Flag Effects Reference
 
 **Hunger Flags** (see CODE_ANALYSIS.md Section 25):
 
@@ -400,12 +397,12 @@ consumed 3× faster.
 
 ______________________________________________________________________
 
-## artefact.txt - Unique Artifact Definitions
+### artefact.txt - Unique Artifact Definitions
 
 Defines unique artifacts (Glamdring, Ringil, etc.). Uses same format as
 `object.txt` but always has `INSTA_ART` flag.
 
-### Additional Fields
+#### Additional Fields
 
 Same as `object.txt`, but artifacts typically have:
 
@@ -415,12 +412,12 @@ Same as `object.txt`, but artifacts typically have:
 
 ______________________________________________________________________
 
-## special.txt - Item Suffixes
+### special.txt - Item Suffixes
 
 Defines special item suffixes that can be applied to base items (e.g., "of
 Gondolin", "of Free Action").
 
-### Format
+#### Format
 
 ```
 N: serial number : suffix name
@@ -431,7 +428,7 @@ C: attack : damage : evasion : protection
 F: flag | flag | ...
 ```
 
-### Field Details
+#### Field Details
 
 | Field | Description                                                     |
 | ----- | --------------------------------------------------------------- |
@@ -444,11 +441,11 @@ F: flag | flag | ...
 
 ______________________________________________________________________
 
-## terrain.txt - Terrain Features
+### terrain.txt - Terrain Features
 
 Defines all terrain types (floors, walls, doors, traps, etc.).
 
-### Format
+#### Format
 
 ```
 N: serial number : terrain name
@@ -458,7 +455,7 @@ F: flag | flag | ...
 D: description
 ```
 
-### Field Details
+#### Field Details
 
 | Field | Description                              |
 | ----- | ---------------------------------------- |
@@ -468,7 +465,7 @@ D: description
 | `F`   | Terrain flags (see below)                |
 | `D`   | Description                              |
 
-### Terrain Flags
+#### Terrain Flags
 
 - Movement: `PASSABLE`, `FLOOR`, `WALL`, `PERMANENT`, `BRIDGE`
 - Vision: `LOS`, `PROJECT`, `GLOW` (interact with
@@ -476,7 +473,7 @@ D: description
 - Special: `DOOR`, `TRAP`, `STAIRS`, `SHAFT`, `CHASM`
 - Effects: `FIERY`, `WATERY`, `ICY`, `ICKY`
 
-### Forges (Terrain Features with State)
+#### Forges (Terrain Features with State)
 
 Forges are terrain features that encode their **remaining uses** in the feature
 ID itself. Each use count is a separate feature entry.
@@ -515,11 +512,11 @@ used, the game replaces the feature with the next lower ID.
 
 ______________________________________________________________________
 
-## race.txt - Player Races
+### race.txt - Player Races
 
 Defines the four playable races.
 
-### Format
+#### Format
 
 ```
 N: race number : race name
@@ -533,7 +530,7 @@ E: tval : sval : min : max
 D: description
 ```
 
-### Field Details
+#### Field Details
 
 | Field | Description                                          |
 | ----- | ---------------------------------------------------- |
@@ -547,7 +544,7 @@ D: description
 | `E`   | Starting equipment: tval, sval, min count, max count |
 | `D`   | Description                                          |
 
-### Player Stats
+#### Player Stats
 
 Sil-Q uses four primary statistics that affect all characters. Stats are
 modified by race and house selections.
@@ -583,7 +580,7 @@ modified by race and house selections.
 - +1 HP per level per CON point above 0
 - -1 HP per level per CON point below 0
 
-### Player Races
+#### Player Races
 
 | ID  | Name    | Stat Mods   | Flags                                      |
 | --- | ------- | ----------- | ------------------------------------------ |
@@ -592,7 +589,7 @@ modified by race and house selections.
 | 2   | Naugrim | 0/-1/+3/+1  | AXE_PROFICIENCY, ARC_PENALTY, SMT_AFFINITY |
 | 3   | Edain   | 0/0/0/0     | (none)                                     |
 
-### Race/House Flags (RHF\_\*)
+#### Race/House Flags (RHF\_\*)
 
 - Proficiencies: `BOW_PROFICIENCY`, `AXE_PROFICIENCY`
 - Affinities (+1 bonus, free ability): `MEL_AFFINITY`, `ARC_AFFINITY`,
@@ -604,11 +601,11 @@ modified by race and house selections.
 
 ______________________________________________________________________
 
-## house.txt - Player Houses
+### house.txt - Player Houses
 
 Defines houses within each race, providing additional bonuses.
 
-### Format
+#### Format
 
 ```
 N: house number : house name
@@ -619,7 +616,7 @@ F: flag
 D: description
 ```
 
-### Field Details
+#### Field Details
 
 | Field | Description                             |
 | ----- | --------------------------------------- |
@@ -630,7 +627,7 @@ D: description
 | `F`   | House flags (affinities)                |
 | `D`   | Description                             |
 
-### Houses by Race
+#### Houses by Race
 
 **Noldor Houses:**
 
@@ -656,11 +653,11 @@ D: description
 
 ______________________________________________________________________
 
-## ability.txt - Player Abilities
+### ability.txt - Player Abilities
 
 Defines all learnable player abilities/skills.
 
-### Format
+#### Format
 
 ```
 N: ability number : ability name
@@ -670,7 +667,7 @@ T: tval : min_sval : max_sval
 D: description
 ```
 
-### Field Details
+#### Field Details
 
 | Field | Description                                            |
 | ----- | ------------------------------------------------------ |
@@ -680,7 +677,7 @@ D: description
 | `T`   | Smithable onto items with matching tval/sval           |
 | `D`   | Description                                            |
 
-### Skill Trees
+#### Skill Trees
 
 | Skill # | Name       | Ability Range | Ultimate (stat bonus) |
 | ------- | ---------- | ------------- | --------------------- |
@@ -693,7 +690,7 @@ D: description
 | 6       | Smithing   | 120-127       | Grace (level 10)      |
 | 7       | Song       | 140-153       | Grace (level 12)      |
 
-### Prerequisite Format (P: line)
+#### Prerequisite Format (P: line)
 
 Prerequisites use the format `skill_number/ability_value`. Multiple
 prerequisites are colon-separated.
@@ -715,7 +712,7 @@ trees:
 - `Two Weapon Fighting` (Melee) requires `Parry` (Evasion skill #2)
 - `Rapid Attack` (Melee) requires `Opportunist` (Stealth skill #3)
 
-### Smithable Item Types (T: line)
+#### Smithable Item Types (T: line)
 
 The T: line specifies which item types this ability can be smithed onto.
 
@@ -747,7 +744,7 @@ The T: line specifies which item types this ability can be smithed onto.
 - `T:23:25:25` - Only greatswords (Impale)
 - `T:22:0:4` - Polearms sval 0-4 only
 
-### Example: Complete Melee Skill Tree
+#### Example: Complete Melee Skill Tree
 
 | ID  | Ability             | Level  | Prerequisites          | Description                                   |
 | --- | ------------------- | ------ | ---------------------- | --------------------------------------------- |
@@ -768,12 +765,12 @@ The T: line specifies which item types this ability can be smithed onto.
 
 ______________________________________________________________________
 
-## flavor.txt - Item Flavors
+### flavor.txt - Item Flavors
 
 Defines visual "flavors" for items that need identification (rings, amulets,
 potions, staves, horns, herbs).
 
-### Format
+#### Format
 
 ```
 N: index : tval : sval (optional)
@@ -781,7 +778,7 @@ G: symbol : color
 D: flavor name
 ```
 
-### Field Details
+#### Field Details
 
 | Field | Description                           |
 | ----- | ------------------------------------- |
@@ -789,7 +786,7 @@ D: flavor name
 | `G`   | Display character and color           |
 | `D`   | Flavor name (e.g., "Amethyst", "Oak") |
 
-### Flavor Categories
+#### Flavor Categories
 
 - **Rings** (tval 45): Amethyst, Beryl, Bloodstone, Emerald, etc.
 - **Amulets** (tval 40): Amber, Coral, Ivory, Crystal, etc.
@@ -806,7 +803,7 @@ Some flavors are "fixed" to specific items (with sval specified), like:
 
 ______________________________________________________________________
 
-## Color Codes
+### Color Codes
 
 Used in `G:` lines throughout data files:
 
@@ -833,13 +830,13 @@ Suffix `1` indicates a brighter/alternate shade (e.g., `r1` = bright red).
 
 ______________________________________________________________________
 
-## PRF Files - Tile Assignments
+### Pref Files - Tile Assignments
 
 **Location:** `lib/pref/*.prf`
 
 PRF files map entities to tile coordinates in the tileset image.
 
-### Key Files
+#### Key Files
 
 | File           | Content                                                           |
 | -------------- | ----------------------------------------------------------------- |
@@ -847,7 +844,7 @@ PRF files map entities to tile coordinates in the tileset image.
 | `flvr-new.prf` | Flavor tiles (ring colors, staff types, etc.)                     |
 | `xtra-new.prf` | Legacy file - NOT used by MicroChasm tiles (out-of-bounds coords) |
 
-### Tileset Dimensions (MicroChasm)
+#### Tileset Dimensions (MicroChasm tiles)
 
 | Property           | Value                                           |
 | ------------------ | ----------------------------------------------- |
@@ -861,7 +858,7 @@ PRF files map entities to tile coordinates in the tileset image.
 **Note:** The 512 tile limit is specific to MicroChasm's tileset, not a game
 limitation. Larger tilesets could use coordinates up to 0xFF.
 
-### Line Formats
+#### Line Formats
 
 **Entity mappings:**
 
@@ -887,7 +884,7 @@ S: entries use hex IDs and map special graphics like:
 - Breath weapons (0x31, 0x34, 0x35, 0x38)
 - Spell effects (0x50, 0x51)
 
-### Coordinate Format
+#### Coordinate Format
 
 ```
 0xYY/0xXX
@@ -898,7 +895,7 @@ S: entries use hex IDs and map special graphics like:
 
 **Pixel position:** `x = (0xXX - 0x80) * 16`, `y = (0xYY - 0x80) * 16`
 
-### Player Tiles by Race
+#### Player Tiles by Race
 
 Player tiles (R:0 through R:3) are assigned by **race only**, not race+house:
 
@@ -912,7 +909,7 @@ Player tiles (R:0 through R:3) are assigned by **race only**, not race+house:
 **House has no effect on player tile.** Each race has 16 tile variants for
 different equipment states (see WORLD_MODEL.md for the 16 states).
 
-### Example Entity Tiles
+#### Example Entity Tiles
 
 | Entity           | Type    | ASCII       | Tile Coordinates  |
 | ---------------- | ------- | ----------- | ----------------- |
@@ -923,7 +920,7 @@ different equipment states (see WORLD_MODEL.md for the 16 states).
 
 ______________________________________________________________________
 
-## Entity Counts
+### Entity Counts
 
 Current counts from data files vs limits.txt:
 
