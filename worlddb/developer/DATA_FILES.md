@@ -17,21 +17,21 @@ All data files share a common structure:
 
 ### Overview of current edit files (`lib/edit/*.txt`)
 
-| File           | Entity Type       | In Scope | Notes                                          |
-| -------------- | ----------------- | -------- | ---------------------------------------------- |
-| `ability.txt`  | Player abilities  | Yes      | Skills like Power, Finesse, etc.               |
-| `artefact.txt` | Unique artifacts  | Yes      | Glamdring, Ringil, etc.                        |
-| `flavor.txt`   | Item flavors      | Yes      | Visual descriptions (Amethyst ring, Oak staff) |
-| `history.txt`  | Character history | No       | Background generation                          |
-| `house.txt`    | Player houses     | Yes      | House of Feanor, etc.                          |
-| `limits.txt`   | Game limits       | No       | Max monsters, objects, etc.                    |
-| `monster.txt`  | Monster types     | Yes      | All monster definitions                        |
-| `names.txt`    | Random names      | No       | Name generation                                |
-| `object.txt`   | Base items        | Yes      | Weapons, armor, consumables                    |
-| `race.txt`     | Player races      | Yes      | Noldor, Sindar, Naugrim, Edain                 |
-| `special.txt`  | Item suffixes     | Yes      | "of Gondolin", "of Free Action"                |
-| `terrain.txt`  | Terrain features  | Yes      | Floors, walls, doors, traps                    |
-| `vault.txt`    | Vault layouts     | No       | Dungeon layout templates (e.g., throne room)   |
+| File           | Entity Type       | Notes                                          |
+| -------------- | ----------------- | ---------------------------------------------- |
+| `ability.txt`  | Player abilities  | Skills like Power, Finesse, etc.               |
+| `artefact.txt` | Unique artifacts  | Glamdring, Ringil, etc.                        |
+| `flavor.txt`   | Item flavors      | Visual descriptions (Amethyst ring, Oak staff) |
+| `history.txt`  | Character history | Background generation                          |
+| `house.txt`    | Player houses     | House of Feanor, etc.                          |
+| `limits.txt`   | Game limits       | Max monsters, objects, etc.                    |
+| `monster.txt`  | Monster types     | All monster definitions                        |
+| `names.txt`    | Random names      | Name generation                                |
+| `object.txt`   | Base items        | Weapons, armor, consumables                    |
+| `race.txt`     | Player races      | Noldor, Sindar, Naugrim, Edain                 |
+| `special.txt`  | Item suffixes     | "of Gondolin", "of Free Action"                |
+| `terrain.txt`  | Terrain features  | Floors, walls, doors, traps                    |
+| `vault.txt`    | Vault layouts     | Dungeon layout templates (e.g., throne room)   |
 
 ### monster.txt - Monster Definitions
 
@@ -106,7 +106,7 @@ Monster health is specified as dice notation (XdY) in the `I:` line.
 Non-unique monsters have **variable health** each time they spawn. A Wolf (6d4)
 might have 8 HP one encounter and 20 HP the next.
 
-#### Alertness and Sleepiness (A: Line)
+#### Alertness and Sleepiness (`A:` Line)
 
 The first field of the `A:` line controls how likely a monster is to start
 asleep or unwary.
@@ -323,36 +323,49 @@ Horn power scales with the player's **Will skill**. See CODE_ANALYSIS.md Section
 
 #### Item Flags (`TR1_*`, `TR2_*`, `TR3_*`)
 
-**TR1 Flags** - Stats and slays:
+**TR1 Flags** - Stats, skills, slays, and more:
 
-- Stats: `STR`, `DEX`, `CON`, `GRA`, `NEG_STR`, `NEG_DEX`, `NEG_CON`, `NEG_GRA`
-- Skills: `MEL`, `ARC`, `STL`, `PER`, `WIL`, `SMT`, `SNG`
-- Slays: `SLAY_ORC`, `SLAY_TROLL`, `SLAY_WOLF`, `SLAY_SPIDER`, `SLAY_UNDEAD`,
-  `SLAY_RAUKO`, `SLAY_DRAGON`, `SLAY_MAN_OR_ELF`
-- Brands: `BRAND_COLD`, `BRAND_FIRE`, `BRAND_ELEC`, `BRAND_POIS`
-- Special: `DAMAGE_SIDES`, `TUNNEL`, `SHARPNESS`, `SHARPNESS2`, `VAMPIRIC`
+| Stats         | Skills    | Slays                 | Brands           | Special            |
+| ------------- | --------- | --------------------- | ---------------- | ------------------ |
+| `TR1_STR`     | `TR1_MEL` | `TR1_SLAY_ORC`        | `TR1_BRAND_COLD` | `TR1_DAMAGE_SIDES` |
+| `TR1_DEX`     | `TR1_ARC` | `TR1_SLAY_TROLL`      | `TR1_BRAND_FIRE` | `TR1_TUNNEL`       |
+| `TR1_CON`     | `TR1_STL` | `TR1_SLAY_WOLF`       | `TR1_BRAND_ELEC` | `TR1_SHARPNESS`    |
+| `TR1_GRA`     | `TR1_PER` | `TR1_SLAY_SPIDER`     | `TR1_BRAND_POIS` | `TR1_SHARPNESS2`   |
+| `TR1_NEG_STR` | `TR1_WIL` | `TR1_SLAY_UNDEAD`     |                  | `TR1_VAMPIRIC`     |
+| `TR1_NEG_DEX` | `TR1_SMT` | `TR1_SLAY_RAUKO`      |                  |                    |
+| `TR1_NEG_CON` | `TR1_SNG` | `TR1_SLAY_DRAGON`     |                  |                    |
+| `TR1_NEG_GRA` |           | `TR1_SLAY_MAN_OR_ELF` |                  |                    |
 
 **TR2 Flags** - Resistances and abilities:
 
-- Sustains: `SUST_STR`, `SUST_DEX`, `SUST_CON`, `SUST_GRA`
-- Resistances: `RES_COLD`, `RES_FIRE`, `RES_ELEC`, `RES_POIS`, `RES_BLEED`,
-  `RES_FEAR`, `RES_BLIND`, `RES_CONFU`, `RES_STUN`, `RES_HALLU`
-- Abilities: `SLOW_DIGEST`, `LIGHT`, `REGEN`, `SEE_INVIS`, `FREE_ACT`, `SPEED`,
-  `RADIANCE`
-- Curses: `FEAR`, `HUNGER`, `DARKNESS`, `SLOWNESS`, `DANGER`, `AGGRAVATE`,
-  `HAUNTED`, `TRAITOR`
-- Vulnerabilities: `VUL_COLD`, `VUL_FIRE`, `VUL_POIS`
+| Sustains       | Resistances     | Abilities         | Curses          | Vulnerabilities |
+| -------------- | --------------- | ----------------- | --------------- | --------------- |
+| `TR2_SUST_STR` | `TR2_RES_COLD`  | `TR2_SLOW_DIGEST` | `TR2_FEAR`      | `TR2_VUL_COLD`  |
+| `TR2_SUST_DEX` | `TR2_RES_FIRE`  | `TR2_LIGHT`       | `TR2_HUNGER`    | `TR2_VUL_FIRE`  |
+| `TR2_SUST_CON` | `TR2_RES_ELEC`  | `TR2_REGEN`       | `TR2_DARKNESS`  | `TR2_VUL_POIS`  |
+| `TR2_SUST_GRA` | `TR2_RES_POIS`  | `TR2_SEE_INVIS`   | `TR2_SLOWNESS`  |                 |
+|                | `TR2_RES_BLEED` | `TR2_FREE_ACT`    | `TR2_DANGER`    |                 |
+|                | `TR2_RES_FEAR`  | `TR2_SPEED`       | `TR2_AGGRAVATE` |                 |
+|                | `TR2_RES_BLIND` | `TR2_RADIANCE`    | `TR2_HAUNTED`   |                 |
+|                | `TR2_RES_CONFU` |                   | `TR2_TRAITOR`   |                 |
+|                | `TR2_RES_STUN`  |                   |                 |                 |
+|                | `TR2_RES_HALLU` |                   |                 |                 |
 
 **TR3 Flags** - Miscellaneous:
 
-- `DAMAGED`, `CHEAT_DEATH`, `STAND_FAST`, `ACCURATE`, `CUMBERSOME`,
-  `AVOID_TRAPS`, `MEDIC`
-- `NO_SMITHING`, `MITHRIL`, `AXE`, `POLEARM`
-- `IGNORE_ACID`, `IGNORE_ELEC`, `IGNORE_FIRE`, `IGNORE_COLD`
-- `THROWING`, `ENCHANTABLE`, `ACTIVATE`, `INSTA_ART`, `EASY_KNOW`,
-  `MORE_SPECIAL`
-- `HAND_AND_A_HALF`, `TWO_HANDED`
-- `LIGHT_CURSE`, `HEAVY_CURSE`, `PERMA_CURSE`
+| Item Ignores Damage | Item Properties    | Weapon Properties     | Cursed Items      | Smithing          |
+| ------------------- | ------------------ | --------------------- | ----------------- | ----------------- |
+| `TR3_IGNORE_ACID`   | `TR3_ACTIVATE`     | `TR3_ACCURATE`        | `TR3_HEAVY_CURSE` | `TR3_MITHRIL`     |
+| `TR3_IGNORE_COLD`   | `TR3_AVOID_TRAPS`  | `TR3_AXE`             | `TR3_LIGHT_CURSE` | `TR3_NO_SMITHING` |
+| `TR3_IGNORE_ELEC`   | `TR3_CHEAT_DEATH`  | `TR3_CUMBERSOME`      | `TR3_PERMA_CURSE` |                   |
+| `TR3_IGNORE_FIRE`   | `TR3_DAMAGED`      | `TR3_HAND_AND_A_HALF` |                   |                   |
+|                     | `TR3_EASY_KNOW`    | `TR3_POLEARM`         |                   |                   |
+|                     | `TR3_ENCHANTABLE`  | `TR3_TWO_HANDED`      |                   |                   |
+|                     | `TR3_INSTA_ART`    |                       |                   |                   |
+|                     | `TR3_MEDIC`        |                       |                   |                   |
+|                     | `TR3_MORE_SPECIAL` |                       |                   |                   |
+|                     | `TR3_STAND_FAST`   |                       |                   |                   |
+|                     | `TR3_THROWING`     |                       |                   |                   |
 
 #### Flag Effects Reference
 
@@ -690,20 +703,20 @@ D: description
 | 6       | Smithing   | 120-127       | Grace (level 10)      |
 | 7       | Song       | 140-153       | Grace (level 12)      |
 
-#### Prerequisite Format (P: line)
+#### Prerequisite Format (`P:` line)
 
 Prerequisites use the format `skill_number/ability_value`. Multiple
 prerequisites are colon-separated.
 
-**Logic:** Multiple prerequisites on one P: line are **OR** conditions. Multiple
-P: lines would be **AND** (but this pattern is not used).
+- Multiple prerequisites on one `P:` line are **OR** conditions.
+- Multiple `P:` lines would be **AND**. (But this pattern is not used?)
 
-**Examples:**
+Examples:
 
 ```
-P:0/0:0/1          # Requires Melee ability 0 (Power) OR ability 1 (Finesse)
-P:0/3:0/5          # Requires Polearm Mastery OR Follow-Through
-P:0/7:3/4          # Requires Subtlety (Melee) OR Opportunist (Stealth)
+P:0/0:0/1      # Requires Melee ability 0 (Power) OR ability 1 (Finesse)
+P:0/3:0/5      # Requires Polearm Mastery OR Follow-Through
+P:0/7:3/4      # Requires Subtlety (Melee) OR Opportunist (Stealth)
 ```
 
 **Cross-skill prerequisites:** Abilities can require abilities from other skill
@@ -712,9 +725,9 @@ trees:
 - `Two Weapon Fighting` (Melee) requires `Parry` (Evasion skill #2)
 - `Rapid Attack` (Melee) requires `Opportunist` (Stealth skill #3)
 
-#### Smithable Item Types (T: line)
+#### Smithable Item Types (`T:` line)
 
-The T: line specifies which item types this ability can be smithed onto.
+The `T:` line specifies which item types this ability can be smithed onto.
 
 **Format:** `T:tval:min_sval:max_sval`
 
