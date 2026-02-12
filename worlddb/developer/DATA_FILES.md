@@ -8,7 +8,7 @@ All data files share a common structure:
 
 - Lines starting with `#` are comments
 - Each file begins with a version stamp: `V:1.5.1`
-- Entity entries start with an `N:` line (containing serial number and name)
+- Entity records start with an `N:` line (containing serial number and name)
 - Field lines use single-letter prefixes followed by `:` and colon-separated
   values
 - Multiple values on a line are separated by `:`
@@ -57,7 +57,7 @@ D: description
 
 | Field | Description                                                              |
 | ----- | ------------------------------------------------------------------------ |
-| `N`   | Unique ID and name. Entries 0-3 are reserved for the player (4 races).   |
+| `N`   | Unique ID and name. IDs 0-3 are reserved for the player (4 races).       |
 | `W`   | Depth found at; rarity (1 in N chance)                                   |
 | `G`   | ASCII character and color to display on screen.                          |
 | `I`   | Speed, health dice (XdY), light radius (negative = darkness)             |
@@ -494,7 +494,7 @@ FEAT_FORGE_GOOD_HEAD (0x46) + uses = Enchanted forge with N uses
 FEAT_FORGE_UNIQUE_HEAD (0x4C) + uses = Orodruth with N uses
 ```
 
-**Example entries from terrain.txt:**
+**Example records from terrain.txt:**
 
 ```
 N:64:forge (exhausted)           # Normal, 0 uses left
@@ -782,24 +782,88 @@ D: flavor name
 
 | Field | Description                                    |
 | ----- | ---------------------------------------------- |
-| `N`   | ID, tval, and optional fixed sval              |
+| `N`   | ID, tval, and (optional) sval                  |
 | `G`   | ASCII character and color to display on screen |
 | `D`   | Flavor name (e.g., "Amethyst", "Oak")          |
 
-#### Flavor Categories
+#### Assigning flavors to items
 
-- **Rings** (tval 45): Amethyst, Beryl, Bloodstone, Emerald, etc.
-- **Amulets** (tval 40): Amber, Coral, Ivory, Crystal, etc.
-- **Staves** (tval 55): Aspen, Birch, Ebony, Oak, etc.
-- **Horns** (tval 66): Silver, Brazen, Ivory, etc.
-- **Herbs** (tval 80): Black, Yellow, Pale Green, etc.
-- **Flasks** (tval 81): Bright Red, Golden, Sky Blue, etc.
-- **Potions** (tval 75): Clear, Murky Brown, Crimson, etc.
+1. Most items (`lib/edit/object.txt`) can spawn in many different flavors. Here,
+   the flavor records (`lib/edit/object.txt`) have only the item's `tval`
+   configured, but not the item's `sval`.
 
-Some flavors are "fixed" to specific items (with sval specified), like:
+   - Example: "Antidote" potion -> flavors include "Brilliant Blue", "Black",
+     "Sparkling", "Milky White"
 
-- Ring of Barahir → Serpentine
-- Pearl 'Nimphelos' → Pearl (for amulets)
+2. Some items (`lib/edit/object.txt`) always spawn with the same, "fixed"
+   flavor. Here, the flavor record (`lib/edit/flavor.txt`) has the item's `tval`
+   _and_ `sval` configured.
+
+   - Example: "Orcish Liquor" potion -> always "Murky Brown" flavor
+   - Example: "Pearl 'Nimphelos'" amulet (artefact) -> always "Pearl" flavor
+
+Example of an item with multiple possible flavors:
+
+```
+##############################################################################
+### From lib/edit/object.txt
+##############################################################################
+
+# An antidote potion. Example of an item that has no "fixed" flavor.
+# This item can spawn in many different flavors, because it has many
+# "matching" records in `lib/edit/flavor.txt`.
+N:321:Antidote
+G:!:d
+I:75:8:100    <== item tval=75, sval=8
+W:2:0:5:100
+P:0:0d0:0:0d0
+A:2/1:12/1
+F:EASY_KNOW
+D:It cures any current poisoning.
+
+##############################################################################
+### From lib/edit/flavor.txt
+##############################################################################
+
+N:198:75      <== flavor id=198, item tval=75 (matches the antidote potion)
+G:!:b1
+D:Brilliant Blue
+
+N:199:75      <== flavor id=199, item tval=75 (matches the antidote potion)
+G:!:D
+D:Black
+
+...more such flavor records...
+```
+
+Example of an item with a single, fixed flavor:
+
+```
+##############################################################################
+### From lib/edit/object.txt
+##############################################################################
+
+# The potion "Orcish Liquor". Example of an item that has a "fixed" flavor.
+N:315:Orcish Liquor
+G:!:d
+I:75:2:100    <== item tval=75, item sval=2
+W:3:0:5:100
+P:0:0d0:0:0d0
+A:3/1:7/1
+F:EASY_KNOW
+D:It banishes all fear, cures a quarter of your health, and stuns you
+D: (for 2d4 turns).
+
+
+##############################################################################
+### From lib/edit/flavor.txt
+##############################################################################
+
+# Fixed: orcish liquor
+N:195:75:2    <== flavor id=195, item tval=75, item sval=2 ("fixed" because tval+sval set)
+G:!:u
+D:Murky Brown
+```
 
 ______________________________________________________________________
 
@@ -830,11 +894,11 @@ Suffix `1` indicates a brighter/alternate shade (e.g., `r1` = bright red).
 
 ______________________________________________________________________
 
-### Pref Files - Tile Assignments
+### Pref files assign game entities to tiles
 
-**Location:** `lib/pref/*.prf`
+Location: `lib/pref/*.prf`
 
-PRF files map entities to tile coordinates in the tileset image.
+Pref files assign game entities to tile coordinates in the tileset image.
 
 #### Key Files
 
@@ -855,45 +919,56 @@ PRF files map entities to tile coordinates in the tileset image.
 | Columns            | 32 (coordinates 0x80-0x9F)                      |
 | Total tiles        | 512                                             |
 
-**Note:** The 512 tile limit is specific to MicroChasm's tileset, not a game
-limitation. Larger tilesets could use coordinates up to 0xFF.
+> Note: The 512 tile limit is specific to MicroChasm's tileset, not a game
+> limitation. Larger tilesets could use coordinates up to `0xFF`.
 
 #### Line Formats
 
-**Entity mappings:**
+Entity mappings:
 
 ```
+     char/attr
+-------------------------------------------------------------
 R:id:0xYY/0xXX    # Monster/player (IDs 0-3 are player races)
 K:id:0xYY/0xXX    # Object (kind)
 F:id:0xYY/0xXX    # Feature (terrain)
 L:id:0xYY/0xXX    # Flavor
 ```
 
-**Special graphics (S:):**
+Special entities (`S:`):
 
 ```
-# Comment describing the tile/graphic (ignored by game)
+       char/attr
+-------------------------------------------------------------
 S:0xID:0xYY/0xXX
+
+# Frost Breath (such a comment is ignored by the game)
+S:0x31:0x8B/0x8D
 ```
 
-S: entries use hex coordinates for tiles to map special graphics like:
+Examples of special entities:
 
-- Digits (0x00-0x09)
-- Arrows in various directions (0x3F, 0x4F, 0x5F, 0x6F, 0x7F)
-- Boulder graphics (0x32, 0x42, 0x52, 0x62, 0x72)
-- Breath weapons (0x31, 0x34, 0x35, 0x38)
-- Spell effects (0x50, 0x51)
+- Digits 0-9
+- Arrows in various directions
+- Boulder
+- Breath attacks
+- Spells
 
-#### Tiles Coordinate Format (hex coordinates)
+#### Tiles Coordinate Format (char/attr tile indices)
 
 ```
+char/attr
+---------
 0xYY/0xXX
   │    │
-  │    └── Column = 0xXX - 0x80 (0-31 for MicroChasm)
-  └─────── Row = 0xYY - 0x80 (0-15 for MicroChasm)
+  │    └── Column = 0xXX - 0x80 (0-31 for MicroChasm tiles)
+  └─────── Row    = 0xYY - 0x80 (0-15 for MicroChasm tiles)
 ```
 
-**Pixel position:** `x = (0xXX - 0x80) * 16`, `y = (0xYY - 0x80) * 16`
+Pixel position:
+
+- `y = (0xYY - 0x80) * 16`
+- `x = (0xXX - 0x80) * 16`
 
 #### Player Tiles by Race
 
@@ -922,16 +997,16 @@ ______________________________________________________________________
 
 ### Entity Counts
 
-Current counts from data files vs limits.txt:
+Current counts from edit files vs `limits.txt`:
 
 | Entity              | File         | Count | Limit |
 | ------------------- | ------------ | ----- | ----- |
+| Abilities           | ability.txt  | 84    | 240   |
+| Artifacts           | artefact.txt | 122   | 251   |
+| Features            | terrain.txt  | 84    | 86    |
+| Flavors             | flavor.txt   | 108   | 310   |
+| Houses              | house.txt    | 11    | 11    |
 | Monsters and player | monster.txt  | 152   | 656   |
 | Objects             | object.txt   | 196   | 600   |
-| Artifacts           | artefact.txt | 122   | 251   |
-| Specials            | special.txt  | 73    | 145   |
-| Features            | terrain.txt  | 84    | 86    |
-| Abilities           | ability.txt  | 84    | 240   |
-| Flavors             | flavor.txt   | 108   | 310   |
 | Races               | race.txt     | 4     | 4     |
-| Houses              | house.txt    | 11    | 11    |
+| Specials            | special.txt  | 73    | 145   |
