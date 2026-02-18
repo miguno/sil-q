@@ -1,0 +1,196 @@
+# This justfile requires https://github.com/casey/just
+
+project_dir := justfile_directory()
+build_dir := project_dir + "/dist"
+app_executable := "app"
+app_file := "main.py"
+
+# print available targets
+[group('project-agnostic')]
+default:
+    @just --list --justfile {{justfile()}}
+
+# evaluate and print all just variables
+[group('project-agnostic')]
+evaluate:
+    @just --evaluate
+
+# print system information such as OS and architecture
+[group('project-agnostic')]
+system-info:
+    @echo "architecture: {{arch()}}"
+    @echo "os: {{os()}}"
+    @echo "os family: {{os_family()}}"
+
+# show direct dependencies
+[group('development')]
+dependencies:
+    uv tree --outdated --depth 1
+
+# show all dependencies, i.e., including transitive dependencies
+[group('development')]
+dependencies-all:
+    uv tree --outdated
+
+# format markdown files
+[group('development')]
+format:
+    uv run mdformat .
+
+# install the project after a fresh git checkout
+[group('development')]
+install:
+    #!/usr/bin/env bash
+    # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+    # `-u`: Errors if a variable is referenced before being set
+    # `-o pipefail`: Prevent errors in a pipeline (`|`) from being masked
+    set -uo pipefail
+
+    if [ "{{os()}}" = "macos" ]; then
+        echo "== Installing homebrew dependencies =="
+        brew bundle
+    fi
+
+    echo "== Installing/updating mise dependencies =="
+    if ! command -v mise &>/dev/null; then
+      echo "ERROR: 'mise' command not found. Is mise installed? (https://github.com/jdx/mise)"
+      exit 1
+    fi
+    mise trust --quiet
+    mise install
+
+    echo "== Installing Python and project dependencies =="
+    uv sync --locked --all-extras --dev
+
+# list outdated dependencies
+[group('development')]
+outdated:
+    @echo "================================================="
+    @echo "Outdated direct and transitive dependencies"
+    @echo "================================================="
+    uv tree --outdated --depth 1
+    @echo
+    @echo "================================================="
+    @echo "To manually update a dependency, run:"
+    @echo
+    @echo "    $ uv lock --upgrade-package <package>"
+    @echo
+    @echo "To view outdated *direct plus transitive* dependencies, run:"
+    @echo
+    @echo "    # Or run 'uv pip list --outdated'"
+    @echo "    $ uv tree --outdated"
+    @echo
+    @echo "Then sync the project with the updated dependencies:"
+    @echo
+    @echo "    # Or run 'just install'."
+    @echo "    $ uv sync --locked --all-extras --dev"
+    @echo
+
+# show available Python versions
+[group('development')]
+python-versions:
+    uv python list
+
+# run the interactive Python shell
+[group('development')]
+shell:
+    uv run python
+
+# update the Python environment
+[group('development')]
+sync:
+    uv sync --locked --all-extras --dev
+
+# build the Sil-Q website
+[group('development')]
+build:
+    uv run zensical build
+
+# create user manual in PDF format
+[group('development')]
+pdf:
+    #!/usr/bin/env bash
+
+    ### pandoc 3.8+ uses `--syntax-highlighting`, older versions use the now
+    ### deprecated `--highlight-style`.
+    # Get pandoc version and extract major.minor
+    pandoc_version=$(pandoc --version | head -n 1 | sed -n 's/.*pandoc \([0-9]*\.[0-9]*\).*/\1/p')
+    # Converts "3.8" to "308"
+    version_num=$(echo "$pandoc_version" | awk -F. '{print $1*100 + $2}')
+
+    if [ "$version_num" -ge 308 ]; then
+        readonly SYNTAX_HIGHLIGHT="--syntax-highlighting"
+    else
+        readonly SYNTAX_HIGHLIGHT="--highlight-style"
+    fi
+    ### pandoc syntax highlight
+
+    # Convert manual from markdown to PDF
+    # Most `-V` arguments are for configuring the Eisvogel template [1].
+    #
+    # NOTE: The title image should not have `_` (underscores) in its name.
+    # See Eisvogel documentation [1] for the reasons behind that.
+    #
+    # [1] https://github.com/Wandmalfarbe/pandoc-latex-template
+    #
+    # TODO: Extract Sil-Q version (for PDF footer) from Sil-Q sources.
+    pandoc user/manual.md -o Sil-Q-Manual.pdf \
+        --pdf-engine=xelatex \
+        "$SYNTAX_HIGHLIGHT" tango \
+        --template pandoc/templates/eisvogel/eisvogel \
+        --toc \
+        -V book \
+        -V titlepage=true \
+        -V titlepage-text-color=000000 \
+        -V titlepage-background=pandoc/assets/sil-title-image.jpg \
+        -V titlepage-rule-height=0 \
+        -V toc-own-page=true \
+        -V footer-center="Sil-Q Manual 1.5.1-beta1 (generated 2026-XX-XX)" \
+        -V code-block-font-size="\footnotesize"
+
+# build and serve the Sil-Q website locally
+[group('development')]
+serve:
+    uv run zensical serve
+
+# update dependencies
+[group('development')]
+update:
+    #!/usr/bin/env bash
+    if [ "{{os()}}" = "macos" ]; then
+        echo "== Updating brew dependencies =="
+        brew bundle
+    fi
+    echo
+    # Maybe one of the following commands work as workarounds for now?
+    #
+    #   # Upgrade all of the locked versions of our packages
+    #   $ uv lock --upgrade
+    #
+    #   # Upgrade a specific package
+    #   $ uv lock --upgrade-package <packageName>
+    #
+    echo "TODO: Update Python dependencies"
+    echo "      See https://github.com/astral-sh/uv/issues/6794"
+    echo "      See https://github.com/astral-sh/uv/issues/6692"
+    echo
+    echo "To manually update a direct or transitive dependency, run:"
+    echo
+    echo "    $ uv lock --upgrade-package <package>"
+    echo
+    echo "Then sync the project with the updated dependencies:"
+    echo
+    echo "    # Or run 'just install'."
+    echo "    $ uv sync --locked --all-extras --dev"
+    echo
+
+# show version information
+[group('development')]
+version:
+    @echo "== uv =="
+    @uv --version
+    @echo "== project =="
+    @uv version
+    @echo "== python =="
+    @uv run python --version
+
