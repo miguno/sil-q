@@ -1,0 +1,6 @@
+###
+### https://homebrew-file.readthedocs.io/en/latest/usage.html#brewfile
+###
+
+# https://pandoc.org/
+brew "pandoc"

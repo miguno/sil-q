@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+#
+# Generate the user manual in PDF format.
+#
+
+###############################################################################
+# Configuration
+###############################################################################
+
+# shellcheck disable=SC2155
+readonly SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+# shellcheck disable=SC2155
+readonly PROJECT_DIR=$(cd "$SCRIPT_DIR/.." && pwd -P)
+readonly DOCS_DIR="$PROJECT_DIR/docs"
+readonly PDF_MANUAL="$DOCS_DIR/Sil-Q-Manual.pdf"
+
+###############################################################################
+# Validate the environment
+###############################################################################
+
+### pandoc 3.8+ uses `--syntax-highlighting`, older versions use the now
+### deprecated `--highlight-style`.
+# Get pandoc version and extract major.minor
+pandoc_version=$(pandoc --version | head -n 1 | sed -n 's/.*pandoc \([0-9]*\.[0-9]*\).*/\1/p')
+# Converts "3.8" to "308"
+version_num=$(echo "$pandoc_version" | awk -F. '{print $1*100 + $2}')
+
+if [ "$version_num" -ge 308 ]; then
+    readonly SYNTAX_HIGHLIGHT="--syntax-highlighting"
+else
+    readonly SYNTAX_HIGHLIGHT="--highlight-style"
+fi
+
+###############################################################################
+# Generate the PDF
+###############################################################################
+cd "$DOCS_DIR" || exit 1
+
+# Convert manual from markdown to PDF
+# Most `-V` arguments are for configuring the Eisvogel template [1].
+#
+# NOTE: The title image should not have `_` (underscores) in its name.
+# See Eisvogel documentation [1] for the reasons behind that.
+#
+# [1] https://github.com/Wandmalfarbe/pandoc-latex-template
+#
+# TODO: Extract Sil-Q version (for PDF footer) from Sil-Q sources.
+pandoc user/manual.md -o "$PDF_MANUAL" \
+    --pdf-engine=xelatex \
+    "$SYNTAX_HIGHLIGHT" tango \
+    --template pandoc/templates/eisvogel/eisvogel \
+    --toc \
+    -V book \
+    -V titlepage=true \
+    -V titlepage-text-color=000000 \
+    -V titlepage-background=pandoc/assets/sil-title-image.jpg \
+    -V titlepage-rule-height=0 \
+    -V toc-own-page=true \
+    -V footer-center="Sil-Q Manual 1.5.1-beta1 (generated 2026-XX-XX)" \
+    -V code-block-font-size="\footnotesize" &&
+    echo "PDF generated at $PDF_MANUAL"

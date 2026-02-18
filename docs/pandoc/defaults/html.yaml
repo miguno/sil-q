@@ -1,0 +1,22 @@
+# Shared options for HTML builds.
+# Invoke pandoc from `docs/` so all relative paths resolve.
+
+from: markdown
+to: html5
+standalone: true
+toc: true
+toc-depth: 3
+section-divs: true
+highlight-style: tango
+template: pandoc/templates/site.html
+
+filters:
+  - type: lua
+    path: pandoc/filters/md-links.lua
+  - type: lua
+    path: pandoc/filters/edit-link.lua
+  - type: lua
+    path: pandoc/filters/active-nav.lua
+
+variables:
+  lang: en

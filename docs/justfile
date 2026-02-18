@@ -1,0 +1,136 @@
+# This justfile requires https://github.com/casey/just
+
+project_dir := justfile_directory()
+build_dir := project_dir + "/dist"
+
+# print available targets
+[group('project-agnostic')]
+default:
+    @just --list --justfile {{justfile()}}
+
+# evaluate and print all just variables
+[group('project-agnostic')]
+evaluate:
+    @just --evaluate
+
+# print system information such as OS and architecture
+[group('project-agnostic')]
+system-info:
+    @echo "architecture: {{arch()}}"
+    @echo "os: {{os()}}"
+    @echo "os family: {{os_family()}}"
+
+# format markdown files (and C sources) via the top-level bin/format
+[group('development')]
+format:
+    {{project_dir}}/../bin/format
+
+# install build dependencies
+[group('development')]
+install:
+    #!/usr/bin/env bash
+    set -uo pipefail
+    if [ "{{os()}}" = "macos" ]; then
+        echo "== Installing homebrew dependencies =="
+        brew bundle
+    else
+        echo "On non-macOS, install pandoc and a TeX distribution (texlive)"
+        echo "with your system package manager."
+    fi
+
+# update build dependencies
+[group('development')]
+update:
+    #!/usr/bin/env bash
+    if [ "{{os()}}" = "macos" ]; then
+        echo "== Updating brew dependencies =="
+        brew bundle
+    fi
+
+# show version information for the build toolchain
+[group('development')]
+version:
+    @echo "== pandoc =="
+    @pandoc --version | head -1
+
+# build the Sil website (HTML + PDF)
+[group('development')]
+build: html pdf
+
+# remove build artifacts
+[group('development')]
+clean:
+    rm -rf {{build_dir}}
+
+# build the HTML site
+[group('development')]
+html:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    rm -rf {{build_dir}}
+    mkdir -p {{build_dir}}/_intermediate/manual {{build_dir}}/manual {{build_dir}}/images
+
+    # Pre-split manual.md into chapter files + nav-chapters.lua
+    pandoc --lua-filter pandoc/filters/split-manual.lua \
+        -f markdown -t plain \
+        user/manual.md -o /dev/null
+
+    # Render top-level pages
+    for src in user/index.md user/download.md user/changes.md \
+               user/community.md user/credits.md user/sources.md; do
+        slug=$(basename "$src" .md)
+        pandoc -d pandoc/defaults/html.yaml \
+            -M slug="$slug" \
+            -M source_path="$src" \
+            -M root="" \
+            --resource-path=user \
+            "$src" -o {{build_dir}}/"$slug".html
+    done
+
+    # Render manual landing page
+    if [ -f {{build_dir}}/_intermediate/manual/index.md ]; then
+        pandoc -d pandoc/defaults/html.yaml \
+            -M slug=manual \
+            -M source_path=user/manual.md \
+            -M root="../" \
+            --resource-path={{build_dir}}/_intermediate/manual:user \
+            {{build_dir}}/_intermediate/manual/index.md \
+            -o {{build_dir}}/manual/index.html
+    fi
+
+    # Render chapter pages
+    for src in {{build_dir}}/_intermediate/manual/*.md; do
+        [ -f "$src" ] || continue
+        name=$(basename "$src" .md)
+        [ "$name" = "index" ] && continue
+        pandoc -d pandoc/defaults/html.yaml \
+            -M slug="manual/$name" \
+            -M source_path="user/manual.md" \
+            -M root="../" \
+            --resource-path={{build_dir}}/_intermediate/manual:user \
+            "$src" -o {{build_dir}}/manual/"$name".html
+    done
+
+    # Copy assets
+    cp pandoc/assets/site.css {{build_dir}}/
+    cp pandoc/assets/site.js {{build_dir}}/
+    cp -r user/images/* {{build_dir}}/images/
+    mkdir -p {{build_dir}}/fonts/lora
+    cp pandoc/assets/fonts/lora/Lora-VF.woff2 \
+       pandoc/assets/fonts/lora/Lora-VF-Italic.woff2 \
+       pandoc/assets/fonts/lora/OFL.txt \
+       {{build_dir}}/fonts/lora/
+
+    # Clean up intermediates
+    rm -rf {{build_dir}}/_intermediate
+
+# build the user manual as a PDF
+[group('development')]
+pdf:
+    pandoc -d pandoc/defaults/pdf.yaml
+
+# serve the built site locally
+[group('development')]
+serve port="8000":
+    @echo "Serving {{build_dir}} at http://localhost:{{port}}"
+    python3 -m http.server {{port}} --directory {{build_dir}}

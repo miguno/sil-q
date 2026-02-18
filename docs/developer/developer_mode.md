@@ -1,0 +1,174 @@
+# Developer Mode (a.k.a. Wizard Mode, Debug Mode)
+
+Developer mode is useful for development and testing. It is also called "Wizard
+mode", and the special commands available in developer mode are also called
+"debug commands" or "cheats".
+
+This document describes how to use the debug commands. For the game systems that
+they affect, see [code_base.md](code_base.md).
+
+## Source Code
+
+The main entry point is function `do_cmd_debug()` in `src/wizard2.c`.
+
+## How to enable developer mode
+
+Type `Ctrl-a` in the game. The first time, the game shows a warning and asks you
+to confirm. In release builds (`DEPLOYMENT`), it then asks for a password: type
+`Gondolin`. Now you are in debug mode, and each `Ctrl-a` lets you input a debug
+command.
+
+Using debug mode marks the character's savefile (`p_ptr->noscore`).
+
+## Debug commands
+
+### Using arguments with debug commands
+
+A number of the commands take an argument (e.g., a count, an ID, or a range). To
+supply an argument, type `R` for repeat, enter the value, then type `Ctrl-a`
+followed by the debug command.
+
+Example: You want to create the artefact `Orcrist`.
+
+Orcrist has this record in `lib/edit/artefact.txt`, which sets its artefact ID
+to 64 via `N:64:...`:
+
+```
+N:64:'Orcrist'
+I:23:17:2
+W:10:20:30:40000
+P:2:2d5:2:0d0
+F:SLAY_ORC | SLAY_TROLL | PERCEPTION
+D:This gleaming blade, mate to Glamdring, is called simply
+D: "Biter" by orcs who came to know its power all too well.
+```
+
+To create the `Orcrist`, you need to type:
+
+```
+R 64 Ctrl-a C
+```
+
+> Note: Artefacts are only generated once per game. `Ctrl-a T` (tile test) will
+> generate all artefacts (and monsters, items, etc.) at once.
+
+### Debug command reference
+
+#### Help
+
+| Key | Command           | Description                                                     |
+| --- | ----------------- | --------------------------------------------------------------- |
+| `?` | Help              | Opens the help screen                                           |
+| `"` | Generate Spoilers | Creates spoiler files (only if `ALLOW_SPOILERS` is compiled in) |
+
+#### Player character
+
+| Key | Command             | Description                                                                                  |
+| --- | ------------------- | -------------------------------------------------------------------------------------------- |
+| `a` | Cure all            | Heals all wounds, cures all maladies (incl. rage), and restores stats                        |
+| `e` | Edit character      | Modify character stats (set stats to 20 to become nearly unkillable for testing)             |
+| `k` | Self-knowledge      | Display detailed information about your character's abilities and resistances                |
+| `x` | Increase experience | Gain experience points. With argument: gain that amount. Without argument: double current XP |
+
+#### Navigation & detection
+
+| Key | Command            | Description                                             |
+| --- | ------------------ | ------------------------------------------------------- |
+| `b` | Teleport to target | Teleport directly to a targeted location                |
+| `d` | Detect all         | Detects all doors, traps, monsters, objects, and stairs |
+| `j` | Jump               | Go to a specific dungeon level                          |
+| `m` | Map reveal         | Reveals the entire map of the current dungeon level     |
+| `p` | Phase door         | Short-range teleport (10 squares)                       |
+| `t` | Teleport           | Long-range teleport (100 squares)                       |
+| `w` | Wizard light       | Permanently illuminates the entire level                |
+
+#### Object creation and manipulation
+
+| Key | Command           | Description                                                                        |
+| --- | ----------------- | ---------------------------------------------------------------------------------- |
+| `c` | Create object     | Create any object by kind. Argument = number of objects to create (default: 1)     |
+| `C` | Create artefact   | Create a specific artefact. Argument = artefact ID from `lib/edit/artefact.txt`    |
+| `g` | Good objects      | Generate good-quality objects at your location. Argument = count (default: 1)      |
+| `v` | Very good objects | Generate excellent-quality objects at your location. Argument = count (default: 1) |
+| `i` | Identify          | Identify an item in your inventory                                                 |
+| `o` | Object play       | Interactively examine and modify object properties                                 |
+
+#### Monsters
+
+| Key | Command          | Description                                                           |
+| --- | ---------------- | --------------------------------------------------------------------- |
+| `n` | Summon named     | Summon a specific monster by ID. Argument = monster ID                |
+| `s` | Summon random    | Summon random monsters. Argument = count (default: 1)                 |
+| `u` | Unhide monsters  | Reveal all hidden/invisible monsters. Argument = range (default: 255) |
+| `z` | Zap (banishment) | Destroy all monsters in range. Argument = range (default: 20)         |
+
+#### Tiles artwork
+
+| Key | Command   | Description                                                                |
+| --- | --------- | -------------------------------------------------------------------------- |
+| `T` | Tile test | Clears the level and generates all items, monsters (alive!), and artefacts |
+
+Artefacts are only generated once in the current run (i.e., for the lifetime of
+the current character).
+
+#### Dungeon and level
+
+| Key | Command       | Description                                             |
+| --- | ------------- | ------------------------------------------------------- |
+| `l` | Wizard look   | Examine dungeon squares with detailed debug information |
+| `q` | Query dungeon | Query dungeon feature flags at a location               |
+| `f` | Forget        | Forget all items, map knowledge, and monster memory     |
+
+#### Debug options
+
+| Key | Command       | Description                                                                                            |
+| --- | ------------- | ------------------------------------------------------------------------------------------------------ |
+| `O` | Debug Options | Opens the debug options menu with settings for visualizing noise, scent, and other internal game state |
+
+### Commonly used workflows
+
+#### Test a new artefact
+
+1. Find the artefact ID in `lib/edit/artefact.txt`.
+2. Type `R <artefact_id> Ctrl-a C` to create it.
+3. Use `Ctrl-a i` to identify it if needed.
+
+#### Explore a level safely
+
+1. `Ctrl-a e` to edit character (set stats to 20).
+2. `Ctrl-a d` to detect everything.
+3. `Ctrl-a m` to reveal the map.
+4. `Ctrl-a a` to heal whenever needed.
+
+#### Test monster behavior
+
+1. `Ctrl-a j` to jump to desired level.
+2. `R <monster_id> Ctrl-a n` to summon a specific monster.
+3. `Ctrl-a z` to clear monsters when done.
+
+#### Test the tiles artwork
+
+1. `Ctrl-a T` to generate all items, monsters, and artefacts on a cleared level.
+    Be careful, because the monsters are alive and will attack you!
+
+#### Explore Morgoth's throne room
+
+1. Create a new character for this purpose.
+2. Increase your experience multiple times by repeatedly typing `Ctrl-a x`.
+3. Increase your skills and abilities as you want.
+    - One option is to give yourself a high of Song skill level (>= 30 for
+        putting Morgoth to sleep, >= 52 for sleep-locking him for a kill) and
+        then take Song of Lorien. When singing the song inside the throne room,
+        everything will go to sleep and Morgoth will drop his crown.
+4. Create a few strong items with `Ctrl-a c`. You will get a menu of items that
+    you can create. If nothing else, get a Feanorian Lamp.
+    - If you want artefacts or branded items, use `Ctrl-a v` to create a random
+        "good" item.
+5. When you are ready to go to the throne room, type `Ctrl-a j` and enter `20`
+    at the prompt (or type `R 20 Ctrl-a j`). This takes you to dungeon level 20
+    (1000 ft).
+
+> Be careful: If you die in the throne room and then choose to continue the
+> wizard run (i.e., playing with developer mode enabled), Morgoth will not spawn
+> again. However, if you have a high Song skill and sing Lorien, then nothing
+> should ever wake up in the throne room.
