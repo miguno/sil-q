@@ -219,7 +219,9 @@ overpowered and could breeze through Morgoth. The U-shape is much flatter now,
 but it took some time to get there. Any future changes, such as introducing many
 new abilities, would likely unsettle that progress.
 
-## Notes on dungeon design and level generation
+## Notes
+
+### Notes on dungeon design and level generation
 
 **Making the dungeons feel more alive:** Ideally, the dungeons of Angband would
 feel more lived in and "used" by its inhabitants.
@@ -243,3 +245,17 @@ using ASCII characters to create the look and feel of space) to build rooms
 with, and the size of early levels is quite limited so larger rooms barely fit.
 These issues are fixable, but would require careful game design and technical
 implementation.
+
+### Notes on hunger and food
+
+Originally in Sil, food was a little rarer, but not very much. However, there
+was an ability on the Will skill tree that slowed your digestion. It was one of
+the worst skills in the game, and Sil-Q subsequently removed it. But Sil-Q ended
+up keeping the ability as an enchantment for one main reason: hunger is a curse.
+If you have enough items that make you hungry, you can genuinely run yourself
+into trouble with food.
+
+One could consider removing hunger and digestion as well as food. But
+historically, the dev team has found it very challenging in Sil-Q's finely
+balanced ability ecosystem to introduce new bonuses and maluses which are
+appropriately powered.
