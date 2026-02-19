@@ -221,6 +221,17 @@ new abilities, would likely unsettle that progress.
 
 ## Notes
 
+### Notes on Morgoth
+
+Sil-Q considers killing Morgoth a bug.
+
+In the lore, it would be impossible for a mere elf, dwarf, or human to ever have
+a chance to kill him.
+
+In the game, killing Morgoth is a distinction reserved for the cleverest and
+subtlest players to be able to achieve, and so the ladder commemorates those
+who've done it.
+
 ### Notes on dungeon design and level generation
 
 **Making the dungeons feel more alive:** Ideally, the dungeons of Angband would
@@ -235,6 +246,13 @@ Examples include:
   fungus, rivers, and pools. Once you have pools you can have thematic locations
   such as Moria's Watcher in the Water.
 - Orc patrols that roam the levels.
+
+Sil-Q has not gotten as far as any of this, but it did introduce little pools of
+sunlight where the ceiling had fallen in above (only in the early levels), and
+little chambers of Morgoth's thralls. The idea for future work was that the
+thralls would eventually be out and about, breaking rocks of cave walls and
+being led back and forth by guards. Another idea was to have guard patrols that
+tread meaningful and predictable routes.
 
 > What other games do: Brogue does a good job of creating ASCII spaces that feel
 > a little more full of character than Rogue's bare rooms.
