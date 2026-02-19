@@ -1,6 +1,9 @@
 # Sil-Q Game Design
 
-# The nature of the game
+This document gives an overview of the game design and motivations behind key
+design decisions, along with historical context.
+
+## The nature of the game
 
 Sil-Q is a game about choice.
 
@@ -21,7 +24,7 @@ Sil-Q broadly rejects the idea that there should be one way to succeed; it gives
 you many possible tools, all designed to be useful in certain situations, and
 leaves it up to you to figure out how they can be brought to work together.
 
-# The flow of the game
+## The flow of the game
 
 The player starts, as is the case in most roguelikes, with very little in the
 way of equipment. In Sil-Q this lack can quickly prove fatal. While the player
@@ -100,7 +103,7 @@ Finally comes the escape, where Staves of Revelation and Song of Delvings expose
 the map so the player can thread their way upward and out to the gates, where
 they face Carcharoth.
 
-# Combat
+## Combat
 
 Sil-Q's combat, largely unchanged from Sil's, makes use of opposed 1d20 attack
 and defence rolls followed by a damage roll against an armour roll.
@@ -130,7 +133,16 @@ damage output for enhanced protection. The light weapon cannot so easily afford
 to give up on attack, and the player must rely on Evasion or Stealth for
 protection instead.
 
-# Consumables
+## Monster AI (enemy behavior)
+
+One thing the game does well is monster AI. For many players, the orcs running
+away only to flank them from behind is typically a memorable experience early
+on. Later they come to remember their fights with particular unique enemies.
+
+However, the current level generation does little to assist until the player has
+descended quite deep into the dungeons.
+
+## Consumables
 
 Herbs and potions are somewhat similar, and it would be hard to pick out a
 consistent theme. Herbs inflict rage and terror, potions boost stats; beyond
@@ -141,7 +153,7 @@ for a period of time.
 Staves are instantaneous in effect and generally modify the world external to
 the player character.
 
-# Resource book-keeping
+## Resource book-keeping
 
 Sil-Q is a game of resource management. Fuel is a ticking clock. Hunger is a
 ticking clock. Mostly these serve to amplify the message of the depth clock:
@@ -162,7 +174,7 @@ This however comes at a cost as ammunition also demands inventory space. Melee
 characters often carry a variety of weapons; archers rarely carry a variety of
 bows but always a variety of ammunition. Ammunition, like fuel, is limited.
 
-# Races
+## Races
 
 Races are broadly speaking difficulty levels. Noldor are excellent all-rounders.
 Naugrim and Sindar are similar in difficulty; Naugrim are sturdy smiths and good
@@ -177,13 +189,13 @@ I made was to deprive Noldor of a sword affinity and add one for song. Swords
 are much favoured weapons in any case, and Song needed a little extra love for
 the tree to be relevant beyond stealth.
 
-# Houses
+## Houses
 
 While races are broadly reflective of Tolkien, houses are less so. They exist to
 provide a way for the player to customise their character slightly toward one
 build or another.
 
-# Smithing
+## Smithing
 
 Smithing can be a relatively comprehensive playstyle in Sil-Q. Players will
 arrive at the throne room clad mostly with items they made themselves. Other
@@ -196,3 +208,38 @@ that were truly game-breaking. Sil-Q has removed the ability to make items that
 boost Smithing directly, but rebalanced many costs to be cheaper, so the smith
 has access to a diverse set of item abilities but cannot simply turn themselves
 into a monster through creating items with ridiculous stat boosts.
+
+Balancing smithing has been a long and difficult road. It has probably been the
+hardest thing to balance, much more than archery, because it gives players a
+permit to make items that bring together abilities that are broken in
+combination. It's a very appealing part of the game for many players, but
+historically it's had a U-shaped power curve: a little smithing made you very
+strong early, it was bad in the middle game, and at the end you were vastly
+overpowered and could breeze through Morgoth. The U-shape is much flatter now,
+but it took some time to get there. Any future changes, such as introducing many
+new abilities, would likely unsettle that progress.
+
+## Notes on dungeon design and level generation
+
+**Making the dungeons feel more alive:** Ideally, the dungeons of Angband would
+feel more lived in and "used" by its inhabitants.
+
+Examples include:
+
+- Barracks and dormitories, training rooms, armouries. But much of this would
+  require furniture, which would require an overhaul in its own right to the
+  ASCII. In many ways the tiles graphics make these things much easier.
+- Cave systems with more organic forms, perhaps some areas lit by luminescent
+  fungus, rivers, and pools. Once you have pools you can have thematic locations
+  such as Moria's Watcher in the Water.
+- Orc patrols that roam the levels.
+
+> What other games do: Brogue does a good job of creating ASCII spaces that feel
+> a little more full of character than Rogue's bare rooms.
+
+**Early game experience:** What stands in the way of making early levels more
+interesting is that there are relatively few building blocks in the ASCII (i.e.,
+using ASCII characters to create the look and feel of space) to build rooms
+with, and the size of early levels is quite limited so larger rooms barely fit.
+These issues are fixable, but would require careful game design and technical
+implementation.
