@@ -1,6 +1,6 @@
 ---
-
-## title: Sil-Q Manual
+title: Sil-Q Manual
+---
 
 > ```
 > A game of adventure set
