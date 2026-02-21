@@ -15,10 +15,8 @@ operating system and download from the table below.
 
 !!! warning "Important note for macOS users"
 
-```
-Recent macOS versions may prevent you from launching Sil-Q. See the section
-below to solve this problem.
-```
+    Recent macOS versions may prevent you from launching Sil-Q. See the section
+    below to solve this problem.
 
 ### How to launch Sil-Q on macOS
 
