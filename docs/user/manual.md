@@ -146,16 +146,14 @@ Each run in Sil-Q begins with the creation of your player character.
         wisely and plenty!
 3. **Spend up to 5,000 experience points to level up the eight skills of Melee,
     Archery, Evasion, Stealth, Perception, Will, Smithing, and Song.**
-    - You can change these during a run. But you can only _increase_ skill
-        levels—you can neither decrease nor reset them.
+    - You can spend these experience points now or after the character creation
+        wizard, unlike the stat points from the previous step.
     - Your character will gain new experience points during a run, so your choice
         during character creation primarily influences the early game. Of course,
         as you get better at playing Sil-Q, you will want to match your starting
         choices with the kind of character you plan to play.
-    - You keep any left-over experience points that you do not spend during
-        character creation, so you can use them at any point later during a run.
-        The flexibility of saving 500-1,000 unspent experience points for later
-        use is a popular choice amongst veteran players, because it gives you
+    - It is a popular choice amongst veteran players to keep a reserve of
+        500-1,000 unspent experience points for later use, because this gives you
         better options to react to what happens during a run.
 
 ### Races
