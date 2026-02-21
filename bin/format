@@ -2,10 +2,28 @@
 #
 # Format Markdown files
 #
+# Uses two separate mdformat runs because mdformat-gfm and mdformat-mkdocs
+# format tables differently and cannot coexist in a single invocation.
+#
+# - GFM (GitHub Flavored Markdown) formatting: all .md files except docs/
+# - MkDocs formatting: docs/ only
+#
 
 # shellcheck disable=SC2155
 readonly SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 # shellcheck disable=SC2155
 readonly PROJECT_DIR=$(cd "$SCRIPT_DIR/.." && pwd -P)
 
-(cd "$PROJECT_DIR" && uv run mdformat .)
+cd "$PROJECT_DIR" || exit 1
+
+# 1. GFM for everything except docs/
+uv run --isolated --no-project \
+    --with "mdformat>=1.0.0" \
+    --with "mdformat-gfm>=1.0.0" \
+    mdformat --exclude "docs/**" .
+
+# 2. MkDocs for docs/
+uv run --isolated --no-project \
+    --with "mdformat>=1.0.0" \
+    --with "mdformat-mkdocs[recommended]>=3.0.0" \
+    mdformat docs/
