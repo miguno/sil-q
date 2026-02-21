@@ -1,6 +1,6 @@
 ---
-
-## title: Welcome to Sil-Q
+title: Welcome to Sil-Q
+---
 
 **Sil-Q is a free, single-player dungeon infiltration game.**
 

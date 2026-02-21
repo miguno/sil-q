@@ -1,6 +1,6 @@
-______________________________________________________________________
-
-## title: Credits
+---
+title: Credits
+---
 
 Quisque elit ante, placerat mattis luctus non, facilisis non mi. Pellentesque
 posuere pretium nulla, eu commodo felis gravida nec. Ut eget ligula congue,

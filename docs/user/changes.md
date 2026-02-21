@@ -1,6 +1,6 @@
-______________________________________________________________________
-
-## title: Latest Changes
+---
+title: Latest Changes
+---
 
 ## Release Overview
 
