@@ -47,7 +47,7 @@ based on information from data files (`lib/edit/*.txt`) and hardcoded behavior
 └─────────────┘     └─────────────┘
 ```
 
-______________________________________________________________________
+---
 
 ## Core Entities
 
@@ -91,7 +91,7 @@ Represents all creature types in the game, including the player.
 - `is_unique` - Can only exist once
 - `special_placement_depth` - Override generation depth
 
-______________________________________________________________________
+---
 
 ### 2. MonsterAttack
 
@@ -114,7 +114,7 @@ COLD, BLIND, CONFUSE, TERRIFY, ENTRANCE, HALLU, DISEASE, SLOW, DARK, HUNGER,
 LOSE_STR, LOSE_DEX, LOSE_CON, LOSE_GRA, LOSE_ALL, UN_BONUS, UN_POWER, LOSE_MANA,
 EAT_ITEM, EAT_FOOD, DISARM
 
-______________________________________________________________________
+---
 
 ### 3. MonsterSpell
 
@@ -131,7 +131,7 @@ Spell/special ability definitions for monsters.
 BRTH_DARK, EARTHQUAKE, SHRIEK, SCREECH, DARKNESS, FORGET, SCARE, CONF, HOLD,
 SLOW, HATCH_SPIDER, DIM, SNG_BINDING, SNG_PIERCING, SNG_OATHS, THROW_WEB, RALLY
 
-______________________________________________________________________
+---
 
 ### 4. Item (Object Kind)
 
@@ -172,7 +172,7 @@ Base item types - weapons, armor, consumables, etc.
 - `has_special_timeout` - Custom light drain
 - `smithing_restrictions` - JSON of modification limits
 
-______________________________________________________________________
+---
 
 ### 5. Artefact
 
@@ -197,7 +197,7 @@ Unique items with fixed properties.
 - Belongs to **Item** (base type)
 - Has many **ArtefactFlag**
 
-______________________________________________________________________
+---
 
 ### 6. Special (Item Suffix)
 
@@ -225,7 +225,7 @@ Magical suffixes that can be applied to base items.
 - Has many **SpecialApplicable** (tval/sval ranges)
 - Has many **SpecialFlag**
 
-______________________________________________________________________
+---
 
 ### 7. Flavor
 
@@ -252,7 +252,7 @@ Visual "flavors" for unidentified items.
 - Flasks (tval 81): Colors
 - Potions (tval 75): Colors, descriptions
 
-______________________________________________________________________
+---
 
 ### 8. Terrain
 
@@ -282,7 +282,7 @@ Dungeon terrain features.
 - Chasms, rubble, water
 - Wards (FEAT_WARDED, FEAT_WARDED2, FEAT_WARDED3)
 
-______________________________________________________________________
+---
 
 ### 9. Race
 
@@ -323,7 +323,7 @@ Player races.
 | 2   | Naugrim | 0/-1/+3/+1  | AXE_PROFICIENCY, ARC_PENALTY, SMT_AFFINITY |
 | 3   | Edain   | 0/0/0/0     | (none)                                     |
 
-______________________________________________________________________
+---
 
 ### 10. House
 
@@ -355,7 +355,7 @@ Player houses (sub-groups within races).
 - **Naugrim:** Nogrod (SMT), Belegost (WIL)
 - **Edain:** Beor (EVN), Haleth (STL), Hador (MEL)
 
-______________________________________________________________________
+---
 
 ### 11. Skill
 
@@ -380,7 +380,7 @@ The eight primary skill categories.
 | 6   | Smithing   | Gra     |
 | 7   | Song       | Gra     |
 
-______________________________________________________________________
+---
 
 ### 12. Ability
 
@@ -411,7 +411,7 @@ including:
 - WIL_CHANNELING: Staff charge efficiency
 - Various combat triggers and passive effects
 
-______________________________________________________________________
+---
 
 ## Flag Entities
 
@@ -440,7 +440,7 @@ PASSABLE, FLOOR, WALL, PERMANENT, LOS, PROJECT, DOOR, TRAP, etc.
 
 BOW_PROFICIENCY, AXE_PROFICIENCY, \_\_AFFINITY, \_\_PENALTY
 
-______________________________________________________________________
+---
 
 ## Type Value (tval) Reference
 
@@ -471,7 +471,7 @@ ______________________________________________________________________
 | 100  | Metal      | 0-99       |
 | 101  | Useless    | 0-99       |
 
-______________________________________________________________________
+---
 
 ## Tile Mapping
 
@@ -520,7 +520,7 @@ Where `0xYY = 0x80 + row` and `0xXX = 0x80 + column` in the tileset image.
 
 Player tile coordinate = base_tile + equipment_offset (in the column)
 
-______________________________________________________________________
+---
 
 ## Special Systems
 
@@ -548,7 +548,7 @@ Item modification with:
 - Difficulty calculations
 - Material requirements
 
-______________________________________________________________________
+---
 
 ## Database Schema Implications
 
