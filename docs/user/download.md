@@ -1,6 +1,7 @@
-______________________________________________________________________
-
-## title: Download edit_url: https://github.com/sil-quirk/sil-q/blob/master/website/download.md
+---
+title: Download
+edit_url: https://github.com/sil-quirk/sil-q/blob/master/docs/user/download.md
+---
 
 ## Download the latest version of Sil-Q
 

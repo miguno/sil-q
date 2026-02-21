@@ -1,7 +1,17 @@
-# https://mdformat.readthedocs.io/en/stable/users/configuration_file.html
+# .mdformat.toml
+#
+# Configuration file for the mdformat Python package.
+# https://mdformat.readthedocs.io/
+#
+# This config applies to the docs/ mdformat run (MkDocs formatting).
 
-# Use consecutive numbering (1., 2., 3.) for ordered lists.
+# Use consecutive numbering (1., 2., 3.) for lists.
 number = true
 
-# Set maximum line width for word wrapping
-wrap = 80
+# Disable HTML equivalence validation. The mdformat-mkdocs plugin can produce
+# output that renders to slightly different HTML than the input (e.g., table
+# formatting), which causes false-positive validation failures.
+validate = false
+
+# Excludes (list of file path pattern strings)
+exclude = ["**/.venv/**"]
