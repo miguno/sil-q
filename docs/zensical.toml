@@ -346,5 +346,3 @@ name = "Sil-Q on GitHub"
 #icon = "fontawesome/brands/reddit"
 #link = "https://www.reddit.com/r/roguelikes/"
 #name = "/r/roguelikes on Reddit"
-
-[project.markdown_extensions.def_list]
