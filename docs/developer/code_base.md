@@ -12,10 +12,10 @@ the name of a monster, its properties, and how it is rendered on screen.
 The game primarily uses two types of data files:
 
 1. **Definition files** (or "edit files") at `lib/edit/*.txt`: to define
-   entities (like monsters, items, terrain) and their properties
+    entities (like monsters, items, terrain) and their properties
 2. **Preference files** (or "pref files") at `lib/pref/*.prf`: to configure how
-   entities are visually displayed on screen, such as assigning graphical tiles
-   to entities
+    entities are visually displayed on screen, such as assigning graphical
+    tiles to entities
 
 Some behavior, however, is hardcoded in the source code (`*.c` and `*.h` files).
 This includes behavior that, in an ideal world, should be configured via the
@@ -75,7 +75,7 @@ Example: `& Small jewelled chest~` becomes:
 - "a Small jewelled chest" (count=1)
 - "3 Small jewelled chests" (count=3)
 
-______________________________________________________________________
+---
 
 ### Monster Index Constants
 
@@ -133,7 +133,7 @@ Source: `melee2.c`, `xtra2.c`
 - Truce broken by: attacking, stealing Silmarils, aggressive actions
 - Affects `p_ptr->truce` flag
 
-______________________________________________________________________
+---
 
 ## Quest System (Thralls)
 
@@ -153,7 +153,7 @@ Quest mechanics:
 - `p_ptr->thrall_quest` tracks completion state
 - `reward_player_for_quest()` grants hardcoded abilities
 
-______________________________________________________________________
+---
 
 ## Silmaril System
 
@@ -178,7 +178,7 @@ Source: Multiple files
 | `generate.c:3754` | Dungeon danger          | Silmaril count affects monster generation        |
 | `cmd3.c:1138`     | Crown state             | Crown appearance changes based on Silmaril count |
 
-______________________________________________________________________
+---
 
 ## Smithing System
 
@@ -206,7 +206,7 @@ Source: `cmd4.c:2040-2850`
 - +1 difficulty per pval increment
 - Special handling for enchantments
 
-______________________________________________________________________
+---
 
 ## Combat System
 
@@ -281,7 +281,7 @@ Source: `cmd1.c:3750-3858`
 | `knock_back()`        | Distance calculation                 |
 | Evasion penalty       | -5 when knocked out (`xtra1.c:2923`) |
 
-______________________________________________________________________
+---
 
 ## Skill System (Melee, Archery, Evasion, Stealth, Perception, Will, Smithing, Song)
 
@@ -302,7 +302,7 @@ Affected by pval items via TR1_MEL, TR1_ARC, etc.
 | `p_ptr->innate_ability[S_*][*]` | Personal/racial abilities |
 | `p_ptr->have_ability[S_*][*]`   | Combined with equipment   |
 
-______________________________________________________________________
+---
 
 ## Channeling System
 
@@ -318,7 +318,7 @@ Source: `object2.c`, `cmd6.c`, `use-obj.c`
 - Special charge display (`object2.c:4475, 4629`)
 - Usage logic (`use-obj.c:537-557`)
 
-______________________________________________________________________
+---
 
 ## Terrain Interactions
 
@@ -341,7 +341,7 @@ ______________________________________________________________________
 
 Door difficulty calculations: `melee2.c:838-898`
 
-______________________________________________________________________
+---
 
 ## Dungeon: Depth-Based Rules
 
@@ -368,7 +368,7 @@ Hardcoded level ranges for uniques:
 - Gothmog, Glaurung, Gorthaur, Ungoliant: Levels 6-9
 - Aldor: Unique placement logic
 
-______________________________________________________________________
+---
 
 ## Monster AI
 
@@ -426,7 +426,7 @@ Source: `cmd1.c:1050-1070`
 | `RF1_RES_CRIT` | Doubles critical hit threshold     |
 | `RF1_NO_CRIT`  | Complete immunity to critical hits |
 
-______________________________________________________________________
+---
 
 ## Items (weapons, armor, staves, torches, etc.)
 
@@ -452,7 +452,7 @@ Special timeout handling for:
 - `SV_LIGHT_LESSER_JEWEL`
 - Active light drain: `dungeon.c:65-69`
 
-______________________________________________________________________
+---
 
 ## Scoring System
 
@@ -465,7 +465,7 @@ Factors in scoring calculation:
 - Dungeon depth reached
 - Difficulty settings
 
-______________________________________________________________________
+---
 
 ## Hardcoded Constants
 
@@ -544,7 +544,7 @@ Source: `cmd1.c:3050-3350`
 **Note:** All trap effects are 100% hardcoded in C - no trap data exists in txt
 files.
 
-______________________________________________________________________
+---
 
 ## Status Effects System
 
@@ -583,7 +583,7 @@ void pois_dam_mixed(int dam)
 - Decrements each turn
 - `TR2_RES_POIS` reduces incoming poison
 
-______________________________________________________________________
+---
 
 ## Item Effects (Consumables)
 
@@ -625,7 +625,7 @@ item names, weights, and costs, but **not** their effects.
 **Database Implication:** Item effects must be documented separately from item
 data files, or effect descriptions extracted from C code.
 
-______________________________________________________________________
+---
 
 ## Attack Effects (Monster Blows)
 
@@ -652,7 +652,7 @@ Monster attack effects (`RBE_*` constants) are defined in data files but their
 | `RBE_ACID`      | Acid damage + equipment damage        |
 | `RBE_ELEC`      | Electric damage (reduced by RES_ELEC) |
 
-______________________________________________________________________
+---
 
 ## Forge System (for crafting/smithing items)
 
@@ -706,7 +706,7 @@ encoded in the feature ID. When a forge is used:
 
 **Not configurable in data files:** The uses and bonuses are hardcoded in C.
 
-______________________________________________________________________
+---
 
 ## Stealing a Silmaril: Morgoth's Crown and Silmaril System
 
@@ -782,20 +782,20 @@ object_prep(o_ptr, lookup_kind(TV_LIGHT, SV_LIGHT_SILMARIL));
 slot = inven_carry(o_ptr, FALSE);
 ```
 
-______________________________________________________________________
+---
 
 ## Graphics and Rendering
 
 Sil-Q supports two rendering modes:
 
 1. **Tiles graphics (newer).** Here, 16x16 pixel tiles are used to visually
-   represent game entities.
-   - Additionally, a few visual effects (VFX) are implemented via tiles, such as
-     an alertness indicator for monsters and a glowing effect for when the
-     player/monster is wielding a glowing weapon. These VFX are implemented by
-     overlaying these special tiles above/below the normal tiles.
+    represent game entities.
+    - Additionally, a few visual effects (VFX) are implemented via tiles, such as
+        an alertness indicator for monsters and a glowing effect for when the
+        player/monster is wielding a glowing weapon. These VFX are implemented by
+        overlaying these special tiles above/below the normal tiles.
 2. **ASCII graphics (older)**. Here, ASCII characters are used to visually
-   represent game entities on the screen, such as `#` for a wall.
+    represent game entities on the screen, such as `#` for a wall.
 
 Many idiosyncrasies of the game's current rendering system (such as the way
 tiles in the tileset image are identified/referred to in the game code) are the
@@ -955,7 +955,7 @@ load:
 - Pref file parsing: function `process_pref_file_command` in `src/files.c`
 - Name formatting: function `object_desc()` in `src/object1.c`
 
-______________________________________________________________________
+---
 
 ## Min Depth System (Anti-Scumming)
 
@@ -1012,7 +1012,7 @@ When attempting to go upstairs, if `p_ptr->depth <= min_depth()`:
 This forces players to continue deeper rather than farming early levels
 indefinitely.
 
-______________________________________________________________________
+---
 
 ## Stair Mechanics
 
@@ -1034,10 +1034,10 @@ From `lib/edit/terrain.txt`:
 1. **Check for stair feature** at player position
 2. **Check min_depth restriction** (see Section 23)
 3. **Special throne room check**: Cannot escape with Silmarils from depth 20
-   (1000ft)
+    (1000ft)
 4. **Calculate new depth**:
-   - Regular stairs: `new_depth = p_ptr->depth - 1`
-   - Shaft: `new_depth = p_ptr->depth - 2`
+    - Regular stairs: `new_depth = p_ptr->depth - 1`
+    - Shaft: `new_depth = p_ptr->depth - 2`
 5. **Victory check**: If `new_depth <= 0` and carrying Silmarils → GAME WON
 6. **Generate new level** via `generate_cave()`
 
@@ -1045,8 +1045,8 @@ From `lib/edit/terrain.txt`:
 
 1. **Check for stair feature** at player position
 2. **Calculate new depth**:
-   - Regular stairs: `new_depth = p_ptr->depth + 1`
-   - Shaft: `new_depth = p_ptr->depth + 2`
+    - Regular stairs: `new_depth = p_ptr->depth + 1`
+    - Shaft: `new_depth = p_ptr->depth + 2`
 3. **Update max_depth** if going deeper than before
 4. **Generate new level** via `generate_cave()`
 
@@ -1064,7 +1064,7 @@ Shafts are rarer than regular stairs. Generation probability is controlled in
 | Throne room (depth 20) | Cannot go up with Silmarils (victory must be earned by escaping from Gates) |
 | Max depth              | No down stairs generated beyond dungeon limit                               |
 
-______________________________________________________________________
+---
 
 ## Hunger/Food System
 
@@ -1134,7 +1134,7 @@ set_food(p_ptr->food - food_loss);
 Multiple items stack: wearing two SLOW_DIGEST items gives hunger = -2 (very slow
 digestion).
 
-______________________________________________________________________
+---
 
 ## Skill System
 
@@ -1185,7 +1185,7 @@ A: sleepiness : perception : stealth : will
 
 Example: `A:20:2:3:1` means Sleepiness 20, Perception 2, Stealth 3, Will 1.
 
-______________________________________________________________________
+---
 
 ## Horn Effects
 
@@ -1221,7 +1221,7 @@ All horns generate significant noise, alerting nearby monsters:
 - Thunder: -20 noise bonus
 - Others: Standard noise
 
-______________________________________________________________________
+---
 
 ## Element/Effect System (`GF_*`)
 
@@ -1280,7 +1280,7 @@ breaths, traps, and items.
 | GF_DARK | -                 | RF3_RES_NETHR      |
 | GF_FEAR | TR2_RES_FEAR      | RF3_NO_FEAR        |
 
-______________________________________________________________________
+---
 
 ## Morale System
 
@@ -1350,7 +1350,7 @@ You **cannot directly set** morale in data files. To make a monster:
 - **Fearless:** Add `RF3_NO_FEAR` flag
 - **Braver at shallow depths:** Increase monster's `W:` depth value
 
-______________________________________________________________________
+---
 
 ## Alertness System
 
@@ -1394,7 +1394,7 @@ n_ptr->alertness = ALERTNESS_ALERT - amount;  // 0 - amount
 **Special cases:**
 
 - During player escape (`on_the_run`): monsters on Gates level or dangerous
-  monsters start more alert.
+    monsters start more alert.
 - If monster has a "lead" (spawns with group): copies leader's alertness.
 
 ### Perception Check (Stealth vs Perception)
@@ -1476,7 +1476,7 @@ In `monster.txt`, set the `A:` line sleepiness value:
 | 11-20      | Usually asleep              |
 | 20+        | Deeply asleep               |
 
-______________________________________________________________________
+---
 
 ## Experience System
 
@@ -1585,7 +1585,7 @@ W: depth : rarity
 
 Higher depth = more XP. A monster at `W:10:1` gives base `10 × 10 = 100` XP.
 
-______________________________________________________________________
+---
 
 ## Visibility and Line-of-Sight System
 
@@ -1654,8 +1654,8 @@ int distance(int y1, int x1, int y2, int x2)
 Here:
 
 - The formula: `max(dy, dx) + min(dy, dx) / 2` is an approximation of Euclidean
-  distance that avoids the precise, but expensive square root calculations of
-  true Euclidean distance `sqrt(dy² + dx²)`.
+    distance that avoids the precise, but expensive square root calculations of
+    true Euclidean distance `sqrt(dy² + dx²)`.
 
 The approximation (sometimes called "octagonal distance") creates an
 octagon-shaped view area rather than a perfect circle. Used by `MAX_SIGHT` and
@@ -1741,7 +1741,7 @@ bits_3: slopes  96-125 (30 slopes)
 **Full view totals:**
 
 - `8 octants × 161 grids = 1288`, but shared boundary grids reduce this to 1149
-  unique grids for the full 360° view.
+    unique grids for the full 360° view.
 - The 126 slopes are reused for all 8 octants due to symmetry.
 
 The `vinfo[]` array stores precomputed visibility data for each grid in one
@@ -1826,7 +1826,7 @@ The three constraints that determine 161:
 
 1. `y` from 0 to 20 - vertical range of sight.
 2. `x >= y` - the octant constraint (east-then-south means we only process grids
-   where x-coordinate is at least as large as y-coordinate).
+    where x-coordinate is at least as large as y-coordinate).
 3. `distance() <= 20` - must be within circular sight radius.
 
 Without the distance check, you'd get a triangular region with:
@@ -1943,9 +1943,9 @@ So:
 
 - 161 grids × 4 corners = 644 total slope calculations.
 - But, after filtering for valid range and removing duplicates, only 126 unique
-  slope values remain.
+    slope values remain.
 - The actual 126 slope values are listed in the comments at lines 2147-2272 in
-  `src/cave.c` (slopes 0-125 with their numeric values).
+    `src/cave.c` (slopes 0-125 with their numeric values).
 
 #### Slope numbering
 
@@ -1974,12 +1974,12 @@ Octant 7 | NE to E  (315° to 360°) | slope 0 near E,  slope 125 near NE  → c
 Example for octant 7 (NE to E):
 
 - Slope 0 has value 2439. This is the shallowest angle (~1.4°), i.e. closest to
-  cardinal axis (East).
+    cardinal axis (East).
 - Slope 10 is a low-numbered slope, so it's near the cardinal axis. In octant 7
-  (NE to E), slope 10 is near the East cardinal axis, not the Northeast
-  diagonal.
+    (NE to E), slope 10 is near the East cardinal axis, not the Northeast
+    diagonal.
 - Slope 125 has value 100000. This is the steepest angle (the Northeast diagonal
-  at 45°) and the furthest away from the East cardinal axis.
+    at 45°) and the furthest away from the East cardinal axis.
 
 ```
 ┌───────┬────────┬───────────────────────────┬───────┐
@@ -2019,7 +2019,7 @@ So in each octant:
 
 - Low-numbered slopes (0-30) are near the "start" cardinal axis (e.g., East).
 - High-numbered slopes (90-125) are moving further away from the start axis
-  (e.g., Northeast).
+    (e.g., Northeast).
 
 #### Wall Blocking
 
@@ -2060,10 +2060,10 @@ Consider a player looking East with a wall to the Northeast:
 
 1. Initially all 126 slopes are valid.
 2. When a wall is processed, it clears all slopes that pass through it. In the
-   example, the Northeast wall is processed, intersecting with (say) slopes
-   10-40.
+    example, the Northeast wall is processed, intersecting with (say) slopes
+    10-40.
 3. Grids that only have slopes blocked by walls become invisible. Here, grids
-   behind the wall that only use slopes 10-40 become invisible.
+    behind the wall that only use slopes 10-40 become invisible.
 4. Grids with any remaining valid slopes are still visible (0-9 and 41-125).
 
 ### Octants in Detail
@@ -2133,7 +2133,7 @@ Within this single 45° wedge extending out to distance 20:
 
 - 161 grids (grids that fit in this pie slice)
 - 126 slopes (unique angles that rays can travel from the player through this
-  slice)
+    slice)
 
 To get the full 360° view, the algorithm processes the 161 grids once, then
 mirrors/rotates the results 8 times:
@@ -2150,16 +2150,16 @@ Octant 7 | GRID(-y, +x) | NE to E  (315° to 360°) → mirror of octant 0 at NE
 ```
 
 - `8 octants × 161 grids = 1288`, but adjacent octants share their boundary
-  grids (the axes and diagonals, 139 grids), so the actual total is `1149`
-  unique grids for the full 360° view.
+    grids (the axes and diagonals, 139 grids), so the actual total is `1149`
+    unique grids for the full 360° view.
 - The `126 slopes` are reused for all 8 octants since the angles are symmetric.
-  A ray at 30° in one octant is the same geometry as a ray at 30° in any other
-  octant.
+    A ray at 30° in one octant is the same geometry as a ray at 30° in any other
+    octant.
 
 Instead of calculating line-of-sight for all 360°, it does the following:
 
 1. Calculates LOS for just one octant (e.g., the slice between East and
-   Southeast for octant 0).
+    Southeast for octant 0).
 2. Applies 8 transformations to map those results to all other octants.
 
 This is done at lines 2493-2500 of `vinfo_init()` of src/cave.c:
@@ -2231,7 +2231,7 @@ Within each octant, grids are processed outward from the player:
 When a wall is encountered, it blocks certain LOS slopes, preventing grids
 behind it from being seen.
 
-______________________________________________________________________
+---
 
 ## Key Source Files
 
@@ -2261,4 +2261,4 @@ ______________________________________________________________________
 | `main-cocoa.m`   | macOS tileset loading                          |
 | `variable.c`     | ANGBAND_GRAF graphics mode variable            |
 
-______________________________________________________________________
+---
