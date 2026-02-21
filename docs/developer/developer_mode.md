@@ -145,24 +145,24 @@ the current character).
 
 #### Test the tiles artwork
 
-4. `Ctrl-a T` to generate all items, monsters, and artefacts on a cleared level.
-   Be careful, because the monsters are alive and will attack you!
+1. `Ctrl-a T` to generate all items, monsters, and artefacts on a cleared level.
+    Be careful, because the monsters are alive and will attack you!
 
 #### Explore Morgoth's throne room
 
 1. Create a new character for this purpose.
 2. Increase your experience multiple times by repeatedly typing `Ctrl-a x`.
 3. Increase your skills and abilities as you want.
-   - One option is to give yourself a high of Song skill level (>= 30 for
-     putting Morgoth to sleep, >= 52 for sleep-locking him for a kill) and then
-     take Song of Lorien. When singing the song inside the throne room,
-     everything will go to sleep and Morgoth will drop his crown.
+    - One option is to give yourself a high of Song skill level (>= 30 for
+        putting Morgoth to sleep, >= 52 for sleep-locking him for a kill) and
+        then take Song of Lorien. When singing the song inside the throne room,
+        everything will go to sleep and Morgoth will drop his crown.
 4. Create a few strong items with `Ctrl-a c`. You will get a menu of items that
-   you can create. If nothing else, get a Feanorian Lamp.
-   - If you want artefacts or branded items, use `Ctrl-a v` to create a random
-     "good" item.
+    you can create. If nothing else, get a Feanorian Lamp.
+    - If you want artefacts or branded items, use `Ctrl-a v` to create a random
+        "good" item.
 5. When you are ready to go to the throne room, type `Ctrl-a j 20`. This
-   teleports you to dungeon level 20 (1000 ft).
+    teleports you to dungeon level 20 (1000 ft).
 
 > Be careful: If you die in the throne room and then choose to continue the
 > wizard run (i.e., playing with developer mode enabled), Morgoth will not spawn

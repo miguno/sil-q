@@ -32,16 +32,16 @@ width="300" }
 Here is a step-by-step guide to launch Sil-Q on macOS when this happens:
 
 1. Click the button "Done" in the macOS dialog window "Sil.app Not Opened" as
-   shown above.
+    shown above.
 2. Then go to your Mac's `System Settings` > `Privacy & Security`, and scroll
-   all the way down to the `Security` section. You will see an entry "Sil.app
-   was blocked to protect your Mac". Here, click on the button "Open Anyway" and
-   confirm that you do want to launch Sil-Q.
+    all the way down to the `Security` section. You will see an entry "Sil.app
+    was blocked to protect your Mac". Here, click on the button "Open Anyway"
+    and confirm that you do want to launch Sil-Q.
 3. When Sil-Q launches now, you will see another macOS dialog window about
-   granting Sil-Q access to your `Documents` folder. You must approve this
-   access, because it is required by Sil-Q to store its savefiles for your
-   in-game characters, the high score file, and additional game data in the
-   folder `Documents/Sil/`.
+    granting Sil-Q access to your `Documents` folder. You must approve this
+    access, because it is required by Sil-Q to store its savefiles for your
+    in-game characters, the high score file, and additional game data in the
+    folder `Documents/Sil/`.
 
 ## Download older Sil-Q versions
 

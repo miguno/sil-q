@@ -16,13 +16,13 @@ char x_char;   /* Desired character (what should be displayed in the next render
 ```
 
 - **`d_attr`/`d_char`**: The defaults loaded from data files (e.g., a line with
-  `G:V:D` in `lib/edit/monster.txt` sets `d_char` to `'V'` and `d_attr` to the
-  color code for dark). These are also used for non-visual purposes in some
-  cases.
+    `G:V:D` in `lib/edit/monster.txt` sets `d_char` to `'V'` and `d_attr` to the
+    color code for dark). These are also used for non-visual purposes in some
+    cases.
 - **`x_attr`/`x_char`**: The desired/requested values to be displayed in the
-  next rendering run. Initialized as copies of `d_attr`/`d_char`, then may be
-  overridden by pref files (`lib/pref/*.prf`) or changed at runtime by game
-  logic.
+    next rendering run. Initialized as copies of `d_attr`/`d_char`, then may be
+    overridden by pref files (`lib/pref/*.prf`) or changed at runtime by game
+    logic.
 
 ## ASCII graphics vs. tiles graphics mode
 
@@ -103,23 +103,23 @@ bit 6 (`0x40`) as a flag, but on different bytes.
 
 - **Flag**: `GRAPHICS_ALERT_MASK` (`0x40`) on `x_char`.
 - **When set**: In `map_info()` (`src/cave.c`), when a monster's
-  `alertness >= ALERTNESS_ALERT` in graphical mode:
-  ```c
-  c += GRAPHICS_ALERT_MASK;
-  ```
+    `alertness >= ALERTNESS_ALERT` in graphical mode:
+    ```c
+    c += GRAPHICS_ALERT_MASK;
+    ```
 - **Icon tile**: `ICON_ALERT` (`0x0B`), mapped in the pref file as
-  `S:0x0B:0x8C/0x8B`.
+    `S:0x0B:0x8C/0x8B`.
 
 ### Glow overlay
 
 - **Flag**: `GRAPHICS_GLOW_MASK` (`0x40`) on `x_attr`.
 - **When set**: In the `object_attr` macro (`src/defines.h`), when
-  `weapon_glows()` returns true:
-  ```c
-  (k_info[(T)->k_idx].x_attr) | GRAPHICS_GLOW_MASK
-  ```
+    `weapon_glows()` returns true:
+    ```c
+    (k_info[(T)->k_idx].x_attr) | GRAPHICS_GLOW_MASK
+    ```
 - **Icon tile**: `ICON_GLOW` (`0x0C`), mapped in the prf file as
-  `S:0x0C:0x8C/0x8E`.
+    `S:0x0C:0x8C/0x8E`.
 
 ### How compositing works
 
@@ -161,14 +161,14 @@ The central function `map_info()` determines the attr/char pair for each grid
 cell. It outputs two pairs:
 
 - **Foreground tile** (`*ap`/`*cp`): the player, a monster, an object, or a
-  feature.
+    feature.
 - **Background tile** (`*tap`/`*tcp`): the terrain tile underneath.
 
 The game entity to be displayed in the foreground is selected by priority:
 
 1. Visible monster (`m_idx > 0`): reads `r_ptr->x_attr`/`x_char`.
 2. Player (`m_idx < 0`): reads `x_attr`/`x_char` for the player's race, offset
-   by `player_tile_offset()`.
+    by `player_tile_offset()`.
 3. Visible object: uses the `object_attr`/`object_char` macros from `defines.h`.
 4. Feature (floor, wall, etc.): reads `f_ptr->x_attr`/`x_char`.
 
@@ -197,15 +197,15 @@ Each function receives four arrays of length `n`:
 For each cell, the backend:
 
 1. Extracts the foreground tile coordinates: `x1 = (c & 0x3F) * tile_width`,
-   `y1 = (a & 0x3F) * tile_height`.
+    `y1 = (a & 0x3F) * tile_height`.
 2. Extracts the terrain tile coordinates: `x3 = (tc & 0x3F) * tile_width`,
-   `y3 = (ta & 0x3F) * tile_height`.
+    `y3 = (ta & 0x3F) * tile_height`.
 3. Checks the overlay flags: `alert = (c & 0x40)`, `glow = (a & 0x40)`.
 4. Looks up the overlay icon pixel offsets from
-   `misc_to_attr[]`/`misc_to_char[]`.
+    `misc_to_attr[]`/`misc_to_char[]`.
 5. Composites the layers in order (bottom to top): terrain, glow icon,
-   foreground tile, alert icon. A "blank" pixel color acts as transparency
-   between layers.
+    foreground tile, alert icon. A "blank" pixel color acts as transparency
+    between layers.
 
 ## The tileset image
 

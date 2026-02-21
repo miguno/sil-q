@@ -10,7 +10,7 @@ All data files share a common structure:
 - Each file begins with a version stamp: `V:1.5.1`
 - Entity records start with an `N:` line (containing serial number and name)
 - Field lines use single-letter prefixes followed by `:` and colon-separated
-  values
+    values
 - Multiple values on a line are separated by `:`
 - Flags are separated by `|`
 - Description lines (`D:`) can span multiple lines
@@ -159,16 +159,16 @@ See CODE_ANALYSIS.md Section 30 for the full alertness/perception mechanics.
 - `PASS_WALL`, `KILL_WALL`, `TUNNEL_WALL`
 - `KILL_BODY`, `TAKE_ITEM`, `KILL_ITEM`
 - Combat abilities: `CHARGE`, `KNOCK_BACK`, `CRIPPLING`, `OPPORTUNIST`,
-  `ZONE_OF_CONTROL`, `CRUEL_BLOW`, `EXCHANGE_PLACES`, `RIPOSTE`, `FLANKING`,
-  `ELFBANE`
+    `ZONE_OF_CONTROL`, `CRUEL_BLOW`, `EXCHANGE_PLACES`, `RIPOSTE`, `FLANKING`,
+    `ELFBANE`
 
 **RF3 Flags** - Monster types and resistances:
 
 - Types: `ORC`, `TROLL`, `SERPENT`, `DRAGON`, `RAUKO`, `UNDEAD`, `SPIDER`,
-  `WOLF`, `MAN`, `ELF`
+    `WOLF`, `MAN`, `ELF`
 - `HURT_LITE`, `STONE`, `HURT_FIRE`, `HURT_COLD`
 - `RES_ELEC`, `RES_FIRE`, `RES_COLD`, `RES_POIS`, `RES_NETHR`, `RES_WATER`,
-  `RES_PLAS`, `RES_NEXUS`, `RES_DISEN`
+    `RES_PLAS`, `RES_NEXUS`, `RES_DISEN`
 - `NO_SLOW`, `NO_FEAR`, `NO_STUN`, `NO_CONF`, `NO_SLEEP`
 
 **RF4 Flags** - Spells and special attacks:
@@ -212,7 +212,7 @@ See CODE_ANALYSIS.md Section 30 for the full alertness/perception mechanics.
 | `RBE_UN_BONUS`, `RBE_UN_POWER`, `RBE_LOSE_MANA`                                       | Equipment/mana effects |
 | `RBE_EAT_ITEM`, `RBE_EAT_FOOD`, `RBE_DISARM`                                          | Item effects           |
 
-______________________________________________________________________
+---
 
 ### object.txt - Base Item Definitions
 
@@ -408,7 +408,7 @@ consumed 3× faster.
 | `VUL_COLD` | Extra cold damage taken   |
 | `VUL_POIS` | Extra poison damage taken |
 
-______________________________________________________________________
+---
 
 ### artefact.txt - Unique Artifact Definitions
 
@@ -423,7 +423,7 @@ Same as `object.txt`, but artifacts typically have:
 - Pre-set bonuses and abilities
 - Unique names and descriptions
 
-______________________________________________________________________
+---
 
 ### special.txt - Item Suffixes
 
@@ -452,7 +452,7 @@ F: flag | flag | ...
 | `C`   | Combat modifiers: attack, damage dice, evasion, protection dice |
 | `F`   | Flags granted by this suffix                                    |
 
-______________________________________________________________________
+---
 
 ### terrain.txt - Terrain Features
 
@@ -482,7 +482,8 @@ D: description
 
 - Movement: `PASSABLE`, `FLOOR`, `WALL`, `PERMANENT`, `BRIDGE`
 - Vision: `LOS`, `PROJECT`, `GLOW` (interact with
-  `CAVE_VIEW`/`CAVE_SEEN`/`CAVE_MARK` runtime flags; see CODEBASE.md Section 32)
+    `CAVE_VIEW`/`CAVE_SEEN`/`CAVE_MARK` runtime flags; see CODEBASE.md Section
+    32\)
 - Special: `DOOR`, `TRAP`, `STAIRS`, `SHAFT`, `CHASM`
 - Effects: `FIERY`, `WATERY`, `ICY`, `ICKY`
 
@@ -523,7 +524,7 @@ N:77:forge 'Orodruth' (1 use remaining)  # Unique, 1 use
 determined at dungeon generation time (see CODE_ANALYSIS.md). When a forge is
 used, the game replaces the feature with the next lower ID.
 
-______________________________________________________________________
+---
 
 ### race.txt - Player Races
 
@@ -606,13 +607,13 @@ modified by race and house selections.
 
 - Proficiencies: `BOW_PROFICIENCY`, `AXE_PROFICIENCY`
 - Affinities (+1 bonus, free ability): `MEL_AFFINITY`, `ARC_AFFINITY`,
-  `EVN_AFFINITY`, `STL_AFFINITY`, `PER_AFFINITY`, `WIL_AFFINITY`,
-  `SMT_AFFINITY`, `SNG_AFFINITY`
+    `EVN_AFFINITY`, `STL_AFFINITY`, `PER_AFFINITY`, `WIL_AFFINITY`,
+    `SMT_AFFINITY`, `SNG_AFFINITY`
 - Penalties (-1 penalty, +500 ability cost): `MEL_PENALTY`, `ARC_PENALTY`,
-  `EVN_PENALTY`, `STL_PENALTY`, `PER_PENALTY`, `WIL_PENALTY`, `SMT_PENALTY`,
-  `SNG_PENALTY`
+    `EVN_PENALTY`, `STL_PENALTY`, `PER_PENALTY`, `WIL_PENALTY`, `SMT_PENALTY`,
+    `SNG_PENALTY`
 
-______________________________________________________________________
+---
 
 ### house.txt - Player Houses
 
@@ -664,7 +665,7 @@ D: description
 - Haleth (STL_AFFINITY, +1 Dex)
 - Hador (MEL_AFFINITY, +1 Str)
 
-______________________________________________________________________
+---
 
 ### ability.txt - Player Abilities
 
@@ -776,7 +777,7 @@ The `T:` line specifies which item types this ability can be smithed onto.
 | 12  | Rapid Attack        | 13     | Subtlety + Opportunist | Extra attack at -3 STR/DEX                    |
 | 13  | **Strength**        | **20** | -                      | **+1 Strength (ultimate)**                    |
 
-______________________________________________________________________
+---
 
 ### flavor.txt - Item Flavors
 
@@ -802,18 +803,18 @@ D: flavor name
 #### Assigning flavors to items
 
 1. Most items (`lib/edit/object.txt`) can spawn in many different flavors. Here,
-   the flavor records (`lib/edit/object.txt`) have only the item's `tval`
-   configured, but not the item's `sval`.
+    the flavor records (`lib/edit/object.txt`) have only the item's `tval`
+    configured, but not the item's `sval`.
 
-   - Example: "Antidote" potion -> flavors include "Brilliant Blue", "Black",
-     "Sparkling", "Milky White"
+    - Example: "Antidote" potion -> flavors include "Brilliant Blue", "Black",
+        "Sparkling", "Milky White"
 
 2. Some items (`lib/edit/object.txt`) always spawn with the same, "fixed"
-   flavor. Here, the flavor record (`lib/edit/flavor.txt`) has the item's `tval`
-   _and_ `sval` configured.
+    flavor. Here, the flavor record (`lib/edit/flavor.txt`) has the item's
+    `tval` _and_ `sval` configured.
 
-   - Example: "Orcish Liquor" potion -> always "Murky Brown" flavor
-   - Example: "Pearl 'Nimphelos'" amulet (artefact) -> always "Pearl" flavor
+    - Example: "Orcish Liquor" potion -> always "Murky Brown" flavor
+    - Example: "Pearl 'Nimphelos'" amulet (artefact) -> always "Pearl" flavor
 
 Example of an item with multiple possible flavors:
 
@@ -878,7 +879,7 @@ G:!:u
 D:Murky Brown
 ```
 
-______________________________________________________________________
+---
 
 ### Color Codes
 
@@ -905,7 +906,7 @@ Used in `G:` lines throughout data files:
 
 Suffix `1` indicates a brighter/alternate shade (e.g., `r1` = bright red).
 
-______________________________________________________________________
+---
 
 ### Pref files assign game entities to tiles
 
@@ -1005,7 +1006,7 @@ different equipment states (see WORLD_MODEL.md for the 16 states).
 | Wolf             | Monster | `C` (umber) | `R:11:0x88/0x91`  |
 | Morgoth          | Monster | `V` (dark)  | `R:251:0x8A/0x92` |
 
-______________________________________________________________________
+---
 
 ### Entity Counts
 
