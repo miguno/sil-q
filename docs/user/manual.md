@@ -1189,7 +1189,7 @@ hitScore   bonusRolls    weaponDmgDice
 23-29 3 => 4d5 (triple crit)
 ...
 
-````
+```
 
 Example: Hit score ranges for critical hits with a Greatsword (before abilities
 like Finesse):
@@ -1204,7 +1204,7 @@ hitScore   bonusRolls    weaponDmgDice
    26-38   2          => 5d6 (double crit)
    39-51   3          => 6d6 (triple crit)
      ...
-````
+```
 
 The light dagger has a much higher chance to critically hit an enemy than the
 heavy greatsword. The dagger requires a hit score of only 8 to gain 1 bonus
