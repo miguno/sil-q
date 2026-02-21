@@ -6,3 +6,6 @@
 
 # Use consecutive numbering (1., 2., 3.) for lists.
 number = true
+
+# Excludes (list of file path pattern strings)
+exclude = ["**/.venv/**"]
