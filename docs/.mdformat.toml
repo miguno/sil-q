@@ -13,5 +13,8 @@ number = true
 # formatting), which causes false-positive validation failures.
 validate = false
 
+# Max line width.
+wrap = 80
+
 # Excludes (list of file path pattern strings)
 exclude = ["**/.venv/**"]
