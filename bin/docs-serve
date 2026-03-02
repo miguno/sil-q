@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# Build and locally serve the website incl. documentation in HTML format.
+#
+
+###############################################################################
+# Configuration
+###############################################################################
+
+# shellcheck disable=SC2155
+readonly SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+# shellcheck disable=SC2155
+readonly PROJECT_DIR=$(cd "$SCRIPT_DIR/.." && pwd -P)
+readonly DOCS_DIR="$PROJECT_DIR/docs"
+
+###############################################################################
+# Build and locally serve the website incl. documentation
+###############################################################################
+cd "$DOCS_DIR" || exit 1
+uv run zensical serve
