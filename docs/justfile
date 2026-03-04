@@ -66,23 +66,17 @@ install:
 [group('development')]
 outdated:
     @echo "================================================="
-    @echo "Outdated direct and transitive dependencies"
+    @echo "Outdated direct dependencies"
     @echo "================================================="
     uv tree --outdated --depth 1
     @echo
     @echo "================================================="
-    @echo "To manually update a dependency, run:"
+    @echo "1. To manually update a dependency, run:"
     @echo
     @echo "    $ uv lock --upgrade-package <package>"
     @echo
-    @echo "To view outdated *direct plus transitive* dependencies, run:"
+    @echo "2. Then sync the project with the updated dependencies:"
     @echo
-    @echo "    # Or run 'uv pip list --outdated'"
-    @echo "    $ uv tree --outdated"
-    @echo
-    @echo "Then sync the project with the updated dependencies:"
-    @echo
-    @echo "    # Or run 'just install'."
     @echo "    $ uv sync --locked --all-extras --dev"
     @echo
 
@@ -174,13 +168,12 @@ update:
     echo "      See https://github.com/astral-sh/uv/issues/6794"
     echo "      See https://github.com/astral-sh/uv/issues/6692"
     echo
-    echo "To manually update a direct or transitive dependency, run:"
+    echo "1. To manually update a dependency, run:"
     echo
     echo "    $ uv lock --upgrade-package <package>"
     echo
-    echo "Then sync the project with the updated dependencies:"
+    echo "2. Then sync the project with the updated dependencies:"
     echo
-    echo "    # Or run 'just install'."
     echo "    $ uv sync --locked --all-extras --dev"
     echo
 
