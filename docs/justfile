@@ -69,16 +69,6 @@ outdated:
     @echo "Outdated direct dependencies"
     @echo "================================================="
     uv tree --outdated --depth 1
-    @echo
-    @echo "================================================="
-    @echo "1. To manually update a dependency, run:"
-    @echo
-    @echo "    $ uv lock --upgrade-package <package>"
-    @echo
-    @echo "2. Then sync the project with the updated dependencies:"
-    @echo
-    @echo "    $ uv sync --locked --all-extras --dev"
-    @echo
 
 # show available Python versions
 [group('development')]
@@ -155,27 +145,11 @@ update:
         echo "== Updating brew dependencies =="
         brew bundle
     fi
-    echo
-    # Maybe one of the following commands work as workarounds for now?
-    #
-    #   # Upgrade all of the locked versions of our packages
-    #   $ uv lock --upgrade
-    #
-    #   # Upgrade a specific package
-    #   $ uv lock --upgrade-package <packageName>
-    #
-    echo "TODO: Update Python dependencies"
-    echo "      See https://github.com/astral-sh/uv/issues/6794"
-    echo "      See https://github.com/astral-sh/uv/issues/6692"
-    echo
-    echo "1. To manually update a dependency, run:"
-    echo
-    echo "    $ uv lock --upgrade-package <package>"
-    echo
-    echo "2. Then sync the project with the updated dependencies:"
-    echo
-    echo "    $ uv sync --locked --all-extras --dev"
-    echo
+    echo "== Installing/updating mise packages =="
+    mise install
+    echo "== Updating Python packages =="
+    uv lock --upgrade
+    uv sync --all-groups --all-extras
 
 # show version information
 [group('development')]
