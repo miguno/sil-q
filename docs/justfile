@@ -60,7 +60,7 @@ install:
     mise install
 
     echo "== Installing Python and project dependencies =="
-    uv sync --locked --all-extras --dev
+    uv sync --frozen --all-groups --all-extras
 
 # list outdated dependencies
 [group('development')]
