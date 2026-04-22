@@ -7,5 +7,13 @@
 # Use consecutive numbering (1., 2., 3.) for lists.
 number = true
 
+# Disable HTML equivalence validation. The mdformat-mkdocs plugin can produce
+# output that renders to slightly different HTML than the input (e.g., table
+# formatting), which causes false-positive validation failures.
+validate = false
+
+# Max line width.
+wrap = 80
+
 # Excludes (list of file path pattern strings)
 exclude = ["**/.venv/**"]

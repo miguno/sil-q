@@ -1,13 +1,13 @@
-Sil is free software; you can redistribute it and/or modify it under the
-terms of either the GNU General Public License as published by the Free
-Software Foundation, version 2, or the "Angband licence", shown below, with
-some exceptions:
+Sil is free software; you can redistribute it and/or modify it under the terms
+of either the GNU General Public License as published by the Free Software
+Foundation, version 2, or the "Angband licence", shown below, with some
+exceptions:
 
 - The sounds are freeware, whatever that means.
 
 - The font files are under the licences noted in
-  [lib/xtra/font/copying.txt](lib/xtra/font/copying.txt),
-  all of which are OSI-compliant.
+  [lib/xtra/font/copying.txt](lib/xtra/font/copying.txt), all of which are
+  OSI-compliant.
 
 It is considered good practice to retain this statement for derivatives, rather
 than (e.g.) redistributing Microchasm's tiles under the GPL, or choosing to make
