@@ -3,6 +3,8 @@ title: Download
 edit_url: https://github.com/sil-quirk/sil-q/blob/master/docs/user/download.md
 ---
 
+Sil-Q is free, non-commercial, and open source software.
+
 ## Download the latest version of Sil-Q
 
 The latest Sil-Q version is **v1.5.0**, released on 2022-01-03. Choose your
