@@ -4,15 +4,15 @@
 
 ### Launching `Sil.app` for the first time
 
-When you launch `Sil.app` for the first time, the [Gatekeeper security
-feature](https://support.apple.com/en-us/102445) in macOS 10.15 or later may
-prevent you from starting or using the app.
+When you launch `Sil.app` for the first time, the
+[Gatekeeper security feature](https://support.apple.com/en-us/102445) in macOS
+10.15 or later may prevent you from starting or using the app.
 
 To solve this problem, follow these three steps:
 
 1. If you see a macOS dialog window "Sil.app Not Opened" with a note about Apple
-   not being able to verify that the app is free of malware, then click the button
-   "Done". (Do not click on "Move to Trash".)
+   not being able to verify that the app is free of malware, then click the
+   button "Done". (Do not click on "Move to Trash".)
 2. Then go to your Mac's `System Settings` > `Privacy & Security`, and scroll
    all the way down to the `Security` section, which will have an entry "Sil.app
    was blocked to protect your Mac". Here, click on the button "Open Anyway" and

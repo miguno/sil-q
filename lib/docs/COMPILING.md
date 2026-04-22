@@ -178,14 +178,14 @@ $ ./sil
 
 > NOTE: If you are on macOS 10.15 or later and haven't run Sil-Q before, the
 > macOS Gatekeeper security feature may prevent you from starting the `sil`
-> executable.
-> You may see a macOS dialog window "sil Not Opened" and a note about Apple
-> not being able to verify that the app is free of malware. In the dialog
-> window, click the button "Done" (not "Move to Trash"). Then go to your Mac's
-> `System Settings` > `Privacy & Security`, scroll all the way down to the
+> executable. You may see a macOS dialog window "sil Not Opened" and a note
+> about Apple not being able to verify that the app is free of malware. In the
+> dialog window, click the button "Done" (not "Move to Trash"). Then go to your
+> Mac's `System Settings` > `Privacy & Security`, scroll all the way down to the
 > "Security" section, which will have an entry "'sil' was blocked to protect
 > your Mac.". Here, click on the button "Open Anyway" and confirm that you do
-> want to launch Sil-Q. See [Safely open apps on your
-> Mac](https://support.apple.com/en-us/102445) in the macOS documentation.
+> want to launch Sil-Q. See
+> [Safely open apps on your Mac](https://support.apple.com/en-us/102445) in the
+> macOS documentation.
 
 Enjoy!
