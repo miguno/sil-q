@@ -240,11 +240,11 @@ feel more lived in and "used" by its inhabitants.
 Examples include:
 
 - Barracks and dormitories, training rooms, armouries. But much of this would
-  require furniture, which would require an overhaul in its own right to the
-  ASCII. In many ways the tiles graphics make these things much easier.
+    require furniture, which would require an overhaul in its own right to the
+    ASCII. In many ways the tiles graphics make these things much easier.
 - Cave systems with more organic forms, perhaps some areas lit by luminescent
-  fungus, rivers, and pools. Once you have pools you can have thematic locations
-  such as Moria's Watcher in the Water.
+    fungus, rivers, and pools. Once you have pools you can have thematic
+    locations such as Moria's Watcher in the Water.
 - Orc patrols that roam the levels.
 
 Sil-Q has not gotten as far as any of this, but it did introduce little pools of

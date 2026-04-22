@@ -32,10 +32,10 @@ dependencies:
 dependencies-all:
     uv tree --outdated
 
-# format markdown files
+# format markdown files (and C sources) via the top-level bin/format
 [group('development')]
 format:
-    uv run mdformat .
+    {{project_dir}}/../bin/format
 
 # install the project after a fresh git checkout
 [group('development')]
