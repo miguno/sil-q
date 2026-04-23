@@ -28,8 +28,7 @@ If you are on macOS 10.15 or later and haven't run Sil-Q before, the
 [macOS Gatekeeper security feature](https://support.apple.com/en-us/102445) may
 prevent you from starting the Sil-Q app as shown in the screenshot below.
 
-![macOS Gatekeeper blocks Sil-Q from launching](images/macos-gatekeeper-dialog-window.png){
-width="300" }
+![macOS Gatekeeper blocks Sil-Q from launching](images/macos-gatekeeper-dialog-window.png){ width="300" }
 
 Here is a step-by-step guide to launch Sil-Q on macOS when this happens:
 
