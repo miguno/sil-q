@@ -211,7 +211,7 @@ For each cell, the backend:
 
 The tileset is `lib/xtra/graf/16x16.bmp` (BMP format) and the identical
 `lib/xtra/graf/16x16_microchasm.png` (PNG format). The tileset dimensions are
-512x256 pixels. Each tile is 16x16 pixels, giving a grid of 32 columns x 16
+512x272 pixels. Each tile is 16x16 pixels, giving a grid of 32 columns x 17
 rows. Tile coordinates from the `x_attr`/`x_char` fields index into this grid.
 
 ## Key source files

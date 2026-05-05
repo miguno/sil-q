@@ -927,12 +927,12 @@ Pref files assign game entities to tile coordinates in the tileset image.
 | ------------------ | ----------------------------------------------- |
 | Tileset file       | `lib/xtra/graf/16x16.bmp` (or `.png` for macOS) |
 | Tile size          | 16×16 pixels                                    |
-| Tileset dimensions | 512×256 pixels                                  |
-| Rows               | 16 (coordinates 0x80-0x8F)                      |
+| Tileset dimensions | 512×272 pixels                                  |
+| Rows               | 17 (coordinates 0x80-0x90)                      |
 | Columns            | 32 (coordinates 0x80-0x9F)                      |
-| Total tiles        | 512                                             |
+| Total tiles        | 544                                             |
 
-> Note: The 512 tile limit is specific to MicroChasm's tileset, not a game
+> Note: The 544 tile limit is specific to MicroChasm's tileset, not a game
 > limitation. Larger tilesets could use coordinates up to `0xFF`.
 
 #### Line Formats
@@ -975,7 +975,7 @@ char/attr
 0xYY/0xXX
   │    │
   │    └── Column = 0xXX - 0x80 (0-31 for MicroChasm tiles)
-  └─────── Row    = 0xYY - 0x80 (0-15 for MicroChasm tiles)
+  └─────── Row    = 0xYY - 0x80 (0-16 for MicroChasm tiles)
 ```
 
 Pixel position:
