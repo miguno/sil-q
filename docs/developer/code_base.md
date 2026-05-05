@@ -1,4 +1,4 @@
-# Sil-Q Code CBase
+# Sil-Q Codebase
 
 This document gives an overview of Sil-Q's code base. It describes important
 concepts, systems, etc. that developers must navigate and understand to maintain
