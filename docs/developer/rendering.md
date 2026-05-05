@@ -187,7 +187,7 @@ call:
 | X11     | `Term_pict_x11()`   | `composite_image()` — pixel-by-pixel |
 | Windows | `Term_pict_win()`   | `TransparentBlt()` API calls         |
 | macOS   | `Term_pict_cocoa()` | Core Graphics compositing            |
-| GTK     | (none)              | ASCII only, no tile support          |
+| GCU     | (none)              | ASCII only, no tile support          |
 
 Each function receives four arrays of length `n`:
 
