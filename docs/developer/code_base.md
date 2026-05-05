@@ -867,10 +867,10 @@ Coordinate format: 0xYY/0xXX
 
 **Current MicroChasm tileset:**
 
-- Dimensions: 512x256 pixels (16x16 pixel tiles)
-- Rows: 16 (`0x80` to `0x8F`)
+- Dimensions: 512x272 pixels (16x16 pixel tiles)
+- Rows: 17 (`0x80` to `0x90`)
 - Columns: 32 (`0x80` to `0x9F`)
-- Total tiles: 512
+- Total tiles: 544
 
 **Maximum theoretical:**
 
