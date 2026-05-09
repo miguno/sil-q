@@ -58,7 +58,7 @@ R 64 Ctrl-a C
 
 | Key | Command             | Description                                                                                  |
 | --- | ------------------- | -------------------------------------------------------------------------------------------- |
-| `a` | Cure all            | Heals all wounds, cures all maladies, and restores stats                                     |
+| `a` | Cure all            | Heals all wounds, cures all maladies (incl. rage), and restores stats                        |
 | `e` | Edit character      | Modify character stats (set stats to 20 to become nearly unkillable for testing)             |
 | `k` | Self-knowledge      | Display detailed information about your character's abilities and resistances                |
 | `x` | Increase experience | Gain experience points. With argument: gain that amount. Without argument: double current XP |

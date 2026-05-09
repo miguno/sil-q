@@ -135,6 +135,90 @@ pixel-by-pixel in this priority order:
 A "blank" pixel color acts as transparency — if a higher-priority layer has a
 blank pixel, the next layer shows through.
 
+## Rage visual effects
+
+While the player character is raging (`p_ptr->rage > 0`), we use a visual effect
+to give the dungeon a hostile, "red" look. The visual effect is more
+sophisticated in tiles graphics than in ASCII graphics.
+
+### Rage visual effects in tiles graphics
+
+In tiles graphics, the entire dungeon including monsters, items, floors, walls,
+etc. turns red.
+
+Additionally, monsters change their shape/form while rage is active. The in-game
+reason is that the player character literally "sees red" and, due to the rage,
+can no longer clearly distinguish between different sub-types of the same
+monster. For example, an Orc Warrior and an Orc Archer will look the same to a
+raging player. This effect includes unique monsters with the exception of
+Morgoth.
+
+#### Rage tint shader for tiles
+
+The rage "shader" is a pre-tinted copy of the original tileset that the renderer
+switches to while raging. Note that it is not a runtime per-pixel effect.
+
+- **Build time**: at tileset load, the platform backend reads the tileset twice:
+    once as-is, and once through `tint_rgb_for_rage()`, which converts each
+    pixel to luma and rescales to
+    `(luma * RAGE_TINT_RED_COEFF, luma * RAGE_TINT_GREEN_COEFF, luma * RAGE_TINT_BLUE_COEFF)`.
+    The "blank" color is preserved unchanged so compositing-time transparency
+    still works.
+- **Render time**: `Term_pict_x11()` / `Term_pict_win()` /
+    `Term_xtra_cocoa_fresh()` select the pre-tinted image when `p_ptr->rage` is
+    active and fall back to the normal image otherwise. The `(attr, char)`
+    values produced by `map_info()` are unchanged.
+
+Relevant constants (`src/defines.h`):
+
+```c
+#define RAGE_TINT_RED_COEFF   1.0
+#define RAGE_TINT_GREEN_COEFF 0.3
+#define RAGE_TINT_BLUE_COEFF  0.3
+```
+
+Per-platform pre-tinted image:
+
+| Backend | Source-of-truth | Tinted variant                                                |
+| ------- | --------------- | ------------------------------------------------------------- |
+| X11     | `td->tiles`     | `td->tiles_rage`, built in `init_x11()` via `ReadBMPRage`     |
+| Windows | `infGraph`      | `infGraph_rage`, built in `init_graphics()` via `ReadDIBRage` |
+| macOS   | `pict_image`    | `pict_image_rage`, built by `create_rage_tinted_image()`      |
+
+Because the model `(attr, char)` does not change when rage starts or ends,
+`Term_queue_char()`'s dedupe against `Term->scr` would otherwise eat the redraw.
+`set_rage()` in `src/xtra2.c` calls `redraw_all_terms()` to force a full repaint
+when the rage state changes.
+
+#### Rage-specific alternative tiles
+
+In addition to tinting, individual monsters can declare a rage-specific
+alternative tile that is shown in place of their normal tile while the player is
+raging. The shader still tints the alternative.
+
+- **Storage**: two extra fields on `monster_race` (in `src/types.h`):
+    ```c
+    byte rage_x_attr; /* 0 = no override, use the normal tile */
+    char rage_x_char;
+    ```
+- **Pref-file syntax** in `lib/pref/graf-tiles.prf`:
+    ```
+    R:<id>:rage:<attr>/<char>
+    ```
+    parsed by `process_pref_file_command()` in `src/files.c`. Lines without a rage
+    entry keep their normal tile.
+- **Selection**: `map_info()` in `src/cave.c` substitutes
+    `(rage_x_attr, rage_x_char)` for `(x_attr, x_char)` when raging in tiles
+    mode.
+- Defaults are reset by `reset_visuals()` in `src/object1.c` to `0/0` (no
+    override).
+
+### Rage visual effect in ASCII graphics
+
+In ASCII mode, the rage tint shader is skipped. Instead, `map_info()` recolors
+visible monsters to `TERM_RED` while raging. There is no equivalent of the
+alternative-tile mechanism for ASCII.
+
 ## Preference (prf) files
 
 Tile assignments are defined in prf files under `lib/pref/`. The main graphical
@@ -142,12 +226,13 @@ tileset mappings are in `lib/pref/graf-tiles.prf`.
 
 The prf file parser in `src/files.c` handles these line formats:
 
-| Prefix | Entity type                | Example            |
-| ------ | -------------------------- | ------------------ |
-| `R`    | Player or Monster race     | `R:251:0x8A/0x92`  |
-| `K`    | Object kind                | `K:131:0x8C/0x90`  |
-| `F`    | Feature (floor, wall, etc) | `F:16:0x8A/0x9C`   |
-| `S`    | Special/miscellaneous icon | `S:0x0B:0x8C/0x8B` |
+| Prefix     | Entity type                                           | Example               |
+| ---------- | ----------------------------------------------------- | --------------------- |
+| `R`        | Player or Monster race                                | `R:251:0x8A/0x92`     |
+| `R` (rage) | Optional rage-specific alternative tile for a monster | `R:11:rage:0x90/0x85` |
+| `K`        | Object kind                                           | `K:131:0x8C/0x90`     |
+| `F`        | Feature (floor, wall, etc)                            | `F:16:0x8A/0x9C`      |
+| `S`        | Special/miscellaneous icon                            | `S:0x0B:0x8C/0x8B`    |
 
 `S:` entries populate the `misc_to_attr[]`/`misc_to_char[]` arrays (defined in
 `src/variable.c`), used for overlay icons and other special graphics like damage
@@ -212,22 +297,26 @@ For each cell, the backend:
 The tileset is `lib/xtra/graf/16x16.bmp` (BMP format) and the identical
 `lib/xtra/graf/16x16_microchasm.png` (PNG format). The tileset dimensions are
 512x272 pixels. Each tile is 16x16 pixels, giving a grid of 32 columns x 17
-rows. Tile coordinates from the `x_attr`/`x_char` fields index into this grid.
+rows. Tile coordinates from the `x_attr`/`x_char` (row/column) fields index into
+this grid.
 
 ## Key source files
 
-| File                                 | Role                                                                   |
-| ------------------------------------ | ---------------------------------------------------------------------- |
-| `lib/pref/flvr-tiles.prf`            | Graphical tile assignments for flavored objects                        |
-| `lib/pref/graf-tiles.prf`            | Graphical tile assignments                                             |
-| `lib/xtra/graf/16x16.bmp`            | The tileset image in BMP format (for Windows and X11?)                 |
-| `lib/xtra/graf/16x16_microchasm.png` | The tileset image in PNG format (for macOS Cocoa?)                     |
-| `src/cave.c`                         | `map_info()` — determines attr/char (and tiles) per grid cell          |
-| `src/cmd1.c`                         | `graphics_are_ascii()`                                                 |
-| `src/defines.h`                      | `GRAPHICS_ALERT_MASK`, `GRAPHICS_GLOW_MASK`, `ICON_ALERT`, `ICON_GLOW` |
-| `src/files.c`                        | Pref file parser (R:/K:/F:/S: lines) for `lib/pref/*.prf`              |
-| `src/main-cocoa.m`                   | macOS tile rendering and compositing                                   |
-| `src/main-win.c`                     | Windows tile rendering and compositing                                 |
-| `src/main-x11.c`                     | X11 tile rendering and compositing                                     |
-| `src/types.h`                        | Defines `d_attr`/`d_char`/`x_attr`/`x_char` on several entity structs  |
-| `src/variable.c`                     | `misc_to_attr[]`/`misc_to_char[]` arrays                               |
+| File                                 | Role                                                                                        |
+| ------------------------------------ | ------------------------------------------------------------------------------------------- |
+| `lib/pref/flvr-tiles.prf`            | Graphical tile assignments for flavored objects                                             |
+| `lib/pref/graf-tiles.prf`            | Graphical tile assignments                                                                  |
+| `lib/xtra/graf/16x16.bmp`            | The tileset image in BMP format (for Windows and X11)                                       |
+| `lib/xtra/graf/16x16_microchasm.png` | The tileset image in PNG format (for macOS Cocoa)                                           |
+| `src/cave.c`                         | `map_info()` — determines attr/char (and tiles) per grid cell                               |
+| `src/cmd1.c`                         | `graphics_are_ascii()`                                                                      |
+| `src/defines.h`                      | `GRAPHICS_ALERT_MASK`, `GRAPHICS_GLOW_MASK`, `ICON_ALERT`, `ICON_GLOW`, `RAGE_TINT_*_COEFF` |
+| `src/files.c`                        | Pref file parser (R:/K:/F:/S: lines) for `lib/pref/*.prf`                                   |
+| `src/main-cocoa.m`                   | macOS tile rendering and compositing; `create_rage_tinted_image()`                          |
+| `src/main-win.c`                     | Windows tile rendering and compositing; `infGraph_rage`                                     |
+| `src/main-x11.c`                     | X11 tile rendering and compositing; `td->tiles_rage`                                        |
+| `src/maid-x11.c`                     | `ReadBMPNormal()` / `ReadBMPRage()` and the X11 `tint_rgb_for_rage()`                       |
+| `src/readdib.c`                      | `ReadDIBNormal()` / `ReadDIBRage()` and the Windows `tint_rgb_for_rage()`                   |
+| `src/types.h`                        | `d_attr`/`d_char`/`x_attr`/`x_char` plus `rage_x_attr`/`rage_x_char` on `monster_race`      |
+| `src/variable.c`                     | `misc_to_attr[]`/`misc_to_char[]` arrays                                                    |
+| `src/xtra2.c`                        | `set_rage()` triggers a full repaint so the shader's tileset switch is visible              |

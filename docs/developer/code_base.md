@@ -794,8 +794,17 @@ Sil-Q supports two rendering modes:
         an alertness indicator for monsters and a glowing effect for when the
         player/monster is wielding a glowing weapon. These VFX are implemented by
         overlaying these special tiles above/below the normal tiles.
+    - The rage VFX is built differently: at tileset load, a pre-tinted (red) copy
+        of the tileset is created via `tint_rgb_for_rage()`, and the renderer
+        switches to it while `p_ptr->rage` is active. Optionally, individual
+        monsters can declare a rage-specific alternative tile via
+        `R:<id>:rage:<attr>/<char>` lines in `graf-tiles.prf` (stored in
+        `monster_race.rage_x_attr` / `rage_x_char`). See
+        `docs/developer/rendering.md` for details.
 2. **ASCII graphics (older)**. Here, ASCII characters are used to visually
     represent game entities on the screen, such as `#` for a wall.
+    - The rage VFX in ASCII mode just recolors visible monsters to `TERM_RED`;
+        there is no equivalent of the alternative-tile mechanism.
 
 Many idiosyncrasies of the game's current rendering system (such as the way
 tiles in the tileset image are identified/referred to in the game code) are the
