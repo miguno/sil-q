@@ -942,11 +942,17 @@ Entity mappings:
 ```
      char/attr
 -------------------------------------------------------------
-R:id:0xYY/0xXX    # Monster/player (IDs 0-3 are player races)
-K:id:0xYY/0xXX    # Object (kind)
-F:id:0xYY/0xXX    # Feature (terrain)
-L:id:0xYY/0xXX    # Flavor
+R:id:0xYY/0xXX         # Monster/player (IDs 0-3 are player races)
+R:id:rage:0xYY/0xXX    # Optional rage-specific alternative tile for a monster
+K:id:0xYY/0xXX         # Object (kind)
+F:id:0xYY/0xXX         # Feature (terrain)
+L:id:0xYY/0xXX         # Flavor
 ```
+
+The `R:id:rage:0xYY/0xXX` form sets a substitute tile that is rendered while the
+player character is raging. Lines without a rage entry keep their normal tile
+during rage. See `docs/developer/rendering.md` for details on the rage tint
+shader and how the alternative tiles compose with it.
 
 Special entities (`S:`):
 
