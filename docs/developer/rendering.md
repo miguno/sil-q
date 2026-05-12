@@ -162,8 +162,11 @@ switches to while raging. Note that it is not a runtime per-pixel effect.
     once as-is, and once through `tint_rgb_for_rage()`, which converts each
     pixel to luma and rescales to
     `(luma * RAGE_TINT_RED_COEFF, luma * RAGE_TINT_GREEN_COEFF, luma * RAGE_TINT_BLUE_COEFF)`.
-    The "blank" color is preserved unchanged so compositing-time transparency
-    still works.
+    The "blank"/transparent color is discovered at load time from pixel (0,0)
+    of the tileset (Sil-Q convention for BMP transparency) and passed in to
+    `tint_rgb_for_rage()` as `blank_r/blank_g/blank_b`. Pixels matching it are
+    left unchanged, so compositing-time transparency still works regardless of
+    which RGB the tileset chose for it.
 - **Render time**: `Term_pict_x11()` / `Term_pict_win()` /
     `Term_xtra_cocoa_fresh()` select the pre-tinted image when `p_ptr->rage` is
     active and fall back to the normal image otherwise. The `(attr, char)`
@@ -206,7 +209,9 @@ raging. The shader still tints the alternative.
     R:<id>:rage:<attr>/<char>
     ```
     parsed by `process_pref_file_command()` in `src/files.c`. Lines without a rage
-    entry keep their normal tile.
+    entry keep their normal tile. Each `R:<id>:rage:...` line must have a
+    corresponding regular `R:<id>:...` line, because the rage form only
+    overrides the tile, it does not register the monster.
 - **Selection**: `map_info()` in `src/cave.c` substitutes
     `(rage_x_attr, rage_x_char)` for `(x_attr, x_char)` when raging in tiles
     mode.

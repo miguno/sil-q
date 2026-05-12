@@ -951,8 +951,10 @@ L:id:0xYY/0xXX         # Flavor
 
 The `R:id:rage:0xYY/0xXX` form sets a substitute tile that is rendered while the
 player character is raging. Lines without a rage entry keep their normal tile
-during rage. See `docs/developer/rendering.md` for details on the rage tint
-shader and how the alternative tiles compose with it.
+during rage. Each `R:<id>:rage:...` line must have a corresponding regular
+`R:<id>:...` line, because the rage form only overrides the tile, it does not
+register the monster. See `docs/developer/rendering.md` for details on the rage
+tint shader and how the alternative tiles compose with it.
 
 Special entities (`S:`):
 
