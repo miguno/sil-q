@@ -52,11 +52,12 @@ Fixed:
     players should experience bugs specific to the new 64-bit version. Once we
     are happy with 64-bit, the 32-bit variant will be removed in a future
     release.
-  - Added larger fonts via the [Spleen font
-    family](https://github.com/fcambus/spleen) to better support high-resolution
-    monitors. Use the Windows application menu and go to `Window > Font > Sil`,
-    then select a Spleen font such as `spleen-16x32` in the file dialog. There's
-    even `spleen-32x64` for the brave and bold 8K monitor owner.
+  - Added larger fonts via the
+    [Spleen font family](https://github.com/fcambus/spleen) to better support
+    high-resolution monitors. Use the Windows application menu and go to
+    `Window > Font > Sil`, then select a Spleen font such as `spleen-16x32` in
+    the file dialog. There's even `spleen-32x64` for the brave and bold 8K
+    monitor owner.
 - Linux version:
   - Updated the `silg` and `silx` startup scripts with inline documentation on
     how to customize the game windows (positions and sizes) as well as each
@@ -76,18 +77,18 @@ Fixed:
     use the macOS menu bar and go to `Settings` > `Graphics` and select
     `Tiles by MicroChasm` or `Classic ASCII`.
   - Linux users: To use Classic ASCII graphics instead of Tiles graphics, use
-    the new `-c` sub-option to switch to Classic ASCII graphics (example: `./sil
-    -mx11  -- -c`) when using X11, or run the game inside a terminal with
+    the new `-c` sub-option to switch to Classic ASCII graphics (example:
+    `./sil -mx11  -- -c`) when using X11, or run the game inside a terminal with
     ncurses (`./sil -mgcu`).
 - _Tiles graphics only_:
   - When Morgoth loses his crown, his tile now reflects the loss. This should
     make it a bit more satisfying to achieve this difficult milestone. Enjoy!
-  - When the player rages, graphical tiles for monsters, items, dungeon features,
-    etc. all turn red. Also, the normal shape/form of monsters is obscured
-    during rage. For example, the rage tile of all orcs are the same, so you can
-    no longer distinguish between an orc warrior or an orc archer while rage is
-    active. This behavior includes unique monsters (e.g., the unique orc Boldog
-    the Merciless), with the exception of Morgoth.
+  - When the player rages, graphical tiles for monsters, items, dungeon
+    features, etc. all turn red. Also, the normal shape/form of monsters is
+    obscured during rage. For example, the rage tile of all orcs are the same,
+    so you can no longer distinguish between an orc warrior or an orc archer
+    while rage is active. This behavior includes unique monsters (e.g., the
+    unique orc Boldog the Merciless), with the exception of Morgoth.
 - Added a "minimum depth" field to the game HUD. Both the current depth (e.g.,
   `150 ft`) and the new minimum depth (e.g., `min 100 ft`) are located in the
   bottom-left corner of the screen. You already knew you must descend, now you
@@ -182,8 +183,8 @@ Added:
   right to the second-to-last row in the bottom left. The new "minimum depth"
   field is placed in grey color in the last row, underneath "current depth".
   Other bottom-row HUD fields like "Confused" and "Stun" where shifted to the
-  right. See [minimum depth
-  screenshot](https://github.com/sil-quirk/sil-q/pull/132#issue-3830778399).
+  right. See
+  [minimum depth screenshot](https://github.com/sil-quirk/sil-q/pull/132#issue-3830778399).
 - Added [Spleen fonts](https://github.com/fcambus/spleen) for Windows to better
   support high-resolution monitors (fixes #188). Use the Windows application
   menu and go to `Window > Font > Sil`, then select a Spleen font such as
