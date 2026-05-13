@@ -17,28 +17,28 @@ operating system and download from the table below.
 
 !!! warning "Important note for macOS users"
 
-    Recent macOS versions may prevent you from launching Sil-Q. See the section
-    below to solve this problem.
+    Recent macOS versions may prevent you from launching Sil. See the section below
+    to solve this problem.
 
 ### How to launch Sil-Q on macOS
 
-If you are on macOS 10.15 or later and haven't run Sil-Q before, the
+If you are on macOS 10.15 or later and haven't run Sil before, the
 [macOS Gatekeeper security feature](https://support.apple.com/en-us/102445) may
-prevent you from starting the Sil-Q app as shown in the screenshot below.
+prevent you from starting the Sil app as shown in the screenshot below.
 
-![macOS Gatekeeper blocks Sil-Q from launching](images/macos-gatekeeper-dialog-window.png){ width="300" }
+![macOS Gatekeeper blocks Sil from launching](images/macos-gatekeeper-dialog-window.png){ width="300" }
 
-Here is a step-by-step guide to launch Sil-Q on macOS when this happens:
+Here is a step-by-step guide to launch Sil on macOS when this happens:
 
 1. Click the button "Done" in the macOS dialog window "Sil.app Not Opened" as
     shown above.
 2. Then go to your Mac's `System Settings` > `Privacy & Security`, and scroll
     all the way down to the `Security` section. You will see an entry "Sil.app
     was blocked to protect your Mac". Here, click on the button "Open Anyway"
-    and confirm that you do want to launch Sil-Q.
-3. When Sil-Q launches now, you will see another macOS dialog window about
-    granting Sil-Q access to your `Documents` folder. You must approve this
-    access, because it is required by Sil-Q to store its savefiles for your
+    and confirm that you do want to launch Sil.
+3. When Sil launches now, you will see another macOS dialog window about
+    granting Sil access to your `Documents` folder. You must approve this
+    access, because it is required by Sil to store its savefiles for your
     in-game characters, the high score file, and additional game data in the
     folder `Documents/Sil/`.
 

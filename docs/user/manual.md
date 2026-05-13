@@ -26,6 +26,9 @@ way to the original
 [Rogue (1980)](<https://en.wikipedia.org/wiki/Rogue_(video_game)>), which was
 the game that literally created the genre called "roguelikes".
 
+**For brevity, we will typically use the shorter "Sil" when referring to Sil-Q
+for the remainder of this manual.**
+
 ```mermaid
 graph LR
   A["Rogue"] --> B["Moria"];
@@ -39,10 +42,10 @@ graph LR
 Because Rogue was developed before computers had graphics, it had to use
 letters, numbers, and symbols like `@` (player), `o` (orc) and `=` (ring) on the
 screen to represent a dungeon filled with monsters and treasure. So rejoice,
-dear reader, because by playing Sil-Q you will experience the First Age of
+dear reader, because by playing Sil you will experience the First Age of
 Middle-earth as well as the First Age of video game history! Compared to Rogue,
-however, Sil-Q is a much more modern game. And yes, you can switch from
-old-school letters and symbols to fancier tile-based graphics if you want.
+however, Sil is a much more modern game. And yes, you can switch from old-school
+letters and symbols to fancier tile-based graphics if you want.
 
 ```text
             #########
@@ -54,11 +57,11 @@ old-school letters and symbols to fancier tile-based graphics if you want.
          #####+######
 ```
 
-_Figure: A typical dungeon room shown in Sil-Q's ASCII graphics._
+_Figure: A typical dungeon room shown in Sil's ASCII graphics._
 
-In Sil-Q, your quest is to venture deep into the dungeons of Angband, the
-fortress of the Dark Lord [Morgoth](https://tolkiengateway.net/wiki/Morgoth),
-and attempt to steal a Silmaril from his iron crown and escape alive! The
+In Sil, your quest is to venture deep into the dungeons of Angband, the fortress
+of the Dark Lord [Morgoth](https://tolkiengateway.net/wiki/Morgoth), and attempt
+to steal a Silmaril from his iron crown and escape alive! The
 [Silmarils](https://tolkiengateway.net/wiki/Silmarils) were precious gems
 crafted by the high elf Fëanor, which captured the magical light of the Two
 Trees of Valinor. They became the most prized treasure of Middle-earth and were
@@ -75,7 +78,7 @@ And we can't just let Morgoth get away with that, can we?
     you win the game without attacking even a single monster! Of the four ways
     to strengthen your character by gaining experience, only one requires
     killing monsters.
-- **Easy to learn, hard to get bored.** The rules of Sil-Q are simple. You can
+- **Easy to learn, hard to get bored.** The rules of Sil are simple. You can
     learn all the mechanics in your first few attempts of playing the game. The
     magic system, for example, consists of only twelve songs. Yet there is
     plenty of interaction between the skills & abilities, items, monsters, and
@@ -123,7 +126,7 @@ in ASCII graphics mode), and more.
 
 ## Create a character
 
-Each run in Sil-Q begins with the creation of your player character.
+Each run in Sil begins with the creation of your player character.
 
 1. **Select the Race and the House of your character.**
     - _Once set, you cannot change the race and house during a run._
@@ -150,7 +153,7 @@ Each run in Sil-Q begins with the creation of your player character.
         wizard, unlike the stat points from the previous step.
     - Your character will gain new experience points during a run, so your choice
         during character creation primarily influences the early game. Of course,
-        as you get better at playing Sil-Q, you will want to match your starting
+        as you get better at playing Sil, you will want to match your starting
         choices with the kind of character you plan to play.
     - It is a popular choice amongst veteran players to keep a reserve of
         500-1,000 unspent experience points for later use, because this gives you
@@ -217,10 +220,9 @@ Character Creation:
 
 ### An Overview of Stats, Skills, and Abilities
 
-Sil-Q has three main character progression systems: stats, skills, and
-abilities.
+Sil has three main character progression systems: stats, skills, and abilities.
 
-Unlike other games, Sil-Q has neither traditional character levels ("I have a
+Unlike other games, Sil has neither traditional character levels ("I have a
 level 5 character") nor classes ("My character is a Paladin"). Instead, you
 shape and customize your character through its stats, skills, and abilities as
 described below. Of course, you are welcome to roleplay your character so that,
@@ -730,7 +732,7 @@ TODO: This section is abound "brands" aka enchantments. See my offline notes.
 
 ## Monsters
 
-- "Raukar" is the name used in Sil-Q for demons like Balrogs. (I found a slay
+- "Raukar" is the name used in Sil for demons like Balrogs. (I found a slay
     sword that provided bonus dmg vs. dragons and raukar.)
 
 ## Items
@@ -842,9 +844,9 @@ TODO
     mechanic that forces you to dive deeper into the dungeons.
 - When you go up or down the stairs, the level you enter will be newly
     generated. You can't go back to a previous level. That's a traditional
-    behavior of Angband variants, including Sil-Q. The lore answer is that you
-    can think of Angband as such a large labyrinth that it is impossible to
-    navigate its dungeons.
+    behavior of Angband variants, including Sil. The lore answer is that you can
+    think of Angband as such a large labyrinth that it is impossible to navigate
+    its dungeons.
 
 ## Game settings
 
@@ -875,21 +877,21 @@ These are rules of thumb aimed at beginners who are just getting started.
     lot of experience points in the early game on into abilities that improve
     the use of swords, only to find a special greatspear with strong modifiers
     in the next dungeon level.
-- **Avoiding fights is a smart idea.** In Sil-Q, there are many strategies to
-    win the game. Many of them do not focus on fighting, some even never fight
-    at all! Learn how to use stealth and the morale system to your advantage.
-    Learn when it is better to avoid a fight or, when spotted, to run away from
-    a fight. Experiment with non-combat strategies— you will find them both
+- **Avoiding fights is a smart idea.** In Sil, there are many strategies to win
+    the game. Many of them do not focus on fighting, some even never fight at
+    all! Learn how to use stealth and the morale system to your advantage. Learn
+    when it is better to avoid a fight or, when spotted, to run away from a
+    fight. Experiment with non-combat strategies— you will find them both
     effective and entertaining.
 - **Have a reserve of experience points available as a safety precaution.** In
-    Sil-Q, you don't know ahead of time what monsters or combat situations you
+    Sil, you don't know ahead of time what monsters or combat situations you
     will run into. A reserve of experience points is useful because it lets you
     adapt to the situation at hand. Is your evasion score too low for the unique
     monster you are facing? Then spend some of your reserve experience points to
     level up your Evasion skill or learn a new ability such as _Dodging_. And if
     your defense isn't the problem, but the monster is too hard to hit? Then
     level up your Melee skill. You get the idea.
-- **Don't grind.** The experience mechanics in Sil-Q do not reward grinding. You
+- **Don't grind.** The experience mechanics in Sil do not reward grinding. You
     gain less and less experience for encountering or killing the same monsters
     over and over (another reason why you should learn to avoid fights).
     Likewise, you don't need to explore everything. If you aren't certain
@@ -920,7 +922,7 @@ These are rules of thumb aimed at beginners who are just getting started.
 ### How can I prevent monsters from hitting me?
 
 > NOTE: Ask yourself first whether the potential reward of fighting is worth the
-> risk of dying. **Often, the best choice is to not fight at all.** Sil-Q has a
+> risk of dying. **Often, the best choice is to not fight at all.** Sil has a
 > fleshed-out stealth system, so use it to your advantage. And yes, you can
 > actually win the game without attacking a single monster—search online for
 > "pacifist" builds!
@@ -1054,9 +1056,9 @@ Example: Failed attack (player `@` misses orc `o`).
 To determine how much damage is dealt when an attack does successfully hit, the
 attacker makes a _damage roll_. This roll uses the attacker's weapon damage
 dice. Unfortunately, the weapon damage dice information shown in main window in
-Sil-Q can be misleading. This section explains the details of damage
-calculation, so that you can assess a combat situation _before_ the combat
-starts, thus increasing your chance of survival.
+Sil can be misleading. This section explains the details of damage calculation,
+so that you can assess a combat situation _before_ the combat starts, thus
+increasing your chance of survival.
 
 The actual weapon damage dice are a combination of the following parameters. The
 logic is the same for the player and the monsters. As you can see, the damage
@@ -1139,9 +1141,9 @@ where:
 > to critical hits (which reduces the bonus rolls by 50%) or even fully immune
 > (no bonus rolls). If you really want to know all the gory details, explore the
 > function `crit_bonus()` of
-> [cmd1.c](https://github.com/sil-quirk/sil-q/blob/master/src/cmd1.c) in the
-> Sil-Q source code. The relevant variable is `crit_bonus_dice`. Different to
-> the formula we discussed in this section, the `weight` parameter in the source
+> [cmd1.c](https://github.com/sil-quirk/sil-q/blob/master/src/cmd1.c) in the Sil
+> source code. The relevant variable is `crit_bonus_dice`. Different to the
+> formula we discussed in this section, the `weight` parameter in the source
 > code is `5` for a `0.5lb` weapon and `70` for a `7.0lb` weapon, for example.
 > Lastly, the code documentation at the top of `crit_bonus()` includes some
 > damage tables as comments. As of January 2026 (commit `3374757`), the values
