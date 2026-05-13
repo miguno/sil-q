@@ -118,15 +118,15 @@ pdf:
     # [1] https://github.com/Wandmalfarbe/pandoc-latex-template
     #
     # TODO: Extract Sil-Q version (for PDF footer) from Sil-Q sources.
-    pandoc user/manual.md -o Sil-Q-Manual.pdf \
+    cd user && pandoc manual.md -o ../Sil-Q-Manual.pdf \
         --pdf-engine=xelatex \
         "$SYNTAX_HIGHLIGHT" tango \
-        --template pandoc/templates/eisvogel/eisvogel \
+        --template ../pandoc/templates/eisvogel/eisvogel \
         --toc \
         -V book \
         -V titlepage=true \
         -V titlepage-text-color=000000 \
-        -V titlepage-background=pandoc/assets/sil-title-image.jpg \
+        -V titlepage-background=../pandoc/assets/sil-title-image.jpg \
         -V titlepage-rule-height=0 \
         -V toc-own-page=true \
         -V footer-center="Sil-Q Manual 1.5.1-beta1 (generated 2026-XX-XX)" \
