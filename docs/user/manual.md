@@ -26,8 +26,7 @@ way to the original
 [Rogue (1980)](<https://en.wikipedia.org/wiki/Rogue_(video_game)>), which was
 the game that literally created the genre called "roguelikes".
 
-**For brevity, we will typically use the shorter "Sil" when referring to Sil-Q
-for the remainder of this manual.**
+> For brevity, this manual will typically use "Sil" when referring to Sil-Q.
 
 ```mermaid
 graph LR
@@ -44,20 +43,22 @@ letters, numbers, and symbols like `@` (player), `o` (orc) and `=` (ring) on the
 screen to represent a dungeon filled with monsters and treasure. So rejoice,
 dear reader, because by playing Sil you will experience the First Age of
 Middle-earth as well as the First Age of video game history! Compared to Rogue,
-however, Sil is a much more modern game. And yes, you can switch from old-school
-letters and symbols to fancier tile-based graphics if you want.
+however, Sil is a much more modern game. Yes, you can still play with old-school
+letters and symbols, but by default the game uses tile-based graphics.
+
+![Sil-Q with Tiles graphics](images/sil-gfx-tiles_120x120.png){width="168"}
+
+![Sil-Q with ASCII graphics](images/sil-gfx-ascii_120x120.png){width="168"}
+
+You can also play the game in a terminal (80x24 or larger):
 
 ```text
-            #########
-       ######..oo..?#
-       ...  '...@...##
-       #%###%..T...='
-            #%'%#%%+##
-             % %
-         #####+######
+      #..M
+      #WM
+     ##@###
+     #...
+     #....<
 ```
-
-_Figure: A typical dungeon room shown in Sil's ASCII graphics._
 
 In Sil, your quest is to venture deep into the dungeons of Angband, the fortress
 of the Dark Lord [Morgoth](https://tolkiengateway.net/wiki/Morgoth), and attempt
@@ -84,45 +85,52 @@ And we can't just let Morgoth get away with that, can we?
     plenty of interaction between the skills & abilities, items, monsters, and
     the dungeon environment to keep you entertained for a long time.
 - **Immersion, lore, and atmosphere**. It is one of very few games that stay
-    true to the writings of Tolkien. There are no generic fantasy tropes like
-    sorcerers or paladins, no spells of fireball or magical scrolls. Instead, it
-    is the Norse saga–inspired world that Tolkien imagined, with warriors clad
-    in shining mail, singing songs of rage and sorrow as they best their foes.
-    The magic of the world is subtle, yet powerful.
+    true to the writings of J.R.R. Tolkien. There are no generic fantasy tropes
+    like sorcerers or paladins, no spells of fireball or magical scrolls.
+    Instead, it is the Norse saga–inspired world that Tolkien imagined, with
+    warriors clad in shining mail, singing songs of rage and sorrow as they best
+    their foes. The magic of the world is subtle, yet powerful.
 - **Active community.** While the traditional roguelike genre is small, there is
-    an active player base who enjoy dealing as `@` with `o`, `T`, and other
-    bestiary. Head over to [Angband.live](https://angband.live/) to play online
-    and spectate other players, or join the
-    [Roguelikes Discord](https://discord.gg/9uVbTYH) to meet new friends and get
-    help playing the game. There are dozens of us!
-- **Sil-Q is free and open source software.** Always has been, always will be. A
-    small but dedicated team of developers keeps the game fresh and alive.
+    an active player base. Head over to [Angband.live](https://angband.live/) to
+    play online and spectate other players
+    ([Sil-Q High Scores](https://angband.live/ladder/ladder-browse.php?v=Sil-Q)),
+    or join the [Roguelikes Discord](https://discord.gg/9uVbTYH) to meet new
+    friends and get help playing the game. There are dozens of us!
+- **Sil-Q is free, open source, and non-commercial software.** Always has been,
+    always will be. A small but dedicated team of developers keeps the game
+    fresh and alive.
 
 Good luck, mellon, and have fun!
 
-## Get Sil-Q
-
-TODO: How to download and install.
-
 ## Start playing
 
-TODO
+[Download](download.md) the latest version of Sil and start the game.
 
-- Summarize general flow of the game plus use of the UI.
-- Next steps are to create a character and start playing.
+- If you are a new player, we recommend completing the brief tutorial. You learn
+    enough of the basics that you can even put aside this manual.
+- If you want to learn more about Sil, continue reading.
+
+But before you head off please accept your welcome gift from us, the developer
+team. The gift is a mighty artefact from days yonder:
+
+> **We hereby unconditionally and irrevocably grant you _Sil's Official
+> Permission to Enjoy Yourself_.**
+
+Keep it secret. Keep it safe. Sil is a hard game, and we intentionally made
+failure a key ingredient of the gameplay loop. But with this gift you are
+allowed to have fun without having to "win" the game. Morgoth, bugger that he
+is, will have it his way more often than you will. Yet many players love Sil
+even though they still have to succeed in stealing a Silmaril from his crown.
+Some come for the immersion, some enjoy the diversity of character builds like
+stealthers and pacifists, others like to theorycraft with fellow players. You do
+you. We hope you will find what you enjoy about the game!
 
 ## How to get help
 
-TODO
-
-- Read this manual.
-- How to access the in-game help.
-- Get help from the player community.
-
-You can open the in-game help almost any time by pressing `?`. The help covers
-the commands for movement, attacking, showing your inventory, and how to open
-the game settings. It explains what symbols like `(` mean (when playing the game
-in ASCII graphics mode), and more.
+Apart from this manual, you can open the in-game help almost any time by
+pressing `?`. The help covers the commands for movement, attacking, showing your
+inventory, and how to open the game settings. It explains what symbols like `<`
+mean (when playing the game in ASCII graphics mode), and more.
 
 ## Create a character
 
@@ -136,6 +144,7 @@ Each run in Sil begins with the creation of your player character.
         level.
 2. **Allocate 13 stat points between the four stats of Strength, Dexterity,
     Constitution, and Grace.**
+    - The four stats are explained further down below.
     - _Once set, you effectively cannot change your stats until the very late
         game._ In particular, your character's maximum health (via Constitution)
         is set and fixed during character creation for most runs. And unlike in
@@ -149,15 +158,20 @@ Each run in Sil begins with the creation of your player character.
         wisely and plenty!
 3. **Spend up to 5,000 experience points to level up the eight skills of Melee,
     Archery, Evasion, Stealth, Perception, Will, Smithing, and Song.**
-    - You can spend these experience points now or after the character creation
-        wizard, unlike the stat points from the previous step.
-    - Your character will gain new experience points during a run, so your choice
-        during character creation primarily influences the early game. Of course,
-        as you get better at playing Sil, you will want to match your starting
-        choices with the kind of character you plan to play.
-    - It is a popular choice amongst veteran players to keep a reserve of
+    - The eight skills are explained further down below.
+    - Experience points in Sil are not a number that sets your character level,
+        they are an in-game currency by which you upgrade your character
+        (increase skills and unlock abilities). You won't find gold coins in Sil,
+        you pay with experience.
+    - You can spend these 5,000 experience points now or after the character
+        creation wizard, unlike the stat points from the previous step.
+    - It is a popular choice amongst veteran players to always keep a reserve of
         500-1,000 unspent experience points for later use, because this gives you
         better options to react to what happens during a run.
+    - Your character will gain new experience points during a run, so your choice
+        during character creation primarily influences the early game. Of course,
+        as you get better at playing Sil, you will match your starting choices
+        with the kind of character you plan to play.
 
 ### Races
 
@@ -218,22 +232,23 @@ Character Creation:
                                             song affinity
 ```
 
-### An Overview of Stats, Skills, and Abilities
+### Stats, Skills, and Abilities
 
-Sil has three main character progression systems: stats, skills, and abilities.
+Sil has three main systems for character progression: stats, skills, and
+abilities.
 
-Unlike other games, Sil has neither traditional character levels ("I have a
-level 5 character") nor classes ("My character is a Paladin"). Instead, you
-shape and customize your character through its stats, skills, and abilities as
-described below. Of course, you are welcome to roleplay your character so that,
-for example, it feels like a Paladin!
+Unlike other games of this genre, Sil has neither traditional character levels
+("I have a level 5 character") nor classes ("My character is a Paladin").
+Instead, you shape and customize your characters through their stats, skills,
+and abilities as described below. Of course, you are welcome to roleplay your
+character so that, for example, it feels like a Paladin!
 
 - **Stats ("Base")**:
     - The four stats of _Strength_, _Dexterity_, _Constitution_, and _Grace_ are
         the **foundation** of your character. They determine your health and
         general proficiency in combat and magic.
-    - Set at character creation. Further changes only in the very late game via
-        the most expensive ability of each ability tree.
+    - Set at character creation. Further changes are possible only in the very
+        late game via the most expensive ability of each ability tree.
 - **Skills ("Class")**:
     - The eight skills **focus** your character on a preferred playstyle, such as
         a melee fighter, stealthy assassin, or pacifist. Think of this as the

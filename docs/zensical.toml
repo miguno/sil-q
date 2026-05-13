@@ -39,7 +39,7 @@ docs_dir = "user"
 #
 # Read more: https://zensical.org/docs/setup/basics/#copyright
 copyright = """
-Copyright &copy; 2017-2026 The Sil-Q Project. Sil-Q is free, non-commercial, and open source software.
+Copyright &copy; 2017-2026 The Sil-Q Project. Sil-Q is free, open source, and non-commercial software.
 """
 
 repo_url = "https://github.com/sil-quirk/sil-q"
