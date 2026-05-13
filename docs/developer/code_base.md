@@ -4,6 +4,42 @@ This document gives an overview of Sil-Q's code base. It describes important
 concepts, systems, etc. that developers must navigate and understand to maintain
 the game.
 
+## Top-down view
+
+Graphics:
+
+- The UI of the game is available in a _graphically rendered view_ (supporting
+    both tile-based graphics and ASCII graphics; you can switch between the two
+    variants during gameplay) and in a _terminal mode_ (GCU) that uses ASCII
+    characters to "render" the game. The latter mode is what was originally the
+    only supported UI of Sil's ancestors like Rogue.
+- Sil uses separate graphics engines for Windows, macOS, and Linux.
+    - On Windows, you can play the game in a graphically rendered view (native
+        `sil.exe`).
+    - On macOS, you can play the game in a graphically rendered view via Cocoa
+        (native `Sil.app`) or in terminal mode.
+    - On Linux, you can play the game in a graphically rendered view via X11 or in
+        terminal mode like on macOS.
+    - This complex graphics stack makes changes to the graphics more difficult
+        than it would be in an ideal world. Migrating to a modern, unified
+        graphics stack (e.g., via SDL) would simplify features such as adding
+        shaders or other visual effects that go beyond basic tile rendering, and
+        it would also make it easier to maintain the same functionality across
+        three operating systems in a consistent manner.
+
+Gameplay:
+
+- Game data files define the behavior and abilities of entities such as
+    monsters, items, and terrain.
+
+UI language:
+
+- The in-game language is English only. Not only are some English text strings
+    hardcoded in the C sources in addition to the game data files, the layout of
+    the UI also depends in several places on the exact length of English words
+    (e.g., the HUD that displays information such as "Starving" is carefully
+    laid out so that all possible word combinations can fully fit on screen).
+
 ## Game Data files
 
 Data files are used to configure in-game entities and their behavior, such as
