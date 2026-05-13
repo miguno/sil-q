@@ -46,9 +46,9 @@ Middle-earth as well as the First Age of video game history! Compared to Rogue,
 however, Sil is a much more modern game. Yes, you can still play with old-school
 letters and symbols, but by default the game uses tile-based graphics.
 
-![Sil-Q with Tiles graphics](images/sil-gfx-tiles_120x120.png){width="168"}
+![Sil with Tiles graphics](images/sil-gfx-tiles_120x120.png){width="168"}
 
-![Sil-Q with ASCII graphics](images/sil-gfx-ascii_120x120.png){width="168"}
+![Sil with ASCII graphics](images/sil-gfx-ascii_120x120.png){width="168"}
 
 You can also play the game in a terminal (80x24 or larger):
 
@@ -75,10 +75,10 @@ And we can't just let Morgoth get away with that, can we?
 - **"How do you want to do this?" Win with strategies beyond killing monsters.**
     The game encourages you to out-wit the enemy. This is true to the canon, as
     Beren and Lúthien used stealth and cunning to escape with a Silmaril, not
-    brute-force. The game has fleshed-out stealth and morale systems that let
-    you win the game without attacking even a single monster! Of the four ways
-    to strengthen your character by gaining experience, only one requires
-    killing monsters.
+    brute-force. The game features stealth and morale systems that let you win
+    the game without attacking even a single monster! Of the four ways to
+    strengthen your character by gaining experience, only one requires killing
+    monsters.
 - **Easy to learn, hard to get bored.** The rules of Sil are simple. You can
     learn all the mechanics in your first few attempts of playing the game. The
     magic system, for example, consists of only twelve songs. Yet there is
@@ -100,8 +100,6 @@ And we can't just let Morgoth get away with that, can we?
     always will be. A small but dedicated team of developers keeps the game
     fresh and alive.
 
-Good luck, mellon, and have fun!
-
 ## Start playing
 
 [Download](download.md) the latest version of Sil and start the game.
@@ -111,30 +109,42 @@ Good luck, mellon, and have fun!
 - If you want to learn more about Sil, continue reading.
 
 But before you head off please accept your welcome gift from us, the developer
-team. The gift is a mighty artefact from days yonder:
+team. Lo! The gift is a mighty artefact from days of yore:
 
 > **We hereby unconditionally and irrevocably grant you _Sil's Official
-> Permission to Enjoy Yourself_.**
+> Permission to Have Fun_.**
 
 Keep it secret. Keep it safe. Sil is a hard game, and we intentionally made
-failure a key ingredient of the gameplay loop. But with this gift you are
-allowed to have fun without having to "win" the game. Morgoth, bugger that he
-is, will have it his way more often than you will. Yet many players love Sil
-even though they still have to succeed in stealing a Silmaril from his crown.
-Some come for the immersion, some enjoy the diversity of character builds like
+failure a key ingredient of the gameplay loop. But with this gift you are free
+to enjoy the game without having to "win". Morgoth, bugger that he is, will have
+it his way more often than you will. Yet many players love Sil even though they
+still have to succeed in stealing a Silmaril from his crown. Some come for the
+immersion in Tolkien's world, some enjoy the diversity of character builds like
 stealthers and pacifists, others like to theorycraft with fellow players. You do
-you. We hope you will find what you enjoy about the game!
+you. We hope you will find what _you_ enjoy about the game.
+
+Good luck, mellon, and have fun!
 
 ## How to get help
 
 Apart from this manual, you can open the in-game help almost any time by
-pressing `?`. The help covers the commands for movement, attacking, showing your
-inventory, and how to open the game settings. It explains what symbols like `<`
-mean (when playing the game in ASCII graphics mode), and more.
+pressing the `?` key. The help covers the commands for movement, attacking,
+showing your inventory, and how to open the game settings. It explains what
+symbols like `<` mean (when playing the game in ASCII graphics mode), and more.
+
+## Game settings
+
+TODO
+
+- How to switch between tiles and ASCII.
+- How to change fonts.
+- How to increase the size of fonts/tiles.
+- What else?
 
 ## Create a character
 
-Each run in Sil begins with the creation of your player character.
+Each run in Sil begins with the creation of your player character. Every step is
+explained in detail in subsequent sections.
 
 1. **Select the Race and the House of your character.**
     - _Once set, you cannot change the race and house during a run._
@@ -144,12 +154,11 @@ Each run in Sil begins with the creation of your player character.
         level.
 2. **Allocate 13 stat points between the four stats of Strength, Dexterity,
     Constitution, and Grace.**
-    - The four stats are explained further down below.
-    - _Once set, you effectively cannot change your stats until the very late
-        game._ In particular, your character's maximum health (via Constitution)
-        is set and fixed during character creation for most runs. And unlike in
-        many other games, your health does not increase as you gain more
-        experience points.
+    - _Once set, you cannot change your stats until the very late game._ In
+        particular, your character's maximum health (from Constitution) is set
+        and fixed during character creation for most runs. And unlike in many
+        other games, your health does not increase as you gain more experience
+        points.
     - Beyond character creation, you will need to find rare items that give
         bonuses to these stats, or gain a huge amount of experience points to
         increase a stat by learning the most expensive ability in its ability
@@ -158,7 +167,6 @@ Each run in Sil begins with the creation of your player character.
         wisely and plenty!
 3. **Spend up to 5,000 experience points to level up the eight skills of Melee,
     Archery, Evasion, Stealth, Perception, Will, Smithing, and Song.**
-    - The eight skills are explained further down below.
     - Experience points in Sil are not a number that sets your character level,
         they are an in-game currency by which you upgrade your character
         (increase skills and unlock abilities). You won't find gold coins in Sil,
@@ -172,13 +180,22 @@ Each run in Sil begins with the creation of your player character.
         during character creation primarily influences the early game. Of course,
         as you get better at playing Sil, you will match your starting choices
         with the kind of character you plan to play.
+4. **Select a history, age/height/weight, and name for your character.**
+    - These are purely cosmetic from a gameplay perspective, yet some argue they
+        are the most important choice for roleplaying. You decide!
+5. **Congratulations, you are now entering Angband!**
+    - Your quest is to venture down into the dungeon, find Morgoth in his throne
+        room, pry a Silmaril from his iron crown, and then ascend again to make
+        your escape.
 
-### Races
+## Races
 
 Choosing the race of your character is both a roleplay decision as well as the
-way to set the difficulty of the game. Each race provides a few proficiencies
-that pre-shape a character's playstyle. For example, the Noldor are proficient
-with bows and thus a good choice if you enjoy attacking enemies from a distance.
+way to set the difficulty of the game. Races provide various modifiers to your
+character's stats (Strength, Dexterity, Constitution, Grace), affinities, and
+proficiencies that pre-shape the character's playstyle. For example, the Noldor
+are proficient with bows and thus a good choice if you enjoy attacking enemies
+from a distance.
 
 - **Noldor (high elves)**
 
@@ -201,38 +218,47 @@ with bows and thus a good choice if you enjoy attacking enemies from a distance.
     - Difficulty: Very Hard
     - Notable members in Tolkien lore: Beren, Húrin
 
-Choosing the race of your character (selected here: _Noldor_):
+Playing a Noldor will produce the easiest game and is recommended for first-time
+players. Playing a Naugrim or Sindar is a little harder, but can lead to
+interesting variations in playstyle. Lastly, playing an Edain is noticeably more
+difficult and should be considered a challenge mode.
 
-```text
-Character Creation:
+### Skill affinity
 
-  a) Noldor [X]  Str +0
-  b) Sindar      Dex +1
-  c) Naugrim     Con +2
-  d) Edain       Gra +2
+If you have an affinity with a skill, you get:
 
-                 bow proficiency
-                 song affinity
-```
+- +1 to your skill total
+- All abilities linked to that skill are 500 experience points cheaper
+- Your first ability of that skill is free
 
-### Houses
+### Skill penalty
 
-Choosing the house of your character (selected here: _House of Finarfin_):
+Penalty is the opposite of an affinity:
 
-```text
-Character Creation:
+- -1 to your skill total
+- All abilities linked to that skill are 500 experience points more expensive
 
-  a) Noldor [X]  a) House of Feanor         Str +0
-  b) Sindar      b) House of Fingolfin      Dex +1
-  c) Naugrim     c) House of Finarfin  [X]  Con +2
-  d) Edain                                  Gra +3
+### Skill mastery
 
-                                            bow proficiency
-                                            perception affinity
-                                            song affinity
-```
+Mastery is like a double affinity for a single skill:
 
-### Stats, Skills, and Abilities
+- +2 to your skill total
+- All abilities linked to that skill are 1,000 experience points cheaper
+- Your first ability of that skill is free
+
+### Weapon proficiency
+
+- Elves (Noldor and Sildar) have a bow proficiency and get a bonus of +1 to
+    their Archery skill when using a bow.
+- Dwarves (Naugrim) have an axe proficiency and get a bonus of +1 to their Melee
+    skill when using an axe.
+- Humans (Edain) have no proficiencies.
+
+## Houses
+
+Within each race, the Houses are considered approximately equal in power level.
+
+## Overview of Stats, Skills, and Abilities
 
 Sil has three main systems for character progression: stats, skills, and
 abilities.
@@ -243,16 +269,16 @@ Instead, you shape and customize your characters through their stats, skills,
 and abilities as described below. Of course, you are welcome to roleplay your
 character so that, for example, it feels like a Paladin!
 
-- **Stats ("Base")**:
+- **Stats**:
     - The four stats of _Strength_, _Dexterity_, _Constitution_, and _Grace_ are
         the **foundation** of your character. They determine your health and
         general proficiency in combat and magic.
-    - Set at character creation. Further changes are possible only in the very
-        late game via the most expensive ability of each ability tree.
-- **Skills ("Class")**:
-    - The eight skills **focus** your character on a preferred playstyle, such as
-        a melee fighter, stealthy assassin, or pacifist. Think of this as the
-        _class_ of your character in other games.
+    - Set once at character creation. Further changes are possible only in the
+        very late game via the most expensive ability of each ability tree.
+- **Skills**:
+    - The eight skills like _Melee_ and _Stealth_ **focus** your character on a
+        preferred playstyle, such as a melee fighter, stealthy assassin, or
+        pacifist. Think of this as the _class_ of your character in other games.
     - Skills provide passive benefits only.
     - Skill levels are increased by spending _experience points_ (`Exp` in the
         UI). You start the game with 5,000 experience points, and you gain further
@@ -260,151 +286,197 @@ character so that, for example, it feels like a Paladin!
         into the dungeons of Angband, and identifying unknown objects.
     - Leveling up a skill grants _skill points_, which are required for learning
         _abilities_ of that skill.
-- **Abilities ("Talents")**:
-    - Abilities are **specializations** of a skill, such as increasing the chance
-        to critically hit in melee combat. Often called _talents_ in other games.
-    - Some abilities are passive, some grant you a new active ability, such as a
-        special attack or exchanging places with a monster.
-    - Passive abilities can be switched off (and back on), which is occasionally
+- **Abilities**:
+    - Abilities like _Finesse_ or _Song of Staunching_ are **specializations** of
+        a skill, such as increasing the chance to critically hit in melee combat.
+        Often called _talents_ in other games.
+    - Some abilities are passive, while others grant you a new active ability,
+        such as a special attack or exchanging places with a monster.
+    - Passive abilities can be switched off and back on, which is occasionally
         useful.
-    - Learned by spending _skill points_ (from leveling up an ability's parent
-        skill) plus _experience points_.
+    - Abilities are learned by spending _skill points_ (from leveling up an
+        ability's parent skill) plus _experience points_.
 
-### Stats (Strength, Dexterity, Consitution, Grace)
+## Stats
 
-TODO:
+Your character has four main statistics: Strength, Dexterity, Consitution, and
+Grace. The stats numbers can be positive or negative, with zero representing the
+average for the Edain (humans) of this age.
 
-- Don't over-explain. Put the example in the Appendix?
-- Give recommendations for e.g. "melee fighter" (3-3-5-3), "ranged fighter"
-    (2-4-4-3), "stealthy assassin" (2-4-3-5), "pacifist" (2-3-4-4). Or sth like
-    that.
+During character creation you have 13 points to spend between the four stats.
+Improving an individual stat becomes increasingly expensive: 1, 3, 6, 10 points.
 
-Your character has four main statistics: Strength (`Str`), Dexterity (`Dex`),
-Consitution (`Con`), and Grace (`Gra`). The stats numbers can be positive or
-negative, with zero representing the average for the Edain (humans) of this age.
+When creating a melee fighter, for example, you could set stats to `3-3-5-3` for
+Str/Dex/Con/Gra. A ranged fighter could be `2-4-4-3` and a pacifist `0-3-1-4`,
+respectively.
 
-- **Strength (`Str`)**:
-    - _Improves combat damage and carrying capacity._
-    - Increases the damage you do in combat. You can get an extra side on each
-        damage die for each point of Strength. For example, a `2d5` curved sword
-        becomes `2d7` when you have `Str 2`.
-    - The damage increase is limited by the weapon weight (see the section _Combat
-        Damage Calculation in Detail_).
-    - Increases bow range, because it is based on the weapon damage.
-    - Increases throw range by 20% per point of Strength.
-    - Increases your carrying capacity by 20% per point of Strength.
-    - Allows you to wield very heavy weapons without penalty.
-    - Helps you resist being disarmed in combat.
-    - Helps you break free of webs.
-    - Helps you bash down locked doors.
-- **Dexterity (`Dex`)**:
-    - _Gives a bonus to the first four skills: Melee, Archery, Evasion, Stealth._
-    - Helps you avoid needle traps in chests.
-- **Constitution (`Con`)**:
-    - _Increases your health points by 20% per point of Con._
-    - Helps you stay alive, duh.
-- **Grace (`Gra`)**:
-    - _Gives a bonus to the last four skills: Perception, Will, Smithing, Song._
-    - Increases your Voice points (like mana in other games) by 20% per point of
-        Grace, which increases the time you can sing a song of power (like spells
-        in other games).
+### Strength (`Str`)
 
-Example: Starting values of a Noldor of House Finarfin.
+- Increases weapon damage in combat. You can get an extra side on each damage
+    die for each point of Strength. For example, a `2d5` curved sword becomes
+    `2d7` when you have `Str 2`. This damage increase is limited by a weapon's
+    weight, however (see the section _Combat Damage Calculation in Detail_).
+    Heavier weapons benefit more from Strength than lighter weapons. Similarly,
+    heavier weapons need Strength to reach their full damage potential.
+- Increases bow range, because it is based on weapon damage.
+- Increases throw range by 20% per point of Strength.
+- Increases your carrying capacity by 20% per point of Strength.
+- Helps you resist being disarmed in combat.
+- Helps you break free of webs.
+- Helps you bash down locked doors.
+- Lets you tunnel through harder rock. Rubble needs `Str 1`, quartz veins need
+    `Str 2`, and granite walls need `Str 3`.
 
-```text
-                                      Points Left: 13  <== 13 of 13 remaining
+### Dexterity (`Dex`)
 
- Name   Miguno        Age                Str   0    0
- Race   Noldor        Height             Dex   1    0
- House  Finarfin      Weight             Con   2    0
-                                         Gra   3    0
+- Gives a bonus to the first four skills: Melee, Archery, Evasion, Stealth. This
+    helps you hit/shoot enemies, avoid being hit/shot yourself, and sneak.
+- Helps you avoid needle traps in chests.
 
- Game Turn        0   Melee   (+1,1d1)   Melee        1 =  0  +1
- Exp Pool     5,000   Bows    (+1,0d0)   Archery      1 =  0  +1
- Total Exp    5,000   Armor   [+1,0-0]   Evasion      1 =  0  +1
- Burden         0.0                      Stealth      1 =  0  +1
- Max Burden   100.0   Health     28:28   Perception   4 =  0  +3      +1
-                      Voice      34:34   Will         3 =  0  +3
-                                         Smithing     3 =  0  +3
- Light Radius     0                      Song         4 =  0  +3      +1
-```
+### Constitution (`Con`)
 
-Example: After spending 13 points on Str, Dex, Con, Gra stats.
+- Increases your health points by 20% per point of Constitution.
+- Helps you resist knock back.
 
-```text
-                                      Points Left:  0  <== 0 of 13 remaining
+### Grace (`Gra`)
 
- Name   Miguno        Age                Str   3    6  <== 6 points spent (Str 0→3)
- Race   Noldor        Height             Dex   3    3  <== 3 points spent (Dex 1→3)
- House  Finarfin      Weight             Con   4    3  <== 3 points spent (Con 2→4)
-                                         Gra   4    1  <== 1 points spent (Gra 3→4)
+- Gives a bonus to the last four skills: Perception, Will, Smithing, Song. This
+    helps you spot hidden things, pick locks, disarm traps, resist mind effects,
+    and craft gear.
+- Increases your Voice points (like mana in other games) by 20% per point of
+    Grace, which increases the time you can sing a song of power (like spells in
+    other games).
 
- Game Turn        0   Melee   (+3,1d4)   Melee        3 =  0  +3
- Exp Pool     5,000   Bows    (+3,0d0)   Archery      3 =  0  +3
- Total Exp    5,000   Armor   [+3,0-0]   Evasion      3 =  0  +3
- Burden         0.0                      Stealth      3 =  0  +3
- Max Burden   172.8   Health     41:41   Perception   5 =  0  +4      +1
-                      Voice      41:41   Will         4 =  0  +4
-                                         Smithing     4 =  0  +4
- Light Radius     0                      Song         5 =  0  +4      +1
-```
+## Skills
 
-Strength 0→3:
+### Core mechanic: the Opposed Check
 
-- Improved Melee from `(+1,1d1)` to `(+1,1d4)`.
-- Improved Max Burden from `100.0lb` lb to `172.8lb`.
+A core mechanic in Sil is the _opposed check_; it is sometimes called a _skill
+check_, but it is not limited to skills. Each side of the involved (say, an
+attacker and a defender) rolls a die and adds a context-specific score. You
+succeed only if your total is strictly greater, because ties count as failures.
 
-Dex 1→3:
+There are two flavours:
 
-- Improved Melee from `(+1,1d4)` to `(+3,1d4)`.
-- Improved Bows from `(+1,0d0)` to `(+3,0d0)`.
-- Improved Armor from `[+1,0-0]` to `[+3,0-0]`.
+- **Opposed `1d10` check.** Used for everything that isn't to-hit resolution:
+    sneaking, picking locks, disarming traps, saving throws, bashing doors,
+    breaking webs, and so on. Each side rolls `1d10 + score`, where the score
+    may be a skill level (e.g. for Perception), a stat doubled (e.g. `Str 2`
+    doubled to 4), or a fixed difficulty.
+    - Examples: When you try to spot a hidden monster, your Perception is opposed
+        to the monster's Stealth. When you try to bash down a door, your Strength
+        is opposed to the door's power.
+- **Opposed `1d20` check (for attack rolls).** Used to calculate to-hit in
+    combat for melee, archery, and throwing attacks as well as projectile
+    spells. The attacker rolls `1d20 + attack   score`, the defender rolls
+    `1d20 + evasion score`. See the Combat section for details. The larger
+    `1d20` die makes combat swingier than `1d10` checks.
+    - Example: When you swing your sword at an orc, your Melee is opposed to the
+        orc's Evasion (`1d20`).
 
-Con 2→4:
+### Upgrading skill levels
 
-- Improved Health from `28:28` to `41:41`.
+In order to progress further in the dungeon, you must continuously upgrade your
+skill levels to win the aforementioned opposing checks against increasingly
+difficult encounters. This is doubly important because upgrading the level of a
+skill also grants _skill points_ that you need to unlock the abilities of that
+skill.
 
-Gra 3→4:
+To upgrade your skill levels:
 
-- Improved Voice from `34:34` to `41:41`.
+1. Open your character sheet via the `@` key, which is `Shift+2` on US keyboards
+    (or via `ESC` to open the menu, then `b`). The sheet shows your current
+    skill levels.
+2. Edit skill levels by pressing `i`.
+3. Navigate to the desired skill via the `Up` and `Down` arrow keys.
+4. Assign experience points to upgrade a skill's level via the `Right` arrow
+    key.
+    - If you have enough experience points, you can upgrade the level multiple
+        times by repeatedly pressing `Right`.
+    - Use the `Left` arrow key to lower the experience points to spend for the
+        upgrade (but you can never downgrade a skill's current level; you can
+        only upgrade or abort).
+5. Press `Enter` to accept. To abort, press `ESC`. Be careful with your choice
+    because there is no undo!
 
-### Skills (Melee, Archery, Evasion, Stealth, Perception, Will, Smithing, Song)
+### Melee
 
-TODO:
+- Increases your chance to hit a target in hand-to-hand combat.
+    - Opposing difficulty = target's Evasion.
+    - You can score critical hits if you succeed by enough. See Combat section for
+        details.
+- Helps you hit an opponent with thrown weapons.
+- Helps you pry a Silmaril from Morgoth's crown (by attacking the crown).
+    - Opposing difficulty = 0, but you need to do a lot of damage!
 
-- Melee: melee attack chance to hit
-- Archery: ranged attack chance to hit
-- Evasion: chance to evade attacks
-- Stealth: avoid detection by enemies
-- Perception: detect hidden enemies
-- Will: mental resistance against XXX
-- Smithing: craft items
-- Song: song power (spellcasting)
-- Explain that increasing the level of a skill grants skill points for learning
-    abilities of that skill.
+### Archery
 
-Spending experience points on skills:
+- Increases your chance to hit a target in ranged combat.
+    - Opposing difficulty = 50% of target's Evasion.
+    - You can score critical hits if you succeed by enough.
 
-```text
- Name   Miguno        Age                Str   3
- Race   Noldor        Height             Dex   3
- House  Finarfin      Weight             Con   4
-                                         Gra   4             Points Left:  200  <==
+### Evasion
 
- Game Turn        0   Melee   (+9,1d4)   Melee        9 =  6  +3          2100  <==
- Exp Pool       200   Bows    (+3,0d0)   Archery      3 =  0  +3             0
- Total Exp    5,000   Armor   [+9,0-0]   Evasion      9 =  6  +3          2100  <==
- Burden         0.0                      Stealth      3 =  0  +3             0
- Max Burden   172.8   Health     41:41   Perception   5 =  0  +4      +1     0
-                      Voice      41:41   Will         4 =  0  +4             0
-                                         Smithing     4 =  0  +4             0
- Light Radius     0                      Song         8 =  3  +4      +1   600  <==
-```
+- Increases your chance to avoid being hit in combat by an opponent.
+    - Opposing difficulty = opponent's Melee or Archery.
+    - You can suffer critical hits if you fail by enough. See combat section for
+        details.
+- Helps you climb out of pits (difficulty 15 for normal pits, 20 for spiked
+    pits).
+- Helps you avoid getting hit by dart traps (difficulty 15) and falling debris
+    (difficulty 20).
 
-- Improved Melee from `(+3,1d4)` to `(+9,1d4)`.
-- Improved Armor from `[+3,0-0]` to `[+9,0-0]`.
+### Stealth
 
-### Abilities
+- Helps you avoid being noticed by opponents.
+    - Opposing difficulty = opponent's Perception plus various modifiers. See
+        Stealth section for details.
+- Provides a bonus to Melee against _unwary_ or _sleeping_ opponents if you have
+    the _Assassination_ ability.
+- Penalty of -10 to Stealth for each 10 lb of armour worn.
+- Stealth mode (`S` command, i.e., `Shift+s`) grants +5 to Stealth, but -1 to
+    speed.
+
+### Perception
+
+- Helps you detect _invisible_ opponents (difficulty: opponent's Will plus +2
+    per square of distance from you)
+- Helps you notice traps and secret doors.
+    - Difficulty: Base of half the dungeon level plus the following modifiers.
+    - +15 for chest traps
+    - +10 for floor traps and secret doors
+    - +5 if you cannot see properly
+    - +5 if you are confused
+    - +2 per square of distance from you (beyond the first)
+- Helps you avoid stepping on a caltrop trap (difficulty 10)
+- Helps you disarm floor traps.
+- You trigger a trap if you fail the opposed check to disarm it by 3 or more.
+- Helps you pick locks.
+- Provides various benefits when using Perception-based abilities as described
+    in the Abilities section.
+
+### Will
+
+- Helps you resist many special effects, including confusion, stunning, fear,
+    blindness, entrancement, slowing, hallucination, hunger, and stat draining.
+    - Difficulty: opponent's Will (if an opponent caused the threat), 10 otherwise
+- Helps you successfully use staves and horns (difficulty: half the object
+    level, +5 if confused) and increases the effectives of many.
+- Provides various benefits when using Will-based abilities as described in the
+    Abilities section.
+
+### Smithing
+
+- Lets you craft powerful items at forges. See the Abilities section for
+    details.
+- The only skill that doesn't use opposed checks (or any roll at all).
+
+### Song
+
+- Increases the power of various songs that you can sing. See the Abilities
+    section for details.
+
+## Abilities
 
 TODO:
 
@@ -510,29 +582,6 @@ Misc:
 
 - Song of the Trees: reveals hidden enemies like Nightthorns, which create
     darkness around them.
-
-Spending skill points and experience points on abilities (selected here:
-_Finesse_ of the _Melee_ tree):
-
-```text
- Skills         Abilities
-
-  a) Melee [X]   a) Power                 Lowers the base number needed to get
-  b) Archery     b) Finesse [X]           critical hits with melee from 7 to
-  c) Evasion     c) Knock Back            5.
-  d) Stealth     d) Polearm Mastery
-  e) Perception  e) Charge
-  f) Will        f) Follow-Through
-  g) Smithing    g) Impale                Prerequisites:
-  h) Song        h) Subtlety
-                 i) Whirlwind Attack        2 skill points (you have 6)
-                 j) Zone of Control
-                 k) Smite
-                 l) Two Weapon Fighting
-                 m) Rapid Attack          Current price:
-                 n) Strength
-                                            500 experience (you have 200)
-```
 
 ## Improve your character
 
@@ -839,20 +888,14 @@ TODO
 
 TODO
 
-## Skills
-
-TODO
-
-## Abilities
-
-### Songs
+## Songs
 
 - Song of Challenge: Melee monsters may come to you, but ranged monsters may
     still run away but at least they stop shooting at you.
 - Staff of Summing: must be used near stairs to summon the monsters it can
     summon (makes monsters come up or down stairs)
 
-## Dungeon
+## The Dungeon
 
 - You can go up and down the stairs.
 - At some point (cf. min depth), you can no longer take up stairs. This is a
@@ -862,14 +905,6 @@ TODO
     behavior of Angband variants, including Sil. The lore answer is that you can
     think of Angband as such a large labyrinth that it is impossible to navigate
     its dungeons.
-
-## Game settings
-
-TODO
-
-- How to switch between tiles and ASCII.
-- How to change fonts, how to increase font size.
-- Lots more.
 
 ## Tips and Tricks
 
@@ -998,6 +1033,152 @@ graph LR
   C --> D["NPPAngband (0.1 to 0.4.1)"];
   D --> E["Sil (1.0 to 1.3)"];
   E --> F["Sil-Q"];
+```
+
+### Example: Creating a character
+
+This example creates a Noldor of House Finarfin. It shows the effect of spending
+stat points and experience points to customize the character before a new run
+starts. This character is well-rounded and could, for instance, turn into a
+dedicated melee fighter over time.
+
+Choosing the race of your character (selected here: _Noldor_):
+
+```text
+Character Creation:
+
+  a) Noldor [X]  Str +0
+  b) Sindar      Dex +1
+  c) Naugrim     Con +2
+  d) Edain       Gra +2
+
+                 bow proficiency
+                 song affinity
+```
+
+Choosing the house of your character (selected here: _House of Finarfin_):
+
+```text
+Character Creation:
+
+  a) Noldor [X]  a) House of Feanor         Str +0
+  b) Sindar      b) House of Fingolfin      Dex +1
+  c) Naugrim     c) House of Finarfin  [X]  Con +2
+  d) Edain                                  Gra +3
+
+                                            bow proficiency
+                                            perception affinity
+                                            song affinity
+```
+
+These are the character's starting values after selecting race and house:
+
+```text
+                                      Points Left: 13  ⇐ 13 of 13 remaining
+
+ Name   Miguno        Age                Str   0    0
+ Race   Noldor        Height             Dex   1    0
+ House  Finarfin      Weight             Con   2    0
+                                         Gra   3    0
+
+ Game Turn        0   Melee   (+1,1d1)   Melee        1 =  0  +1
+ Exp Pool     5,000   Bows    (+1,0d0)   Archery      1 =  0  +1
+ Total Exp    5,000   Armor   [+1,0-0]   Evasion      1 =  0  +1
+ Burden         0.0                      Stealth      1 =  0  +1
+ Max Burden   100.0   Health     28:28   Perception   4 =  0  +3      +1
+                      Voice      34:34   Will         3 =  0  +3
+                                         Smithing     3 =  0  +3
+ Light Radius     0                      Song         4 =  0  +3      +1
+```
+
+**Spending stat points.**
+
+After spending 13 points on Str, Dex, Con, Gra stats:
+
+```text
+                                      Points Left:  0  ⇐ 0 of 13 remaining
+
+ Name   Miguno        Age                Str   3    6  ⇐ 6 points spent (Str 0→3)
+ Race   Noldor        Height             Dex   3    3  ⇐ 3 points spent (Dex 1→3)
+ House  Finarfin      Weight             Con   4    3  ⇐ 3 points spent (Con 2→4)
+                                         Gra   4    1  ⇐ 1 points spent (Gra 3→4)
+
+ Game Turn        0   Melee   (+3,1d4)   Melee        3 =  0  +3
+ Exp Pool     5,000   Bows    (+3,0d0)   Archery      3 =  0  +3
+ Total Exp    5,000   Armor   [+3,0-0]   Evasion      3 =  0  +3
+ Burden         0.0                      Stealth      3 =  0  +3
+ Max Burden   172.8   Health     41:41   Perception   5 =  0  +4      +1
+                      Voice      41:41   Will         4 =  0  +4
+                                         Smithing     4 =  0  +4
+ Light Radius     0                      Song         5 =  0  +4      +1
+```
+
+By spending the 13 stat points, the character improved as follows.
+
+Strength 0→3:
+
+- Improved Melee from `(+1,1d1)` to `(+1,1d4)`
+- Improved Max Burden from `100.0` lb to `172.8` lb
+
+Dex 1→3:
+
+- Improved Melee from `(+1,1d4)` to `(+3,1d4)`
+- Improved Bows from `(+1,0d0)` to `(+3,0d0)`
+- Improved Armor from `[+1,0-0]` to `[+3,0-0]`
+
+Con 2→4:
+
+- Improved maximum Health from `28` to `41`
+
+Gra 3→4:
+
+- Improved maximum Voice from `34` to `41`
+
+**Spending experience points on skills.**
+
+After spending 4,800 of 5,000 experience points:
+
+```text
+ Name   Miguno        Age                Str   3
+ Race   Noldor        Height             Dex   3
+ House  Finarfin      Weight             Con   4
+                                         Gra   4             Points Left:  200  ⇐
+
+ Game Turn        0   Melee   (+9,1d4)   Melee        9 =  6  +3          2100  ⇐
+ Exp Pool       200   Bows    (+3,0d0)   Archery      3 =  0  +3             0
+ Total Exp    5,000   Armor   [+9,0-0]   Evasion      9 =  6  +3          2100  ⇐
+ Burden         0.0                      Stealth      3 =  0  +3             0
+ Max Burden   172.8   Health     41:41   Perception   5 =  0  +4      +1     0
+                      Voice      41:41   Will         4 =  0  +4             0
+                                         Smithing     4 =  0  +4             0
+ Light Radius     0                      Song         8 =  3  +4      +1   600  ⇐
+```
+
+- Improved Melee from `(+3,1d4)` to `(+9,1d4)`.
+- Improved Armor from `[+3,0-0]` to `[+9,0-0]`.
+
+**Spending skill points and experience points on abilities.**
+
+After learning the _Finesse_ ability of the _Melee_ tree:
+
+```text
+ Skills         Abilities
+
+  a) Melee [X]   a) Power                 Lowers the base number needed to get
+  b) Archery     b) Finesse [X]           critical hits with melee from 7 to
+  c) Evasion     c) Knock Back            5.
+  d) Stealth     d) Polearm Mastery
+  e) Perception  e) Charge
+  f) Will        f) Follow-Through
+  g) Smithing    g) Impale                Prerequisites:
+  h) Song        h) Subtlety
+                 i) Whirlwind Attack        2 skill points (you have 6)
+                 j) Zone of Control
+                 k) Smite
+                 l) Two Weapon Fighting
+                 m) Rapid Attack          Current price:
+                 n) Strength
+                                            500 experience (you have 200)
 ```
 
 ### An attack in more detail (with Combat Rolls window)
