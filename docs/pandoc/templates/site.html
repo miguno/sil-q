@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="$if(lang)$$lang$$else$en$endif$">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>$if(title)$$title$ — Sil$else$Sil$endif$</title>
+  <link rel="icon" href="$root$images/Sil.ico">
+  <link rel="stylesheet" href="$root$site.css">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var t = saved || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body data-page="$slug$">
+  <header class="site-header">
+    <a class="site-title" href="$root$index.html">Sil</a>
+    <div class="site-header-right">
+      <a class="header-link" href="https://github.com/sil-quirk/sil-q" rel="noopener">GitHub</a>
+      <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀</span>
+        <span class="theme-icon-dark" aria-hidden="true">⏾</span>
+      </button>
+      <button id="sidebar-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">≡</button>
+    </div>
+  </header>
+
+  <div class="site-layout">
+    <aside class="sidebar" id="sidebar">
+      $sidebar$
+    </aside>
+
+    <main class="content">
+      $if(title)$<h1 class="page-title">$title$</h1>$endif$
+
+      $if(toc)$
+      <nav class="page-toc" aria-label="On this page">
+        <details open>
+          <summary>On this page</summary>
+          $toc$
+        </details>
+      </nav>
+      $endif$
+
+      <article class="page-body">
+        $body$
+      </article>
+
+      $if(prev_url)$
+      <nav class="page-pager" aria-label="Manual navigation">
+        <a class="pager-prev" href="$prev_url$" rel="prev"><span class="pager-label">Previous</span><span class="pager-title">$prev_title$</span></a>
+        $if(next_url)$<a class="pager-next" href="$next_url$" rel="next"><span class="pager-label">Next</span><span class="pager-title">$next_title$</span></a>$else$<span></span>$endif$
+      </nav>
+      $else$
+      $if(next_url)$
+      <nav class="page-pager" aria-label="Manual navigation">
+        <span></span>
+        <a class="pager-next" href="$next_url$" rel="next"><span class="pager-label">Next</span><span class="pager-title">$next_title$</span></a>
+      </nav>
+      $endif$
+      $endif$
+
+      $if(edit_url)$
+      <p class="edit-link"><a href="$edit_url$" rel="noopener">Edit this page on GitHub</a></p>
+      $endif$
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; 2017-2026 The Sil-Q Project. Sil is free, open source, and non-commercial software.</p>
+  </footer>
+
+  <script src="$root$site.js" defer></script>
+</body>
+</html>
