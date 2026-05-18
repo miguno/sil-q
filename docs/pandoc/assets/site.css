@@ -239,6 +239,15 @@ pre code {
   padding: 0;
 }
 
+pre.verse {
+  white-space: pre-wrap;
+  margin-left: 2em;
+}
+
+pre.verse code {
+  font-family: inherit;
+}
+
 blockquote {
   margin: 1em 0;
   padding: 0.6em 1em;

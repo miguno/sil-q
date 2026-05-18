@@ -2,17 +2,17 @@
 title: Sil-Q Manual
 ---
 
-> ```
-> A game of adventure set
->    in the First Age of Middle-earth,
->         when the world still rang with elven song
->             and gleamed with dwarven mail.
-> Walk the dark halls of Angband.
->     Slay creatures black and fell.
->         Wrest a shining Silmaril from Morgoth's iron crown.
-> ```
+```{.verse}
+"A game of adventure set
+   in the First Age of Middle-earth,
+        when the world still rang with elven song
+            and gleamed with dwarven mail.
+Walk the dark halls of Angband.
+    Slay creatures black and fell.
+        Wrest a shining Silmaril from Morgoth's iron crown."
+```
 
-_Quote from the original Sil game (2012)._
+_— Quote from the original Sil game (2012)_
 
 ## What is Sil-Q?
 

@@ -10,6 +10,8 @@ resource-path:
   - .
 pdf-engine: xelatex
 template: pandoc/templates/eisvogel/eisvogel
+include-in-header:
+  - pandoc/assets/pdf-header.tex
 toc: true
 highlight-style: tango
 
