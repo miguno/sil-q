@@ -22,3 +22,12 @@ variables:
   toc-own-page: true
   footer-center: "Sil-Q Manual 1.5.1-beta1 (generated 2026-XX-XX)"
   code-block-font-size: '\footnotesize'
+  # XeLaTeX picks up the local Lora TTFs from pandoc/assets/fonts/lora/.
+  mainfont: "Lora"
+  mainfontoptions:
+    - "Path=pandoc/assets/fonts/lora/"
+    - "Extension=.ttf"
+    - "UprightFont=*-Regular"
+    - "BoldFont=*-Bold"
+    - "ItalicFont=*-Italic"
+    - "BoldItalicFont=*-BoldItalic"

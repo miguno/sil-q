@@ -115,6 +115,11 @@ html:
     cp pandoc/assets/site.css {{build_dir}}/
     cp pandoc/assets/site.js {{build_dir}}/
     cp -r user/images/* {{build_dir}}/images/
+    mkdir -p {{build_dir}}/fonts/lora
+    cp pandoc/assets/fonts/lora/Lora-VF.woff2 \
+       pandoc/assets/fonts/lora/Lora-VF-Italic.woff2 \
+       pandoc/assets/fonts/lora/OFL.txt \
+       {{build_dir}}/fonts/lora/
 
     # Clean up intermediates
     rm -rf {{build_dir}}/_intermediate
