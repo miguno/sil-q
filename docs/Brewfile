@@ -2,7 +2,5 @@
 ### https://homebrew-file.readthedocs.io/en/latest/usage.html#brewfile
 ###
 
-# https://mise.jdx.dev/
-brew "mise"
 # https://pandoc.org/
 brew "pandoc"

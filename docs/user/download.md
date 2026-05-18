@@ -15,10 +15,10 @@ operating system and download from the table below.
 | ------------------------- | --------------------------- | --------------------------- | ------------------ |
 | [Sil-Q-windows-64.zip][w] | [Sil-Q-macos-native.zip][m] | [Sil-Q-linux-x86_64.zip][l] | [Sil-Q-src.zip][s] |
 
-!!! warning "Important note for macOS users"
-
-    Recent macOS versions may prevent you from launching Sil. See the section below
-    to solve this problem.
+::: warning
+**Important note for macOS users.** Recent macOS versions may prevent you
+from launching Sil. See the section below to solve this problem.
+:::
 
 ### How to launch Sil-Q on macOS
 

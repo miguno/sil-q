@@ -1,0 +1,308 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1f1f1f;
+  --fg-muted: #5a5a5a;
+  --border: #e2e2e2;
+  --accent: #b54712;
+  --accent-fg: #ffffff;
+  --sidebar-bg: #f6f6f4;
+  --code-bg: #f4f3ef;
+  --code-fg: #222;
+  --link: #0e5fb5;
+  --link-hover: #b54712;
+
+  --font-text: ui-serif, Georgia, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --content-max: 70ch;
+  --sidebar-w: 16rem;
+  --header-h: 3rem;
+}
+
+[data-theme="dark"] {
+  --bg: #14171a;
+  --fg: #e6e6e6;
+  --fg-muted: #9a9a9a;
+  --border: #2a2f35;
+  --accent: #e07a3c;
+  --accent-fg: #14171a;
+  --sidebar-bg: #1a1d21;
+  --code-bg: #1e2228;
+  --code-fg: #e6e6e6;
+  --link: #7fb3ff;
+  --link-hover: #e07a3c;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-text);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-width: 320px;
+  overflow-wrap: break-word;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+
+code, pre, kbd, samp { font-family: var(--font-mono); font-size: 0.9em; }
+code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 3px; }
+pre {
+  background: var(--code-bg);
+  color: var(--code-fg);
+  padding: 1em;
+  overflow-x: auto;
+  border-radius: 4px;
+  font-size: 0.85em;
+  line-height: 1.5;
+}
+pre code { background: none; padding: 0; }
+
+blockquote {
+  margin: 1em 0;
+  padding: 0.6em 1em;
+  border-left: 3px solid var(--border);
+  color: var(--fg-muted);
+}
+
+/* Admonitions (fenced divs: ::: warning / note / tip / caution ::: ) */
+.note, .tip, .warning, .caution, .important {
+  margin: 1.25em 0;
+  padding: 0.75em 1em;
+  border-left: 4px solid var(--admon-accent, var(--border));
+  border-radius: 0 4px 4px 0;
+  background: var(--admon-bg, var(--sidebar-bg));
+}
+.note    { --admon-accent: #3b82f6; --admon-bg: rgba(59, 130, 246, 0.08); }
+.tip     { --admon-accent: #10b981; --admon-bg: rgba(16, 185, 129, 0.08); }
+.warning { --admon-accent: #f59e0b; --admon-bg: rgba(245, 158, 11, 0.10); }
+.caution { --admon-accent: #ef4444; --admon-bg: rgba(239, 68, 68, 0.10); }
+.important { --admon-accent: #8b5cf6; --admon-bg: rgba(139, 92, 246, 0.10); }
+.note > :first-child,
+.tip > :first-child,
+.warning > :first-child,
+.caution > :first-child,
+.important > :first-child { margin-top: 0; }
+.note > :last-child,
+.tip > :last-child,
+.warning > :last-child,
+.caution > :last-child,
+.important > :last-child { margin-bottom: 0; }
+
+hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+
+table {
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-family: var(--font-ui);
+  font-size: 0.95em;
+}
+th, td { border: 1px solid var(--border); padding: 0.4em 0.8em; text-align: left; }
+th { background: var(--sidebar-bg); }
+
+img { max-width: 100%; height: auto; }
+
+/* ---- Header ---- */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  height: var(--header-h);
+  padding: 0 1rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-ui);
+}
+.site-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--fg);
+  letter-spacing: 0.02em;
+}
+.site-title:hover { color: var(--accent); text-decoration: none; }
+.site-header-right { display: flex; align-items: center; gap: 0.5rem; }
+.header-link { color: var(--fg-muted); font-size: 0.95em; }
+
+#theme-toggle, #sidebar-toggle {
+  background: none; border: 1px solid var(--border);
+  color: var(--fg); cursor: pointer;
+  padding: 0.25rem 0.6rem; border-radius: 4px;
+  font-family: var(--font-ui); font-size: 1rem;
+}
+#theme-toggle:hover, #sidebar-toggle:hover { border-color: var(--accent); }
+#theme-toggle .theme-icon-dark { display: none; }
+[data-theme="dark"] #theme-toggle .theme-icon-light { display: none; }
+[data-theme="dark"] #theme-toggle .theme-icon-dark { display: inline; }
+#sidebar-toggle { display: none; }
+
+/* ---- Layout ---- */
+.site-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  gap: 0;
+  min-height: calc(100vh - var(--header-h));
+}
+
+.sidebar {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.95em;
+  position: sticky;
+  top: var(--header-h);
+  align-self: start;
+  height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+}
+.sidebar-nav ul { list-style: none; margin: 0; padding: 0; }
+.sidebar-nav > ul > li { margin-bottom: 0.25rem; }
+.sidebar-nav ul ul { margin-left: 1rem; margin-top: 0.25rem; border-left: 1px solid var(--border); padding-left: 0.75rem; }
+.sidebar-nav a {
+  display: block;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  color: var(--fg);
+}
+.sidebar-nav a:hover { background: var(--bg); text-decoration: none; }
+.sidebar-nav li.active > a {
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 600;
+}
+.sidebar-nav li.active > a:hover { background: var(--accent); }
+
+/* ---- Content ---- */
+.content {
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+  max-width: calc(var(--content-max) + 6rem);
+  /* In a CSS grid, the default `min-width: auto` lets children expand the
+   * track — without this override, a wide <pre> or <table> would push the
+   * sidebar grid track and force document-level horizontal scrolling. */
+  min-width: 0;
+}
+.page-title {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+.page-body h2 { font-size: 1.5rem; margin-top: 2em; }
+.page-body h3 { font-size: 1.2rem; margin-top: 1.6em; }
+.page-body h4 { font-size: 1.05rem; margin-top: 1.4em; }
+.page-body h2, .page-body h3, .page-body h4, .page-body h5, .page-body h6 {
+  line-height: 1.25;
+  font-family: var(--font-ui);
+}
+
+.page-toc {
+  background: var(--sidebar-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin: 0 0 2rem;
+  font-family: var(--font-ui);
+  font-size: 0.92em;
+}
+.page-toc summary { cursor: pointer; font-weight: 600; padding: 0.25rem 0; }
+.page-toc ul { padding-left: 1.25rem; margin: 0.25rem 0; }
+.page-toc > details > ul { padding-left: 0; list-style: none; }
+.page-toc > details > ul > li > a { font-weight: 500; }
+
+.page-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 3rem;
+  font-family: var(--font-ui);
+}
+.page-pager > * {
+  /* Same grid-item min-width quirk as `.content`: without this, a long
+   * pager title can force the column wider than 1fr and push the page out. */
+  min-width: 0;
+}
+.page-pager a {
+  display: flex; flex-direction: column;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--sidebar-bg);
+  color: var(--fg);
+  text-decoration: none;
+  transition: border-color 0.15s ease;
+}
+.page-pager a:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+  color: var(--fg);
+}
+.page-pager .pager-prev { text-align: left; }
+.page-pager .pager-next { text-align: right; }
+.page-pager .pager-label {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fg-muted);
+}
+.page-pager .pager-title {
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+.edit-link {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-ui);
+  font-size: 0.9em;
+  color: var(--fg-muted);
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.85em;
+  color: var(--fg-muted);
+  text-align: center;
+}
+
+/* Wide tables become horizontally scrollable instead of pushing the page
+ * width past the viewport. `display: block` on a table loses some of its
+ * layout semantics but is fine for content tables. */
+.page-body table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 800px) {
+  .site-layout { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; top: var(--header-h); left: 0;
+    width: 80vw; max-width: 20rem;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    z-index: 9;
+  }
+  body.sidebar-open .sidebar { transform: translateX(0); }
+  #sidebar-toggle { display: inline-block; }
+  .content { padding: 1.5rem 1rem; }
+}
+
+/* At very narrow widths, stack the prev/next pager vertically and hide the
+ * secondary header link to keep buttons readable. */
+@media (max-width: 500px) {
+  .page-pager { grid-template-columns: 1fr; }
+  .header-link { display: none; }
+  .site-header { padding: 0 0.5rem; }
+  .page-title { font-size: 1.6rem; }
+}

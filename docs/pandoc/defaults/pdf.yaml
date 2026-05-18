@@ -1,0 +1,24 @@
+# PDF build options.
+# Invoke pandoc from `docs/` so all relative paths resolve.
+
+from: markdown
+input-files:
+  - user/manual.md
+output-file: dist/Sil-Q-Manual.pdf
+resource-path:
+  - user
+  - .
+pdf-engine: xelatex
+template: pandoc/templates/eisvogel/eisvogel
+toc: true
+highlight-style: tango
+
+variables:
+  book: true
+  titlepage: true
+  titlepage-text-color: "000000"
+  titlepage-background: pandoc/assets/sil-title-image.jpg
+  titlepage-rule-height: 0
+  toc-own-page: true
+  footer-center: "Sil-Q Manual 1.5.1-beta1 (generated 2026-XX-XX)"
+  code-block-font-size: '\footnotesize'
