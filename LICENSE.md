@@ -9,6 +9,11 @@ exceptions:
   [lib/xtra/font/copying.txt](lib/xtra/font/copying.txt), all of which are
   OSI-compliant.
 
+- The image
+  [Siege_of_Angband_by_DracarysDrekkar7.jpg](docs/user/images/Siege_of_Angband_by_DracarysDrekkar7.jpg)
+  ([source](https://www.deviantart.com/dracarysdrekkar7/art/Siege-of-Angband-580644064))
+  is under the "CC BY-NC 3.0" license.
+
 It is considered good practice to retain this statement for derivatives, rather
 than (e.g.) redistributing Microchasm's tiles under the GPL, or choosing to make
 a variant which is only under one of the Angband or GPL licences. This allows
@@ -378,3 +383,33 @@ consider it more useful to permit linking proprietary applications with the
 library. If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
 ```
+
+## CC BY-NC 3.0 - Attribution-NonCommercial 3.0 Unported
+
+Canonical URL https://creativecommons.org/licenses/by-nc/3.0/
+
+You are free to:
+
+- Share — copy and redistribute the material in any medium or format
+- Adapt — remix, transform, and build upon the material
+- The licensor cannot revoke these freedoms as long as you follow the license
+  terms.
+
+Under the following terms:
+
+- Attribution — You must give appropriate credit, provide a link to the license,
+  and indicate if changes were made. You may do so in any reasonable manner, but
+  not in any way that suggests the licensor endorses you or your use.
+- NonCommercial — You may not use the material for commercial purposes.
+- No additional restrictions — You may not apply legal terms or technological
+  measures that legally restrict others from doing anything the license permits.
+
+Notices:
+
+You do not have to comply with the license for elements of the material in the
+public domain or where your use is permitted by an applicable exception or
+limitation.
+
+No warranties are given. The license may not give you all of the permissions
+necessary for your intended use. For example, other rights such as publicity,
+privacy, or moral rights may limit how you use the material.

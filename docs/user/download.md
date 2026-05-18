@@ -3,9 +3,9 @@ title: Download
 edit_url: https://github.com/sil-quirk/sil-q/blob/master/docs/user/download.md
 ---
 
-Sil-Q is free, non-commercial, and open source software.
+Sil-Q is free, open source, and non-commercial software.
 
-## Download the latest version of Sil-Q
+## Download latest version
 
 The latest Sil-Q version is **v1.5.0**, released on 2022-01-03. Choose your
 operating system and download from the table below.
@@ -15,12 +15,14 @@ operating system and download from the table below.
 | ------------------------- | --------------------------- | --------------------------- | ------------------ |
 | [Sil-Q-windows-64.zip][w] | [Sil-Q-macos-native.zip][m] | [Sil-Q-linux-x86_64.zip][l] | [Sil-Q-src.zip][s] |
 
-::: warning
-**Important note for macOS users.** Recent macOS versions may prevent you
-from launching Sil. See the section below to solve this problem.
-:::
+<div class="warning" markdown="1">
 
-### How to launch Sil-Q on macOS
+**Important note for macOS users.** Recent macOS versions may prevent you from
+launching Sil. See the section below to solve this problem.
+
+</div>
+
+### Launching Sil-Q on macOS
 
 If you are on macOS 10.15 or later and haven't run Sil before, the
 [macOS Gatekeeper security feature](https://support.apple.com/en-us/102445) may
@@ -42,7 +44,7 @@ Here is a step-by-step guide to launch Sil on macOS when this happens:
     in-game characters, the high score file, and additional game data in the
     folder `Documents/Sil/`.
 
-## Download older Sil-Q versions
+## Download archive
 
 You can also
 [download older releases](https://github.com/sil-quirk/sil-q/releases).

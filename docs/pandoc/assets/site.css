@@ -1,19 +1,25 @@
 :root {
-  --bg: #ffffff;
+  --bg: #f9f4ee;
   --fg: #1f1f1f;
-  --fg-muted: #5a5a5a;
-  --border: #e2e2e2;
-  --accent: #b54712;
-  --accent-fg: #ffffff;
-  --sidebar-bg: #f6f6f4;
-  --code-bg: #f4f3ef;
-  --code-fg: #222;
-  --link: #0e5fb5;
-  --link-hover: #b54712;
+  --fg-muted: #555555;
+  --border: #d8d2c4;
+  --accent: #7a5e10;
+  --accent-fg: #f9f4ee;
+  --sidebar-bg: #ede2c2;
+  --code-bg: #f0eadc;
+  --code-bg-inline: #e6dfc5;
+  --code-fg: #1f1f1f;
+  --link: #507818;
+  --link-visited: #507818;
+  --link-hover: var(--fg);
+  --quote: #7a5e10;
+  --bg-overlay: rgba(249, 244, 238, 0.97);
+  --sidebar-bg-translucent: rgba(249, 244, 238, 0.85);
+  --toc-bg: var(--bg);
+  --sidebar-hover-bg: #ece0bd;
 
   --font-text: ui-serif, Georgia, "Times New Roman", serif;
-  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-mono: ui-monospace, monospace;
 
   --content-max: 70ch;
   --sidebar-w: 16rem;
@@ -21,39 +27,185 @@
 }
 
 [data-theme="dark"] {
-  --bg: #14171a;
-  --fg: #e6e6e6;
-  --fg-muted: #9a9a9a;
-  --border: #2a2f35;
-  --accent: #e07a3c;
-  --accent-fg: #14171a;
-  --sidebar-bg: #1a1d21;
-  --code-bg: #1e2228;
-  --code-fg: #e6e6e6;
-  --link: #7fb3ff;
-  --link-hover: #e07a3c;
+  --bg: #222228;
+  --fg: #d6d6d6;
+  --fg-muted: #9c9c9c;
+  --border: #2e2e34;
+  --accent: #f1c45e;
+  --accent-fg: #222228;
+  --sidebar-bg: #1f1f25;
+  --code-bg: #2c2c33;
+  --code-bg-inline: #38383f;
+  --code-fg: #d6d6d6;
+  --link: #f1c45e;
+  --link-visited: #f1c45e;
+  --link-hover: var(--fg);
+  --quote: #c5bb88;
+  --bg-overlay: rgba(34, 34, 40, 0.985);
+  --sidebar-bg-translucent: rgba(34, 34, 40, 0.9);
+  --toc-bg: var(--sidebar-bg);
+  --sidebar-hover-bg: #1a1a20;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html, body { margin: 0; padding: 0; }
+::selection {
+  background: var(--link);
+  color: var(--accent-fg);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+    url("images/Siege_of_Angband_by_DracarysDrekkar7.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--fg);
   font-family: var(--font-text);
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   min-width: 320px;
   overflow-wrap: break-word;
 }
 
-a { color: var(--link); text-decoration: none; }
-a:hover { color: var(--link-hover); text-decoration: underline; }
+/* iOS Safari has long-standing bugs with background-attachment: fixed on
+ * small viewports; let the image scroll there. */
+@media (max-width: 800px) {
+  body {
+    background-attachment: scroll;
+  }
+}
 
-code, pre, kbd, samp { font-family: var(--font-mono); font-size: 0.9em; }
-code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 3px; }
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+a:visited {
+  color: var(--link-visited);
+}
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* Keyboard focus rings — visible against both light and dark backgrounds. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip link: hidden until focused via keyboard. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-family: var(--font-text);
+  z-index: 100;
+  transform: translateY(-150%);
+  transition: transform 0.15s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* In the main content area, links are always underlined. */
+.page-body a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.page-body a:visited {
+  color: var(--link-visited);
+}
+.page-body a:hover {
+  color: var(--link-hover);
+}
+
+/* Call-to-action buttons (markdown: `[label](url){ .md-button }`).
+ * `.md-button--primary` is the recommended action. */
+.md-button,
+.page-body a.md-button {
+  display: inline-block;
+  padding: 0.55em 1.2em;
+  margin: 0.25em 0.4em 0.25em 0;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--accent);
+  font-family: var(--font-text);
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+.md-button:active,
+.page-body a.md-button:active,
+.md-button--primary:active,
+.page-body a.md-button--primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+}
+.md-button:visited {
+  color: var(--accent);
+}
+.md-button:hover,
+.page-body a.md-button:hover {
+  background: var(--link-hover);
+  border-color: var(--link-hover);
+  color: var(--accent-fg);
+  text-decoration: none;
+}
+.md-button--primary,
+.page-body a.md-button--primary {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+.md-button--primary:visited {
+  color: var(--accent-fg);
+}
+.md-button--primary:hover,
+.page-body a.md-button--primary:hover {
+  background: var(--link-hover);
+  border-color: var(--link-hover);
+  color: var(--accent-fg);
+}
+.md-button strong {
+  font-weight: inherit;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+code {
+  background: var(--code-bg-inline);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
 pre {
   background: var(--code-bg);
   color: var(--code-fg);
@@ -63,7 +215,10 @@ pre {
   font-size: 0.85em;
   line-height: 1.5;
 }
-pre code { background: none; padding: 0; }
+pre code {
+  background: none;
+  padding: 0;
+}
 
 blockquote {
   margin: 1em 0;
@@ -72,74 +227,180 @@ blockquote {
   color: var(--fg-muted);
 }
 
-/* Admonitions (fenced divs: ::: warning / note / tip / caution ::: ) */
-.note, .tip, .warning, .caution, .important {
+/* Admonitions (fenced divs: ::: warning / note / tip / caution ::: ).
+ * Earth-toned palette to sit on parchment without screaming. */
+.note,
+.tip,
+.warning,
+.caution,
+.important {
   margin: 1.25em 0;
   padding: 0.75em 1em;
   border-left: 4px solid var(--admon-accent, var(--border));
   border-radius: 0 4px 4px 0;
   background: var(--admon-bg, var(--sidebar-bg));
 }
-.note    { --admon-accent: #3b82f6; --admon-bg: rgba(59, 130, 246, 0.08); }
-.tip     { --admon-accent: #10b981; --admon-bg: rgba(16, 185, 129, 0.08); }
-.warning { --admon-accent: #f59e0b; --admon-bg: rgba(245, 158, 11, 0.10); }
-.caution { --admon-accent: #ef4444; --admon-bg: rgba(239, 68, 68, 0.10); }
-.important { --admon-accent: #8b5cf6; --admon-bg: rgba(139, 92, 246, 0.10); }
+.note {
+  --admon-accent: #5a7ba8;
+  --admon-bg: rgba(90, 123, 168, 0.1);
+}
+.tip {
+  --admon-accent: #5a8a4a;
+  --admon-bg: rgba(90, 138, 74, 0.1);
+}
+.warning {
+  --admon-accent: #b87333;
+  --admon-bg: rgba(184, 115, 51, 0.12);
+}
+.caution {
+  --admon-accent: #a04030;
+  --admon-bg: rgba(160, 64, 48, 0.12);
+}
+.important {
+  --admon-accent: #7a5a9e;
+  --admon-bg: rgba(122, 90, 158, 0.1);
+}
 .note > :first-child,
 .tip > :first-child,
 .warning > :first-child,
 .caution > :first-child,
-.important > :first-child { margin-top: 0; }
+.important > :first-child {
+  margin-top: 0;
+}
 .note > :last-child,
 .tip > :last-child,
 .warning > :last-child,
 .caution > :last-child,
-.important > :last-child { margin-bottom: 0; }
+.important > :last-child {
+  margin-bottom: 0;
+}
 
-hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2em 0;
+}
 
 table {
   border-collapse: collapse;
   margin: 1em 0;
-  font-family: var(--font-ui);
+  font-family: var(--font-text);
   font-size: 0.95em;
 }
-th, td { border: 1px solid var(--border); padding: 0.4em 0.8em; text-align: left; }
-th { background: var(--sidebar-bg); }
+th,
+td {
+  border: 1px solid var(--border);
+  padding: 0.4em 0.8em;
+  text-align: left;
+}
+th {
+  background: var(--sidebar-bg);
+}
 
-img { max-width: 100%; height: auto; }
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 /* ---- Header ---- */
 .site-header {
-  position: sticky; top: 0; z-index: 10;
-  display: flex; align-items: center; justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: var(--header-h);
   padding: 0 1rem;
-  background: var(--bg);
+  background: var(--sidebar-bg);
   border-bottom: 1px solid var(--border);
-  font-family: var(--font-ui);
+  font-family: var(--font-text);
 }
 .site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-text);
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  font-variant: small-caps;
+}
+.site-title:visited {
+  color: var(--accent);
+}
+.site-logo {
+  height: 1.6rem;
+  width: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+.site-title:hover {
   color: var(--fg);
-  letter-spacing: 0.02em;
+  text-decoration: none;
 }
-.site-title:hover { color: var(--accent); text-decoration: none; }
-.site-header-right { display: flex; align-items: center; gap: 0.5rem; }
-.header-link { color: var(--fg-muted); font-size: 0.95em; }
+.site-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.header-link {
+  color: var(--accent);
+  font-size: 0.95em;
+}
+.header-link:visited {
+  color: var(--accent);
+}
 
-#theme-toggle, #sidebar-toggle {
-  background: none; border: 1px solid var(--border);
-  color: var(--fg); cursor: pointer;
-  padding: 0.25rem 0.6rem; border-radius: 4px;
-  font-family: var(--font-ui); font-size: 1rem;
+#theme-toggle,
+#sidebar-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  cursor: pointer;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-family: var(--font-text);
+  font-size: 1rem;
 }
-#theme-toggle:hover, #sidebar-toggle:hover { border-color: var(--accent); }
-#theme-toggle .theme-icon-dark { display: none; }
-[data-theme="dark"] #theme-toggle .theme-icon-light { display: none; }
-[data-theme="dark"] #theme-toggle .theme-icon-dark { display: inline; }
-#sidebar-toggle { display: none; }
+#theme-toggle:hover,
+#sidebar-toggle:hover {
+  border-color: var(--accent);
+}
+#theme-toggle .theme-icon-dark {
+  display: none;
+}
+[data-theme="dark"] #theme-toggle .theme-icon-light {
+  display: none;
+}
+[data-theme="dark"] #theme-toggle .theme-icon-dark {
+  display: inline;
+}
+#sidebar-toggle {
+  display: none;
+}
+
+/* Close button inside the mobile sidebar drawer; hidden on desktop.
+ * Pinned to the drawer's top-right corner; stays put when the nav scrolls. */
+#sidebar-close {
+  display: none;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--fg);
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+#sidebar-close:hover {
+  border-color: var(--accent);
+}
 
 /* ---- Layout ---- */
 .site-layout {
@@ -150,10 +411,10 @@ img { max-width: 100%; height: auto; }
 }
 
 .sidebar {
-  background: var(--sidebar-bg);
+  background: var(--sidebar-bg-translucent);
   border-right: 1px solid var(--border);
   padding: 1.5rem 1rem;
-  font-family: var(--font-ui);
+  font-family: var(--font-text);
   font-size: 0.95em;
   position: sticky;
   top: var(--header-h);
@@ -161,22 +422,38 @@ img { max-width: 100%; height: auto; }
   height: calc(100vh - var(--header-h));
   overflow-y: auto;
 }
-.sidebar-nav ul { list-style: none; margin: 0; padding: 0; }
-.sidebar-nav > ul > li { margin-bottom: 0.25rem; }
-.sidebar-nav ul ul { margin-left: 1rem; margin-top: 0.25rem; border-left: 1px solid var(--border); padding-left: 0.75rem; }
+.sidebar-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sidebar-nav > ul > li {
+  margin-bottom: 0.25rem;
+}
+.sidebar-nav ul ul {
+  margin-left: 1rem;
+  margin-top: 0.25rem;
+  border-left: 1px solid var(--border);
+  padding-left: 0.75rem;
+}
 .sidebar-nav a {
   display: block;
   padding: 0.3rem 0.5rem;
   border-radius: 3px;
   color: var(--fg);
 }
-.sidebar-nav a:hover { background: var(--bg); text-decoration: none; }
+.sidebar-nav a:hover {
+  background: var(--sidebar-hover-bg);
+  text-decoration: none;
+}
 .sidebar-nav li.active > a {
   background: var(--accent);
   color: var(--accent-fg);
   font-weight: 600;
 }
-.sidebar-nav li.active > a:hover { background: var(--accent); }
+.sidebar-nav li.active > a:hover {
+  background: var(--accent);
+}
 
 /* ---- Content ---- */
 .content {
@@ -188,40 +465,79 @@ img { max-width: 100%; height: auto; }
   min-width: 0;
 }
 .page-title {
-  font-size: 2rem;
-  line-height: 1.2;
+  font-family: var(--font-text);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
   margin: 0 0 1rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 3px double var(--border);
   padding-bottom: 0.5rem;
+  color: var(--fg);
 }
-.page-body h2 { font-size: 1.5rem; margin-top: 2em; }
-.page-body h3 { font-size: 1.2rem; margin-top: 1.6em; }
-.page-body h4 { font-size: 1.05rem; margin-top: 1.4em; }
-.page-body h2, .page-body h3, .page-body h4, .page-body h5, .page-body h6 {
+.page-body h2 {
+  font-size: 1.6rem;
+  margin-top: 2em;
+}
+.page-body h3 {
+  font-size: 1.3rem;
+  margin-top: 1.6em;
+}
+.page-body h4 {
+  font-size: 1.1rem;
+  margin-top: 1.4em;
+}
+.page-body h2,
+.page-body h3,
+.page-body h4,
+.page-body h5,
+.page-body h6 {
   line-height: 1.25;
-  font-family: var(--font-ui);
+  font-family: var(--font-text);
+  font-weight: 700;
+  color: var(--fg);
+}
+.page-body h2 {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.2em;
 }
 
 .page-toc {
-  background: var(--sidebar-bg);
+  background: var(--toc-bg);
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.5rem 1rem;
   margin: 0 0 2rem;
-  font-family: var(--font-ui);
+  font-family: var(--font-text);
   font-size: 0.92em;
 }
-.page-toc summary { cursor: pointer; font-weight: 600; padding: 0.25rem 0; }
-.page-toc ul { padding-left: 1.25rem; margin: 0.25rem 0; }
-.page-toc > details > ul { padding-left: 0; list-style: none; }
-.page-toc > details > ul > li > a { font-weight: 500; }
+.page-toc summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.25rem 0;
+  color: var(--quote);
+}
+.page-toc ul {
+  padding-left: 1.5rem;
+  margin: 0.25rem 0;
+  list-style: disc;
+}
+.page-toc ul ul {
+  list-style: circle;
+}
+.page-toc li::marker {
+  color: var(--accent);
+}
+.page-toc > details > ul > li > a {
+  font-weight: 500;
+}
 
 .page-pager {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin-top: 3rem;
-  font-family: var(--font-ui);
+  font-family: var(--font-text);
 }
 .page-pager > * {
   /* Same grid-item min-width quirk as `.content`: without this, a long
@@ -229,11 +545,12 @@ img { max-width: 100%; height: auto; }
   min-width: 0;
 }
 .page-pager a {
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
   padding: 0.75rem 1rem;
   border: 1px solid var(--border);
   border-radius: 4px;
-  background: var(--sidebar-bg);
+  background: var(--code-bg);
   color: var(--fg);
   text-decoration: none;
   transition: border-color 0.15s ease;
@@ -243,8 +560,12 @@ img { max-width: 100%; height: auto; }
   text-decoration: none;
   color: var(--fg);
 }
-.page-pager .pager-prev { text-align: left; }
-.page-pager .pager-next { text-align: right; }
+.page-pager .pager-prev {
+  text-align: left;
+}
+.page-pager .pager-next {
+  text-align: right;
+}
 .page-pager .pager-label {
   font-size: 0.8em;
   text-transform: uppercase;
@@ -257,19 +578,20 @@ img { max-width: 100%; height: auto; }
 }
 
 .edit-link {
-  margin-top: 3rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border);
-  font-family: var(--font-ui);
+  font-family: var(--font-text);
   font-size: 0.9em;
+  line-height: 1.3;
   color: var(--fg-muted);
+  margin-bottom: 0;
 }
 
 .site-footer {
   border-top: 1px solid var(--border);
-  padding: 1.5rem;
-  font-family: var(--font-ui);
-  font-size: 0.85em;
+  font-family: var(--font-text);
+  font-style: italic;
+  font-size: 0.9em;
   color: var(--fg-muted);
   text-align: center;
 }
@@ -285,24 +607,120 @@ img { max-width: 100%; height: auto; }
 
 /* ---- Mobile ---- */
 @media (max-width: 800px) {
-  .site-layout { grid-template-columns: 1fr; }
+  .site-layout {
+    grid-template-columns: 1fr;
+  }
+  .site-header {
+    position: static;
+  }
   .sidebar {
-    position: fixed; top: var(--header-h); left: 0;
-    width: 80vw; max-width: 20rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80vw;
+    max-width: 20rem;
+    height: 100vh;
+    /* Fully opaque on mobile so the drawer is readable over the page. */
+    background: var(--bg);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     transform: translateX(-100%);
     transition: transform 0.2s ease;
     z-index: 9;
+    /* The drawer itself doesn't scroll — the inner nav does. This keeps
+     * the close button pinned to the corner instead of scrolling away. */
+    padding: 0;
+    overflow: hidden;
   }
-  body.sidebar-open .sidebar { transform: translateX(0); }
-  #sidebar-toggle { display: inline-block; }
-  .content { padding: 1.5rem 1rem; }
+  .sidebar-nav {
+    height: 100%;
+    overflow-y: auto;
+    padding: 3rem 1rem 1.5rem;
+  }
+  body.sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+  #sidebar-toggle {
+    display: inline-block;
+  }
+  #sidebar-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .content {
+    padding: 1.5rem 1rem;
+  }
 }
 
 /* At very narrow widths, stack the prev/next pager vertically and hide the
  * secondary header link to keep buttons readable. */
 @media (max-width: 500px) {
-  .page-pager { grid-template-columns: 1fr; }
-  .header-link { display: none; }
-  .site-header { padding: 0 0.5rem; }
-  .page-title { font-size: 1.6rem; }
+  .page-pager {
+    grid-template-columns: 1fr;
+  }
+  .header-link {
+    display: none;
+  }
+  .site-header {
+    padding: 0 0.5rem;
+  }
+  .page-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* ---- Print ---- */
+@media print {
+  /* Strip chrome and start the content at the top of the first page. */
+  .site-header,
+  .sidebar,
+  .skip-link,
+  .page-pager,
+  .edit-link,
+  #sidebar-toggle,
+  #theme-toggle {
+    display: none !important;
+  }
+
+  /* Drop the background image; printers waste ink on it and the fixed
+   * attachment behaves unpredictably across browsers. */
+  html,
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Collapse the grid so the main column spans the page. */
+  .site-layout {
+    display: block;
+  }
+  .content {
+    padding: 0;
+    max-width: none;
+  }
+  .site-footer {
+    margin-top: 2rem;
+    font-size: 0.85em;
+    color: #444;
+    border-top: 1px solid #ccc;
+  }
+
+  /* Links print as the surrounding body text color with an underline. */
+  a,
+  a:visited,
+  a:hover,
+  .page-body a,
+  .page-body a:visited,
+  .page-body a:hover {
+    color: inherit !important;
+    text-decoration: underline !important;
+  }
+
+  /* Avoid awkward breaks inside headings. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid-page;
+  }
 }
