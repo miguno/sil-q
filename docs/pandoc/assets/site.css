@@ -18,7 +18,7 @@
   --toc-bg: var(--bg);
   --sidebar-hover-bg: #ece0bd;
 
-  --font-text: ui-serif, Georgia, "Times New Roman", serif;
+  --font-text: "Lora", ui-serif, Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, monospace;
 
   --content-max: 70ch;
@@ -45,6 +45,25 @@
   --sidebar-bg-translucent: rgba(34, 34, 40, 0.9);
   --toc-bg: var(--sidebar-bg);
   --sidebar-hover-bg: #1a1a20;
+}
+
+/* Local Lora font (SIL Open Font License 1.1). Variable axes allow any
+ * weight in 400-700 without separate files. */
+@font-face {
+  font-family: "Lora";
+  src: url("fonts/lora/Lora-VF.woff2") format("woff2-variations"),
+       url("fonts/lora/Lora-VF.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lora";
+  src: url("fonts/lora/Lora-VF-Italic.woff2") format("woff2-variations"),
+       url("fonts/lora/Lora-VF-Italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
 }
 
 * {
@@ -518,15 +537,14 @@ img {
   color: var(--quote);
 }
 .page-toc ul {
-  padding-left: 1.5rem;
+  padding-left: 0;
   margin: 0.25rem 0;
-  list-style: disc;
+  list-style: none;
 }
 .page-toc ul ul {
-  list-style: circle;
-}
-.page-toc li::marker {
-  color: var(--accent);
+  margin-left: 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--border);
 }
 .page-toc > details > ul > li > a {
   font-weight: 500;
