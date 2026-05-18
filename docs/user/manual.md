@@ -46,9 +46,9 @@ Middle-earth as well as the First Age of video game history! Compared to Rogue,
 however, Sil is a much more modern game. Yes, you can still play with old-school
 letters and symbols, but by default the game uses tile-based graphics.
 
-![Sil with Tiles graphics](images/sil-gfx-tiles_120x120.png){width="168"}
+![Playing with Tiles graphics](images/sil-gfx-tiles_120x120.png){width="168"}
 
-![Sil with ASCII graphics](images/sil-gfx-ascii_120x120.png){width="168"}
+![Playing with Classic ASCII](images/sil-gfx-ascii_120x120.png){width="168"}
 
 You can also play the game in a terminal (80x24 or larger):
 
@@ -114,7 +114,7 @@ team. Lo! The gift is a mighty artefact from days of yore:
 > **We hereby unconditionally and irrevocably grant you _Sil's Official
 > Permission to Have Fun_.**
 
-Keep it secret. Keep it safe. Sil is a hard game, and we intentionally made
+Keep it secret. Keep it safe! Sil is a hard game, and we intentionally made
 failure a key ingredient of the gameplay loop. But with this gift you are free
 to enjoy the game without having to "win". Morgoth, bugger that he is, will have
 it his way more often than you will. Yet many players love Sil even though they
@@ -146,12 +146,31 @@ TODO
 Each run in Sil begins with the creation of your player character. Every step is
 explained in detail in subsequent sections.
 
+For now, what's important to know is that Sil has three main systems for
+character progression: _stats_, _skills_, and _abilities_. Unlike other games of
+this genre, Sil has neither traditional character levels ("I have a level 5
+character") nor classes ("I'm playing a Paladin"). Instead, you shape and
+customize your characters through their stats, skills, and abilities as
+described below. Of course, you are welcome to roleplay your character so that,
+for example, it feels like a Paladin!
+
+During the character creation wizard, you set the _stats_ of your character and
+the starting level of your _skills_. While exploring the dungeons of Angband,
+you will gain experience points (Sil's one and only currency) with which you can
+then pay for increasing your skill levels further and for unlocking passive and
+active _abilities_. Additionally, you will find or craft items such as weapons
+and jewellry along the way so that you can shape your character to your liking.
+
+Let's begin creating your first character:
+
 1. **Select the Race and the House of your character.**
     - _Once set, you cannot change the race and house during a run._
     - The order of the races is also the game difficulty setting: Noldor (high
-        elves) are the easiest to play, Edain (humans) are the hardest.
-    - Within each race, the Houses are considered as approximately equal in power
-        level.
+        elves) are the easiest to play, Edain (humans) are the hardest. If in
+        doubt, play a Noldor.
+    - Within each race, the Houses are considered as roughly equal in power
+        level. If in doubt, pick the House of Fingolfin, because it gives you the
+        largest health bonus.
 2. **Allocate 13 stat points between the four stats of Strength, Dexterity,
     Constitution, and Grace.**
     - _Once set, you cannot change your stats until the very late game._ In
@@ -162,15 +181,15 @@ explained in detail in subsequent sections.
     - Beyond character creation, you will need to find rare items that give
         bonuses to these stats, or gain a huge amount of experience points to
         increase a stat by learning the most expensive ability in its ability
-        tree.
+        tree. This won't be easy, and it will take you a long time.
     - Any left-over stat points are lost after character creation, so spend
         wisely and plenty!
 3. **Spend up to 5,000 experience points to level up the eight skills of Melee,
     Archery, Evasion, Stealth, Perception, Will, Smithing, and Song.**
     - Experience points in Sil are not a number that sets your character level,
-        they are an in-game currency by which you upgrade your character
-        (increase skills and unlock abilities). You won't find gold coins in Sil,
-        you pay with experience.
+        they are the currency by which you upgrade your character (increase
+        skills and unlock abilities). You won't find gold coins in Sil, you pay
+        with experience.
     - You can spend these 5,000 experience points now or after the character
         creation wizard, unlike the stat points from the previous step.
     - It is a popular choice amongst veteran players to always keep a reserve of
@@ -180,13 +199,21 @@ explained in detail in subsequent sections.
         during character creation primarily influences the early game. Of course,
         as you get better at playing Sil, you will match your starting choices
         with the kind of character you plan to play.
+    - If in doubt, spend ca. 4,500 points on Melee and Evasion and keep the rest
+        as a reserve for now. This is a good choice for a melee fighter to learn
+        the ropes as a beginner. Run and swing! However, Sil offers far more
+        entertaining and unique play styles that you should try out, such as a
+        smith or pacifist.
 4. **Select a history, age/height/weight, and name for your character.**
-    - These are purely cosmetic from a gameplay perspective, yet some argue they
-        are the most important choice for roleplaying. You decide!
+    - These are purely cosmetic from a gameplay perspective, yet some argue this
+        makes them the most important choice for roleplaying. You decide!
 5. **Congratulations, you are now entering Angband!**
     - Your quest is to venture down into the dungeon, find Morgoth in his throne
-        room, pry a Silmaril from his iron crown, and then ascend again to make
-        your escape.
+        room, attack him to knock of his iron cron, then attack the dropped crown
+        to pry a Silmaril from it, and finally ascend again to make your escape
+        with the precious gem. Chances are you will die the first time—and plenty
+        more. Remember that "winning" is only 1% of the fun we poured into Sil.
+        Explore, experiment, and enjoy!
 
 ## Races
 
@@ -197,54 +224,43 @@ proficiencies that pre-shape the character's playstyle. For example, the Noldor
 are proficient with bows and thus a good choice if you enjoy attacking enemies
 from a distance.
 
-- **Noldor (high elves)**
-
-    - Difficulty: Medium
-    - Recommended for beginners
-    - Notable members in Tolkien lore: Fëanor, Galadriel
-
-- **Sindar (grey elves)**
-
-    - Difficulty: Hard
-    - Notable members in Tolkien lore: Lúthien, Legolas
-
-- **Naugrim (dwarves)**
-
-    - Difficulty: Hard
-    - Notable members in Tolkien lore: Durin, Gimli
-
-- **Edain (humans)**
-
-    - Difficulty: Very Hard
-    - Notable members in Tolkien lore: Beren, Húrin
-
 Playing a Noldor will produce the easiest game and is recommended for first-time
 players. Playing a Naugrim or Sindar is a little harder, but can lead to
 interesting variations in playstyle. Lastly, playing an Edain is noticeably more
 difficult and should be considered a challenge mode.
 
-### Skill affinity
+### Noldor (high elves)
 
-If you have an affinity with a skill, you get:
+- Difficulty: medium
+- Recommended for beginners
+- Weapon proficiency: bows
+- Skill affinity: Song
+- Skill penalty: none
+- Notable members in Tolkien lore: Fëanor, Galadriel
 
-- +1 to your skill total
-- All abilities linked to that skill are 500 experience points cheaper
-- Your first ability of that skill is free
+### Sindar (grey elves)
 
-### Skill penalty
+- Difficulty: hard
+- Weapon proficiency: bows
+- Skill affinity: Song
+- Skill penalty: none
+- Notable members in Tolkien lore: Lúthien, Legolas
 
-Penalty is the opposite of an affinity:
+### Naugrim (dwarves)
 
-- -1 to your skill total
-- All abilities linked to that skill are 500 experience points more expensive
+- Difficulty: hard
+- Weapon proficiency: axes
+- Skill affinity: Smithing
+- Skill penalty: Archery
+- Notable members in Tolkien lore: Durin, Gimli
 
-### Skill mastery
+### Edain (humans)
 
-Mastery is like a double affinity for a single skill:
-
-- +2 to your skill total
-- All abilities linked to that skill are 1,000 experience points cheaper
-- Your first ability of that skill is free
+- Difficulty: very hard
+- Weapon proficiency: none
+- Skill affinity: none
+- Skill penalty: none
+- Notable members in Tolkien lore: Beren, Húrin
 
 ### Weapon proficiency
 
@@ -254,9 +270,30 @@ Mastery is like a double affinity for a single skill:
     skill when using an axe.
 - Humans (Edain) have no proficiencies.
 
+### Skill affinity and mastery
+
+If you have an affinity with a skill, you get:
+
+- +1 to your skill total.
+- All abilities linked to that skill are 500 experience points cheaper.
+- Your first ability of that skill is free.
+
+Mastery is like a double affinity for a single skill:
+
+- +2 to your skill total.
+- All abilities linked to that skill are 1,000 experience points cheaper.
+- Your first ability of that skill is free.
+
+### Skill penalty
+
+Penalty is the opposite of an affinity:
+
+- -1 to your skill total.
+- All abilities linked to that skill are 500 experience points more expensive.
+
 ## Houses
 
-Within each race, the Houses are considered approximately equal in power level.
+Within each race, the Houses are considered roughly equal in power level.
 
 ## Overview of Stats, Skills, and Abilities
 
