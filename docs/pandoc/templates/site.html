@@ -3,37 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>$if(title)$$title$ — Sil$else$Sil$endif$</title>
+  <title>$if(title)$$title$ — Sil-Q$else$Sil$endif$</title>
   <link rel="icon" href="$root$images/Sil.ico">
   <link rel="stylesheet" href="$root$site.css">
   <script>
     (function () {
       var saved = localStorage.getItem('theme');
-      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var t = saved || (prefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.setAttribute('data-theme', saved || 'dark');
     })();
   </script>
 </head>
 <body data-page="$slug$">
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <a class="site-title" href="$root$index.html">Sil</a>
+    <a class="site-title" href="$root$index.html">
+      <img class="site-logo" src="$root$images/sil-logo.png" alt="" aria-hidden="true" width="48" height="48">
+      <span>Sil</span>
+    </a>
     <div class="site-header-right">
       <a class="header-link" href="https://github.com/sil-quirk/sil-q" rel="noopener">GitHub</a>
-      <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
+      <button id="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
         <span class="theme-icon-light" aria-hidden="true">☀</span>
         <span class="theme-icon-dark" aria-hidden="true">⏾</span>
       </button>
-      <button id="sidebar-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">≡</button>
+      <button id="sidebar-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar">≡</button>
     </div>
   </header>
 
   <div class="site-layout">
     <aside class="sidebar" id="sidebar">
+      <button id="sidebar-close" type="button" aria-label="Close navigation">×</button>
       $sidebar$
     </aside>
 
-    <main class="content">
+    <main class="content" id="main" tabindex="-1">
       $if(title)$<h1 class="page-title">$title$</h1>$endif$
 
       $if(toc)$
@@ -70,7 +73,7 @@
   </div>
 
   <footer class="site-footer">
-    <p>Copyright &copy; 2017-2026 The Sil-Q Project. Sil is free, open source, and non-commercial software.</p>
+    <p>Copyright &copy; 2017-2026 <a href="https://github.com/sil-quirk/sil-q" rel="noopener">The Sil-Q Project</a>. Sil is free, open source, and non-commercial software.</p>
   </footer>
 
   <script src="$root$site.js" defer></script>
