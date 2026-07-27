@@ -968,7 +968,7 @@ These are rules of thumb aimed at beginners who are just getting started.
     the game. Many of them do not focus on fighting, some even never fight at
     all! Learn how to use stealth and the morale system to your advantage. Learn
     when it is better to avoid a fight or, when spotted, to run away from a
-    fight. Experiment with non-combat strategies— you will find them both
+    fight. Experiment with non-combat strategies—you will find them both
     effective and entertaining.
 - **Have a reserve of experience points available as a safety precaution.** In
     Sil, you don't know ahead of time what monsters or combat situations you
