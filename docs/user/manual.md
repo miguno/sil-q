@@ -957,7 +957,7 @@ These are rules of thumb aimed at beginners who are just getting started.
     more into abilities. Think of skills as the widely-beneficial fundamentals
     of your character, and of abilities as specializations with narrower
     benefits. There are exceptions, but you will quickly learn those the more
-    you <s>die</s> play.
+    you play.
 - **Don't commit too early on weapon-specific abilities.** Try developing a
     sense for the right time at which you can commit to certain weapon types for
     the remainder of your dungeon run. It's a bad feeling when you invested a
