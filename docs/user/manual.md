@@ -670,7 +670,8 @@ monsters deal damage to you.
 ### Combat Example
 
 TODO: Show screenshot of combat log and explain what is going in the combat.
-This also allows us to explain the combat log itself.
+This also allows us to explain the combat log itself. See the existing example
+in the appendix.
 
 ### Combat step 1: Does the attack hit? (hit score)
 
