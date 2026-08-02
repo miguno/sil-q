@@ -104,7 +104,7 @@ And we can't just let Morgoth get away with that, can we?
 
 [Download](download.md) the latest version of Sil and start the game.
 
-- If you are a new player, we recommend completing the brief tutorial. You learn
+- If you are a new player, we recommend **completing the tutorial**. You learn
   enough of the basics that you can even put aside this manual.
 - If you want to learn more about Sil, continue reading.
 
