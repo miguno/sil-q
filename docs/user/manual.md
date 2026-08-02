@@ -651,6 +651,17 @@ Voice  25:34   <== currentVoice:maxVoice (mana for singing songs)
  Confident 3   <== monster morale (only shown in combat or when "looking")
 ```
 
+### Walk around the dungeon
+
+### Attack monsters
+
+### View inventory and equipment
+
+### Other actions
+
+- Activate staves, horns
+- etc.
+
 ## Combat
 
 ### Combat Overview
